@@ -25,9 +25,14 @@
 
             <div class="form-group">
                 <asp:Button runat="server" ID="btn_Login" Text="Efetuar Login" OnClick="btn_Login_Click" class="btn btn-primary" />
-                <br /> 
+                <br />
                 <asp:Label runat="server" CssClass="font-weight-light">Ainda não é cadastrado?</asp:Label>
                 <asp:LinkButton runat="server" ID="btn_Cadastro" Text="Cadastre-se" OnClick="btn_Cadastro_Click"></asp:LinkButton>
+            </div>
+            <div class="form-group">
+                <asp:Panel runat="server" ID="pnl_Alert" Visible="false" CssClass="alert alert-danger" role="alert">
+                    <asp:Label ID="lbl_Alert" runat="server"></asp:Label>
+                </asp:Panel>
             </div>
         </div>
     </form>

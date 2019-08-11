@@ -97,6 +97,7 @@
     </Content>
     <Content Include="Pages\cliente_cadastro.aspx" />
     <Content Include="Pages\login.aspx" />
+    <Content Include="Pages\login_EsqueciSenha.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -247,6 +248,13 @@
     </Compile>
     <Compile Include="Pages\login.aspx.designer.cs">
       <DependentUpon>login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\login_EsqueciSenha.aspx.cs">
+      <DependentUpon>login_EsqueciSenha.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\login_EsqueciSenha.aspx.designer.cs">
+      <DependentUpon>login_EsqueciSenha.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

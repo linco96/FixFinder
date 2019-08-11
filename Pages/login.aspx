@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+    <title>Login</title>
     <link href="../Content/bootstrap.min.css" rel="stylesheet" />
     <script src="../Scripts/bootstrap.min.js"></script>
     <script src="../Scripts/jquery-3.0.0.min.js"></script>
@@ -13,13 +13,14 @@
 <body>
     <form id="form_Login" runat="server">
         <div class="container w-25 p-3">
+            <h1 style="text-align: center" class="display-4 text-primary">Login</h1>
             <div class="form-group">
-                <asp:Label runat="server">Nome de usuário</asp:Label>
-                <asp:TextBox runat="server" ID="txt_NomeUsuario" class="form-control" aria-describedby="emailHelp" placeholder="Digite seu nome de usuário" required></asp:TextBox>
+                <asp:Label runat="server">Usuário</asp:Label>
+                <asp:TextBox runat="server" ID="txt_NomeUsuario" class="form-control" aria-describedby="emailHelp" placeholder="Digite seu usuário" required></asp:TextBox>
             </div>
             <div class="form-group">
                 <asp:Label runat="server">Senha</asp:Label>
-                <asp:TextBox runat="server" ID="txt_Senha" type="password" class="form-control" placeholder="Senha" required></asp:TextBox>
+                <asp:TextBox runat="server" ID="txt_Senha" type="password" class="form-control" placeholder="Digite sua senha" required></asp:TextBox>
                 <asp:LinkButton runat="server" ID="btn_EsqueciSenha" Text="Esqueceu sua senha?" OnClick="btn_Esqueci_Senha_Click"></asp:LinkButton>
             </div>
 

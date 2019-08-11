@@ -44,7 +44,7 @@ namespace FixFinder.Pages
 
         protected void btn_Esqueci_Senha_Click(object sender, EventArgs e)
         {
-            Response.Redirect("paginaEsqueciSenha.aspx", false);
+            Response.Redirect("login_EsqueciSenha.aspx", false);
         }
 
         protected void btn_Cadastro_Click(object sender, EventArgs e)

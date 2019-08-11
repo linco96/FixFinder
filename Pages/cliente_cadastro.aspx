@@ -46,6 +46,11 @@
             <div class="form-group">
                 <asp:Button runat="server" ID="btn_Cadastro" CssClass="btn btn-primary" OnClick="btn_Cadastro_Click" Text="Cadastrar" />
             </div>
+            <div class="form-group">
+                <asp:Panel runat="server" ID="pnl_Alert" Visible="false" CssClass="alert alert-danger" role="alert">
+                    <asp:Label ID="lbl_Alert" runat="server"></asp:Label>
+                </asp:Panel>
+            </div>
         </div>
     </form>
 </body>

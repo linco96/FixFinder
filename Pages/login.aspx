@@ -24,7 +24,7 @@
 
             <div class="form-group">
                 <asp:Button runat="server" ID="btn_Login" Text="Efetuar Login" OnClick="btn_Login_Click" class="btn btn-primary" />
-                <br />
+                <br /> 
                 <asp:LinkButton runat="server" ID="btn_Esqueci_Senha" Text="Esqueceu seu usuário ou senha?" OnClick="btn_Esqueci_Senha_Click"></asp:LinkButton>
             </div>
         </div>

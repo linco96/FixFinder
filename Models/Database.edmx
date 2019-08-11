@@ -1,0 +1,1568 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Agendamento">
+          <Key>
+            <PropertyRef Name="idAgendamento" />
+          </Key>
+          <Property Name="idAgendamento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cnpjOficina" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="cpfCliente" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="data" Type="datetime" Nullable="false" />
+          <Property Name="hora" Type="time" Precision="7" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="idVeiculo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Avaliacao">
+          <Key>
+            <PropertyRef Name="idAvaliacao" />
+          </Key>
+          <Property Name="idAvaliacao" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cnpjOficina" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="cpfCliente" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="notaPreco" Type="int" Nullable="false" />
+          <Property Name="notaServico" Type="int" Nullable="false" />
+          <Property Name="descricao" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="cpf" />
+          </Key>
+          <Property Name="cpf" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="nome" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="telefone" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="login" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="senha" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="dataNascimento" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Compra">
+          <Key>
+            <PropertyRef Name="idCompra" />
+          </Key>
+          <Property Name="idCompra" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="data" Type="datetime" Nullable="false" />
+          <Property Name="cpfFuncionario" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="cnpjFornecedor" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="cnpjOficina" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Endereco">
+          <Key>
+            <PropertyRef Name="cnpjOficina" />
+          </Key>
+          <Property Name="cnpjOficina" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="logradouro" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="numero" Type="int" Nullable="false" />
+          <Property Name="cep" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="complemento" Type="varchar" MaxLength="50" />
+          <Property Name="cidade" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="uf" Type="varchar" MaxLength="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Fornecedor">
+          <Key>
+            <PropertyRef Name="cnpj" />
+          </Key>
+          <Property Name="cnpj" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="razaoSocial" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="telefone" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Funcionario">
+          <Key>
+            <PropertyRef Name="cpf" />
+          </Key>
+          <Property Name="cpf" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="cargo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="banco" Type="int" Nullable="false" />
+          <Property Name="agencia" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="conta" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="salario" Type="float" Nullable="false" />
+          <Property Name="cnpjOficina" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Localizacao">
+          <Key>
+            <PropertyRef Name="idLocalizacao" />
+          </Key>
+          <Property Name="idLocalizacao" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="logradouro" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="numero" Type="int" Nullable="false" />
+          <Property Name="cep" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="cidade" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="uf" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="cpfCliente" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Oficina">
+          <Key>
+            <PropertyRef Name="cnpj" />
+          </Key>
+          <Property Name="cnpj" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="nome" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="reputacao" Type="float" />
+          <Property Name="telefone" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="capacidadeAgendamentos" Type="int" Nullable="false" />
+          <Property Name="statusAssinatura" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Orcamento">
+          <Key>
+            <PropertyRef Name="idOrcamento" />
+          </Key>
+          <Property Name="idOrcamento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="valor" Type="float" Nullable="false" />
+          <Property Name="data" Type="datetime" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="cpfFuncionario" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="cnpjOficina" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="idVeiculo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pagamento">
+          <Key>
+            <PropertyRef Name="idOrcamento" />
+          </Key>
+          <Property Name="idOrcamento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="formaPagamento" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="valor" Type="float" Nullable="false" />
+          <Property Name="data" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PagamentoAssinatura">
+          <Key>
+            <PropertyRef Name="idPagamentoAssinatura" />
+          </Key>
+          <Property Name="idPagamentoAssinatura" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="formaPagamento" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="status" Type="tinyint" Nullable="false" />
+          <Property Name="valor" Type="float" Nullable="false" />
+          <Property Name="data" Type="date" Nullable="false" />
+          <Property Name="cnpjOficina" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Parcela">
+          <Key>
+            <PropertyRef Name="idParcela" />
+          </Key>
+          <Property Name="idParcela" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="valor" Type="float" Nullable="false" />
+          <Property Name="data" Type="datetime" Nullable="false" />
+          <Property Name="parcela1" Type="int" Nullable="false" />
+          <Property Name="idOrcamento" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Produto">
+          <Key>
+            <PropertyRef Name="idProduto" />
+          </Key>
+          <Property Name="idProduto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descricao" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="quantidade" Type="int" Nullable="false" />
+          <Property Name="precoCompra" Type="float" Nullable="false" />
+          <Property Name="precoVenda" Type="float" />
+          <Property Name="marca" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="validade" Type="datetime" />
+          <Property Name="categoria" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="cnpjOficina" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProdutosCompra">
+          <Key>
+            <PropertyRef Name="idCompra" />
+            <PropertyRef Name="idProduto" />
+          </Key>
+          <Property Name="idCompra" Type="int" Nullable="false" />
+          <Property Name="idProduto" Type="int" Nullable="false" />
+          <Property Name="quantidade" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProdutosServico">
+          <Key>
+            <PropertyRef Name="idServico" />
+            <PropertyRef Name="idProduto" />
+          </Key>
+          <Property Name="idServico" Type="int" Nullable="false" />
+          <Property Name="idProduto" Type="int" Nullable="false" />
+          <Property Name="quantidade" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Servico">
+          <Key>
+            <PropertyRef Name="idServico" />
+          </Key>
+          <Property Name="idServico" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descricao" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="valor" Type="float" Nullable="false" />
+          <Property Name="cnpjOficina" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ServicosOrcamento">
+          <Key>
+            <PropertyRef Name="idOrcamento" />
+            <PropertyRef Name="idServico" />
+          </Key>
+          <Property Name="idOrcamento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idServico" Type="int" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Veiculo">
+          <Key>
+            <PropertyRef Name="idVeiculo" />
+          </Key>
+          <Property Name="idVeiculo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="modelo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="marca" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ano" Type="int" Nullable="false" />
+          <Property Name="placa" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="cpfCliente" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Agendamento_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Agendamento" Type="Self.Agendamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="cpf" />
+            </Principal>
+            <Dependent Role="Agendamento">
+              <PropertyRef Name="cpfCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Agendamento_Oficina">
+          <End Role="Oficina" Type="Self.Oficina" Multiplicity="1" />
+          <End Role="Agendamento" Type="Self.Agendamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Oficina">
+              <PropertyRef Name="cnpj" />
+            </Principal>
+            <Dependent Role="Agendamento">
+              <PropertyRef Name="cnpjOficina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Agendamento_Veiculo">
+          <End Role="Veiculo" Type="Self.Veiculo" Multiplicity="1" />
+          <End Role="Agendamento" Type="Self.Agendamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Veiculo">
+              <PropertyRef Name="idVeiculo" />
+            </Principal>
+            <Dependent Role="Agendamento">
+              <PropertyRef Name="idVeiculo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Avaliacao_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Avaliacao" Type="Self.Avaliacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="cpf" />
+            </Principal>
+            <Dependent Role="Avaliacao">
+              <PropertyRef Name="cpfCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Avaliacao_Oficina">
+          <End Role="Oficina" Type="Self.Oficina" Multiplicity="1" />
+          <End Role="Avaliacao" Type="Self.Avaliacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Oficina">
+              <PropertyRef Name="cnpj" />
+            </Principal>
+            <Dependent Role="Avaliacao">
+              <PropertyRef Name="cnpjOficina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Compra_Fornecedor">
+          <End Role="Fornecedor" Type="Self.Fornecedor" Multiplicity="1" />
+          <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fornecedor">
+              <PropertyRef Name="cnpj" />
+            </Principal>
+            <Dependent Role="Compra">
+              <PropertyRef Name="cnpjFornecedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Compra_Oficina">
+          <End Role="Oficina" Type="Self.Oficina" Multiplicity="1" />
+          <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Oficina">
+              <PropertyRef Name="cnpj" />
+            </Principal>
+            <Dependent Role="Compra">
+              <PropertyRef Name="cnpjOficina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Endereco_Oficina">
+          <End Role="Oficina" Type="Self.Oficina" Multiplicity="1" />
+          <End Role="Endereco" Type="Self.Endereco" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Oficina">
+              <PropertyRef Name="cnpj" />
+            </Principal>
+            <Dependent Role="Endereco">
+              <PropertyRef Name="cnpjOficina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Funcionario_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Funcionario" Type="Self.Funcionario" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="cpf" />
+            </Principal>
+            <Dependent Role="Funcionario">
+              <PropertyRef Name="cpf" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Funcionario_Oficina">
+          <End Role="Oficina" Type="Self.Oficina" Multiplicity="1" />
+          <End Role="Funcionario" Type="Self.Funcionario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Oficina">
+              <PropertyRef Name="cnpj" />
+            </Principal>
+            <Dependent Role="Funcionario">
+              <PropertyRef Name="cnpjOficina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Localizacao_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Localizacao" Type="Self.Localizacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="cpf" />
+            </Principal>
+            <Dependent Role="Localizacao">
+              <PropertyRef Name="cpfCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orcamento_Oficina">
+          <End Role="Oficina" Type="Self.Oficina" Multiplicity="1" />
+          <End Role="Orcamento" Type="Self.Orcamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Oficina">
+              <PropertyRef Name="cnpj" />
+            </Principal>
+            <Dependent Role="Orcamento">
+              <PropertyRef Name="cnpjOficina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orcamento_Veiculo">
+          <End Role="Veiculo" Type="Self.Veiculo" Multiplicity="1" />
+          <End Role="Orcamento" Type="Self.Orcamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Veiculo">
+              <PropertyRef Name="idVeiculo" />
+            </Principal>
+            <Dependent Role="Orcamento">
+              <PropertyRef Name="idVeiculo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pagamento_Orcamento1">
+          <End Role="Orcamento" Type="Self.Orcamento" Multiplicity="1" />
+          <End Role="Pagamento" Type="Self.Pagamento" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Orcamento">
+              <PropertyRef Name="idOrcamento" />
+            </Principal>
+            <Dependent Role="Pagamento">
+              <PropertyRef Name="idOrcamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PagamentoAssinatura_Oficina">
+          <End Role="Oficina" Type="Self.Oficina" Multiplicity="1" />
+          <End Role="PagamentoAssinatura" Type="Self.PagamentoAssinatura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Oficina">
+              <PropertyRef Name="cnpj" />
+            </Principal>
+            <Dependent Role="PagamentoAssinatura">
+              <PropertyRef Name="cnpjOficina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Parcela_Pagamento">
+          <End Role="Pagamento" Type="Self.Pagamento" Multiplicity="1" />
+          <End Role="Parcela" Type="Self.Parcela" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pagamento">
+              <PropertyRef Name="idOrcamento" />
+            </Principal>
+            <Dependent Role="Parcela">
+              <PropertyRef Name="idOrcamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Produto_Oficina">
+          <End Role="Oficina" Type="Self.Oficina" Multiplicity="1" />
+          <End Role="Produto" Type="Self.Produto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Oficina">
+              <PropertyRef Name="cnpj" />
+            </Principal>
+            <Dependent Role="Produto">
+              <PropertyRef Name="cnpjOficina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProdutosCompra_Compra">
+          <End Role="Compra" Type="Self.Compra" Multiplicity="1" />
+          <End Role="ProdutosCompra" Type="Self.ProdutosCompra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Compra">
+              <PropertyRef Name="idCompra" />
+            </Principal>
+            <Dependent Role="ProdutosCompra">
+              <PropertyRef Name="idCompra" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProdutosCompra_Produto">
+          <End Role="Produto" Type="Self.Produto" Multiplicity="1" />
+          <End Role="ProdutosCompra" Type="Self.ProdutosCompra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produto">
+              <PropertyRef Name="idProduto" />
+            </Principal>
+            <Dependent Role="ProdutosCompra">
+              <PropertyRef Name="idProduto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProdutosServico_Produto">
+          <End Role="Produto" Type="Self.Produto" Multiplicity="1" />
+          <End Role="ProdutosServico" Type="Self.ProdutosServico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produto">
+              <PropertyRef Name="idProduto" />
+            </Principal>
+            <Dependent Role="ProdutosServico">
+              <PropertyRef Name="idProduto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProdutosServico_Servico">
+          <End Role="Servico" Type="Self.Servico" Multiplicity="1" />
+          <End Role="ProdutosServico" Type="Self.ProdutosServico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servico">
+              <PropertyRef Name="idServico" />
+            </Principal>
+            <Dependent Role="ProdutosServico">
+              <PropertyRef Name="idServico" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Servico_Oficina">
+          <End Role="Oficina" Type="Self.Oficina" Multiplicity="1" />
+          <End Role="Servico" Type="Self.Servico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Oficina">
+              <PropertyRef Name="cnpj" />
+            </Principal>
+            <Dependent Role="Servico">
+              <PropertyRef Name="cnpjOficina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServicosOrcamento_Orcamento">
+          <End Role="Orcamento" Type="Self.Orcamento" Multiplicity="1" />
+          <End Role="ServicosOrcamento" Type="Self.ServicosOrcamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orcamento">
+              <PropertyRef Name="idOrcamento" />
+            </Principal>
+            <Dependent Role="ServicosOrcamento">
+              <PropertyRef Name="idOrcamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServicosOrcamento_Servico">
+          <End Role="Servico" Type="Self.Servico" Multiplicity="1" />
+          <End Role="ServicosOrcamento" Type="Self.ServicosOrcamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servico">
+              <PropertyRef Name="idServico" />
+            </Principal>
+            <Dependent Role="ServicosOrcamento">
+              <PropertyRef Name="idServico" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Veiculo_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Veiculo" Type="Self.Veiculo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="cpf" />
+            </Principal>
+            <Dependent Role="Veiculo">
+              <PropertyRef Name="cpfCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DatabaseModelStoreContainer">
+          <EntitySet Name="Agendamento" EntityType="Self.Agendamento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Avaliacao" EntityType="Self.Avaliacao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Compra" EntityType="Self.Compra" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Endereco" EntityType="Self.Endereco" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Fornecedor" EntityType="Self.Fornecedor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Funcionario" EntityType="Self.Funcionario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Localizacao" EntityType="Self.Localizacao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Oficina" EntityType="Self.Oficina" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orcamento" EntityType="Self.Orcamento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pagamento" EntityType="Self.Pagamento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PagamentoAssinatura" EntityType="Self.PagamentoAssinatura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Parcela" EntityType="Self.Parcela" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Produto" EntityType="Self.Produto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProdutosCompra" EntityType="Self.ProdutosCompra" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProdutosServico" EntityType="Self.ProdutosServico" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Servico" EntityType="Self.Servico" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ServicosOrcamento" EntityType="Self.ServicosOrcamento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Veiculo" EntityType="Self.Veiculo" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Agendamento_Cliente" Association="Self.FK_Agendamento_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Agendamento" EntitySet="Agendamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Agendamento_Oficina" Association="Self.FK_Agendamento_Oficina">
+            <End Role="Oficina" EntitySet="Oficina" />
+            <End Role="Agendamento" EntitySet="Agendamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Agendamento_Veiculo" Association="Self.FK_Agendamento_Veiculo">
+            <End Role="Veiculo" EntitySet="Veiculo" />
+            <End Role="Agendamento" EntitySet="Agendamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Avaliacao_Cliente" Association="Self.FK_Avaliacao_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Avaliacao" EntitySet="Avaliacao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Avaliacao_Oficina" Association="Self.FK_Avaliacao_Oficina">
+            <End Role="Oficina" EntitySet="Oficina" />
+            <End Role="Avaliacao" EntitySet="Avaliacao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Compra_Fornecedor" Association="Self.FK_Compra_Fornecedor">
+            <End Role="Fornecedor" EntitySet="Fornecedor" />
+            <End Role="Compra" EntitySet="Compra" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Compra_Oficina" Association="Self.FK_Compra_Oficina">
+            <End Role="Oficina" EntitySet="Oficina" />
+            <End Role="Compra" EntitySet="Compra" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Endereco_Oficina" Association="Self.FK_Endereco_Oficina">
+            <End Role="Oficina" EntitySet="Oficina" />
+            <End Role="Endereco" EntitySet="Endereco" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Funcionario_Cliente" Association="Self.FK_Funcionario_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Funcionario" EntitySet="Funcionario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Funcionario_Oficina" Association="Self.FK_Funcionario_Oficina">
+            <End Role="Oficina" EntitySet="Oficina" />
+            <End Role="Funcionario" EntitySet="Funcionario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Localizacao_Cliente" Association="Self.FK_Localizacao_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Localizacao" EntitySet="Localizacao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orcamento_Oficina" Association="Self.FK_Orcamento_Oficina">
+            <End Role="Oficina" EntitySet="Oficina" />
+            <End Role="Orcamento" EntitySet="Orcamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orcamento_Veiculo" Association="Self.FK_Orcamento_Veiculo">
+            <End Role="Veiculo" EntitySet="Veiculo" />
+            <End Role="Orcamento" EntitySet="Orcamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pagamento_Orcamento1" Association="Self.FK_Pagamento_Orcamento1">
+            <End Role="Orcamento" EntitySet="Orcamento" />
+            <End Role="Pagamento" EntitySet="Pagamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PagamentoAssinatura_Oficina" Association="Self.FK_PagamentoAssinatura_Oficina">
+            <End Role="Oficina" EntitySet="Oficina" />
+            <End Role="PagamentoAssinatura" EntitySet="PagamentoAssinatura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Parcela_Pagamento" Association="Self.FK_Parcela_Pagamento">
+            <End Role="Pagamento" EntitySet="Pagamento" />
+            <End Role="Parcela" EntitySet="Parcela" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Produto_Oficina" Association="Self.FK_Produto_Oficina">
+            <End Role="Oficina" EntitySet="Oficina" />
+            <End Role="Produto" EntitySet="Produto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProdutosCompra_Compra" Association="Self.FK_ProdutosCompra_Compra">
+            <End Role="Compra" EntitySet="Compra" />
+            <End Role="ProdutosCompra" EntitySet="ProdutosCompra" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProdutosCompra_Produto" Association="Self.FK_ProdutosCompra_Produto">
+            <End Role="Produto" EntitySet="Produto" />
+            <End Role="ProdutosCompra" EntitySet="ProdutosCompra" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProdutosServico_Produto" Association="Self.FK_ProdutosServico_Produto">
+            <End Role="Produto" EntitySet="Produto" />
+            <End Role="ProdutosServico" EntitySet="ProdutosServico" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProdutosServico_Servico" Association="Self.FK_ProdutosServico_Servico">
+            <End Role="Servico" EntitySet="Servico" />
+            <End Role="ProdutosServico" EntitySet="ProdutosServico" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Servico_Oficina" Association="Self.FK_Servico_Oficina">
+            <End Role="Oficina" EntitySet="Oficina" />
+            <End Role="Servico" EntitySet="Servico" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServicosOrcamento_Orcamento" Association="Self.FK_ServicosOrcamento_Orcamento">
+            <End Role="Orcamento" EntitySet="Orcamento" />
+            <End Role="ServicosOrcamento" EntitySet="ServicosOrcamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServicosOrcamento_Servico" Association="Self.FK_ServicosOrcamento_Servico">
+            <End Role="Servico" EntitySet="Servico" />
+            <End Role="ServicosOrcamento" EntitySet="ServicosOrcamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Veiculo_Cliente" Association="Self.FK_Veiculo_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Veiculo" EntitySet="Veiculo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Agendamento">
+          <Key>
+            <PropertyRef Name="idAgendamento" />
+          </Key>
+          <Property Name="idAgendamento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cnpjOficina" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cpfCliente" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="data" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="hora" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idVeiculo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_Agendamento_Cliente" FromRole="Agendamento" ToRole="Cliente" />
+          <NavigationProperty Name="Oficina" Relationship="Self.FK_Agendamento_Oficina" FromRole="Agendamento" ToRole="Oficina" />
+          <NavigationProperty Name="Veiculo" Relationship="Self.FK_Agendamento_Veiculo" FromRole="Agendamento" ToRole="Veiculo" />
+        </EntityType>
+        <EntityType Name="Avaliacao">
+          <Key>
+            <PropertyRef Name="idAvaliacao" />
+          </Key>
+          <Property Name="idAvaliacao" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cnpjOficina" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cpfCliente" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="notaPreco" Type="Int32" Nullable="false" />
+          <Property Name="notaServico" Type="Int32" Nullable="false" />
+          <Property Name="descricao" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_Avaliacao_Cliente" FromRole="Avaliacao" ToRole="Cliente" />
+          <NavigationProperty Name="Oficina" Relationship="Self.FK_Avaliacao_Oficina" FromRole="Avaliacao" ToRole="Oficina" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="cpf" />
+          </Key>
+          <Property Name="cpf" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nome" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telefone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="senha" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dataNascimento" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Agendamento" Relationship="Self.FK_Agendamento_Cliente" FromRole="Cliente" ToRole="Agendamento" />
+          <NavigationProperty Name="Avaliacao" Relationship="Self.FK_Avaliacao_Cliente" FromRole="Cliente" ToRole="Avaliacao" />
+          <NavigationProperty Name="Funcionario" Relationship="Self.FK_Funcionario_Cliente" FromRole="Cliente" ToRole="Funcionario" />
+          <NavigationProperty Name="Localizacao" Relationship="Self.FK_Localizacao_Cliente" FromRole="Cliente" ToRole="Localizacao" />
+          <NavigationProperty Name="Veiculo" Relationship="Self.FK_Veiculo_Cliente" FromRole="Cliente" ToRole="Veiculo" />
+        </EntityType>
+        <EntityType Name="Compra">
+          <Key>
+            <PropertyRef Name="idCompra" />
+          </Key>
+          <Property Name="idCompra" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="data" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="cpfFuncionario" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cnpjFornecedor" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cnpjOficina" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Fornecedor" Relationship="Self.FK_Compra_Fornecedor" FromRole="Compra" ToRole="Fornecedor" />
+          <NavigationProperty Name="Oficina" Relationship="Self.FK_Compra_Oficina" FromRole="Compra" ToRole="Oficina" />
+          <NavigationProperty Name="ProdutosCompra" Relationship="Self.FK_ProdutosCompra_Compra" FromRole="Compra" ToRole="ProdutosCompra" />
+        </EntityType>
+        <EntityType Name="Endereco">
+          <Key>
+            <PropertyRef Name="cnpjOficina" />
+          </Key>
+          <Property Name="cnpjOficina" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="logradouro" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="numero" Type="Int32" Nullable="false" />
+          <Property Name="cep" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="complemento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cidade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="uf" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Oficina" Relationship="Self.FK_Endereco_Oficina" FromRole="Endereco" ToRole="Oficina" />
+        </EntityType>
+        <EntityType Name="Fornecedor">
+          <Key>
+            <PropertyRef Name="cnpj" />
+          </Key>
+          <Property Name="cnpj" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="razaoSocial" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telefone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Compra" Relationship="Self.FK_Compra_Fornecedor" FromRole="Fornecedor" ToRole="Compra" />
+        </EntityType>
+        <EntityType Name="Funcionario">
+          <Key>
+            <PropertyRef Name="cpf" />
+          </Key>
+          <Property Name="cpf" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cargo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="banco" Type="Int32" Nullable="false" />
+          <Property Name="agencia" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="conta" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="salario" Type="Double" Nullable="false" />
+          <Property Name="cnpjOficina" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_Funcionario_Cliente" FromRole="Funcionario" ToRole="Cliente" />
+          <NavigationProperty Name="Oficina" Relationship="Self.FK_Funcionario_Oficina" FromRole="Funcionario" ToRole="Oficina" />
+        </EntityType>
+        <EntityType Name="Localizacao">
+          <Key>
+            <PropertyRef Name="idLocalizacao" />
+          </Key>
+          <Property Name="idLocalizacao" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="logradouro" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="numero" Type="Int32" Nullable="false" />
+          <Property Name="cep" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cidade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="uf" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cpfCliente" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_Localizacao_Cliente" FromRole="Localizacao" ToRole="Cliente" />
+        </EntityType>
+        <EntityType Name="Oficina">
+          <Key>
+            <PropertyRef Name="cnpj" />
+          </Key>
+          <Property Name="cnpj" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="reputacao" Type="Double" />
+          <Property Name="telefone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="capacidadeAgendamentos" Type="Int32" Nullable="false" />
+          <Property Name="statusAssinatura" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="Agendamento" Relationship="Self.FK_Agendamento_Oficina" FromRole="Oficina" ToRole="Agendamento" />
+          <NavigationProperty Name="Avaliacao" Relationship="Self.FK_Avaliacao_Oficina" FromRole="Oficina" ToRole="Avaliacao" />
+          <NavigationProperty Name="Compra" Relationship="Self.FK_Compra_Oficina" FromRole="Oficina" ToRole="Compra" />
+          <NavigationProperty Name="Endereco" Relationship="Self.FK_Endereco_Oficina" FromRole="Oficina" ToRole="Endereco" />
+          <NavigationProperty Name="Funcionario" Relationship="Self.FK_Funcionario_Oficina" FromRole="Oficina" ToRole="Funcionario" />
+          <NavigationProperty Name="Orcamento" Relationship="Self.FK_Orcamento_Oficina" FromRole="Oficina" ToRole="Orcamento" />
+          <NavigationProperty Name="PagamentoAssinatura" Relationship="Self.FK_PagamentoAssinatura_Oficina" FromRole="Oficina" ToRole="PagamentoAssinatura" />
+          <NavigationProperty Name="Produto" Relationship="Self.FK_Produto_Oficina" FromRole="Oficina" ToRole="Produto" />
+          <NavigationProperty Name="Servico" Relationship="Self.FK_Servico_Oficina" FromRole="Oficina" ToRole="Servico" />
+        </EntityType>
+        <EntityType Name="Orcamento">
+          <Key>
+            <PropertyRef Name="idOrcamento" />
+          </Key>
+          <Property Name="idOrcamento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="valor" Type="Double" Nullable="false" />
+          <Property Name="data" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cpfFuncionario" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cnpjOficina" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idVeiculo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Oficina" Relationship="Self.FK_Orcamento_Oficina" FromRole="Orcamento" ToRole="Oficina" />
+          <NavigationProperty Name="Veiculo" Relationship="Self.FK_Orcamento_Veiculo" FromRole="Orcamento" ToRole="Veiculo" />
+          <NavigationProperty Name="Pagamento" Relationship="Self.FK_Pagamento_Orcamento1" FromRole="Orcamento" ToRole="Pagamento" />
+          <NavigationProperty Name="ServicosOrcamento" Relationship="Self.FK_ServicosOrcamento_Orcamento" FromRole="Orcamento" ToRole="ServicosOrcamento" />
+        </EntityType>
+        <EntityType Name="Pagamento">
+          <Key>
+            <PropertyRef Name="idOrcamento" />
+          </Key>
+          <Property Name="idOrcamento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="formaPagamento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="valor" Type="Double" Nullable="false" />
+          <Property Name="data" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Orcamento" Relationship="Self.FK_Pagamento_Orcamento1" FromRole="Pagamento" ToRole="Orcamento" />
+          <NavigationProperty Name="Parcela" Relationship="Self.FK_Parcela_Pagamento" FromRole="Pagamento" ToRole="Parcela" />
+        </EntityType>
+        <EntityType Name="PagamentoAssinatura">
+          <Key>
+            <PropertyRef Name="idPagamentoAssinatura" />
+          </Key>
+          <Property Name="idPagamentoAssinatura" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="formaPagamento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="status" Type="Byte" Nullable="false" />
+          <Property Name="valor" Type="Double" Nullable="false" />
+          <Property Name="data" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="cnpjOficina" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Oficina" Relationship="Self.FK_PagamentoAssinatura_Oficina" FromRole="PagamentoAssinatura" ToRole="Oficina" />
+        </EntityType>
+        <EntityType Name="Parcela">
+          <Key>
+            <PropertyRef Name="idParcela" />
+          </Key>
+          <Property Name="idParcela" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="valor" Type="Double" Nullable="false" />
+          <Property Name="data" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="parcela1" Type="Int32" Nullable="false" />
+          <Property Name="idOrcamento" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Pagamento" Relationship="Self.FK_Parcela_Pagamento" FromRole="Parcela" ToRole="Pagamento" />
+        </EntityType>
+        <EntityType Name="Produto">
+          <Key>
+            <PropertyRef Name="idProduto" />
+          </Key>
+          <Property Name="idProduto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descricao" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="quantidade" Type="Int32" Nullable="false" />
+          <Property Name="precoCompra" Type="Double" Nullable="false" />
+          <Property Name="precoVenda" Type="Double" />
+          <Property Name="marca" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="validade" Type="DateTime" Precision="3" />
+          <Property Name="categoria" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cnpjOficina" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Oficina" Relationship="Self.FK_Produto_Oficina" FromRole="Produto" ToRole="Oficina" />
+          <NavigationProperty Name="ProdutosCompra" Relationship="Self.FK_ProdutosCompra_Produto" FromRole="Produto" ToRole="ProdutosCompra" />
+          <NavigationProperty Name="ProdutosServico" Relationship="Self.FK_ProdutosServico_Produto" FromRole="Produto" ToRole="ProdutosServico" />
+        </EntityType>
+        <EntityType Name="ProdutosCompra">
+          <Key>
+            <PropertyRef Name="idCompra" />
+            <PropertyRef Name="idProduto" />
+          </Key>
+          <Property Name="idCompra" Type="Int32" Nullable="false" />
+          <Property Name="idProduto" Type="Int32" Nullable="false" />
+          <Property Name="quantidade" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Compra" Relationship="Self.FK_ProdutosCompra_Compra" FromRole="ProdutosCompra" ToRole="Compra" />
+          <NavigationProperty Name="Produto" Relationship="Self.FK_ProdutosCompra_Produto" FromRole="ProdutosCompra" ToRole="Produto" />
+        </EntityType>
+        <EntityType Name="ProdutosServico">
+          <Key>
+            <PropertyRef Name="idServico" />
+            <PropertyRef Name="idProduto" />
+          </Key>
+          <Property Name="idServico" Type="Int32" Nullable="false" />
+          <Property Name="idProduto" Type="Int32" Nullable="false" />
+          <Property Name="quantidade" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Produto" Relationship="Self.FK_ProdutosServico_Produto" FromRole="ProdutosServico" ToRole="Produto" />
+          <NavigationProperty Name="Servico" Relationship="Self.FK_ProdutosServico_Servico" FromRole="ProdutosServico" ToRole="Servico" />
+        </EntityType>
+        <EntityType Name="Servico">
+          <Key>
+            <PropertyRef Name="idServico" />
+          </Key>
+          <Property Name="idServico" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descricao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="valor" Type="Double" Nullable="false" />
+          <Property Name="cnpjOficina" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Oficina" Relationship="Self.FK_Servico_Oficina" FromRole="Servico" ToRole="Oficina" />
+          <NavigationProperty Name="ProdutosServico" Relationship="Self.FK_ProdutosServico_Servico" FromRole="Servico" ToRole="ProdutosServico" />
+          <NavigationProperty Name="ServicosOrcamento" Relationship="Self.FK_ServicosOrcamento_Servico" FromRole="Servico" ToRole="ServicosOrcamento" />
+        </EntityType>
+        <EntityType Name="ServicosOrcamento">
+          <Key>
+            <PropertyRef Name="idOrcamento" />
+            <PropertyRef Name="idServico" />
+          </Key>
+          <Property Name="idOrcamento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idServico" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Orcamento" Relationship="Self.FK_ServicosOrcamento_Orcamento" FromRole="ServicosOrcamento" ToRole="Orcamento" />
+          <NavigationProperty Name="Servico" Relationship="Self.FK_ServicosOrcamento_Servico" FromRole="ServicosOrcamento" ToRole="Servico" />
+        </EntityType>
+        <EntityType Name="Veiculo">
+          <Key>
+            <PropertyRef Name="idVeiculo" />
+          </Key>
+          <Property Name="idVeiculo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="modelo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="marca" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ano" Type="Int32" Nullable="false" />
+          <Property Name="placa" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cpfCliente" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Agendamento" Relationship="Self.FK_Agendamento_Veiculo" FromRole="Veiculo" ToRole="Agendamento" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_Veiculo_Cliente" FromRole="Veiculo" ToRole="Cliente" />
+          <NavigationProperty Name="Orcamento" Relationship="Self.FK_Orcamento_Veiculo" FromRole="Veiculo" ToRole="Orcamento" />
+        </EntityType>
+        <Association Name="FK_Agendamento_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Agendamento" Type="Self.Agendamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="cpf" />
+            </Principal>
+            <Dependent Role="Agendamento">
+              <PropertyRef Name="cpfCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Agendamento_Oficina">
+          <End Role="Oficina" Type="Self.Oficina" Multiplicity="1" />
+          <End Role="Agendamento" Type="Self.Agendamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Oficina">
+              <PropertyRef Name="cnpj" />
+            </Principal>
+            <Dependent Role="Agendamento">
+              <PropertyRef Name="cnpjOficina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Agendamento_Veiculo">
+          <End Role="Veiculo" Type="Self.Veiculo" Multiplicity="1" />
+          <End Role="Agendamento" Type="Self.Agendamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Veiculo">
+              <PropertyRef Name="idVeiculo" />
+            </Principal>
+            <Dependent Role="Agendamento">
+              <PropertyRef Name="idVeiculo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Avaliacao_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Avaliacao" Type="Self.Avaliacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="cpf" />
+            </Principal>
+            <Dependent Role="Avaliacao">
+              <PropertyRef Name="cpfCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Avaliacao_Oficina">
+          <End Role="Oficina" Type="Self.Oficina" Multiplicity="1" />
+          <End Role="Avaliacao" Type="Self.Avaliacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Oficina">
+              <PropertyRef Name="cnpj" />
+            </Principal>
+            <Dependent Role="Avaliacao">
+              <PropertyRef Name="cnpjOficina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Funcionario_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Funcionario" Type="Self.Funcionario" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="cpf" />
+            </Principal>
+            <Dependent Role="Funcionario">
+              <PropertyRef Name="cpf" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Localizacao_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Localizacao" Type="Self.Localizacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="cpf" />
+            </Principal>
+            <Dependent Role="Localizacao">
+              <PropertyRef Name="cpfCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Veiculo_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Veiculo" Type="Self.Veiculo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="cpf" />
+            </Principal>
+            <Dependent Role="Veiculo">
+              <PropertyRef Name="cpfCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Compra_Fornecedor">
+          <End Role="Fornecedor" Type="Self.Fornecedor" Multiplicity="1" />
+          <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fornecedor">
+              <PropertyRef Name="cnpj" />
+            </Principal>
+            <Dependent Role="Compra">
+              <PropertyRef Name="cnpjFornecedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Compra_Oficina">
+          <End Role="Oficina" Type="Self.Oficina" Multiplicity="1" />
+          <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Oficina">
+              <PropertyRef Name="cnpj" />
+            </Principal>
+            <Dependent Role="Compra">
+              <PropertyRef Name="cnpjOficina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProdutosCompra_Compra">
+          <End Role="Compra" Type="Self.Compra" Multiplicity="1" />
+          <End Role="ProdutosCompra" Type="Self.ProdutosCompra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Compra">
+              <PropertyRef Name="idCompra" />
+            </Principal>
+            <Dependent Role="ProdutosCompra">
+              <PropertyRef Name="idCompra" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Endereco_Oficina">
+          <End Role="Oficina" Type="Self.Oficina" Multiplicity="1" />
+          <End Role="Endereco" Type="Self.Endereco" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Oficina">
+              <PropertyRef Name="cnpj" />
+            </Principal>
+            <Dependent Role="Endereco">
+              <PropertyRef Name="cnpjOficina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Funcionario_Oficina">
+          <End Role="Oficina" Type="Self.Oficina" Multiplicity="1" />
+          <End Role="Funcionario" Type="Self.Funcionario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Oficina">
+              <PropertyRef Name="cnpj" />
+            </Principal>
+            <Dependent Role="Funcionario">
+              <PropertyRef Name="cnpjOficina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orcamento_Oficina">
+          <End Role="Oficina" Type="Self.Oficina" Multiplicity="1" />
+          <End Role="Orcamento" Type="Self.Orcamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Oficina">
+              <PropertyRef Name="cnpj" />
+            </Principal>
+            <Dependent Role="Orcamento">
+              <PropertyRef Name="cnpjOficina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PagamentoAssinatura_Oficina">
+          <End Role="Oficina" Type="Self.Oficina" Multiplicity="1" />
+          <End Role="PagamentoAssinatura" Type="Self.PagamentoAssinatura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Oficina">
+              <PropertyRef Name="cnpj" />
+            </Principal>
+            <Dependent Role="PagamentoAssinatura">
+              <PropertyRef Name="cnpjOficina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Produto_Oficina">
+          <End Role="Oficina" Type="Self.Oficina" Multiplicity="1" />
+          <End Role="Produto" Type="Self.Produto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Oficina">
+              <PropertyRef Name="cnpj" />
+            </Principal>
+            <Dependent Role="Produto">
+              <PropertyRef Name="cnpjOficina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Servico_Oficina">
+          <End Role="Oficina" Type="Self.Oficina" Multiplicity="1" />
+          <End Role="Servico" Type="Self.Servico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Oficina">
+              <PropertyRef Name="cnpj" />
+            </Principal>
+            <Dependent Role="Servico">
+              <PropertyRef Name="cnpjOficina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orcamento_Veiculo">
+          <End Role="Veiculo" Type="Self.Veiculo" Multiplicity="1" />
+          <End Role="Orcamento" Type="Self.Orcamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Veiculo">
+              <PropertyRef Name="idVeiculo" />
+            </Principal>
+            <Dependent Role="Orcamento">
+              <PropertyRef Name="idVeiculo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pagamento_Orcamento1">
+          <End Role="Orcamento" Type="Self.Orcamento" Multiplicity="1" />
+          <End Role="Pagamento" Type="Self.Pagamento" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Orcamento">
+              <PropertyRef Name="idOrcamento" />
+            </Principal>
+            <Dependent Role="Pagamento">
+              <PropertyRef Name="idOrcamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServicosOrcamento_Orcamento">
+          <End Role="Orcamento" Type="Self.Orcamento" Multiplicity="1" />
+          <End Role="ServicosOrcamento" Type="Self.ServicosOrcamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orcamento">
+              <PropertyRef Name="idOrcamento" />
+            </Principal>
+            <Dependent Role="ServicosOrcamento">
+              <PropertyRef Name="idOrcamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Parcela_Pagamento">
+          <End Role="Pagamento" Type="Self.Pagamento" Multiplicity="1" />
+          <End Role="Parcela" Type="Self.Parcela" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pagamento">
+              <PropertyRef Name="idOrcamento" />
+            </Principal>
+            <Dependent Role="Parcela">
+              <PropertyRef Name="idOrcamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProdutosCompra_Produto">
+          <End Role="Produto" Type="Self.Produto" Multiplicity="1" />
+          <End Role="ProdutosCompra" Type="Self.ProdutosCompra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produto">
+              <PropertyRef Name="idProduto" />
+            </Principal>
+            <Dependent Role="ProdutosCompra">
+              <PropertyRef Name="idProduto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProdutosServico_Produto">
+          <End Role="Produto" Type="Self.Produto" Multiplicity="1" />
+          <End Role="ProdutosServico" Type="Self.ProdutosServico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produto">
+              <PropertyRef Name="idProduto" />
+            </Principal>
+            <Dependent Role="ProdutosServico">
+              <PropertyRef Name="idProduto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProdutosServico_Servico">
+          <End Role="Servico" Type="Self.Servico" Multiplicity="1" />
+          <End Role="ProdutosServico" Type="Self.ProdutosServico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servico">
+              <PropertyRef Name="idServico" />
+            </Principal>
+            <Dependent Role="ProdutosServico">
+              <PropertyRef Name="idServico" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServicosOrcamento_Servico">
+          <End Role="Servico" Type="Self.Servico" Multiplicity="1" />
+          <End Role="ServicosOrcamento" Type="Self.ServicosOrcamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servico">
+              <PropertyRef Name="idServico" />
+            </Principal>
+            <Dependent Role="ServicosOrcamento">
+              <PropertyRef Name="idServico" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Agendamento" EntityType="Self.Agendamento" />
+          <EntitySet Name="Avaliacao" EntityType="Self.Avaliacao" />
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" />
+          <EntitySet Name="Compra" EntityType="Self.Compra" />
+          <EntitySet Name="Endereco" EntityType="Self.Endereco" />
+          <EntitySet Name="Fornecedor" EntityType="Self.Fornecedor" />
+          <EntitySet Name="Funcionario" EntityType="Self.Funcionario" />
+          <EntitySet Name="Localizacao" EntityType="Self.Localizacao" />
+          <EntitySet Name="Oficina" EntityType="Self.Oficina" />
+          <EntitySet Name="Orcamento" EntityType="Self.Orcamento" />
+          <EntitySet Name="Pagamento" EntityType="Self.Pagamento" />
+          <EntitySet Name="PagamentoAssinatura" EntityType="Self.PagamentoAssinatura" />
+          <EntitySet Name="Parcela" EntityType="Self.Parcela" />
+          <EntitySet Name="Produto" EntityType="Self.Produto" />
+          <EntitySet Name="ProdutosCompra" EntityType="Self.ProdutosCompra" />
+          <EntitySet Name="ProdutosServico" EntityType="Self.ProdutosServico" />
+          <EntitySet Name="Servico" EntityType="Self.Servico" />
+          <EntitySet Name="ServicosOrcamento" EntityType="Self.ServicosOrcamento" />
+          <EntitySet Name="Veiculo" EntityType="Self.Veiculo" />
+          <AssociationSet Name="FK_Agendamento_Cliente" Association="Self.FK_Agendamento_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Agendamento" EntitySet="Agendamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Agendamento_Oficina" Association="Self.FK_Agendamento_Oficina">
+            <End Role="Oficina" EntitySet="Oficina" />
+            <End Role="Agendamento" EntitySet="Agendamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Agendamento_Veiculo" Association="Self.FK_Agendamento_Veiculo">
+            <End Role="Veiculo" EntitySet="Veiculo" />
+            <End Role="Agendamento" EntitySet="Agendamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Avaliacao_Cliente" Association="Self.FK_Avaliacao_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Avaliacao" EntitySet="Avaliacao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Avaliacao_Oficina" Association="Self.FK_Avaliacao_Oficina">
+            <End Role="Oficina" EntitySet="Oficina" />
+            <End Role="Avaliacao" EntitySet="Avaliacao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Funcionario_Cliente" Association="Self.FK_Funcionario_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Funcionario" EntitySet="Funcionario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Localizacao_Cliente" Association="Self.FK_Localizacao_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Localizacao" EntitySet="Localizacao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Veiculo_Cliente" Association="Self.FK_Veiculo_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Veiculo" EntitySet="Veiculo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Compra_Fornecedor" Association="Self.FK_Compra_Fornecedor">
+            <End Role="Fornecedor" EntitySet="Fornecedor" />
+            <End Role="Compra" EntitySet="Compra" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Compra_Oficina" Association="Self.FK_Compra_Oficina">
+            <End Role="Oficina" EntitySet="Oficina" />
+            <End Role="Compra" EntitySet="Compra" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProdutosCompra_Compra" Association="Self.FK_ProdutosCompra_Compra">
+            <End Role="Compra" EntitySet="Compra" />
+            <End Role="ProdutosCompra" EntitySet="ProdutosCompra" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Endereco_Oficina" Association="Self.FK_Endereco_Oficina">
+            <End Role="Oficina" EntitySet="Oficina" />
+            <End Role="Endereco" EntitySet="Endereco" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Funcionario_Oficina" Association="Self.FK_Funcionario_Oficina">
+            <End Role="Oficina" EntitySet="Oficina" />
+            <End Role="Funcionario" EntitySet="Funcionario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orcamento_Oficina" Association="Self.FK_Orcamento_Oficina">
+            <End Role="Oficina" EntitySet="Oficina" />
+            <End Role="Orcamento" EntitySet="Orcamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PagamentoAssinatura_Oficina" Association="Self.FK_PagamentoAssinatura_Oficina">
+            <End Role="Oficina" EntitySet="Oficina" />
+            <End Role="PagamentoAssinatura" EntitySet="PagamentoAssinatura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Produto_Oficina" Association="Self.FK_Produto_Oficina">
+            <End Role="Oficina" EntitySet="Oficina" />
+            <End Role="Produto" EntitySet="Produto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Servico_Oficina" Association="Self.FK_Servico_Oficina">
+            <End Role="Oficina" EntitySet="Oficina" />
+            <End Role="Servico" EntitySet="Servico" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orcamento_Veiculo" Association="Self.FK_Orcamento_Veiculo">
+            <End Role="Veiculo" EntitySet="Veiculo" />
+            <End Role="Orcamento" EntitySet="Orcamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pagamento_Orcamento1" Association="Self.FK_Pagamento_Orcamento1">
+            <End Role="Orcamento" EntitySet="Orcamento" />
+            <End Role="Pagamento" EntitySet="Pagamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServicosOrcamento_Orcamento" Association="Self.FK_ServicosOrcamento_Orcamento">
+            <End Role="Orcamento" EntitySet="Orcamento" />
+            <End Role="ServicosOrcamento" EntitySet="ServicosOrcamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Parcela_Pagamento" Association="Self.FK_Parcela_Pagamento">
+            <End Role="Pagamento" EntitySet="Pagamento" />
+            <End Role="Parcela" EntitySet="Parcela" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProdutosCompra_Produto" Association="Self.FK_ProdutosCompra_Produto">
+            <End Role="Produto" EntitySet="Produto" />
+            <End Role="ProdutosCompra" EntitySet="ProdutosCompra" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProdutosServico_Produto" Association="Self.FK_ProdutosServico_Produto">
+            <End Role="Produto" EntitySet="Produto" />
+            <End Role="ProdutosServico" EntitySet="ProdutosServico" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProdutosServico_Servico" Association="Self.FK_ProdutosServico_Servico">
+            <End Role="Servico" EntitySet="Servico" />
+            <End Role="ProdutosServico" EntitySet="ProdutosServico" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServicosOrcamento_Servico" Association="Self.FK_ServicosOrcamento_Servico">
+            <End Role="Servico" EntitySet="Servico" />
+            <End Role="ServicosOrcamento" EntitySet="ServicosOrcamento" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DatabaseModelStoreContainer" CdmEntityContainer="DatabaseEntities">
+          <EntitySetMapping Name="Agendamento">
+            <EntityTypeMapping TypeName="DatabaseModel.Agendamento">
+              <MappingFragment StoreEntitySet="Agendamento">
+                <ScalarProperty Name="idAgendamento" ColumnName="idAgendamento" />
+                <ScalarProperty Name="cnpjOficina" ColumnName="cnpjOficina" />
+                <ScalarProperty Name="cpfCliente" ColumnName="cpfCliente" />
+                <ScalarProperty Name="data" ColumnName="data" />
+                <ScalarProperty Name="hora" ColumnName="hora" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="idVeiculo" ColumnName="idVeiculo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Avaliacao">
+            <EntityTypeMapping TypeName="DatabaseModel.Avaliacao">
+              <MappingFragment StoreEntitySet="Avaliacao">
+                <ScalarProperty Name="idAvaliacao" ColumnName="idAvaliacao" />
+                <ScalarProperty Name="cnpjOficina" ColumnName="cnpjOficina" />
+                <ScalarProperty Name="cpfCliente" ColumnName="cpfCliente" />
+                <ScalarProperty Name="notaPreco" ColumnName="notaPreco" />
+                <ScalarProperty Name="notaServico" ColumnName="notaServico" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cliente">
+            <EntityTypeMapping TypeName="DatabaseModel.Cliente">
+              <MappingFragment StoreEntitySet="Cliente">
+                <ScalarProperty Name="cpf" ColumnName="cpf" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="telefone" ColumnName="telefone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="senha" ColumnName="senha" />
+                <ScalarProperty Name="dataNascimento" ColumnName="dataNascimento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Compra">
+            <EntityTypeMapping TypeName="DatabaseModel.Compra">
+              <MappingFragment StoreEntitySet="Compra">
+                <ScalarProperty Name="idCompra" ColumnName="idCompra" />
+                <ScalarProperty Name="data" ColumnName="data" />
+                <ScalarProperty Name="cpfFuncionario" ColumnName="cpfFuncionario" />
+                <ScalarProperty Name="cnpjFornecedor" ColumnName="cnpjFornecedor" />
+                <ScalarProperty Name="cnpjOficina" ColumnName="cnpjOficina" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Endereco">
+            <EntityTypeMapping TypeName="DatabaseModel.Endereco">
+              <MappingFragment StoreEntitySet="Endereco">
+                <ScalarProperty Name="cnpjOficina" ColumnName="cnpjOficina" />
+                <ScalarProperty Name="logradouro" ColumnName="logradouro" />
+                <ScalarProperty Name="numero" ColumnName="numero" />
+                <ScalarProperty Name="cep" ColumnName="cep" />
+                <ScalarProperty Name="complemento" ColumnName="complemento" />
+                <ScalarProperty Name="cidade" ColumnName="cidade" />
+                <ScalarProperty Name="uf" ColumnName="uf" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Fornecedor">
+            <EntityTypeMapping TypeName="DatabaseModel.Fornecedor">
+              <MappingFragment StoreEntitySet="Fornecedor">
+                <ScalarProperty Name="cnpj" ColumnName="cnpj" />
+                <ScalarProperty Name="razaoSocial" ColumnName="razaoSocial" />
+                <ScalarProperty Name="telefone" ColumnName="telefone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Funcionario">
+            <EntityTypeMapping TypeName="DatabaseModel.Funcionario">
+              <MappingFragment StoreEntitySet="Funcionario">
+                <ScalarProperty Name="cpf" ColumnName="cpf" />
+                <ScalarProperty Name="cargo" ColumnName="cargo" />
+                <ScalarProperty Name="banco" ColumnName="banco" />
+                <ScalarProperty Name="agencia" ColumnName="agencia" />
+                <ScalarProperty Name="conta" ColumnName="conta" />
+                <ScalarProperty Name="salario" ColumnName="salario" />
+                <ScalarProperty Name="cnpjOficina" ColumnName="cnpjOficina" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Localizacao">
+            <EntityTypeMapping TypeName="DatabaseModel.Localizacao">
+              <MappingFragment StoreEntitySet="Localizacao">
+                <ScalarProperty Name="idLocalizacao" ColumnName="idLocalizacao" />
+                <ScalarProperty Name="logradouro" ColumnName="logradouro" />
+                <ScalarProperty Name="numero" ColumnName="numero" />
+                <ScalarProperty Name="cep" ColumnName="cep" />
+                <ScalarProperty Name="cidade" ColumnName="cidade" />
+                <ScalarProperty Name="uf" ColumnName="uf" />
+                <ScalarProperty Name="cpfCliente" ColumnName="cpfCliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Oficina">
+            <EntityTypeMapping TypeName="DatabaseModel.Oficina">
+              <MappingFragment StoreEntitySet="Oficina">
+                <ScalarProperty Name="cnpj" ColumnName="cnpj" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="reputacao" ColumnName="reputacao" />
+                <ScalarProperty Name="telefone" ColumnName="telefone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="capacidadeAgendamentos" ColumnName="capacidadeAgendamentos" />
+                <ScalarProperty Name="statusAssinatura" ColumnName="statusAssinatura" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orcamento">
+            <EntityTypeMapping TypeName="DatabaseModel.Orcamento">
+              <MappingFragment StoreEntitySet="Orcamento">
+                <ScalarProperty Name="idOrcamento" ColumnName="idOrcamento" />
+                <ScalarProperty Name="valor" ColumnName="valor" />
+                <ScalarProperty Name="data" ColumnName="data" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="cpfFuncionario" ColumnName="cpfFuncionario" />
+                <ScalarProperty Name="cnpjOficina" ColumnName="cnpjOficina" />
+                <ScalarProperty Name="idVeiculo" ColumnName="idVeiculo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pagamento">
+            <EntityTypeMapping TypeName="DatabaseModel.Pagamento">
+              <MappingFragment StoreEntitySet="Pagamento">
+                <ScalarProperty Name="idOrcamento" ColumnName="idOrcamento" />
+                <ScalarProperty Name="formaPagamento" ColumnName="formaPagamento" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="valor" ColumnName="valor" />
+                <ScalarProperty Name="data" ColumnName="data" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PagamentoAssinatura">
+            <EntityTypeMapping TypeName="DatabaseModel.PagamentoAssinatura">
+              <MappingFragment StoreEntitySet="PagamentoAssinatura">
+                <ScalarProperty Name="idPagamentoAssinatura" ColumnName="idPagamentoAssinatura" />
+                <ScalarProperty Name="formaPagamento" ColumnName="formaPagamento" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="valor" ColumnName="valor" />
+                <ScalarProperty Name="data" ColumnName="data" />
+                <ScalarProperty Name="cnpjOficina" ColumnName="cnpjOficina" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Parcela">
+            <EntityTypeMapping TypeName="DatabaseModel.Parcela">
+              <MappingFragment StoreEntitySet="Parcela">
+                <ScalarProperty Name="idParcela" ColumnName="idParcela" />
+                <ScalarProperty Name="valor" ColumnName="valor" />
+                <ScalarProperty Name="data" ColumnName="data" />
+                <ScalarProperty Name="parcela1" ColumnName="parcela1" />
+                <ScalarProperty Name="idOrcamento" ColumnName="idOrcamento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Produto">
+            <EntityTypeMapping TypeName="DatabaseModel.Produto">
+              <MappingFragment StoreEntitySet="Produto">
+                <ScalarProperty Name="idProduto" ColumnName="idProduto" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+                <ScalarProperty Name="quantidade" ColumnName="quantidade" />
+                <ScalarProperty Name="precoCompra" ColumnName="precoCompra" />
+                <ScalarProperty Name="precoVenda" ColumnName="precoVenda" />
+                <ScalarProperty Name="marca" ColumnName="marca" />
+                <ScalarProperty Name="validade" ColumnName="validade" />
+                <ScalarProperty Name="categoria" ColumnName="categoria" />
+                <ScalarProperty Name="cnpjOficina" ColumnName="cnpjOficina" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProdutosCompra">
+            <EntityTypeMapping TypeName="DatabaseModel.ProdutosCompra">
+              <MappingFragment StoreEntitySet="ProdutosCompra">
+                <ScalarProperty Name="idCompra" ColumnName="idCompra" />
+                <ScalarProperty Name="idProduto" ColumnName="idProduto" />
+                <ScalarProperty Name="quantidade" ColumnName="quantidade" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProdutosServico">
+            <EntityTypeMapping TypeName="DatabaseModel.ProdutosServico">
+              <MappingFragment StoreEntitySet="ProdutosServico">
+                <ScalarProperty Name="idServico" ColumnName="idServico" />
+                <ScalarProperty Name="idProduto" ColumnName="idProduto" />
+                <ScalarProperty Name="quantidade" ColumnName="quantidade" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Servico">
+            <EntityTypeMapping TypeName="DatabaseModel.Servico">
+              <MappingFragment StoreEntitySet="Servico">
+                <ScalarProperty Name="idServico" ColumnName="idServico" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+                <ScalarProperty Name="valor" ColumnName="valor" />
+                <ScalarProperty Name="cnpjOficina" ColumnName="cnpjOficina" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ServicosOrcamento">
+            <EntityTypeMapping TypeName="DatabaseModel.ServicosOrcamento">
+              <MappingFragment StoreEntitySet="ServicosOrcamento">
+                <ScalarProperty Name="idOrcamento" ColumnName="idOrcamento" />
+                <ScalarProperty Name="idServico" ColumnName="idServico" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Veiculo">
+            <EntityTypeMapping TypeName="DatabaseModel.Veiculo">
+              <MappingFragment StoreEntitySet="Veiculo">
+                <ScalarProperty Name="idVeiculo" ColumnName="idVeiculo" />
+                <ScalarProperty Name="modelo" ColumnName="modelo" />
+                <ScalarProperty Name="marca" ColumnName="marca" />
+                <ScalarProperty Name="ano" ColumnName="ano" />
+                <ScalarProperty Name="placa" ColumnName="placa" />
+                <ScalarProperty Name="cpfCliente" ColumnName="cpfCliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

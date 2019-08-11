@@ -16,12 +16,6 @@ namespace FixFinder.Pages
 
         protected void btn_Cadastro_Click(object sender, EventArgs e)
         {
-            if (txt_Senha.Text.Length < 6)
-            {
-                lbl_Alert.Text = "A senha deve ter seis ou mais caracteres";
-                pnl_Alert.Visible = true;
-            }
-
             Cliente c = new Cliente
             {
                 cpf = txt_CPF.Text.Replace(".", "").Replace("-", ""),
@@ -37,10 +31,18 @@ namespace FixFinder.Pages
             {
                 if (context.Cliente.Where(cliente => cliente.cpf.Equals(c.cpf)).ToList().Count > 0)
                 {
-                    lbl_Alert.Visible = true;
+                    lbl_Alert.Text = "Um usuário com o CPF informado já existe";
+                    pnl_Alert.Visible = true;
                 }
-                else if (context.Cliente.Where(cliente => cliente.cpf.Equals(c.cpf)).ToList().Count > 0)
+                else if (context.Cliente.Where(cliente => cliente.email.Equals(c.email)).ToList().Count > 0)
                 {
+                    lbl_Alert.Text = "Um usuário com o e-mail informado já existe";
+                    pnl_Alert.Visible = true;
+                }
+                else if (context.Cliente.Where(cliente => cliente.email.Equals(c.email)).ToList().Count > 0)
+                {
+                    lbl_Alert.Text = "Um usuário com o login informado já existe";
+                    pnl_Alert.Visible = true;
                 }
                 else
                 {

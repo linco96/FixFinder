@@ -14,7 +14,7 @@
 <body>
     <form id="form1" runat="server">
         <div class="container mt-5">
-            <asp:Button runat="server" ID="btn_Test" runat="server" CssClass="btn btn-primary" Text="Testezão" formnovalidate="formnovalidate" />
+            <%--formnovalidate--%>
             <div class="form-group">
                 <label for="txt_CPF">CPF</label>
                 <asp:TextBox runat="server" ID="txt_CPF" CssClass="form-control" onkeypress="$(this).mask('000.000.000-00');" required="required"></asp:TextBox>

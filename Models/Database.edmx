@@ -38,7 +38,7 @@
           <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="login" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="senha" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="dataNascimento" Type="datetime" Nullable="false" />
+          <Property Name="dataNascimento" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="Compra">
           <Key>
@@ -675,7 +675,7 @@
           <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="senha" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="dataNascimento" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="dataNascimento" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Agendamento" Relationship="Self.FK_Agendamento_Cliente" FromRole="Cliente" ToRole="Agendamento" />
           <NavigationProperty Name="Avaliacao" Relationship="Self.FK_Avaliacao_Cliente" FromRole="Cliente" ToRole="Avaliacao" />
           <NavigationProperty Name="Funcionario" Relationship="Self.FK_Funcionario_Cliente" FromRole="Cliente" ToRole="Funcionario" />

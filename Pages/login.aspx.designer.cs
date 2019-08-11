@@ -40,6 +40,15 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.WebControls.TextBox txt_Senha;
         
         /// <summary>
+        /// Controle btn_EsqueciSenha.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btn_EsqueciSenha;
+        
+        /// <summary>
         /// Controle btn_Login.
         /// </summary>
         /// <remarks>
@@ -49,12 +58,12 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.WebControls.Button btn_Login;
         
         /// <summary>
-        /// Controle btn_Esqueci_Senha.
+        /// Controle btn_Cadastro.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btn_Esqueci_Senha;
+        protected global::System.Web.UI.WebControls.LinkButton btn_Cadastro;
     }
 }

@@ -10,7 +10,6 @@
     <script src="../Scripts/bootstrap.min.js"></script>
     <script src="../Scripts/jquery-3.4.1.min.js"></script>
     <script src="../Scripts/popper.min.js"></script>
-    <script src="../Scripts/jquery.mask.js"></script>
 </head>
 <body>
     <form id="form_EsqueceuSenha" runat="server">

@@ -55,6 +55,7 @@ namespace FixFinder.Pages
                         context.SaveChanges();
                         pnl_Alert.Visible = true;
                         pnl_Alert.CssClass = "alert alert-success";
+                        lbl_Alert.Text = "Usuário cadastrado com sucesso";
                     }
                 }
             }

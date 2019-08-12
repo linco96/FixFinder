@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using FixFinder.Models;
+using FixFinder.Controls;
 
 namespace FixFinder.Pages
 {
@@ -13,6 +14,8 @@ namespace FixFinder.Pages
         protected void Page_Load(object sender, EventArgs e)
         {
             pnl_Alert.Visible = false;
+
+            Header_Control h = new Header_Control();
         }
 
         protected void btn_Login_Click(object sender, EventArgs e)

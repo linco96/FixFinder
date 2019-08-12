@@ -14,7 +14,7 @@
 <body>
     <form id="form1" runat="server">
         <div class="container mt-5">
-            <h1 class="display-4" style="text-align: center">Cadastro de Oficina</h1>
+            <h1 class="display-4 text-primary" style="text-align: center">Cadastro de Oficina</h1>
             <div class="form-group">
                 <label for="txt_cnpj">CNPJ</label>
                 <asp:TextBox runat="server" ID="txt_CNPJ" CssClass="form-control" minlength="18" onkeypress="$(this).mask('00.000.000/0000-00');" required="required"></asp:TextBox>

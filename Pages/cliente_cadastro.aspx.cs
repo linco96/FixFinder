@@ -35,22 +35,26 @@ namespace FixFinder.Pages
                     {
                         lbl_Alert.Text = "Um usuário com o CPF informado já existe";
                         pnl_Alert.Visible = true;
+                        pnl_Alert.CssClass = "alert alert-danger";
                     }
                     else if (context.Cliente.Where(cliente => cliente.email.Equals(c.email)).ToList().Count > 0)
                     {
                         lbl_Alert.Text = "Um usuário com o e-mail informado já existe";
                         pnl_Alert.Visible = true;
+                        pnl_Alert.CssClass = "alert alert-danger";
                     }
                     else if (context.Cliente.Where(cliente => cliente.email.Equals(c.email)).ToList().Count > 0)
                     {
                         lbl_Alert.Text = "Um usuário com o login informado já existe";
                         pnl_Alert.Visible = true;
+                        pnl_Alert.CssClass = "alert alert-danger";
                     }
                     else
                     {
                         context.Cliente.Add(c);
                         context.SaveChanges();
-                        pnl_Alert.Visible = false;
+                        pnl_Alert.Visible = true;
+                        pnl_Alert.CssClass = "alert alert-success";
                     }
                 }
             }

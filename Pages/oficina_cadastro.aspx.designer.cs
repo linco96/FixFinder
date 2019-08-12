@@ -22,6 +22,15 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
+        /// Controle Header_Control.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::FixFinder.Controls.Header_Control Header_Control;
+        
+        /// <summary>
         /// Controle txt_CNPJ.
         /// </summary>
         /// <remarks>

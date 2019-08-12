@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="oficina_cadastro.aspx.cs" Inherits="FixFinder.Pages.oficina_cadastro" %>
 
+<%@ Register TagPrefix="uc" TagName="Header_Control" Src="~/Controls/Header_Control.ascx" %>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -13,6 +14,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
+        <uc:Header_Control runat="server" ID="Header_Control"></uc:Header_Control>
         <div class="container mt-5">
             <h1 class="display-4 text-primary" style="text-align: center">Cadastro de Oficina</h1>
             <div class="form-group">

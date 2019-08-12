@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="cliente_cadastro.aspx.cs" Inherits="FixFinder.Pages.cadastroCliente" %>
 
+<%@ Register TagPrefix="uc" TagName="Header_Control" Src="~/Controls/Header_Control.ascx" %>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -13,7 +14,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-
+        <uc:Header_Control runat="server" ID="Header_Control"></uc:Header_Control>
         <div class="container mt-5">
             <%--formnovalidate--%>
             <h1 class="display-4 text-primary" style="text-align: center">Cadastro</h1>

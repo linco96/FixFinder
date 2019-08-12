@@ -16,7 +16,7 @@
 
         <div class="container mt-5">
             <%--formnovalidate--%>
-            <h1 class="display-4" style="text-align: center">Cadastro</h1>
+            <h1 class="display-4 text-primary" style="text-align: center">Cadastro</h1>
             <div class="form-group">
                 <label for="txt_CPF">CPF</label>
                 <asp:TextBox runat="server" ID="txt_CPF" CssClass="form-control" minlength="14" onkeypress="$(this).mask('000.000.000-00');" required="required"></asp:TextBox>

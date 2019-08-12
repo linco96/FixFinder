@@ -1,5 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="login.aspx.cs" Inherits="FixFinder.Pages.login" %>
 
+<%@ Register TagPrefix="uc" TagName="Header_Control" Src="~/Controls/Header_Control.ascx" %>
+
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -12,6 +14,7 @@
 </head>
 <body>
     <form id="form_Login" runat="server">
+        <uc:Header_Control runat="server" id="Header_Control"></uc:Header_Control>
         <div class="container w-25 p-3">
             <h1 style="text-align: center" class="display-4 text-primary">Login</h1>
             <div class="form-group">

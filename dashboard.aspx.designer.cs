@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FixFinder.Pages {
+namespace FixFinder {
     
     
-    public partial class cliente_dashboard {
+    public partial class dashboard1 {
         
         /// <summary>
         /// form1 control.

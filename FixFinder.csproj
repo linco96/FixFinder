@@ -85,6 +85,7 @@
     <Content Include="Content\dashboard.css" />
     <Content Include="Content\FixFinderIcone.png" />
     <Content Include="Controls\Header_Control.ascx" />
+    <Content Include="dashboard.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Models\Database.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -97,7 +98,6 @@
       <LastGenOutput>Database.cs</LastGenOutput>
     </Content>
     <Content Include="Pages\cliente_cadastro.aspx" />
-    <Content Include="Pages\cliente_dashboard.aspx" />
     <Content Include="Pages\login.aspx" />
     <Content Include="Pages\login_EsqueciSenha.aspx" />
     <Content Include="Pages\oficina_cadastro.aspx" />
@@ -161,6 +161,13 @@
     </Compile>
     <Compile Include="Controls\Header_Control.ascx.designer.cs">
       <DependentUpon>Header_Control.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="dashboard.aspx.cs">
+      <DependentUpon>dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="dashboard.aspx.designer.cs">
+      <DependentUpon>dashboard.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -243,13 +250,6 @@
     </Compile>
     <Compile Include="Pages\cliente_cadastro.aspx.designer.cs">
       <DependentUpon>cliente_cadastro.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\cliente_dashboard.aspx.cs">
-      <DependentUpon>cliente_dashboard.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Pages\cliente_dashboard.aspx.designer.cs">
-      <DependentUpon>cliente_dashboard.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\login.aspx.cs">
       <DependentUpon>login.aspx</DependentUpon>

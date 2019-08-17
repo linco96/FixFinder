@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Agendamento">
           <Key>
             <PropertyRef Name="idAgendamento" />
@@ -71,6 +71,15 @@
           <Property Name="telefone" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
+        <EntityType Name="FotoOficina">
+          <Key>
+            <PropertyRef Name="idFoto" />
+          </Key>
+          <Property Name="cnpjOficina" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="idFoto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nomeFoto" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="foto" Type="varbinary(max)" Nullable="false" />
+        </EntityType>
         <EntityType Name="Funcionario">
           <Key>
             <PropertyRef Name="cpf" />
@@ -106,6 +115,7 @@
           <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="capacidadeAgendamentos" Type="int" Nullable="false" />
           <Property Name="statusAssinatura" Type="tinyint" Nullable="false" />
+          <Property Name="descricao" Type="varchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="Orcamento">
           <Key>
@@ -303,6 +313,18 @@
               <PropertyRef Name="cnpj" />
             </Principal>
             <Dependent Role="Endereco">
+              <PropertyRef Name="cnpjOficina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FotoOficina_Oficina">
+          <End Role="Oficina" Type="Self.Oficina" Multiplicity="1" />
+          <End Role="FotoOficina" Type="Self.FotoOficina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Oficina">
+              <PropertyRef Name="cnpj" />
+            </Principal>
+            <Dependent Role="FotoOficina">
               <PropertyRef Name="cnpjOficina" />
             </Dependent>
           </ReferentialConstraint>
@@ -518,6 +540,7 @@
           <EntitySet Name="Compra" EntityType="Self.Compra" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Endereco" EntityType="Self.Endereco" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Fornecedor" EntityType="Self.Fornecedor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FotoOficina" EntityType="Self.FotoOficina" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Funcionario" EntityType="Self.Funcionario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Localizacao" EntityType="Self.Localizacao" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Oficina" EntityType="Self.Oficina" Schema="dbo" store:Type="Tables" />
@@ -562,6 +585,10 @@
           <AssociationSet Name="FK_Endereco_Oficina" Association="Self.FK_Endereco_Oficina">
             <End Role="Oficina" EntitySet="Oficina" />
             <End Role="Endereco" EntitySet="Endereco" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FotoOficina_Oficina" Association="Self.FK_FotoOficina_Oficina">
+            <End Role="Oficina" EntitySet="Oficina" />
+            <End Role="FotoOficina" EntitySet="FotoOficina" />
           </AssociationSet>
           <AssociationSet Name="FK_Funcionario_Cliente" Association="Self.FK_Funcionario_Cliente">
             <End Role="Cliente" EntitySet="Cliente" />
@@ -632,8 +659,7 @@
             <End Role="Veiculo" EntitySet="Veiculo" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -765,6 +791,8 @@
           <NavigationProperty Name="PagamentoAssinatura" Relationship="Self.FK_PagamentoAssinatura_Oficina" FromRole="Oficina" ToRole="PagamentoAssinatura" />
           <NavigationProperty Name="Produto" Relationship="Self.FK_Produto_Oficina" FromRole="Oficina" ToRole="Produto" />
           <NavigationProperty Name="Servico" Relationship="Self.FK_Servico_Oficina" FromRole="Oficina" ToRole="Servico" />
+          <Property Name="descricao" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="FotoOficina" Relationship="DatabaseModel.FK_FotoOficina_Oficina" FromRole="Oficina" ToRole="FotoOficina" />
         </EntityType>
         <EntityType Name="Orcamento">
           <Key>
@@ -1313,7 +1341,34 @@
             <End Role="Servico" EntitySet="Servico" />
             <End Role="ServicosOrcamento" EntitySet="ServicosOrcamento" />
           </AssociationSet>
+          <EntitySet Name="FotoOficina" EntityType="DatabaseModel.FotoOficina" />
+          <AssociationSet Name="FK_FotoOficina_Oficina" Association="DatabaseModel.FK_FotoOficina_Oficina">
+            <End Role="Oficina" EntitySet="Oficina" />
+            <End Role="FotoOficina" EntitySet="FotoOficina" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="FotoOficina">
+          <Key>
+            <PropertyRef Name="idFoto" />
+          </Key>
+          <Property Name="cnpjOficina" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="idFoto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nomeFoto" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="foto" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Oficina" Relationship="DatabaseModel.FK_FotoOficina_Oficina" FromRole="FotoOficina" ToRole="Oficina" />
+        </EntityType>
+        <Association Name="FK_FotoOficina_Oficina">
+          <End Type="DatabaseModel.Oficina" Role="Oficina" Multiplicity="1" />
+          <End Type="DatabaseModel.FotoOficina" Role="FotoOficina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Oficina">
+              <PropertyRef Name="cnpj" />
+            </Principal>
+            <Dependent Role="FotoOficina">
+              <PropertyRef Name="cnpjOficina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1421,6 +1476,7 @@
           <EntitySetMapping Name="Oficina">
             <EntityTypeMapping TypeName="DatabaseModel.Oficina">
               <MappingFragment StoreEntitySet="Oficina">
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
                 <ScalarProperty Name="cnpj" ColumnName="cnpj" />
                 <ScalarProperty Name="nome" ColumnName="nome" />
                 <ScalarProperty Name="reputacao" ColumnName="reputacao" />
@@ -1539,6 +1595,16 @@
                 <ScalarProperty Name="ano" ColumnName="ano" />
                 <ScalarProperty Name="placa" ColumnName="placa" />
                 <ScalarProperty Name="cpfCliente" ColumnName="cpfCliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FotoOficina">
+            <EntityTypeMapping TypeName="DatabaseModel.FotoOficina">
+              <MappingFragment StoreEntitySet="FotoOficina">
+                <ScalarProperty Name="foto" ColumnName="foto" />
+                <ScalarProperty Name="nomeFoto" ColumnName="nomeFoto" />
+                <ScalarProperty Name="idFoto" ColumnName="idFoto" />
+                <ScalarProperty Name="cnpjOficina" ColumnName="cnpjOficina" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

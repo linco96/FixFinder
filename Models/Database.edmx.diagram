@@ -49,6 +49,8 @@
         <AssociationConnector Association="DatabaseModel.FK_ProdutosServico_Produto" ManuallyRouted="false" />
         <AssociationConnector Association="DatabaseModel.FK_ProdutosServico_Servico" ManuallyRouted="false" />
         <AssociationConnector Association="DatabaseModel.FK_ServicosOrcamento_Servico" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DatabaseModel.FotoOficina" Width="1.5" PointX="0.5" PointY="27.25" />
+        <AssociationConnector Association="DatabaseModel.FK_FotoOficina_Oficina" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

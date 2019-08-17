@@ -34,7 +34,6 @@ namespace FixFinder.Pages
                     else
                     {
                         Session["usuario"] = cliente;
-                        Response.Write("<script>alert('deu certo');</script>");
                         //Response.Redirect("paginaDestino.aspx", false);
                     }
                 }

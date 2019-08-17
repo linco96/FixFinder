@@ -29,13 +29,13 @@
                 <asp:TextBox runat="server" ID="txt_Ano" CssClass="form-control" minlength="4" onkeypress="$(this).mask('0000');" required="required"></asp:TextBox>
             </div>
             <div class="form-group">
-                <label>Placa</label>
-                <asp:RadioButtonList runat="server" ID="radio_ModeloPlaca" OnSelectedIndexChanged="radio_ModeloPlaca_SelectedIndexChanged">
+                <label>Selecione o modelo da placa</label>
+                <asp:RadioButtonList runat="server" ID="radio_ModeloPlaca" OnSelectedIndexChanged="radio_ModeloPlaca_SelectedIndexChanged" AutoPostBack="true">
                     <asp:ListItem Text="Placa nova" Value="nova"></asp:ListItem>
                     <asp:ListItem Text="Placa antiga" Value="antiga"></asp:ListItem>
                 </asp:RadioButtonList>
-                <asp:TextBox runat="server" ID="txt_PlacaNova" CssClass="form-control" onkeypress="$(this).mask('SSS-0000');" Visible="false"></asp:TextBox>
-                <asp:TextBox runat="server" ID="txt_PlacaAntiga" CssClass="form-control" onkeypress="$(this).mask('SSS 0S00');" Visible="false"></asp:TextBox>
+                <asp:TextBox runat="server" ID="txt_PlacaAntiga" CssClass="form-control" onkeypress="$(this).mask('SSS-0000');" placeholder="Digite sua placa..." Visible="false"></asp:TextBox>
+                <asp:TextBox runat="server" ID="txt_PlacaNova" CssClass="form-control" onkeypress="$(this).mask('SSS 0S00');" placeholder="Digite sua placa..." Visible="false"></asp:TextBox>
             </div>
             <div class="form-group">
                 <asp:Button runat="server" ID="btn_Cadastrar" CssClass="btn btn-primary" OnClick="btn_Cadastrar_Click" Text="Cadastrar" />

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="DatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="DatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Agendamento">
           <Key>
             <PropertyRef Name="idAgendamento" />
@@ -659,7 +659,8 @@
             <End Role="Veiculo" EntitySet="Veiculo" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -744,6 +745,16 @@
           <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Compra" Relationship="Self.FK_Compra_Fornecedor" FromRole="Fornecedor" ToRole="Compra" />
         </EntityType>
+        <EntityType Name="FotoOficina">
+          <Key>
+            <PropertyRef Name="idFoto" />
+          </Key>
+          <Property Name="cnpjOficina" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idFoto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nomeFoto" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="foto" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <NavigationProperty Name="Oficina" Relationship="Self.FK_FotoOficina_Oficina" FromRole="FotoOficina" ToRole="Oficina" />
+        </EntityType>
         <EntityType Name="Funcionario">
           <Key>
             <PropertyRef Name="cpf" />
@@ -782,17 +793,17 @@
           <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="capacidadeAgendamentos" Type="Int32" Nullable="false" />
           <Property Name="statusAssinatura" Type="Byte" Nullable="false" />
+          <Property Name="descricao" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Agendamento" Relationship="Self.FK_Agendamento_Oficina" FromRole="Oficina" ToRole="Agendamento" />
           <NavigationProperty Name="Avaliacao" Relationship="Self.FK_Avaliacao_Oficina" FromRole="Oficina" ToRole="Avaliacao" />
           <NavigationProperty Name="Compra" Relationship="Self.FK_Compra_Oficina" FromRole="Oficina" ToRole="Compra" />
           <NavigationProperty Name="Endereco" Relationship="Self.FK_Endereco_Oficina" FromRole="Oficina" ToRole="Endereco" />
+          <NavigationProperty Name="FotoOficina" Relationship="Self.FK_FotoOficina_Oficina" FromRole="Oficina" ToRole="FotoOficina" />
           <NavigationProperty Name="Funcionario" Relationship="Self.FK_Funcionario_Oficina" FromRole="Oficina" ToRole="Funcionario" />
           <NavigationProperty Name="Orcamento" Relationship="Self.FK_Orcamento_Oficina" FromRole="Oficina" ToRole="Orcamento" />
           <NavigationProperty Name="PagamentoAssinatura" Relationship="Self.FK_PagamentoAssinatura_Oficina" FromRole="Oficina" ToRole="PagamentoAssinatura" />
           <NavigationProperty Name="Produto" Relationship="Self.FK_Produto_Oficina" FromRole="Oficina" ToRole="Produto" />
           <NavigationProperty Name="Servico" Relationship="Self.FK_Servico_Oficina" FromRole="Oficina" ToRole="Servico" />
-          <Property Name="descricao" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="FotoOficina" Relationship="DatabaseModel.FK_FotoOficina_Oficina" FromRole="Oficina" ToRole="FotoOficina" />
         </EntityType>
         <EntityType Name="Orcamento">
           <Key>
@@ -1065,6 +1076,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_FotoOficina_Oficina">
+          <End Role="Oficina" Type="Self.Oficina" Multiplicity="1" />
+          <End Role="FotoOficina" Type="Self.FotoOficina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Oficina">
+              <PropertyRef Name="cnpj" />
+            </Principal>
+            <Dependent Role="FotoOficina">
+              <PropertyRef Name="cnpjOficina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Funcionario_Oficina">
           <End Role="Oficina" Type="Self.Oficina" Multiplicity="1" />
           <End Role="Funcionario" Type="Self.Funcionario" Multiplicity="*" />
@@ -1228,6 +1251,7 @@
           <EntitySet Name="Compra" EntityType="Self.Compra" />
           <EntitySet Name="Endereco" EntityType="Self.Endereco" />
           <EntitySet Name="Fornecedor" EntityType="Self.Fornecedor" />
+          <EntitySet Name="FotoOficina" EntityType="Self.FotoOficina" />
           <EntitySet Name="Funcionario" EntityType="Self.Funcionario" />
           <EntitySet Name="Localizacao" EntityType="Self.Localizacao" />
           <EntitySet Name="Oficina" EntityType="Self.Oficina" />
@@ -1289,6 +1313,10 @@
             <End Role="Oficina" EntitySet="Oficina" />
             <End Role="Endereco" EntitySet="Endereco" />
           </AssociationSet>
+          <AssociationSet Name="FK_FotoOficina_Oficina" Association="Self.FK_FotoOficina_Oficina">
+            <End Role="Oficina" EntitySet="Oficina" />
+            <End Role="FotoOficina" EntitySet="FotoOficina" />
+          </AssociationSet>
           <AssociationSet Name="FK_Funcionario_Oficina" Association="Self.FK_Funcionario_Oficina">
             <End Role="Oficina" EntitySet="Oficina" />
             <End Role="Funcionario" EntitySet="Funcionario" />
@@ -1341,34 +1369,7 @@
             <End Role="Servico" EntitySet="Servico" />
             <End Role="ServicosOrcamento" EntitySet="ServicosOrcamento" />
           </AssociationSet>
-          <EntitySet Name="FotoOficina" EntityType="DatabaseModel.FotoOficina" />
-          <AssociationSet Name="FK_FotoOficina_Oficina" Association="DatabaseModel.FK_FotoOficina_Oficina">
-            <End Role="Oficina" EntitySet="Oficina" />
-            <End Role="FotoOficina" EntitySet="FotoOficina" />
-          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="FotoOficina">
-          <Key>
-            <PropertyRef Name="idFoto" />
-          </Key>
-          <Property Name="cnpjOficina" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="idFoto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nomeFoto" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="foto" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
-          <NavigationProperty Name="Oficina" Relationship="DatabaseModel.FK_FotoOficina_Oficina" FromRole="FotoOficina" ToRole="Oficina" />
-        </EntityType>
-        <Association Name="FK_FotoOficina_Oficina">
-          <End Type="DatabaseModel.Oficina" Role="Oficina" Multiplicity="1" />
-          <End Type="DatabaseModel.FotoOficina" Role="FotoOficina" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Oficina">
-              <PropertyRef Name="cnpj" />
-            </Principal>
-            <Dependent Role="FotoOficina">
-              <PropertyRef Name="cnpjOficina" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1447,6 +1448,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="FotoOficina">
+            <EntityTypeMapping TypeName="DatabaseModel.FotoOficina">
+              <MappingFragment StoreEntitySet="FotoOficina">
+                <ScalarProperty Name="cnpjOficina" ColumnName="cnpjOficina" />
+                <ScalarProperty Name="idFoto" ColumnName="idFoto" />
+                <ScalarProperty Name="nomeFoto" ColumnName="nomeFoto" />
+                <ScalarProperty Name="foto" ColumnName="foto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Funcionario">
             <EntityTypeMapping TypeName="DatabaseModel.Funcionario">
               <MappingFragment StoreEntitySet="Funcionario">
@@ -1476,7 +1487,6 @@
           <EntitySetMapping Name="Oficina">
             <EntityTypeMapping TypeName="DatabaseModel.Oficina">
               <MappingFragment StoreEntitySet="Oficina">
-                <ScalarProperty Name="descricao" ColumnName="descricao" />
                 <ScalarProperty Name="cnpj" ColumnName="cnpj" />
                 <ScalarProperty Name="nome" ColumnName="nome" />
                 <ScalarProperty Name="reputacao" ColumnName="reputacao" />
@@ -1484,6 +1494,7 @@
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="capacidadeAgendamentos" ColumnName="capacidadeAgendamentos" />
                 <ScalarProperty Name="statusAssinatura" ColumnName="statusAssinatura" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1595,16 +1606,6 @@
                 <ScalarProperty Name="ano" ColumnName="ano" />
                 <ScalarProperty Name="placa" ColumnName="placa" />
                 <ScalarProperty Name="cpfCliente" ColumnName="cpfCliente" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="FotoOficina">
-            <EntityTypeMapping TypeName="DatabaseModel.FotoOficina">
-              <MappingFragment StoreEntitySet="FotoOficina">
-                <ScalarProperty Name="foto" ColumnName="foto" />
-                <ScalarProperty Name="nomeFoto" ColumnName="nomeFoto" />
-                <ScalarProperty Name="idFoto" ColumnName="idFoto" />
-                <ScalarProperty Name="cnpjOficina" ColumnName="cnpjOficina" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -20,6 +20,7 @@ namespace FixFinder.Models
             this.Agendamento = new HashSet<Agendamento>();
             this.Avaliacao = new HashSet<Avaliacao>();
             this.Compra = new HashSet<Compra>();
+            this.FotoOficina = new HashSet<FotoOficina>();
             this.Funcionario = new HashSet<Funcionario>();
             this.Orcamento = new HashSet<Orcamento>();
             this.PagamentoAssinatura = new HashSet<PagamentoAssinatura>();
@@ -34,6 +35,7 @@ namespace FixFinder.Models
         public string email { get; set; }
         public int capacidadeAgendamentos { get; set; }
         public byte statusAssinatura { get; set; }
+        public string descricao { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Agendamento> Agendamento { get; set; }
@@ -42,6 +44,8 @@ namespace FixFinder.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Compra> Compra { get; set; }
         public virtual Endereco Endereco { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FotoOficina> FotoOficina { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Funcionario> Funcionario { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

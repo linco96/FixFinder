@@ -11,21 +11,28 @@ namespace FixFinder.Pages
 {
     public partial class login : System.Web.UI.Page
     {
+        private Cliente cliente;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             pnl_Alert.Visible = false;
-
             Header_Control h = new Header_Control();
+            cliente = (Cliente)Session["usuario"];
+            if (cliente != null)
+            {
+                //Response.Redirect("paginaDestino.aspx", false);
+            }
         }
 
         protected void btn_Login_Click(object sender, EventArgs e)
         {
             String login = txt_NomeUsuario.Text.ToUpper();
+            cliente = null;
             using (var context = new DatabaseEntities())
             {
                 try
                 {
-                    Cliente cliente = context.Cliente.Where(c => (c.login.ToUpper() == login && c.senha == txt_Senha.Text)).FirstOrDefault<Cliente>();
+                    cliente = context.Cliente.Where(c => (c.login.ToUpper() == login && c.senha == txt_Senha.Text)).FirstOrDefault<Cliente>();
                     if (cliente == null)
                     {
                         lbl_Alert.Text = "Usuário e/ou senha incorretos.";

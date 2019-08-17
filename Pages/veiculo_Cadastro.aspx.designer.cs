@@ -22,49 +22,58 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.HtmlControls.HtmlForm form_CadastroVeiculo;
         
         /// <summary>
-        /// txt_CNPJ control.
+        /// txt_Marca control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_CNPJ;
+        protected global::System.Web.UI.WebControls.TextBox txt_Marca;
         
         /// <summary>
-        /// txt_Nome control.
+        /// txt_Modelo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_Nome;
+        protected global::System.Web.UI.WebControls.TextBox txt_Modelo;
         
         /// <summary>
-        /// txt_Telefone control.
+        /// txt_Ano control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_Telefone;
+        protected global::System.Web.UI.WebControls.TextBox txt_Ano;
         
         /// <summary>
-        /// txt_Email control.
+        /// radio_ModeloPlaca control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_Email;
+        protected global::System.Web.UI.WebControls.RadioButtonList radio_ModeloPlaca;
         
         /// <summary>
-        /// num_Agendamentos control.
+        /// txt_PlacaNova control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox num_Agendamentos;
+        protected global::System.Web.UI.WebControls.TextBox txt_PlacaNova;
+        
+        /// <summary>
+        /// txt_PlacaAntiga control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_PlacaAntiga;
         
         /// <summary>
         /// btn_Cadastrar control.

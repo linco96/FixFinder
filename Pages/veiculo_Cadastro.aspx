@@ -17,25 +17,25 @@
         <div class="container mt-5">
             <h1 class="display-4 text-primary" style="text-align: center">Cadastro de Veículo</h1>
             <div class="form-group">
-                <label for="txt_placa">Marca</label>
-                <asp:TextBox runat="server" ID="txt_CNPJ" CssClass="form-control" minlength="18" onkeypress="$(this).mask('00.000.000/0000-00');" required="required"></asp:TextBox>
+                <label for="txt_Marca">Marca</label>
+                <asp:TextBox runat="server" ID="txt_Marca" CssClass="form-control" required="required"></asp:TextBox>
             </div>
             <div class="form-group">
-                <label for="txt_nome">Nome</label>
-                <asp:TextBox runat="server" ID="txt_Nome" CssClass="form-control" minlength="4" required="required"></asp:TextBox>
+                <label for="txt_Modelo">Modelo</label>
+                <asp:TextBox runat="server" ID="txt_Modelo" CssClass="form-control" required="required"></asp:TextBox>
             </div>
             <div class="form-group">
-                <label for="txt_Telefone">Telefone</label>
-                <asp:TextBox runat="server" ID="txt_Telefone" CssClass="form-control" onkeypress="$(this).mask('(00) 0 0000-0000');" required="required"></asp:TextBox>
+                <label for="txt_Ano">Ano</label>
+                <asp:TextBox runat="server" ID="txt_Ano" CssClass="form-control" minlength="4" onkeypress="$(this).mask('0000');" required="required"></asp:TextBox>
             </div>
             <div class="form-group">
-                <label for="txt_Email">E-mail</label>
-                <asp:TextBox runat="server" ID="txt_Email" CssClass="form-control" type="email" required="required"></asp:TextBox>
-            </div>
-            <div class="form-group">
-                <label for="num_Agendamentos">Capacidade de agendamentos</label>
-                <asp:TextBox runat="server" ID="num_Agendamentos" CssClass="form-control" aria-describedby="agendamento_Help" type="number" required="required"></asp:TextBox>
-                <small id="agendamento_Help" class="form-text text-muted">Informe quantos clientes a sua oficina pode atender simultâneamente</small>
+                <label>Placa</label>
+                <asp:RadioButtonList runat="server" ID="radio_ModeloPlaca" OnSelectedIndexChanged="radio_ModeloPlaca_SelectedIndexChanged">
+                    <asp:ListItem Text="Placa nova" Value="nova"></asp:ListItem>
+                    <asp:ListItem Text="Placa antiga" Value="antiga"></asp:ListItem>
+                </asp:RadioButtonList>
+                <asp:TextBox runat="server" ID="txt_PlacaNova" CssClass="form-control" onkeypress="$(this).mask('SSS-0000');" Visible="false"></asp:TextBox>
+                <asp:TextBox runat="server" ID="txt_PlacaAntiga" CssClass="form-control" onkeypress="$(this).mask('SSS 0S00');" Visible="false"></asp:TextBox>
             </div>
             <div class="form-group">
                 <asp:Button runat="server" ID="btn_Cadastrar" CssClass="btn btn-primary" OnClick="btn_Cadastrar_Click" Text="Cadastrar" />

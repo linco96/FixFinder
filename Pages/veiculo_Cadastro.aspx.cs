@@ -11,7 +11,27 @@ namespace FixFinder.Pages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+        }
 
+        protected void btn_Cadastrar_Click(object sender, EventArgs e)
+        {
+        }
+
+        protected void radio_ModeloPlaca_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            String tipoPlaca = radio_ModeloPlaca.SelectedValue;
+
+            switch (tipoPlaca)
+            {
+                case "nova":
+                    break;
+
+                case "antiga":
+                    break;
+
+                default:
+                    break;
+            }
         }
     }
 }

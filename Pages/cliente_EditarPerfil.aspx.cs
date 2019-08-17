@@ -18,7 +18,7 @@ namespace FixFinder.Pages
             txt_Nome.Text = c.nome;
             txt_Telefone.Text = c.telefone;
             txt_Email.Text = c.email;
-            date_DataNascimento.Text = c.dataNascimento.ToString();
+            date_DataNascimento.Text = c.dataNascimento.ToString("yyyy-MM-dd");
         }
 
         protected void btn_Salvar_Click(object sender, EventArgs e)

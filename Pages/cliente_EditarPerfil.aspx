@@ -11,6 +11,18 @@
     <script src="../Scripts/jquery-3.4.1.min.js"></script>
     <script src="../Scripts/popper.min.js"></script>
     <script src="../Scripts/jquery.mask.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#txt_SenhaNova").hide();
+            $("#txt_Senha").change(function{
+                if ($(this).text.length > 0) {
+                    $("#txt_SenhaNova").show();
+                } else {
+                    $("$txt_SenhaNova").hide();
+                }
+            })
+        });
+    </script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -31,6 +43,15 @@
             <div class="form-group">
                 <label for="date_DataNascimento">Data de nascimento</label>
                 <asp:TextBox runat="server" ID="date_DataNascimento" CssClass="form-control" type="date" required="required"></asp:TextBox>
+            </div>
+            <div class="form-group">
+                <label for="txt_Senha">Senha atual</label>
+                <asp:TextBox runat="server" ID="txt_Senha" CssClass="form-control" type="password" aria-describedby="senha_Help" ClientIDMode="Static"></asp:TextBox>
+                <small id="senha_Help" class="form-text text-muted">Para alterar a sua senha informe primeiramente a sua senha atual. Caso não deseje alterar a sua senha deixe este campo em branco</small>
+            </div>
+            <div class="form-group">
+                <label for="txt_SenhaNova">Nova senha</label>
+                <asp:TextBox runat="server" ID="txt_SenhaNova" CssClass="form-control" type="password"></asp:TextBox>
             </div>
             <div class="form-group">
                 <asp:Button runat="server" ID="btn_Salvar" CssClass="btn btn-primary" OnClick="btn_Salvar_Click" Text="Salvar alterações"></asp:Button>

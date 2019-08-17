@@ -40,7 +40,6 @@
 
                         <div id="menu_cliente">
                             <ul class="nav flex-column">
-
                                 <li class="nav-item">
                                     <a class="nav-link active" href="#">
                                         <i class="fas fa-bell fa-1x mr-1"></i>
@@ -104,7 +103,7 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
-                                    <i class="fas fa-tools fa-1x mr-1" ></i>
+                                    <i class="fas fa-tools fa-1x mr-1"></i>
                                     Serviços
                                 </a>
                             </li>

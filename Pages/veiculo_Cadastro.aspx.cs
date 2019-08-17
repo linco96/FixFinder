@@ -33,13 +33,16 @@ namespace FixFinder.Pages
                 placa = "";
 
             if (placa != "" && txt_Ano.Text != "" && txt_Marca.Text != "" && txt_Modelo.Text != "")
+            {
                 cadastrarVeiculo(new Veiculo()
                 {
                     ano = int.Parse(txt_Ano.Text),
                     marca = txt_Marca.Text,
                     modelo = txt_Modelo.Text,
-                    placa = placa
+                    placa = placa,
+                    cpfCliente = c.cpf
                 });
+            }
             else
             {
                 lbl_Alert.Text = "Preencha todos os campos!";
@@ -75,9 +78,30 @@ namespace FixFinder.Pages
 
         private void cadastrarVeiculo(Veiculo veiculo)
         {
-            lbl_Alert.Text = "Preencha todos os campos!";
-            pnl_Alert.CssClass = "alert alert-success";
-            pnl_Alert.Visible = true;
+            using (var context = new DatabaseEntities())
+            {
+                try
+                {
+                    if (context.Veiculo.Where(v => v.cpfCliente.Equals(veiculo.cpfCliente) && v.placa.Equals(veiculo.placa)).ToList().Count > 0)
+                    {
+                        lbl_Alert.Text = "Veículo já está cadastrado!";
+                        pnl_Alert.CssClass = "alert alert-danger";
+                        pnl_Alert.Visible = true;
+                    }
+                    else
+                    {
+                        context.Veiculo.Add(veiculo);
+                        context.SaveChanges();
+                        lbl_Alert.Text = "Veículo cadastrado!";
+                        pnl_Alert.CssClass = "alert alert-success";
+                        pnl_Alert.Visible = true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Response.Write("<script>alert('" + ex.Message + "');</script>");
+                }
+            }
         }
     }
 }

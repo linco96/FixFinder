@@ -11,21 +11,10 @@
     <script src="../Scripts/jquery-3.4.1.min.js"></script>
     <script src="../Scripts/popper.min.js"></script>
     <script src="../Scripts/jquery.mask.js"></script>
-    <script>
-        $(document).ready(function () {
-            $("#txt_SenhaNova").hide();
-            $("#txt_Senha").change(function{
-                if ($(this).text.length > 0) {
-                    $("#txt_SenhaNova").show();
-                } else {
-                    $("$txt_SenhaNova").hide();
-                }
-            })
-        });
-    </script>
 </head>
 <body>
     <form id="form1" runat="server">
+
         <div class="container mt-5">
             <h1 class="display-4 text-primary" style="text-align: center">Perfil</h1>
             <div class="form-group">
@@ -45,13 +34,20 @@
                 <asp:TextBox runat="server" ID="date_DataNascimento" CssClass="form-control" type="date" required="required"></asp:TextBox>
             </div>
             <div class="form-group">
+                <h5 aria-describedby="senha_Help">Alterar senha</h5>
+                <small id="senha_Help" class="form-text text-muted">Para alterar a sua senha informe primeiramente a sua senha atual. Caso não deseje alterar a sua senha deixe estes campos em branco</small>
+            </div>
+            <div class="form-group">
                 <label for="txt_Senha">Senha atual</label>
-                <asp:TextBox runat="server" ID="txt_Senha" CssClass="form-control" type="password" aria-describedby="senha_Help" ClientIDMode="Static"></asp:TextBox>
-                <small id="senha_Help" class="form-text text-muted">Para alterar a sua senha informe primeiramente a sua senha atual. Caso não deseje alterar a sua senha deixe este campo em branco</small>
+                <asp:TextBox runat="server" ID="txt_Senha" CssClass="form-control" type="password" minlength="6"></asp:TextBox>
             </div>
             <div class="form-group">
                 <label for="txt_SenhaNova">Nova senha</label>
-                <asp:TextBox runat="server" ID="txt_SenhaNova" CssClass="form-control" type="password"></asp:TextBox>
+                <asp:TextBox runat="server" ID="txt_SenhaNova" CssClass="form-control" type="password" minlength="6"></asp:TextBox>
+            </div>
+            <div class="form-group">
+                <label for="txt_SenhaNova">Confirme a nova senha</label>
+                <asp:TextBox runat="server" ID="txt_SenhaNovaConfirma" CssClass="form-control" type="password" minlength="6"></asp:TextBox>
             </div>
             <div class="form-group">
                 <asp:Button runat="server" ID="btn_Salvar" CssClass="btn btn-primary" OnClick="btn_Salvar_Click" Text="Salvar alterações"></asp:Button>

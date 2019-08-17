@@ -43,6 +43,10 @@
                 <asp:TextBox runat="server" ID="txt_Senha" CssClass="form-control" minlength="6" type="password" required="required"></asp:TextBox>
             </div>
             <div class="form-group">
+                <label for="txt_SenhaConfirma">Confirme a senha</label>
+                <asp:TextBox runat="server" ID="txt_SenhaConfirma" CssClass="form-control" minlength="6" type="password" required="required"></asp:TextBox>
+            </div>
+            <div class="form-group">
                 <label for="date_DataNascimento">Data de nascimento</label>
                 <asp:TextBox runat="server" ID="date_DataNascimento" CssClass="form-control" type="date" required="required"></asp:TextBox>
             </div>

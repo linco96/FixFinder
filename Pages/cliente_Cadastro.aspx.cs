@@ -18,44 +18,53 @@ namespace FixFinder.Pages
         {
             try
             {
-                Cliente c = new Cliente
+                if (!txt_Senha.Text.Equals(txt_SenhaConfirma.Text))
                 {
-                    cpf = txt_CPF.Text.Replace(".", "").Replace("-", ""),
-                    nome = txt_Nome.Text,
-                    telefone = txt_Telefone.Text.Replace("(", "").Replace(")", "").Replace(" ", "").Replace("-", ""),
-                    email = txt_Email.Text,
-                    login = txt_Login.Text,
-                    senha = txt_Senha.Text,
-                    dataNascimento = DateTime.Parse(date_DataNascimento.Text)
-                };
+                    lbl_Alert.Text = "As senhas informadas não coincidem";
+                    pnl_Alert.Visible = true;
+                    pnl_Alert.CssClass = "alert alert-danger";
+                }
+                else
+                {
+                    Cliente c = new Cliente
+                    {
+                        cpf = txt_CPF.Text.Replace(".", "").Replace("-", ""),
+                        nome = txt_Nome.Text,
+                        telefone = txt_Telefone.Text.Replace("(", "").Replace(")", "").Replace(" ", "").Replace("-", ""),
+                        email = txt_Email.Text,
+                        login = txt_Login.Text,
+                        senha = txt_Senha.Text,
+                        dataNascimento = DateTime.Parse(date_DataNascimento.Text)
+                    };
 
-                using (var context = new DatabaseEntities())
-                {
-                    if (context.Cliente.Where(cliente => cliente.cpf.Equals(c.cpf)).ToList().Count > 0)
+                    using (var context = new DatabaseEntities())
                     {
-                        lbl_Alert.Text = "Um usuário com o CPF informado já existe";
-                        pnl_Alert.Visible = true;
-                        pnl_Alert.CssClass = "alert alert-danger";
-                    }
-                    else if (context.Cliente.Where(cliente => cliente.email.Equals(c.email)).ToList().Count > 0)
-                    {
-                        lbl_Alert.Text = "Um usuário com o e-mail informado já existe";
-                        pnl_Alert.Visible = true;
-                        pnl_Alert.CssClass = "alert alert-danger";
-                    }
-                    else if (context.Cliente.Where(cliente => cliente.email.Equals(c.email)).ToList().Count > 0)
-                    {
-                        lbl_Alert.Text = "Um usuário com o login informado já existe";
-                        pnl_Alert.Visible = true;
-                        pnl_Alert.CssClass = "alert alert-danger";
-                    }
-                    else
-                    {
-                        context.Cliente.Add(c);
-                        context.SaveChanges();
-                        pnl_Alert.Visible = true;
-                        pnl_Alert.CssClass = "alert alert-success";
-                        lbl_Alert.Text = "Usuário cadastrado com sucesso";
+                        if (context.Cliente.Where(cliente => cliente.cpf.Equals(c.cpf)).ToList().Count > 0)
+                        {
+                            lbl_Alert.Text = "Um usuário com o CPF informado já existe";
+                            pnl_Alert.Visible = true;
+                            pnl_Alert.CssClass = "alert alert-danger";
+                        }
+                        else if (context.Cliente.Where(cliente => cliente.email.Equals(c.email)).ToList().Count > 0)
+                        {
+                            lbl_Alert.Text = "Um usuário com o e-mail informado já existe";
+                            pnl_Alert.Visible = true;
+                            pnl_Alert.CssClass = "alert alert-danger";
+                        }
+                        else if (context.Cliente.Where(cliente => cliente.email.Equals(c.email)).ToList().Count > 0)
+                        {
+                            lbl_Alert.Text = "Um usuário com o login informado já existe";
+                            pnl_Alert.Visible = true;
+                            pnl_Alert.CssClass = "alert alert-danger";
+                        }
+                        else
+                        {
+                            context.Cliente.Add(c);
+                            context.SaveChanges();
+                            pnl_Alert.Visible = true;
+                            pnl_Alert.CssClass = "alert alert-success";
+                            lbl_Alert.Text = "Usuário cadastrado com sucesso";
+                        }
                     }
                 }
             }

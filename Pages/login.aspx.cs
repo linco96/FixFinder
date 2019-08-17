@@ -52,7 +52,7 @@ namespace FixFinder.Pages
 
         protected void btn_Cadastro_Click(object sender, EventArgs e)
         {
-            Response.Redirect("cliente_cadastro.aspx", false);
+            Response.Redirect("cliente_Cadastro.aspx", false);
         }
     }
 }

@@ -48,6 +48,7 @@ namespace FixFinder.Pages
             }
             catch (Exception ex)
             {
+                pnl_Alert.CssClass = "alert alert-danger";
                 pnl_Alert.Visible = true;
                 lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
             }

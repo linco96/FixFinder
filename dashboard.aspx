@@ -11,6 +11,10 @@
     <script src="../Scripts/jquery-3.4.1.min.js"></script>
     <script src="../Scripts/popper.min.js"></script>
     <script src="../Scripts/jquery.mask.js"></script>
+    <script src="https://kit.fontawesome.com/1729574db6.js"></script>
+
+    <%--Faz as tabela de cartao notificacao e tals--%>
+    <%--mininu molhadiniu--%>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -28,50 +32,92 @@
             <div class="row">
                 <nav class="col-md-2 d-none d-md-block bg-light sidebar">
                     <div class="sidebar-sticky">
-                        <ul class="nav flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link active" href="#">
-                                    <span data-feather="user"></span>
-                                    Perfil <span class="sr-only">(current)</span>
-                                </a>
-                            </li>
+                        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                            <span>Cliente</span>
+
+                            <span class="d-flex align-items-center text-muted"></span>
+                        </h6>
+
+                        <div id="menu_cliente">
+                            <ul class="nav flex-column">
+
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="#">
+                                        <i class="fas fa-bell fa-1x mr-1"></i>
+                                        Notificações<span class="sr-only">(current)</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        <i class="fas fa-car fa-1x mr-1"></i>
+                                        Meus veículos
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        <i class="fas fa-calendar-alt fa-1x mr-1"></i>
+                                        Agendamentos
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        <i class="fas fa-clipboard fa-1x mr-1"></i>
+                                        Orçamentos
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        <i class="fas fa-dollar-sign fa-1x mr-1"></i>
+                                        <span style="margin-left: 3px">Pagamentos</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        <i class="fas fa-user fa-1x mr-1"></i>
+                                        Editar perfil
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                            <span>Oficina</span>
+                        </h6>
+                        <ul class="nav flex-column mb-2">
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
-                                    <span data-feather="clock"></span>
+                                    <i class="fas fa-calendar-alt fa-1x mr-1"></i>
                                     Agendamentos
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
-                                    <span data-feather="clipboard"></span>
+                                    <i class="fas fa-clipboard fa-1x mr-1"></i>
                                     Orçamentos
                                 </a>
                             </li>
-                        </ul>
-
-                        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                            <span>Seção</span>
-                            <a class="d-flex align-items-center text-muted" href="#">
-                                <span data-feather="plus-circle"></span>
-                            </a>
-                        </h6>
-                        <ul class="nav flex-column mb-2">
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
-                                    <span data-feather="file-text"></span>
-                                    Opção 1
+                                    <i class="fas fa-oil-can fa-1x mr-1"></i>
+                                    Produtos
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
-                                    <span data-feather="file-text"></span>
-                                    Opção 2
+                                    <i class="fas fa-tools fa-1x mr-1" ></i>
+                                    Serviços
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
-                                    <span data-feather="file-text"></span>
-                                    Opção 3
+                                    <i class="fas fa-user-friends fa-1x mr-1"></i>
+                                    Funcionários
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <i class="fas fa-cog fa-1x mr-1"></i>
+                                    Configurações
                                 </a>
                             </li>
                         </ul>
@@ -114,10 +160,5 @@
             </div>
         </div>
     </form>
-    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-    <script>
-        feather.replace()
-    </script>
-    <%--https://feathericons.com/--%>
 </body>
 </html>

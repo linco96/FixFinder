@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="oficina_cadastro.aspx.cs" Inherits="FixFinder.Pages.oficina_cadastro" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="oficina_Cadastro.aspx.cs" Inherits="FixFinder.Pages.oficina_cadastro" %>
 
 <%@ Register TagPrefix="uc" TagName="Header_Control" Src="~/Controls/Header_Control.ascx" %>
 <!DOCTYPE html>

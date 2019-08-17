@@ -96,11 +96,12 @@
       <DependentUpon>Database.edmx</DependentUpon>
       <LastGenOutput>Database.cs</LastGenOutput>
     </Content>
-    <Content Include="Pages\cliente_cadastro.aspx" />
+    <Content Include="Pages\cliente_Cadastro.aspx" />
     <Content Include="Pages\cliente_EditarPerfil.aspx" />
     <Content Include="Pages\login.aspx" />
     <Content Include="Pages\login_EsqueciSenha.aspx" />
-    <Content Include="Pages\oficina_cadastro.aspx" />
+    <Content Include="Pages\oficina_Cadastro.aspx" />
+    <Content Include="Pages\veiculo_Cadastro.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -237,12 +238,12 @@
     <Compile Include="Models\Veiculo.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
-    <Compile Include="Pages\cliente_cadastro.aspx.cs">
-      <DependentUpon>cliente_cadastro.aspx</DependentUpon>
+    <Compile Include="Pages\cliente_Cadastro.aspx.cs">
+      <DependentUpon>cliente_Cadastro.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\cliente_cadastro.aspx.designer.cs">
-      <DependentUpon>cliente_cadastro.aspx</DependentUpon>
+    <Compile Include="Pages\cliente_Cadastro.aspx.designer.cs">
+      <DependentUpon>cliente_Cadastro.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\cliente_EditarPerfil.aspx.cs">
       <DependentUpon>cliente_EditarPerfil.aspx</DependentUpon>
@@ -265,12 +266,19 @@
     <Compile Include="Pages\login_EsqueciSenha.aspx.designer.cs">
       <DependentUpon>login_EsqueciSenha.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\oficina_cadastro.aspx.cs">
-      <DependentUpon>oficina_cadastro.aspx</DependentUpon>
+    <Compile Include="Pages\oficina_Cadastro.aspx.cs">
+      <DependentUpon>oficina_Cadastro.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\oficina_cadastro.aspx.designer.cs">
-      <DependentUpon>oficina_cadastro.aspx</DependentUpon>
+    <Compile Include="Pages\oficina_Cadastro.aspx.designer.cs">
+      <DependentUpon>oficina_Cadastro.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\veiculo_Cadastro.aspx.cs">
+      <DependentUpon>veiculo_Cadastro.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\veiculo_Cadastro.aspx.designer.cs">
+      <DependentUpon>veiculo_Cadastro.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

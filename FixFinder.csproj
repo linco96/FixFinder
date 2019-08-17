@@ -75,7 +75,6 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="BigTeste.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -149,13 +148,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BigTeste.aspx.cs">
-      <DependentUpon>BigTeste.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="BigTeste.aspx.designer.cs">
-      <DependentUpon>BigTeste.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Controls\Header_Control.ascx.cs">
       <DependentUpon>Header_Control.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

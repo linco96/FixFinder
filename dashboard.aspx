@@ -42,37 +42,37 @@
                             <ul class="nav flex-column">
                                 <li class="nav-item">
                                     <a class="nav-link active" href="#">
-                                        <i class="fas fa-bell fa-1x mr-1"></i>
+                                        <i class="fas fa-bell fa-1x fa-fw mr-1"></i>
                                         Notificações<span class="sr-only">(current)</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">
-                                        <i class="fas fa-car fa-1x mr-1"></i>
+                                        <i class="fas fa-car fa-1x fa-fw mr-1"></i>
                                         Meus veículos
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">
-                                        <i class="fas fa-calendar-alt fa-1x mr-1"></i>
+                                        <i class="fas fa-calendar-alt fa-1x fa-fw mr-1"></i>
                                         Agendamentos
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">
-                                        <i class="fas fa-clipboard fa-1x mr-1"></i>
+                                        <i class="fas fa-clipboard fa-1x fa-fw mr-1"></i>
                                         Orçamentos
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">
-                                        <i class="fas fa-dollar-sign fa-1x mr-1"></i>
-                                        <span style="margin-left: 3px">Pagamentos</span>
+                                        <i class="fas fa-dollar-sign fa-1x fa-fw mr-1"></i>
+                                        <span>Pagamentos</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">
-                                        <i class="fas fa-user fa-1x mr-1"></i>
+                                        <i class="fas fa-user fa-1x fa-fw mr-1"></i>
                                         Editar perfil
                                     </a>
                                 </li>
@@ -85,37 +85,37 @@
                         <ul class="nav flex-column mb-2">
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
-                                    <i class="fas fa-calendar-alt fa-1x mr-1"></i>
+                                    <i class="fas fa-calendar-alt fa-1x fa-fw mr-1"></i>
                                     Agendamentos
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
-                                    <i class="fas fa-clipboard fa-1x mr-1"></i>
+                                    <i class="fas fa-clipboard fa-1x fa-fw mr-1"></i>
                                     Orçamentos
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
-                                    <i class="fas fa-oil-can fa-1x mr-1"></i>
+                                    <i class="fas fa-oil-can fa-1x fa-fw mr-1"></i>
                                     Produtos
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
-                                    <i class="fas fa-tools fa-1x mr-1"></i>
+                                    <i class="fas fa-tools fa-1x fa-fw mr-1"></i>
                                     Serviços
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
-                                    <i class="fas fa-user-friends fa-1x mr-1"></i>
+                                    <i class="fas fa-user-friends fa-1x fa-fw mr-1"></i>
                                     Funcionários
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
-                                    <i class="fas fa-cog fa-1x mr-1"></i>
+                                    <i class="fas fa-cog fa-1x fa-fw mr-1"></i>
                                     Configurações
                                 </a>
                             </li>

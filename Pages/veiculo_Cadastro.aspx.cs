@@ -104,5 +104,10 @@ namespace FixFinder.Pages
                 }
             }
         }
+
+        protected void btn_Voltar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("veiculo_Lista.aspx", false);
+        }
     }
 }

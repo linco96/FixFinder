@@ -39,7 +39,8 @@
                 <asp:TextBox runat="server" ID="txt_PlacaNova" CssClass="form-control" onkeypress="$(this).mask('SSS 0S00');" placeholder="Digite sua placa..." Visible="false"></asp:TextBox>
             </div>
             <div class="form-group">
-                <asp:Button runat="server" ID="btn_Cadastrar" CssClass="btn btn-primary" OnClick="btn_Cadastrar_Click" Text="Cadastrar" />
+                <asp:Button runat="server" ID="btn_Cadastrar" CssClass="btn btn-primary m-1" OnClick="btn_Cadastrar_Click" Text="Cadastrar" />
+                <asp:Button runat="server" ID="btn_Voltar" CssClass="btn btn-primary m-1" OnClick="btn_Voltar_Click" Text="Voltar" formnovalidate />
             </div>
             <div class="form-group">
                 <asp:Panel runat="server" ID="pnl_Alert" Visible="false" CssClass="alert alert-danger" role="alert">

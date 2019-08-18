@@ -85,6 +85,15 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.WebControls.Button btn_Cadastrar;
         
         /// <summary>
+        /// btn_Voltar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_Voltar;
+        
+        /// <summary>
         /// pnl_Alert control.
         /// </summary>
         /// <remarks>

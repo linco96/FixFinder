@@ -60,5 +60,9 @@ namespace FixFinder.Pages
                 pnl_Alert.Visible = true;
             }
         }
+
+        protected void btn_Puxar_Click(object sender, EventArgs e)
+        {
+        }
     }
 }

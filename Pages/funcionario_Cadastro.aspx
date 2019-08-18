@@ -10,13 +10,20 @@
     <script src="../Scripts/jquery-3.4.1.min.js"></script>
     <script src="../Scripts/popper.min.js"></script>
     <script src="../Scripts/jquery.mask.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#txt_CPF").blur(function () {
+
+            });
+        });
+    </script>
 </head>
 <body>
     <form id="form1" runat="server">
         <div class="container mt-5">
             <div class="form-group">
                 <label for="txt_CPF">CPF</label>
-                <asp:TextBox runat="server" ID="txt_CPF" CssClass="form-control" minlength="14" onkeypress="$(this).mask('000.000.000-00');" required="required"></asp:TextBox>
+                <asp:TextBox runat="server" ID="txt_CPF" CssClass="form-control" minlength="14" onkeypress="$(this).mask('000.000.000-00');" required="required" ClientIDMode="Static"></asp:TextBox>
             </div>
             <div class="form-group">
                 <label for="txt_Nome">Nome completo</label>
@@ -151,6 +158,7 @@
                 </asp:Panel>
             </div>
         </div>
+        <asp:Button runat="server" ID="btn_Puxar" Visible="false" OnClick="btn_Puxar_Click" ClientIDMode="Static" />
     </form>
 </body>
 </html>

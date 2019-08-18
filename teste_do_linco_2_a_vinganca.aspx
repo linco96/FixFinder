@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="teste_do_linco_s2.aspx.cs" Inherits="FixFinder.teste_do_linco_s2" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="teste_do_linco_2_a_vinganca.aspx.cs" Inherits="FixFinder.teste_do_linco_s2" %>
 
 <!DOCTYPE html>
 

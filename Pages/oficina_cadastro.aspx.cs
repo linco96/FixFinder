@@ -10,8 +10,19 @@ namespace FixFinder.Pages
 {
     public partial class oficina_cadastro : System.Web.UI.Page
     {
+        private Cliente c;
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            c = (Cliente)Session["usuario"];
+            if (c == null)
+            {
+                Response.Redirect("login.aspx", false);
+            }
+            if (c.Funcionario != null)
+            {
+                //mandar pra home
+            }
         }
 
         protected void btn_Cadastrar_Click(object sender, EventArgs e)

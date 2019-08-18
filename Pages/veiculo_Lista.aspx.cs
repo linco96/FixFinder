@@ -61,6 +61,7 @@ namespace FixFinder.Pages
 
                         //Botao Editar
                         cell = new TableCell();
+                        cell.CssClass = "text-center align-middle";
                         btn = new Button();
                         btn.Click += new EventHandler(btn_Acao_Click);
                         btn.Text = "Editar";
@@ -68,10 +69,8 @@ namespace FixFinder.Pages
                         btn.CommandName = "editarVeiculo";
                         btn.CommandArgument = veiculo.idVeiculo.ToString();
                         cell.Controls.Add(btn);
-                        row.Cells.Add(cell);
 
                         //Botao Excluir
-                        cell = new TableCell();
                         btn = new Button();
                         btn.Click += new EventHandler(btn_Acao_Click);
                         btn.Text = "Excluir";
@@ -79,6 +78,7 @@ namespace FixFinder.Pages
                         btn.CommandName = "excluirVeiculo";
                         btn.CommandArgument = veiculo.idVeiculo.ToString();
                         cell.Controls.Add(btn);
+
                         row.Cells.Add(cell);
 
                         tbl_Veiculos.Rows.Add(row);
@@ -120,14 +120,9 @@ namespace FixFinder.Pages
                 case "excluirVeiculo":
                     using (var context = new DatabaseEntities())
                     {
-                        veiculo = (Veiculo)context.Veiculo.Where(v => v.idVeiculo.ToString().Equals(btn.CommandArgument)).FirstOrDefault();
-                        if (veiculo == null)
-                            Response.Write("<script>alert('Erro no banco de dados - Veiculo não encontrado');</script>");
-                        else
-                        {
-                            context.Veiculo.Remove(veiculo);
-                            preencher_Tabela();
-                        }
+                        context.Veiculo.Remove(context.Veiculo.Where(v => v.idVeiculo.ToString().Equals(btn.CommandArgument)).FirstOrDefault());
+                        context.SaveChanges();
+                        Response.Redirect("veiculo_Lista.aspx", false);
                     }
                     break;
 

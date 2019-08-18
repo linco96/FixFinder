@@ -13,8 +13,6 @@
     <script src="../Scripts/jquery.mask.js"></script>
     <script src="https://kit.fontawesome.com/1729574db6.js"></script>
 
-    <%--Faz as tabela de cartao notificacao e tals--%>
-    <%--mininu molhadiniu--%>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -30,7 +28,7 @@
                     <a class="nav-link" href="#">Sair</a>
                 </li>
             </ul>
-            
+
             <a class="navbar-brand p-0 mr-0 mx-auto" href="#"></a>
             <span class="navbar-brand p-3 mr-0">FixFinder</span>
         </nav>
@@ -74,12 +72,12 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">
                                         <i class="fas fa-dollar-sign fa-1x fa-fw mr-1"></i>
-                                        <span>Pagamentos</span>
+                                        Pagamentos
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">
-                                        <i class="fas fa-user fa-1x fa-fw mr-1"></i>
+                                        <i class="fas fa-user-edit fa-1x fa-fw mr-1"></i>
                                         Editar perfil
                                     </a>
                                 </li>
@@ -124,6 +122,21 @@
                                     <a class="nav-link" href="#">
                                         <i class="fas fa-cog fa-1x fa-fw mr-1"></i>
                                         Configurações
+                                    </a>
+                                </li>
+                            </ul>
+                        </asp:Panel>
+
+                        <%--SECAO DE ACEITAR CADASTRO NA OFICINA--%>
+                        <asp:Panel runat="server" ID="pnl_Funcionario">
+                            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                                <span>Oficina</span>
+                            </h6>
+                            <ul class="nav flex-column mb-2">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        <i class="fas fa-user-plus fa-1x fa-fw mr-1"></i>
+                                        Requisições
                                     </a>
                                 </li>
                             </ul>

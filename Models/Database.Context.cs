@@ -27,6 +27,7 @@ namespace FixFinder.Models
     
         public virtual DbSet<Agendamento> Agendamento { get; set; }
         public virtual DbSet<Avaliacao> Avaliacao { get; set; }
+        public virtual DbSet<Cartao> Cartao { get; set; }
         public virtual DbSet<Cliente> Cliente { get; set; }
         public virtual DbSet<Compra> Compra { get; set; }
         public virtual DbSet<Endereco> Endereco { get; set; }
@@ -42,6 +43,7 @@ namespace FixFinder.Models
         public virtual DbSet<Produto> Produto { get; set; }
         public virtual DbSet<ProdutosCompra> ProdutosCompra { get; set; }
         public virtual DbSet<ProdutosServico> ProdutosServico { get; set; }
+        public virtual DbSet<RequisicaoFuncionario> RequisicaoFuncionario { get; set; }
         public virtual DbSet<Servico> Servico { get; set; }
         public virtual DbSet<ServicosOrcamento> ServicosOrcamento { get; set; }
         public virtual DbSet<Veiculo> Veiculo { get; set; }

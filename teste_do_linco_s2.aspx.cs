@@ -18,7 +18,7 @@ namespace FixFinder
         {
             using (DatabaseEntities context = new DatabaseEntities())
             {
-                Session["usuario"] = context.Cliente.Where(cliente => cliente.cpf.Equals("06850142909")).FirstOrDefault();
+                Session["usuario"] = context.Cliente.Where(cliente => cliente.cpf.Equals("04643512946")).FirstOrDefault();
             }
             Response.Redirect("dashboard.aspx", false);
         }

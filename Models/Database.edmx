@@ -28,6 +28,18 @@
           <Property Name="notaServico" Type="int" Nullable="false" />
           <Property Name="descricao" Type="varchar" MaxLength="200" />
         </EntityType>
+        <EntityType Name="Cartao">
+          <Key>
+            <PropertyRef Name="idCartao" />
+          </Key>
+          <Property Name="idCartao" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="numeroCartao" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="titularCartao" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="anoVencimento" Type="int" Nullable="false" />
+          <Property Name="mesVencimento" Type="int" Nullable="false" />
+          <Property Name="bandeiraCartao" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="cpfCliente" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
         <EntityType Name="Cliente">
           <Key>
             <PropertyRef Name="cpf" />
@@ -192,6 +204,19 @@
           <Property Name="idProduto" Type="int" Nullable="false" />
           <Property Name="quantidade" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="RequisicaoFuncionario">
+          <Key>
+            <PropertyRef Name="idRequisicao" />
+          </Key>
+          <Property Name="idRequisicao" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cpfCliente" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="cargo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="banco" Type="int" Nullable="false" />
+          <Property Name="agencia" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="conta" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="salario" Type="float" Nullable="false" />
+          <Property Name="cnpjOficina" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
         <EntityType Name="Servico">
           <Key>
             <PropertyRef Name="idServico" />
@@ -278,6 +303,18 @@
             </Principal>
             <Dependent Role="Avaliacao">
               <PropertyRef Name="cnpjOficina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cartao_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Cartao" Type="Self.Cartao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="cpf" />
+            </Principal>
+            <Dependent Role="Cartao">
+              <PropertyRef Name="cpfCliente" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -485,6 +522,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_RequisicaoFuncionario_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="RequisicaoFuncionario" Type="Self.RequisicaoFuncionario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="cpf" />
+            </Principal>
+            <Dependent Role="RequisicaoFuncionario">
+              <PropertyRef Name="cpfCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RequisicaoFuncionario_Oficina">
+          <End Role="Oficina" Type="Self.Oficina" Multiplicity="1" />
+          <End Role="RequisicaoFuncionario" Type="Self.RequisicaoFuncionario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Oficina">
+              <PropertyRef Name="cnpj" />
+            </Principal>
+            <Dependent Role="RequisicaoFuncionario">
+              <PropertyRef Name="cnpjOficina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Servico_Oficina">
           <End Role="Oficina" Type="Self.Oficina" Multiplicity="1" />
           <End Role="Servico" Type="Self.Servico" Multiplicity="*" />
@@ -536,6 +597,7 @@
         <EntityContainer Name="DatabaseModelStoreContainer">
           <EntitySet Name="Agendamento" EntityType="Self.Agendamento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Avaliacao" EntityType="Self.Avaliacao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cartao" EntityType="Self.Cartao" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Compra" EntityType="Self.Compra" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Endereco" EntityType="Self.Endereco" Schema="dbo" store:Type="Tables" />
@@ -551,6 +613,7 @@
           <EntitySet Name="Produto" EntityType="Self.Produto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProdutosCompra" EntityType="Self.ProdutosCompra" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProdutosServico" EntityType="Self.ProdutosServico" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RequisicaoFuncionario" EntityType="Self.RequisicaoFuncionario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Servico" EntityType="Self.Servico" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ServicosOrcamento" EntityType="Self.ServicosOrcamento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Veiculo" EntityType="Self.Veiculo" Schema="dbo" store:Type="Tables" />
@@ -573,6 +636,10 @@
           <AssociationSet Name="FK_Avaliacao_Oficina" Association="Self.FK_Avaliacao_Oficina">
             <End Role="Oficina" EntitySet="Oficina" />
             <End Role="Avaliacao" EntitySet="Avaliacao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cartao_Cliente" Association="Self.FK_Cartao_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Cartao" EntitySet="Cartao" />
           </AssociationSet>
           <AssociationSet Name="FK_Compra_Fornecedor" Association="Self.FK_Compra_Fornecedor">
             <End Role="Fornecedor" EntitySet="Fornecedor" />
@@ -642,6 +709,14 @@
             <End Role="Servico" EntitySet="Servico" />
             <End Role="ProdutosServico" EntitySet="ProdutosServico" />
           </AssociationSet>
+          <AssociationSet Name="FK_RequisicaoFuncionario_Cliente" Association="Self.FK_RequisicaoFuncionario_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="RequisicaoFuncionario" EntitySet="RequisicaoFuncionario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RequisicaoFuncionario_Oficina" Association="Self.FK_RequisicaoFuncionario_Oficina">
+            <End Role="Oficina" EntitySet="Oficina" />
+            <End Role="RequisicaoFuncionario" EntitySet="RequisicaoFuncionario" />
+          </AssociationSet>
           <AssociationSet Name="FK_Servico_Oficina" Association="Self.FK_Servico_Oficina">
             <End Role="Oficina" EntitySet="Oficina" />
             <End Role="Servico" EntitySet="Servico" />
@@ -692,6 +767,19 @@
           <NavigationProperty Name="Cliente" Relationship="Self.FK_Avaliacao_Cliente" FromRole="Avaliacao" ToRole="Cliente" />
           <NavigationProperty Name="Oficina" Relationship="Self.FK_Avaliacao_Oficina" FromRole="Avaliacao" ToRole="Oficina" />
         </EntityType>
+        <EntityType Name="Cartao">
+          <Key>
+            <PropertyRef Name="idCartao" />
+          </Key>
+          <Property Name="idCartao" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="numeroCartao" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="titularCartao" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="anoVencimento" Type="Int32" Nullable="false" />
+          <Property Name="mesVencimento" Type="Int32" Nullable="false" />
+          <Property Name="bandeiraCartao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cpfCliente" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_Cartao_Cliente" FromRole="Cartao" ToRole="Cliente" />
+        </EntityType>
         <EntityType Name="Cliente">
           <Key>
             <PropertyRef Name="cpf" />
@@ -705,8 +793,10 @@
           <Property Name="dataNascimento" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Agendamento" Relationship="Self.FK_Agendamento_Cliente" FromRole="Cliente" ToRole="Agendamento" />
           <NavigationProperty Name="Avaliacao" Relationship="Self.FK_Avaliacao_Cliente" FromRole="Cliente" ToRole="Avaliacao" />
+          <NavigationProperty Name="Cartao" Relationship="Self.FK_Cartao_Cliente" FromRole="Cliente" ToRole="Cartao" />
           <NavigationProperty Name="Funcionario" Relationship="Self.FK_Funcionario_Cliente" FromRole="Cliente" ToRole="Funcionario" />
           <NavigationProperty Name="Localizacao" Relationship="Self.FK_Localizacao_Cliente" FromRole="Cliente" ToRole="Localizacao" />
+          <NavigationProperty Name="RequisicaoFuncionario" Relationship="Self.FK_RequisicaoFuncionario_Cliente" FromRole="Cliente" ToRole="RequisicaoFuncionario" />
           <NavigationProperty Name="Veiculo" Relationship="Self.FK_Veiculo_Cliente" FromRole="Cliente" ToRole="Veiculo" />
         </EntityType>
         <EntityType Name="Compra">
@@ -803,6 +893,7 @@
           <NavigationProperty Name="Orcamento" Relationship="Self.FK_Orcamento_Oficina" FromRole="Oficina" ToRole="Orcamento" />
           <NavigationProperty Name="PagamentoAssinatura" Relationship="Self.FK_PagamentoAssinatura_Oficina" FromRole="Oficina" ToRole="PagamentoAssinatura" />
           <NavigationProperty Name="Produto" Relationship="Self.FK_Produto_Oficina" FromRole="Oficina" ToRole="Produto" />
+          <NavigationProperty Name="RequisicaoFuncionario" Relationship="Self.FK_RequisicaoFuncionario_Oficina" FromRole="Oficina" ToRole="RequisicaoFuncionario" />
           <NavigationProperty Name="Servico" Relationship="Self.FK_Servico_Oficina" FromRole="Oficina" ToRole="Servico" />
         </EntityType>
         <EntityType Name="Orcamento">
@@ -894,6 +985,21 @@
           <Property Name="quantidade" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Produto" Relationship="Self.FK_ProdutosServico_Produto" FromRole="ProdutosServico" ToRole="Produto" />
           <NavigationProperty Name="Servico" Relationship="Self.FK_ProdutosServico_Servico" FromRole="ProdutosServico" ToRole="Servico" />
+        </EntityType>
+        <EntityType Name="RequisicaoFuncionario">
+          <Key>
+            <PropertyRef Name="idRequisicao" />
+          </Key>
+          <Property Name="idRequisicao" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cpfCliente" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cargo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="banco" Type="Int32" Nullable="false" />
+          <Property Name="agencia" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="conta" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="salario" Type="Double" Nullable="false" />
+          <Property Name="cnpjOficina" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_RequisicaoFuncionario_Cliente" FromRole="RequisicaoFuncionario" ToRole="Cliente" />
+          <NavigationProperty Name="Oficina" Relationship="Self.FK_RequisicaoFuncionario_Oficina" FromRole="RequisicaoFuncionario" ToRole="Oficina" />
         </EntityType>
         <EntityType Name="Servico">
           <Key>
@@ -992,6 +1098,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Cartao_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Cartao" Type="Self.Cartao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="cpf" />
+            </Principal>
+            <Dependent Role="Cartao">
+              <PropertyRef Name="cpfCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Funcionario_Cliente">
           <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
           <End Role="Funcionario" Type="Self.Funcionario" Multiplicity="0..1" />
@@ -1012,6 +1130,18 @@
               <PropertyRef Name="cpf" />
             </Principal>
             <Dependent Role="Localizacao">
+              <PropertyRef Name="cpfCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RequisicaoFuncionario_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="RequisicaoFuncionario" Type="Self.RequisicaoFuncionario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="cpf" />
+            </Principal>
+            <Dependent Role="RequisicaoFuncionario">
               <PropertyRef Name="cpfCliente" />
             </Dependent>
           </ReferentialConstraint>
@@ -1132,6 +1262,18 @@
               <PropertyRef Name="cnpj" />
             </Principal>
             <Dependent Role="Produto">
+              <PropertyRef Name="cnpjOficina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RequisicaoFuncionario_Oficina">
+          <End Role="Oficina" Type="Self.Oficina" Multiplicity="1" />
+          <End Role="RequisicaoFuncionario" Type="Self.RequisicaoFuncionario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Oficina">
+              <PropertyRef Name="cnpj" />
+            </Principal>
+            <Dependent Role="RequisicaoFuncionario">
               <PropertyRef Name="cnpjOficina" />
             </Dependent>
           </ReferentialConstraint>
@@ -1247,6 +1389,7 @@
         <EntityContainer Name="DatabaseEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Agendamento" EntityType="Self.Agendamento" />
           <EntitySet Name="Avaliacao" EntityType="Self.Avaliacao" />
+          <EntitySet Name="Cartao" EntityType="Self.Cartao" />
           <EntitySet Name="Cliente" EntityType="Self.Cliente" />
           <EntitySet Name="Compra" EntityType="Self.Compra" />
           <EntitySet Name="Endereco" EntityType="Self.Endereco" />
@@ -1262,6 +1405,7 @@
           <EntitySet Name="Produto" EntityType="Self.Produto" />
           <EntitySet Name="ProdutosCompra" EntityType="Self.ProdutosCompra" />
           <EntitySet Name="ProdutosServico" EntityType="Self.ProdutosServico" />
+          <EntitySet Name="RequisicaoFuncionario" EntityType="Self.RequisicaoFuncionario" />
           <EntitySet Name="Servico" EntityType="Self.Servico" />
           <EntitySet Name="ServicosOrcamento" EntityType="Self.ServicosOrcamento" />
           <EntitySet Name="Veiculo" EntityType="Self.Veiculo" />
@@ -1285,6 +1429,10 @@
             <End Role="Oficina" EntitySet="Oficina" />
             <End Role="Avaliacao" EntitySet="Avaliacao" />
           </AssociationSet>
+          <AssociationSet Name="FK_Cartao_Cliente" Association="Self.FK_Cartao_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Cartao" EntitySet="Cartao" />
+          </AssociationSet>
           <AssociationSet Name="FK_Funcionario_Cliente" Association="Self.FK_Funcionario_Cliente">
             <End Role="Cliente" EntitySet="Cliente" />
             <End Role="Funcionario" EntitySet="Funcionario" />
@@ -1292,6 +1440,10 @@
           <AssociationSet Name="FK_Localizacao_Cliente" Association="Self.FK_Localizacao_Cliente">
             <End Role="Cliente" EntitySet="Cliente" />
             <End Role="Localizacao" EntitySet="Localizacao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RequisicaoFuncionario_Cliente" Association="Self.FK_RequisicaoFuncionario_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="RequisicaoFuncionario" EntitySet="RequisicaoFuncionario" />
           </AssociationSet>
           <AssociationSet Name="FK_Veiculo_Cliente" Association="Self.FK_Veiculo_Cliente">
             <End Role="Cliente" EntitySet="Cliente" />
@@ -1332,6 +1484,10 @@
           <AssociationSet Name="FK_Produto_Oficina" Association="Self.FK_Produto_Oficina">
             <End Role="Oficina" EntitySet="Oficina" />
             <End Role="Produto" EntitySet="Produto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RequisicaoFuncionario_Oficina" Association="Self.FK_RequisicaoFuncionario_Oficina">
+            <End Role="Oficina" EntitySet="Oficina" />
+            <End Role="RequisicaoFuncionario" EntitySet="RequisicaoFuncionario" />
           </AssociationSet>
           <AssociationSet Name="FK_Servico_Oficina" Association="Self.FK_Servico_Oficina">
             <End Role="Oficina" EntitySet="Oficina" />
@@ -1398,6 +1554,19 @@
                 <ScalarProperty Name="notaPreco" ColumnName="notaPreco" />
                 <ScalarProperty Name="notaServico" ColumnName="notaServico" />
                 <ScalarProperty Name="descricao" ColumnName="descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cartao">
+            <EntityTypeMapping TypeName="DatabaseModel.Cartao">
+              <MappingFragment StoreEntitySet="Cartao">
+                <ScalarProperty Name="idCartao" ColumnName="idCartao" />
+                <ScalarProperty Name="numeroCartao" ColumnName="numeroCartao" />
+                <ScalarProperty Name="titularCartao" ColumnName="titularCartao" />
+                <ScalarProperty Name="anoVencimento" ColumnName="anoVencimento" />
+                <ScalarProperty Name="mesVencimento" ColumnName="mesVencimento" />
+                <ScalarProperty Name="bandeiraCartao" ColumnName="bandeiraCartao" />
+                <ScalarProperty Name="cpfCliente" ColumnName="cpfCliente" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1575,6 +1744,20 @@
                 <ScalarProperty Name="idServico" ColumnName="idServico" />
                 <ScalarProperty Name="idProduto" ColumnName="idProduto" />
                 <ScalarProperty Name="quantidade" ColumnName="quantidade" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RequisicaoFuncionario">
+            <EntityTypeMapping TypeName="DatabaseModel.RequisicaoFuncionario">
+              <MappingFragment StoreEntitySet="RequisicaoFuncionario">
+                <ScalarProperty Name="idRequisicao" ColumnName="idRequisicao" />
+                <ScalarProperty Name="cpfCliente" ColumnName="cpfCliente" />
+                <ScalarProperty Name="cargo" ColumnName="cargo" />
+                <ScalarProperty Name="banco" ColumnName="banco" />
+                <ScalarProperty Name="agencia" ColumnName="agencia" />
+                <ScalarProperty Name="conta" ColumnName="conta" />
+                <ScalarProperty Name="salario" ColumnName="salario" />
+                <ScalarProperty Name="cnpjOficina" ColumnName="cnpjOficina" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

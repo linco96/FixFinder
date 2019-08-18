@@ -25,6 +25,7 @@ namespace FixFinder.Models
             this.Orcamento = new HashSet<Orcamento>();
             this.PagamentoAssinatura = new HashSet<PagamentoAssinatura>();
             this.Produto = new HashSet<Produto>();
+            this.RequisicaoFuncionario = new HashSet<RequisicaoFuncionario>();
             this.Servico = new HashSet<Servico>();
         }
     
@@ -54,6 +55,8 @@ namespace FixFinder.Models
         public virtual ICollection<PagamentoAssinatura> PagamentoAssinatura { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Produto> Produto { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RequisicaoFuncionario> RequisicaoFuncionario { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Servico> Servico { get; set; }
     }

@@ -16,10 +16,10 @@ namespace FixFinder.Models
     {
         public string cpf { get; set; }
         public string cargo { get; set; }
-        public int banco { get; set; }
+        public Nullable<int> banco { get; set; }
         public string agencia { get; set; }
         public string conta { get; set; }
-        public double salario { get; set; }
+        public Nullable<double> salario { get; set; }
         public string cnpjOficina { get; set; }
     
         public virtual Cliente Cliente { get; set; }

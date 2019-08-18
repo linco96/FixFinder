@@ -41,7 +41,7 @@ namespace FixFinder.Pages
                         statusAssinatura = 1
                     };
 
-                    if (context.Oficina.Where(oficina => oficina.cnpj.Equals(o.cnpj)).ToList().Count > 0)
+                    if (context.Oficina.Where(oficina => oficina.cnpj.Equals(o.cnpj)).FirstOrDefault() == null)
                     {
                         pnl_Alert.Visible = true;
                         pnl_Alert.CssClass = "alert alert-danger";
@@ -50,6 +50,11 @@ namespace FixFinder.Pages
                     else
                     {
                         context.Oficina.Add(o);
+
+                        Funcionario f = new Funcionario
+                        {
+                        };
+
                         context.SaveChanges();
                         pnl_Alert.Visible = true;
                         pnl_Alert.CssClass = "alert alert-success";

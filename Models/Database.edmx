@@ -98,10 +98,10 @@
           </Key>
           <Property Name="cpf" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="cargo" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="banco" Type="int" Nullable="false" />
-          <Property Name="agencia" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="conta" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="salario" Type="float" Nullable="false" />
+          <Property Name="banco" Type="int" />
+          <Property Name="agencia" Type="varchar" MaxLength="10" />
+          <Property Name="conta" Type="varchar" MaxLength="10" />
+          <Property Name="salario" Type="float" />
           <Property Name="cnpjOficina" Type="varchar" MaxLength="15" Nullable="false" />
         </EntityType>
         <EntityType Name="Localizacao">
@@ -851,10 +851,10 @@
           </Key>
           <Property Name="cpf" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="cargo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="banco" Type="Int32" Nullable="false" />
-          <Property Name="agencia" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="conta" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="salario" Type="Double" Nullable="false" />
+          <Property Name="banco" Type="Int32" />
+          <Property Name="agencia" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="conta" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="salario" Type="Double" />
           <Property Name="cnpjOficina" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Cliente" Relationship="Self.FK_Funcionario_Cliente" FromRole="Funcionario" ToRole="Cliente" />
           <NavigationProperty Name="Oficina" Relationship="Self.FK_Funcionario_Oficina" FromRole="Funcionario" ToRole="Oficina" />

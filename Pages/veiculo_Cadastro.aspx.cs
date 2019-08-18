@@ -95,6 +95,7 @@ namespace FixFinder.Pages
                         lbl_Alert.Text = "Veículo cadastrado!";
                         pnl_Alert.CssClass = "alert alert-success";
                         pnl_Alert.Visible = true;
+                        Response.AddHeader("REFRESH", "3; url=veiculo_Lista.aspx");
                     }
                 }
                 catch (Exception ex)

@@ -40,6 +40,24 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.WebControls.TextBox txt_Nome;
         
         /// <summary>
+        /// txt_Telefone control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_Telefone;
+        
+        /// <summary>
+        /// txt_Email control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_Email;
+        
+        /// <summary>
         /// txt_Cargo control.
         /// </summary>
         /// <remarks>

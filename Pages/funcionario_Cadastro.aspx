@@ -13,7 +13,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $("#txt_CPF").blur(function () {
-
+                $("#btn_Puxar").trigger('click');
             });
         });
     </script>
@@ -22,12 +22,20 @@
     <form id="form1" runat="server">
         <div class="container mt-5">
             <div class="form-group">
-                <label for="txt_CPF">CPF</label>
+                <label for="txt_CPF">CPF do Funcionário</label>
                 <asp:TextBox runat="server" ID="txt_CPF" CssClass="form-control" minlength="14" onkeypress="$(this).mask('000.000.000-00');" required="required" ClientIDMode="Static"></asp:TextBox>
             </div>
             <div class="form-group">
                 <label for="txt_Nome">Nome completo</label>
-                <asp:TextBox runat="server" ID="txt_Nome" CssClass="form-control" minlength="4" disabled="disabled" required="required"></asp:TextBox>
+                <asp:TextBox runat="server" ID="txt_Nome" CssClass="form-control" minlength="4" ReadOnly="true" required="required"></asp:TextBox>
+            </div>
+            <div class="form-group">
+                <label for="txt_Telefone">Telefone</label>
+                <asp:TextBox runat="server" ID="txt_Telefone" CssClass="form-control" minlength="8" onkeypress="$(this).mask('(00) 0 0000-0000');" ReadOnly="true" required="required"></asp:TextBox>
+            </div>
+            <div class="form-group">
+                <label for="txt_Email">E-mail</label>
+                <asp:TextBox runat="server" ID="txt_Email" CssClass="form-control" type="email" ReadOnly="true" required="required"></asp:TextBox>
             </div>
             <div class="form-group">
                 <label for="txt_Cargo">Cargo</label>

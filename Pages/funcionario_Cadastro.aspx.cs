@@ -63,6 +63,37 @@ namespace FixFinder.Pages
 
         protected void btn_Puxar_Click(object sender, EventArgs e)
         {
+            try
+            {
+                using (DatabaseEntities context = new DatabaseEntities())
+                {
+                    Cliente nFuncionario = context.Cliente.Where(cliente => cliente.cpf.Equals(txt_CPF.Text)).FirstOrDefault();
+                    if (nFuncionario == null)
+                    {
+                        pnl_Alert.CssClass = "alert alert-danger";
+                        lbl_Alert.Text = "Não encontramos um usuário com o CPF especificado";
+                        pnl_Alert.Visible = true;
+                    }
+                    else if (nFuncionario.Funcionario != null || nFuncionario.cpf.Equals(c.cpf))
+                    {
+                        pnl_Alert.CssClass = "alert alert-danger";
+                        lbl_Alert.Text = "Este usuário não está disponível";
+                        pnl_Alert.Visible = true;
+                    }
+                    else
+                    {
+                        txt_Nome.Text = nFuncionario.nome;
+                        txt_Telefone.Text = nFuncionario.telefone;
+                        txt_Email.Text = nFuncionario.email;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                pnl_Alert.CssClass = "alert alert-danger";
+                lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                pnl_Alert.Visible = true;
+            }
         }
     }
 }

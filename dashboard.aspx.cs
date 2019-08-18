@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FixFinder.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,9 +10,25 @@ namespace FixFinder
 {
     public partial class dashboard1 : System.Web.UI.Page
     {
+        private Funcionario f;
+        private Cliente c;
+
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            Cliente c = (Cliente)Session["usuario"];
+            lbl_Nome.Text = c.nome;
+            using (DatabaseEntities context = new DatabaseEntities())
+            {
+                Funcionario f = context.Funcionario.Where(func => func.cpf.Equals(c.cpf)).FirstOrDefault();
+                if (f == null)
+                {
+                    pnl_Oficina.Visible = false;
+                }
+                else
+                {
+                    pnl_Oficina.Visible = true;
+                }
+            }
         }
     }
 }

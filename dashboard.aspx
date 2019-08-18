@@ -19,13 +19,20 @@
 <body>
     <form id="form1" runat="server">
         <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-            <a class="navbar-brand p-3 mr-0" href="#">Matheus Carvalho Thóme</a>
+            <asp:Label runat="server" ID="lbl_Nome" CssClass="navbar-brand p-3 mr-0"></asp:Label>
+            <ul class="navbar-nav px-3">
+                <li class="nav-item text-nowrap">
+                    <a class="nav-link" href="#">Pesquisar</a>
+                </li>
+            </ul>
             <ul class="navbar-nav px-3">
                 <li class="nav-item text-nowrap">
                     <a class="nav-link" href="#">Sair</a>
                 </li>
             </ul>
+            
             <a class="navbar-brand p-0 mr-0 mx-auto" href="#"></a>
+            <span class="navbar-brand p-3 mr-0">FixFinder</span>
         </nav>
 
         <div class="container-fluid">
@@ -78,48 +85,49 @@
                                 </li>
                             </ul>
                         </div>
-
-                        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                            <span>Oficina</span>
-                        </h6>
-                        <ul class="nav flex-column mb-2">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <i class="fas fa-calendar-alt fa-1x fa-fw mr-1"></i>
-                                    Agendamentos
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <i class="fas fa-clipboard fa-1x fa-fw mr-1"></i>
-                                    Orçamentos
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <i class="fas fa-oil-can fa-1x fa-fw mr-1"></i>
-                                    Produtos
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <i class="fas fa-tools fa-1x fa-fw mr-1"></i>
-                                    Serviços
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <i class="fas fa-user-friends fa-1x fa-fw mr-1"></i>
-                                    Funcionários
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <i class="fas fa-cog fa-1x fa-fw mr-1"></i>
-                                    Configurações
-                                </a>
-                            </li>
-                        </ul>
+                        <asp:Panel runat="server" ID="pnl_Oficina">
+                            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                                <span>Oficina</span>
+                            </h6>
+                            <ul class="nav flex-column mb-2">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        <i class="fas fa-calendar-alt fa-1x fa-fw mr-1"></i>
+                                        Agendamentos
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        <i class="fas fa-clipboard fa-1x fa-fw mr-1"></i>
+                                        Orçamentos
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        <i class="fas fa-oil-can fa-1x fa-fw mr-1"></i>
+                                        Produtos
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        <i class="fas fa-tools fa-1x fa-fw mr-1"></i>
+                                        Serviços
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        <i class="fas fa-user-friends fa-1x fa-fw mr-1"></i>
+                                        Funcionários
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        <i class="fas fa-cog fa-1x fa-fw mr-1"></i>
+                                        Configurações
+                                    </a>
+                                </li>
+                            </ul>
+                        </asp:Panel>
                     </div>
                 </nav>
 

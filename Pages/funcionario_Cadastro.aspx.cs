@@ -11,6 +11,7 @@ namespace FixFinder.Pages
     public partial class funcionario_Cadastro : System.Web.UI.Page
     {
         private Cliente c;
+        private Funcionario f;
         private Oficina o;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -24,8 +25,10 @@ namespace FixFinder.Pages
             {
                 using (DatabaseEntities context = new DatabaseEntities())
                 {
+                    c = context.Cliente.Where(cliente => cliente.cpf.Equals(c.cpf)).FirstOrDefault();
+                    f = context.Funcionario.Where(func => func.cpf.Equals(c.cpf)).FirstOrDefault();
                     o = context.Oficina.Where(oficina => oficina.cnpj.Equals(c.Funcionario.cnpjOficina)).FirstOrDefault();
-                    if (o == null || c.Funcionario.cargo.ToLower() != "gerente")
+                    if (o == null || f == null || f.cargo.ToLower() != "gerente")
                     {
                         //mandar pra home
                     }
@@ -41,7 +44,7 @@ namespace FixFinder.Pages
                 {
                     RequisicaoFuncionario req = new RequisicaoFuncionario
                     {
-                        cpfCliente = txt_CPF.Text,
+                        cpfCliente = txt_CPF.Text.Replace(".", "").Replace("-", ""),
                         cargo = txt_Cargo.Text,
                         salario = double.Parse(txt_Salario.Text),
                         banco = int.Parse(ddl_Banco.SelectedValue),
@@ -65,28 +68,37 @@ namespace FixFinder.Pages
         {
             try
             {
-                using (DatabaseEntities context = new DatabaseEntities())
+                if (txt_CPF.Text.Length > 0)
                 {
-                    Cliente nFuncionario = context.Cliente.Where(cliente => cliente.cpf.Equals(txt_CPF.Text)).FirstOrDefault();
-                    if (nFuncionario == null)
+                    using (DatabaseEntities context = new DatabaseEntities())
                     {
-                        pnl_Alert.CssClass = "alert alert-danger";
-                        lbl_Alert.Text = "Não encontramos um usuário com o CPF especificado";
-                        pnl_Alert.Visible = true;
+                        Cliente nFuncionario = context.Cliente.Where(cliente => cliente.cpf.Equals(txt_CPF.Text.Replace(".", "").Replace("-", ""))).FirstOrDefault();
+                        if (nFuncionario == null)
+                        {
+                            pnl_Alert.CssClass = "alert alert-danger";
+                            lbl_Alert.Text = "Não encontramos um usuário com o CPF especificado";
+                            pnl_Alert.Visible = true;
+                        }
+                        else if (nFuncionario.Funcionario != null || nFuncionario.cpf.Equals(c.cpf))
+                        {
+                            pnl_Alert.CssClass = "alert alert-danger";
+                            lbl_Alert.Text = "Este usuário não está disponível";
+                            pnl_Alert.Visible = true;
+                        }
+                        else
+                        {
+                            txt_Nome.Text = nFuncionario.nome;
+                            txt_Telefone.Text = nFuncionario.telefone;
+                            txt_Email.Text = nFuncionario.email;
+                            pnl_Alert.Visible = false;
+                        }
                     }
-                    else if (nFuncionario.Funcionario != null || nFuncionario.cpf.Equals(c.cpf))
-                    {
-                        pnl_Alert.CssClass = "alert alert-danger";
-                        lbl_Alert.Text = "Este usuário não está disponível";
-                        pnl_Alert.Visible = true;
-                    }
-                    else
-                    {
-                        txt_Nome.Text = nFuncionario.nome;
-                        txt_Telefone.Text = nFuncionario.telefone;
-                        txt_Email.Text = nFuncionario.email;
-                        pnl_Alert.Visible = false;
-                    }
+                }
+                else
+                {
+                    pnl_Alert.CssClass = "alert alert-danger";
+                    lbl_Alert.Text = "Informe um CPF por favor";
+                    pnl_Alert.Visible = true;
                 }
             }
             catch (Exception ex)

@@ -166,7 +166,7 @@
                 </asp:Panel>
             </div>
         </div>
-        <asp:Button runat="server" ID="btn_Puxar" Visible="false" OnClick="btn_Puxar_Click" ClientIDMode="Static" />
+        <asp:Button runat="server" ID="btn_Puxar" OnClick="btn_Puxar_Click" formnovalidate="true" ClientIDMode="Static" Style="display: none" />
     </form>
 </body>
 </html>

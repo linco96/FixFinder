@@ -85,6 +85,7 @@ namespace FixFinder.Pages
                         txt_Nome.Text = nFuncionario.nome;
                         txt_Telefone.Text = nFuncionario.telefone;
                         txt_Email.Text = nFuncionario.email;
+                        pnl_Alert.Visible = false;
                     }
                 }
             }

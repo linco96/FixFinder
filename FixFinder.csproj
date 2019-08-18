@@ -151,7 +151,6 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
-    <Content Include="teste_do_linco_2_a_vinganca.aspx" />
     <Content Include="teste_do_linco_s2.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -311,13 +310,6 @@
       <DependentUpon>veiculo_Lista.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="teste_do_linco_2_a_vinganca.aspx.cs">
-      <DependentUpon>teste_do_linco_2_a_vinganca.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="teste_do_linco_2_a_vinganca.aspx.designer.cs">
-      <DependentUpon>teste_do_linco_2_a_vinganca.aspx</DependentUpon>
-    </Compile>
     <Compile Include="teste_do_linco_s2.aspx.cs">
       <DependentUpon>teste_do_linco_s2.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

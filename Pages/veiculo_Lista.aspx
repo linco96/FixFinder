@@ -30,11 +30,11 @@
                         <asp:TableHeaderCell Scope="Column" CssClass="text-center">Ações</asp:TableHeaderCell>
                     </asp:TableHeaderRow>
 
-                    <asp:TableRow>
-                        <asp:TableCell ColumnSpan="6" CssClass="text-center align-middle font-weight-bold text-primary">Você não tem nenhum veículo cadastrado.</asp:TableCell>
-                    </asp:TableRow>
-
                     <%--<asp:TableRow>
+                        <asp:TableCell ColumnSpan="6" CssClass="text-center align-middle font-weight-bold text-primary">Você não tem nenhum veículo cadastrado.</asp:TableCell>
+                    </asp:TableRow>--%>
+
+                    <asp:TableRow>
                         <asp:TableCell CssClass="text-center align-middle">Volkswagen</asp:TableCell>
                         <asp:TableCell CssClass="text-center align-middle">Passat</asp:TableCell>
                         <asp:TableCell CssClass="text-center align-middle">2003</asp:TableCell>
@@ -50,10 +50,11 @@
                         <asp:TableCell CssClass="text-center align-middle">2013</asp:TableCell>
                         <asp:TableCell CssClass="text-center align-middle">BBB-9999</asp:TableCell>
                         <asp:TableCell CssClass="text-center align-middle">
-                            <button class="btn btn-primary">Editar</button>
-                            <button class="btn btn-danger" style="margin-left:5px">Excluir</button>
+
+                            <asp:Button runat="server" ID="btn_Excluir" CssClass="btn btn-primary" Text="Editar" />
+                            <asp:Button runat="server" ID="Button1" CssClass="btn btn-danger ml-2" Text="Excluir" />
                         </asp:TableCell>
-                    </asp:TableRow>--%>
+                    </asp:TableRow>
                 </asp:Table>
             </div>
         </div>

@@ -82,6 +82,7 @@
           <Property Name="razaoSocial" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="telefone" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="cnpjOficina" Type="varchar" MaxLength="15" Nullable="false" />
         </EntityType>
         <EntityType Name="FotoOficina">
           <Key>
@@ -362,6 +363,18 @@
               <PropertyRef Name="cnpj" />
             </Principal>
             <Dependent Role="Endereco">
+              <PropertyRef Name="cnpjOficina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Fornecedor_Oficina">
+          <End Role="Oficina" Type="Self.Oficina" Multiplicity="1" />
+          <End Role="Fornecedor" Type="Self.Fornecedor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Oficina">
+              <PropertyRef Name="cnpj" />
+            </Principal>
+            <Dependent Role="Fornecedor">
               <PropertyRef Name="cnpjOficina" />
             </Dependent>
           </ReferentialConstraint>
@@ -702,6 +715,10 @@
             <End Role="Oficina" EntitySet="Oficina" />
             <End Role="Endereco" EntitySet="Endereco" />
           </AssociationSet>
+          <AssociationSet Name="FK_Fornecedor_Oficina" Association="Self.FK_Fornecedor_Oficina">
+            <End Role="Oficina" EntitySet="Oficina" />
+            <End Role="Fornecedor" EntitySet="Fornecedor" />
+          </AssociationSet>
           <AssociationSet Name="FK_FotoOficina_Oficina" Association="Self.FK_FotoOficina_Oficina">
             <End Role="Oficina" EntitySet="Oficina" />
             <End Role="FotoOficina" EntitySet="FotoOficina" />
@@ -895,7 +912,9 @@
           <Property Name="razaoSocial" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="telefone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cnpjOficina" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Compra" Relationship="Self.FK_Compra_Fornecedor" FromRole="Fornecedor" ToRole="Compra" />
+          <NavigationProperty Name="Oficina" Relationship="Self.FK_Fornecedor_Oficina" FromRole="Fornecedor" ToRole="Oficina" />
         </EntityType>
         <EntityType Name="FotoOficina">
           <Key>
@@ -962,6 +981,7 @@
           <NavigationProperty Name="Avaliacao" Relationship="Self.FK_Avaliacao_Oficina" FromRole="Oficina" ToRole="Avaliacao" />
           <NavigationProperty Name="Compra" Relationship="Self.FK_Compra_Oficina" FromRole="Oficina" ToRole="Compra" />
           <NavigationProperty Name="Endereco" Relationship="Self.FK_Endereco_Oficina" FromRole="Oficina" ToRole="Endereco" />
+          <NavigationProperty Name="Fornecedor" Relationship="Self.FK_Fornecedor_Oficina" FromRole="Oficina" ToRole="Fornecedor" />
           <NavigationProperty Name="FotoOficina" Relationship="Self.FK_FotoOficina_Oficina" FromRole="Oficina" ToRole="FotoOficina" />
           <NavigationProperty Name="Funcionario" Relationship="Self.FK_Funcionario_Oficina" FromRole="Oficina" ToRole="Funcionario" />
           <NavigationProperty Name="Orcamento" Relationship="Self.FK_Orcamento_Oficina" FromRole="Oficina" ToRole="Orcamento" />
@@ -1297,6 +1317,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Fornecedor_Oficina">
+          <End Role="Oficina" Type="Self.Oficina" Multiplicity="1" />
+          <End Role="Fornecedor" Type="Self.Fornecedor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Oficina">
+              <PropertyRef Name="cnpj" />
+            </Principal>
+            <Dependent Role="Fornecedor">
+              <PropertyRef Name="cnpjOficina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_FotoOficina_Oficina">
           <End Role="Oficina" Type="Self.Oficina" Multiplicity="1" />
           <End Role="FotoOficina" Type="Self.FotoOficina" Multiplicity="*" />
@@ -1585,6 +1617,10 @@
             <End Role="Oficina" EntitySet="Oficina" />
             <End Role="Endereco" EntitySet="Endereco" />
           </AssociationSet>
+          <AssociationSet Name="FK_Fornecedor_Oficina" Association="Self.FK_Fornecedor_Oficina">
+            <End Role="Oficina" EntitySet="Oficina" />
+            <End Role="Fornecedor" EntitySet="Fornecedor" />
+          </AssociationSet>
           <AssociationSet Name="FK_FotoOficina_Oficina" Association="Self.FK_FotoOficina_Oficina">
             <End Role="Oficina" EntitySet="Oficina" />
             <End Role="FotoOficina" EntitySet="FotoOficina" />
@@ -1742,6 +1778,7 @@
                 <ScalarProperty Name="razaoSocial" ColumnName="razaoSocial" />
                 <ScalarProperty Name="telefone" ColumnName="telefone" />
                 <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="cnpjOficina" ColumnName="cnpjOficina" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

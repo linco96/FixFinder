@@ -24,8 +24,10 @@ namespace FixFinder.Models
         public string razaoSocial { get; set; }
         public string telefone { get; set; }
         public string email { get; set; }
+        public string cnpjOficina { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Compra> Compra { get; set; }
+        public virtual Oficina Oficina { get; set; }
     }
 }

@@ -20,6 +20,7 @@ namespace FixFinder.Models
             this.Agendamento = new HashSet<Agendamento>();
             this.Avaliacao = new HashSet<Avaliacao>();
             this.Compra = new HashSet<Compra>();
+            this.Fornecedor = new HashSet<Fornecedor>();
             this.FotoOficina = new HashSet<FotoOficina>();
             this.Funcionario = new HashSet<Funcionario>();
             this.Orcamento = new HashSet<Orcamento>();
@@ -45,6 +46,8 @@ namespace FixFinder.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Compra> Compra { get; set; }
         public virtual Endereco Endereco { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Fornecedor> Fornecedor { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FotoOficina> FotoOficina { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

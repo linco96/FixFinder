@@ -102,6 +102,7 @@
     <Content Include="Pages\cliente_Cadastro.aspx" />
     <Content Include="Pages\cliente_EditarPerfil.aspx" />
     <Content Include="Pages\funcionario_Cadastro.aspx" />
+    <Content Include="Pages\funcionario_Requisicoes.aspx" />
     <Content Include="Pages\login.aspx" />
     <Content Include="Pages\login_EsqueciSenha.aspx" />
     <Content Include="Pages\oficina_Cadastro.aspx" />
@@ -278,6 +279,13 @@
     </Compile>
     <Compile Include="Pages\funcionario_Cadastro.aspx.designer.cs">
       <DependentUpon>funcionario_Cadastro.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\funcionario_Requisicoes.aspx.cs">
+      <DependentUpon>funcionario_Requisicoes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\funcionario_Requisicoes.aspx.designer.cs">
+      <DependentUpon>funcionario_Requisicoes.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\login.aspx.cs">
       <DependentUpon>login.aspx</DependentUpon>

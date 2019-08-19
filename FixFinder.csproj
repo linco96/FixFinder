@@ -101,13 +101,14 @@
     </Content>
     <Content Include="Pages\cliente_Cadastro.aspx" />
     <Content Include="Pages\cliente_EditarPerfil.aspx" />
+    <Content Include="Pages\fornecedor_Cadastro.aspx" />
+    <Content Include="Pages\fornecedor_Lista.aspx" />
     <Content Include="Pages\funcionario_Cadastro.aspx" />
     <Content Include="Pages\funcionario_Requisicoes.aspx" />
     <Content Include="Pages\login.aspx" />
     <Content Include="Pages\login_EsqueciSenha.aspx" />
     <Content Include="Pages\oficina_Cadastro.aspx" />
     <Content Include="Pages\veiculo_Cadastro.aspx" />
-    <Content Include="Pages\veiculo_Editar.aspx" />
     <Content Include="Pages\veiculo_Lista.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -273,6 +274,20 @@
     <Compile Include="Pages\cliente_EditarPerfil.aspx.designer.cs">
       <DependentUpon>cliente_EditarPerfil.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Pages\fornecedor_Cadastro.aspx.cs">
+      <DependentUpon>fornecedor_Cadastro.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\fornecedor_Cadastro.aspx.designer.cs">
+      <DependentUpon>fornecedor_Cadastro.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\fornecedor_Lista.aspx.cs">
+      <DependentUpon>fornecedor_Lista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\fornecedor_Lista.aspx.designer.cs">
+      <DependentUpon>fornecedor_Lista.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\funcionario_Cadastro.aspx.cs">
       <DependentUpon>funcionario_Cadastro.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -314,13 +329,6 @@
     </Compile>
     <Compile Include="Pages\veiculo_Cadastro.aspx.designer.cs">
       <DependentUpon>veiculo_Cadastro.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\veiculo_Editar.aspx.cs">
-      <DependentUpon>veiculo_Editar.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Pages\veiculo_Editar.aspx.designer.cs">
-      <DependentUpon>veiculo_Editar.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\veiculo_Lista.aspx.cs">
       <DependentUpon>veiculo_Lista.aspx</DependentUpon>

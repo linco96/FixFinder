@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="veiculo_Editar.aspx.cs" Inherits="FixFinder.Pages.veiculo_Editar" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="fornecedor_Lista.aspx.cs" Inherits="FixFinder.Pages.fornecedor_Lista" %>
 
 <!DOCTYPE html>
 
@@ -9,7 +9,7 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            Em construcao...(づ｡ ◕‿‿◕｡) づ
+            We are working here... ( ͡° ͜ʖ ͡°)╭∩╮
         </div>
     </form>
 </body>

@@ -219,6 +219,9 @@
     <Compile Include="Models\Localizacao.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Mensagem.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Oficina.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>

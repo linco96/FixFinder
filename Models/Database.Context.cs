@@ -35,6 +35,7 @@ namespace FixFinder.Models
         public virtual DbSet<FotoOficina> FotoOficina { get; set; }
         public virtual DbSet<Funcionario> Funcionario { get; set; }
         public virtual DbSet<Localizacao> Localizacao { get; set; }
+        public virtual DbSet<Mensagem> Mensagem { get; set; }
         public virtual DbSet<Oficina> Oficina { get; set; }
         public virtual DbSet<Orcamento> Orcamento { get; set; }
         public virtual DbSet<Pagamento> Pagamento { get; set; }

@@ -17,6 +17,7 @@ namespace FixFinder.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Orcamento()
         {
+            this.Mensagem = new HashSet<Mensagem>();
             this.ServicosOrcamento = new HashSet<ServicosOrcamento>();
         }
     
@@ -27,8 +28,14 @@ namespace FixFinder.Models
         public string cpfFuncionario { get; set; }
         public string cnpjOficina { get; set; }
         public int idVeiculo { get; set; }
+        public string cpfCliente { get; set; }
     
+        public virtual Cliente Cliente { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Mensagem> Mensagem { get; set; }
         public virtual Oficina Oficina { get; set; }
+        public virtual Orcamento Orcamento1 { get; set; }
+        public virtual Orcamento Orcamento2 { get; set; }
         public virtual Veiculo Veiculo { get; set; }
         public virtual Pagamento Pagamento { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

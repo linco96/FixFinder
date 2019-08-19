@@ -62,13 +62,6 @@ namespace FixFinder.Pages
                         //Botao Editar
                         cell = new TableCell();
                         cell.CssClass = "text-center align-middle";
-                        btn = new Button();
-                        btn.Click += new EventHandler(btn_Acao_Click);
-                        btn.Text = "Editar";
-                        btn.CssClass = "btn btn-primary";
-                        btn.CommandName = "editarVeiculo";
-                        btn.CommandArgument = veiculo.idVeiculo.ToString();
-                        cell.Controls.Add(btn);
 
                         //Botao Excluir
                         btn = new Button();
@@ -100,29 +93,21 @@ namespace FixFinder.Pages
         private void btn_Acao_Click(object sender, EventArgs e)
         {
             Button btn = sender as Button;
-            Veiculo veiculo = null;
             switch (btn.CommandName)
             {
-                case "editarVeiculo":
-                    using (var context = new DatabaseEntities())
+                case "excluirVeiculo":
+                    try
                     {
-                        veiculo = (Veiculo)context.Veiculo.Where(v => v.idVeiculo.ToString().Equals(btn.CommandArgument)).FirstOrDefault();
-                        if (veiculo == null)
-                            Response.Write("<script>alert('Erro no banco de dados - Veiculo não encontrado');</script>");
-                        else
+                        using (var context = new DatabaseEntities())
                         {
-                            Session["veiculo"] = veiculo;
-                            Response.Redirect("veiculo_Editar.aspx", false);
+                            context.Veiculo.Remove(context.Veiculo.Where(v => v.idVeiculo.ToString().Equals(btn.CommandArgument)).FirstOrDefault());
+                            context.SaveChanges();
+                            Response.Redirect("veiculo_Lista.aspx", false);
                         }
                     }
-                    break;
-
-                case "excluirVeiculo":
-                    using (var context = new DatabaseEntities())
+                    catch (Exception ex)
                     {
-                        context.Veiculo.Remove(context.Veiculo.Where(v => v.idVeiculo.ToString().Equals(btn.CommandArgument)).FirstOrDefault());
-                        context.SaveChanges();
-                        Response.Redirect("veiculo_Lista.aspx", false);
+                        Response.Write("<script>alert('" + ex.Message + "');</script>");
                     }
                     break;
 

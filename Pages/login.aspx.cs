@@ -16,7 +16,6 @@ namespace FixFinder.Pages
         protected void Page_Load(object sender, EventArgs e)
         {
             pnl_Alert.Visible = false;
-            Header_Control h = new Header_Control();
             cliente = (Cliente)Session["usuario"];
             if (cliente != null)
             {

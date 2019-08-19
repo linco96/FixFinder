@@ -11,7 +11,7 @@ namespace FixFinder.Pages
 {
 
 
-    public partial class veiculo_Editar
+    public partial class fornecedor_Lista
     {
 
         /// <summary>

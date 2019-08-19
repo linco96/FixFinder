@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace FixFinder.Pages
 {
-    public partial class veiculo_Editar : System.Web.UI.Page
+    public partial class fornecedor_Lista : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

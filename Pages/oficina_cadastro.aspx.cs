@@ -14,14 +14,31 @@ namespace FixFinder.Pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            c = (Cliente)Session["usuario"];
-            if (c == null)
+            try
             {
-                Response.Redirect("login.aspx", false);
+                c = (Cliente)Session["usuario"];
+
+                if (c == null)
+                {
+                    Response.Redirect("login.aspx", false);
+                }
+
+                Funcionario f;
+                using (DatabaseEntities context = new DatabaseEntities())
+                {
+                    f = context.Funcionario.Where(func => func.cpf.Equals(c.cpf)).FirstOrDefault();
+                }
+
+                if (f != null)
+                {
+                    //mandar pra home
+                }
             }
-            if (c.Funcionario != null)
+            catch (Exception ex)
             {
-                //mandar pra home
+                pnl_Alert.CssClass = "alert alert-danger";
+                pnl_Alert.Visible = true;
+                lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
             }
         }
 
@@ -41,7 +58,7 @@ namespace FixFinder.Pages
                         statusAssinatura = 1
                     };
 
-                    if (context.Oficina.Where(oficina => oficina.cnpj.Equals(o.cnpj)).FirstOrDefault() == null)
+                    if (context.Oficina.Where(oficina => oficina.cnpj.Equals(o.cnpj)).FirstOrDefault() != null)
                     {
                         pnl_Alert.Visible = true;
                         pnl_Alert.CssClass = "alert alert-danger";
@@ -53,7 +70,12 @@ namespace FixFinder.Pages
 
                         Funcionario f = new Funcionario
                         {
+                            cargo = "Gerente",
+                            cpf = c.cpf,
+                            cnpjOficina = o.cnpj,
                         };
+
+                        context.Funcionario.Add(f);
 
                         context.SaveChanges();
                         pnl_Alert.Visible = true;

@@ -54,6 +54,19 @@ namespace FixFinder.Pages
                     };
                     context.RequisicaoFuncionario.Add(req);
                     context.SaveChanges();
+
+                    pnl_Alert.CssClass = "alert alert-success";
+                    lbl_Alert.Text = "Requisição enviada com sucesso";
+                    pnl_Alert.Visible = true;
+
+                    txt_CPF.Text = "";
+                    txt_Nome.Text = "";
+                    txt_Telefone.Text = "";
+                    txt_Email.Text = "";
+                    txt_Cargo.Text = "";
+                    txt_Salario.Text = "";
+                    txt_Agencia.Text = "";
+                    txt_Conta.Text = "";
                 }
             }
             catch (Exception ex)
@@ -73,6 +86,7 @@ namespace FixFinder.Pages
                     using (DatabaseEntities context = new DatabaseEntities())
                     {
                         Cliente nFuncionario = context.Cliente.Where(cliente => cliente.cpf.Equals(txt_CPF.Text.Replace(".", "").Replace("-", ""))).FirstOrDefault();
+                        RequisicaoFuncionario req = context.RequisicaoFuncionario.Where(requisicao => requisicao.cpfCliente == nFuncionario.cpf && requisicao.cnpjOficina == f.cnpjOficina).FirstOrDefault();
                         if (nFuncionario == null)
                         {
                             pnl_Alert.CssClass = "alert alert-danger";
@@ -83,6 +97,12 @@ namespace FixFinder.Pages
                         {
                             pnl_Alert.CssClass = "alert alert-danger";
                             lbl_Alert.Text = "Este usuário não está disponível";
+                            pnl_Alert.Visible = true;
+                        }
+                        else if (req != null)
+                        {
+                            pnl_Alert.CssClass = "alert alert-danger";
+                            lbl_Alert.Text = "Já existe uma requisição pendente entre a sua oficina e este usuário";
                             pnl_Alert.Visible = true;
                         }
                         else

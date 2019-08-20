@@ -15,8 +15,10 @@ namespace FixFinder.Pages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            pnl_Alert.Visible = false;
-            Header_Control h = new Header_Control();
+            if ((Cliente)Session["usuario"] != null)
+                Response.Redirect("home.aspx", false);
+            else
+                pnl_Alert.Visible = false;
         }
 
         protected void btn_EnviarEmail_Click(object sender, EventArgs e)

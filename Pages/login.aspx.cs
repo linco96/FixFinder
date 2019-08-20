@@ -19,7 +19,7 @@ namespace FixFinder.Pages
             cliente = (Cliente)Session["usuario"];
             if (cliente != null)
             {
-                //Response.Redirect("paginaDestino.aspx", false);
+                Response.Redirect("home.aspx", false);
             }
         }
 

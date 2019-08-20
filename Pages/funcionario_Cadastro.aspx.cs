@@ -30,7 +30,7 @@ namespace FixFinder.Pages
                     o = context.Oficina.Where(oficina => oficina.cnpj.Equals(c.Funcionario.cnpjOficina)).FirstOrDefault();
                     if (f == null || o == null || f.cargo.ToLower() != "gerente")
                     {
-                        //mandar pra home
+                        Response.Redirect("home.aspx", false);
                     }
                 }
             }

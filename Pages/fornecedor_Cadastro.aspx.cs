@@ -34,12 +34,12 @@ namespace FixFinder.Pages
                             oficina = (Oficina)context.Oficina.Where(o => o.cnpj.Equals(funcionario.cnpjOficina)).FirstOrDefault();
                             if (oficina == null || funcionario.cargo.ToUpper() != "GERENTE")
                             {
-                                //Response.Redirect("home.aspx", false);
+                                Response.Redirect("home.aspx", false);
                             }
                         }
                         else
                         {
-                            //Response.Redirect("home.aspx", false);
+                            Response.Redirect("home.aspx", false);
                         }
                     }
                 }

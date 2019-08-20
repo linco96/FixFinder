@@ -27,66 +27,71 @@ namespace FixFinder.Pages
 
         private void preencher_Tabela()
         {
-            using (var context = new DatabaseEntities())
+            try
             {
-                var query = context.Veiculo.Where(v => v.cpfCliente.Equals(c.cpf)).ToList();
-                TableRow row;
-                TableCell cell;
-                Button btn;
-                if (query.Count > 0)
+                using (var context = new DatabaseEntities())
                 {
-                    foreach (var veiculo in query)
+                    var query = context.Veiculo.Where(v => v.cpfCliente.Equals(c.cpf)).ToList();
+                    TableRow row;
+                    TableCell cell;
+                    Button btn;
+                    if (query.Count > 0)
+                    {
+                        foreach (var veiculo in query)
+                        {
+                            row = new TableRow();
+
+                            cell = new TableCell();
+                            cell.Text = veiculo.marca;
+                            cell.CssClass = "text-center align-middle";
+                            row.Cells.Add(cell);
+
+                            cell = new TableCell();
+                            cell.Text = veiculo.modelo;
+                            cell.CssClass = "text-center align-middle";
+                            row.Cells.Add(cell);
+
+                            cell = new TableCell();
+                            cell.Text = veiculo.ano.ToString();
+                            cell.CssClass = "text-center align-middle";
+                            row.Cells.Add(cell);
+
+                            cell = new TableCell();
+                            cell.Text = veiculo.placa;
+                            cell.CssClass = "text-center align-middle";
+                            row.Cells.Add(cell);
+
+                            //Botao Excluir
+                            cell = new TableCell();
+                            cell.CssClass = "text-center align-middle";
+                            btn = new Button();
+                            btn.Click += new EventHandler(btn_Acao_Click);
+                            btn.Text = "Excluir";
+                            btn.CssClass = "btn btn-danger ml-2";
+                            btn.CommandName = "excluirVeiculo";
+                            btn.CommandArgument = veiculo.idVeiculo.ToString();
+                            cell.Controls.Add(btn);
+
+                            row.Cells.Add(cell);
+
+                            tbl_Veiculos.Rows.Add(row);
+                        }
+                    }
+                    else
                     {
                         row = new TableRow();
-
                         cell = new TableCell();
-                        cell.Text = veiculo.marca;
-                        cell.CssClass = "text-center align-middle";
+                        cell.Text = "Você não tem nenhum veículo cadastrado";
+                        cell.ColumnSpan = 6;
+                        cell.CssClass = "text-center align-middle font-weight-bold text-primary";
                         row.Cells.Add(cell);
-
-                        cell = new TableCell();
-                        cell.Text = veiculo.modelo;
-                        cell.CssClass = "text-center align-middle";
-                        row.Cells.Add(cell);
-
-                        cell = new TableCell();
-                        cell.Text = veiculo.ano.ToString();
-                        cell.CssClass = "text-center align-middle";
-                        row.Cells.Add(cell);
-
-                        cell = new TableCell();
-                        cell.Text = veiculo.placa;
-                        cell.CssClass = "text-center align-middle";
-                        row.Cells.Add(cell);
-
-                        //Botao Editar
-                        cell = new TableCell();
-                        cell.CssClass = "text-center align-middle";
-
-                        //Botao Excluir
-                        btn = new Button();
-                        btn.Click += new EventHandler(btn_Acao_Click);
-                        btn.Text = "Excluir";
-                        btn.CssClass = "btn btn-danger ml-2";
-                        btn.CommandName = "excluirVeiculo";
-                        btn.CommandArgument = veiculo.idVeiculo.ToString();
-                        cell.Controls.Add(btn);
-
-                        row.Cells.Add(cell);
-
                         tbl_Veiculos.Rows.Add(row);
                     }
                 }
-                else
-                {
-                    row = new TableRow();
-                    cell = new TableCell();
-                    cell.Text = "Você não tem nenhum veículo cadastrado";
-                    cell.ColumnSpan = 6;
-                    cell.CssClass = "text-center align-middle font-weight-bold text-primary";
-                    row.Cells.Add(cell);
-                    tbl_Veiculos.Rows.Add(row);
-                }
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script>alert('" + ex.Message + "');</script>");
             }
         }
 

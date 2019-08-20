@@ -58,19 +58,18 @@ namespace FixFinder.Pages
                 {
                     Fornecedor f = new Fornecedor
                     {
-                        cnpj = txt_CNPJ.Text.Replace(".", "").Replace("/", "").Replace("-", ""),
+                        cnpjFornecedor = txt_CNPJ.Text.Replace(".", "").Replace("/", "").Replace("-", ""),
                         razaoSocial = txt_Nome.Text,
                         email = txt_Email.Text,
                         telefone = txt_Telefone.Text.Replace("(", "").Replace(")", "").Replace(" ", "").Replace("-", ""),
                         cnpjOficina = oficina.cnpj
                     };
 
-                    if (context.Fornecedor.Where(forn => forn.cnpj.Equals(f.cnpj)).FirstOrDefault() != null)
+                    if (context.Fornecedor.Where(forn => forn.cnpjFornecedor.Equals(f.cnpjFornecedor) && forn.cnpjOficina.Equals(f.cnpjOficina)).FirstOrDefault() != null)
                     {
                         pnl_Alert.Visible = true;
                         pnl_Alert.CssClass = "alert alert-danger";
                         lbl_Alert.Text = "Fornecedor já está cadastrado";
-                        Response.AddHeader("REFRESH", "2; url=fornecedor_Lista.aspx");
                     }
                     else
                     {

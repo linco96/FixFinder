@@ -4,12 +4,11 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+    <title>Home</title>
 </head>
 <body>
     <form id="form1" runat="server">
         <div>
-            We are working here... BONORORO     ( う-´)づ︻╦̵̵̿╤── \(˚☐˚”)/
         </div>
     </form>
 </body>

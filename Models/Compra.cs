@@ -23,7 +23,7 @@ namespace FixFinder.Models
         public int idCompra { get; set; }
         public System.DateTime data { get; set; }
         public string cpfFuncionario { get; set; }
-        public string cnpjFornecedor { get; set; }
+        public int idFornecedor { get; set; }
         public string cnpjOficina { get; set; }
     
         public virtual Fornecedor Fornecedor { get; set; }

@@ -11,6 +11,8 @@ namespace FixFinder.Pages
     public partial class fornecedor_Cadastro : System.Web.UI.Page
     {
         private Cliente c;
+        private Oficina oficina;
+        private Funcionario funcionario;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -25,7 +27,17 @@ namespace FixFinder.Pages
                 {
                     using (var context = new DatabaseEntities())
                     {
-                        if (context.Funcionario.Where(f => f.cpf.Equals(c.cpf)).FirstOrDefault() != null)
+                        funcionario = (Funcionario)context.Funcionario.Where(f => f.cpf.Equals(c.cpf)).FirstOrDefault();
+
+                        if (funcionario != null)
+                        {
+                            oficina = (Oficina)context.Oficina.Where(o => o.cnpj.Equals(funcionario.cnpjOficina)).FirstOrDefault();
+                            if (oficina == null || funcionario.cargo.ToUpper() != "GERENTE")
+                            {
+                                //Response.Redirect("home.aspx", false);
+                            }
+                        }
+                        else
                         {
                             //Response.Redirect("home.aspx", false);
                         }
@@ -49,14 +61,26 @@ namespace FixFinder.Pages
                         cnpj = txt_CNPJ.Text.Replace(".", "").Replace("/", "").Replace("-", ""),
                         razaoSocial = txt_Nome.Text,
                         email = txt_Email.Text,
-                        telefone = txt_Telefone.Text.Replace("(", "").Replace(")", "").Replace(" ", "").Replace("-", "")
+                        telefone = txt_Telefone.Text.Replace("(", "").Replace(")", "").Replace(" ", "").Replace("-", ""),
+                        cnpjOficina = oficina.cnpj
                     };
-                    context.Fornecedor.Add(f);
-                    context.SaveChanges();
-                    pnl_Alert.Visible = true;
-                    pnl_Alert.CssClass = "alert alert-success";
-                    lbl_Alert.Text = "Fornecedor cadastrada com sucesso";
-                    Response.AddHeader("REFRESH", "2; url=fornecedor_Lista.aspx");
+
+                    if (context.Fornecedor.Where(forn => forn.cnpj.Equals(f.cnpj)).FirstOrDefault() != null)
+                    {
+                        pnl_Alert.Visible = true;
+                        pnl_Alert.CssClass = "alert alert-danger";
+                        lbl_Alert.Text = "Fornecedor já está cadastrado";
+                        Response.AddHeader("REFRESH", "2; url=fornecedor_Lista.aspx");
+                    }
+                    else
+                    {
+                        context.Fornecedor.Add(f);
+                        context.SaveChanges();
+                        pnl_Alert.Visible = true;
+                        pnl_Alert.CssClass = "alert alert-success";
+                        lbl_Alert.Text = "Fornecedor cadastrada com sucesso";
+                        Response.AddHeader("REFRESH", "2; url=fornecedor_Lista.aspx");
+                    }
                 }
             }
             catch (Exception ex)

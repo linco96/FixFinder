@@ -59,7 +59,7 @@
           <Property Name="idCompra" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="data" Type="datetime" Nullable="false" />
           <Property Name="cpfFuncionario" Type="varchar" MaxLength="15" Nullable="false" />
-          <Property Name="cnpjFornecedor" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="idFornecedor" Type="int" Nullable="false" />
           <Property Name="cnpjOficina" Type="varchar" MaxLength="15" Nullable="false" />
         </EntityType>
         <EntityType Name="Endereco">
@@ -76,9 +76,10 @@
         </EntityType>
         <EntityType Name="Fornecedor">
           <Key>
-            <PropertyRef Name="cnpj" />
+            <PropertyRef Name="idFornecedor" />
           </Key>
-          <Property Name="cnpj" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="idFornecedor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cnpjFornecedor" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="razaoSocial" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="telefone" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
@@ -336,10 +337,10 @@
           <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Fornecedor">
-              <PropertyRef Name="cnpj" />
+              <PropertyRef Name="idFornecedor" />
             </Principal>
             <Dependent Role="Compra">
-              <PropertyRef Name="cnpjFornecedor" />
+              <PropertyRef Name="idFornecedor" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -885,7 +886,7 @@
           <Property Name="idCompra" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="data" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="cpfFuncionario" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="cnpjFornecedor" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idFornecedor" Type="Int32" Nullable="false" />
           <Property Name="cnpjOficina" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Fornecedor" Relationship="Self.FK_Compra_Fornecedor" FromRole="Compra" ToRole="Fornecedor" />
           <NavigationProperty Name="Oficina" Relationship="Self.FK_Compra_Oficina" FromRole="Compra" ToRole="Oficina" />
@@ -906,9 +907,10 @@
         </EntityType>
         <EntityType Name="Fornecedor">
           <Key>
-            <PropertyRef Name="cnpj" />
+            <PropertyRef Name="idFornecedor" />
           </Key>
-          <Property Name="cnpj" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idFornecedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cnpjFornecedor" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="razaoSocial" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="telefone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
@@ -1274,10 +1276,10 @@
           <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Fornecedor">
-              <PropertyRef Name="cnpj" />
+              <PropertyRef Name="idFornecedor" />
             </Principal>
             <Dependent Role="Compra">
-              <PropertyRef Name="cnpjFornecedor" />
+              <PropertyRef Name="idFornecedor" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1753,7 +1755,7 @@
                 <ScalarProperty Name="idCompra" ColumnName="idCompra" />
                 <ScalarProperty Name="data" ColumnName="data" />
                 <ScalarProperty Name="cpfFuncionario" ColumnName="cpfFuncionario" />
-                <ScalarProperty Name="cnpjFornecedor" ColumnName="cnpjFornecedor" />
+                <ScalarProperty Name="idFornecedor" ColumnName="idFornecedor" />
                 <ScalarProperty Name="cnpjOficina" ColumnName="cnpjOficina" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1774,7 +1776,8 @@
           <EntitySetMapping Name="Fornecedor">
             <EntityTypeMapping TypeName="DatabaseModel.Fornecedor">
               <MappingFragment StoreEntitySet="Fornecedor">
-                <ScalarProperty Name="cnpj" ColumnName="cnpj" />
+                <ScalarProperty Name="idFornecedor" ColumnName="idFornecedor" />
+                <ScalarProperty Name="cnpjFornecedor" ColumnName="cnpjFornecedor" />
                 <ScalarProperty Name="razaoSocial" ColumnName="razaoSocial" />
                 <ScalarProperty Name="telefone" ColumnName="telefone" />
                 <ScalarProperty Name="email" ColumnName="email" />

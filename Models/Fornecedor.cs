@@ -20,7 +20,8 @@ namespace FixFinder.Models
             this.Compra = new HashSet<Compra>();
         }
     
-        public string cnpj { get; set; }
+        public int idFornecedor { get; set; }
+        public string cnpjFornecedor { get; set; }
         public string razaoSocial { get; set; }
         public string telefone { get; set; }
         public string email { get; set; }

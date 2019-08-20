@@ -28,7 +28,7 @@ namespace FixFinder.Pages
                     c = context.Cliente.Where(cliente => cliente.cpf.Equals(c.cpf)).FirstOrDefault();
                     f = context.Funcionario.Where(func => func.cpf.Equals(c.cpf)).FirstOrDefault();
                     o = context.Oficina.Where(oficina => oficina.cnpj.Equals(c.Funcionario.cnpjOficina)).FirstOrDefault();
-                    if (o == null || f == null || f.cargo.ToLower() != "gerente")
+                    if (f == null || o == null || f.cargo.ToLower() != "gerente")
                     {
                         //mandar pra home
                     }

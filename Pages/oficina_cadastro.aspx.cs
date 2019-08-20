@@ -31,7 +31,7 @@ namespace FixFinder.Pages
 
                 if (f != null)
                 {
-                    //mandar pra home
+                    Response.Redirect("home.aspx", false);
                 }
             }
             catch (Exception ex)

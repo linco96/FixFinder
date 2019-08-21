@@ -70,6 +70,16 @@ namespace FixFinder.Pages
                     if (query.Count > 0)
                     {
                         MaskedTextProvider mask;
+
+                        if (funcionario.cargo.ToUpper().Equals("GERENTE"))
+                        {
+                            TableHeaderCell header = new TableHeaderCell();
+                            header.Scope = TableHeaderScope.Column;
+                            header.Text = "Ações";
+                            header.CssClass = "text-center";
+                            tblH_Fornecedores.Cells.Add(header);
+                        }
+
                         foreach (var fornecedor in query)
                         {
                             row = new TableRow();
@@ -95,16 +105,20 @@ namespace FixFinder.Pages
                             cell.Text = fornecedor.email;
                             cell.CssClass = "text-center align-middle";
                             row.Cells.Add(cell);
-                            //EDITAR
-                            cell = new TableCell();
-                            cell.CssClass = "text-center align-middle";
-                            btn = new Button();
-                            btn.Click += new EventHandler(btn_Acao_Click);
-                            btn.Text = "Editar";
-                            btn.CssClass = "btn btn-primary ml-2";
-                            btn.CommandName = "editarFornecedor";
-                            btn.CommandArgument = fornecedor.idFornecedor.ToString();
-                            cell.Controls.Add(btn);
+
+                            if (funcionario.cargo.ToUpper().Equals("GERENTE"))
+                            {
+                                //EDITAR
+                                cell = new TableCell();
+                                cell.CssClass = "text-center align-middle";
+                                btn = new Button();
+                                btn.Click += new EventHandler(btn_Acao_Click);
+                                btn.Text = "Editar";
+                                btn.CssClass = "btn btn-primary ml-2";
+                                btn.CommandName = "editarFornecedor";
+                                btn.CommandArgument = fornecedor.idFornecedor.ToString();
+                                cell.Controls.Add(btn);
+                            }
                         }
                     }
                     else
@@ -112,7 +126,7 @@ namespace FixFinder.Pages
                         row = new TableRow();
                         cell = new TableCell();
                         cell.Text = "Você não tem nenhum fornecedor cadastrado";
-                        cell.ColumnSpan = 6;
+                        cell.ColumnSpan = 5;
                         cell.CssClass = "text-center align-middle font-weight-bold text-primary";
                         row.Cells.Add(cell);
                         tbl_Fornecedores.Rows.Add(row);

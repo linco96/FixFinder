@@ -18,9 +18,9 @@ namespace FixFinder
         {
             using (DatabaseEntities context = new DatabaseEntities())
             {
-                Session["usuario"] = context.Cliente.Where(cliente => cliente.cpf.Equals("1111")).FirstOrDefault();
+                Session["usuario"] = context.Cliente.Where(cliente => cliente.cpf.Equals("333")).FirstOrDefault();
             }
-            Response.Redirect("/Pages/fornecedor_Cadastro.aspx", false);
+            Response.Redirect("/Pages/fornecedor_Lista.aspx", false);
         }
     }
 }

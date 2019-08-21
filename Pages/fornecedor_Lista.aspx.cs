@@ -69,8 +69,6 @@ namespace FixFinder.Pages
                     Button btn;
                     if (query.Count > 0)
                     {
-                        MaskedTextProvider mask;
-
                         if (funcionario.cargo.ToUpper().Equals("GERENTE"))
                         {
                             TableHeaderCell header = new TableHeaderCell();
@@ -84,13 +82,11 @@ namespace FixFinder.Pages
                         {
                             row = new TableRow();
                             //CNPJ
-                            mask = new MaskedTextProvider(@"00\.000\.000/0000-00");
                             cell = new TableCell();
-                            cell.Text = mask.Set(fornecedor.cnpjFornecedor).ToString();
+                            cell.Text = fornecedor.cnpjFornecedor;
                             cell.CssClass = "text-center align-middle";
                             row.Cells.Add(cell);
                             //FORNECEDOR
-                            mask = new MaskedTextProvider(@"(00) 0 0000-0000");
                             cell = new TableCell();
                             cell.Text = fornecedor.razaoSocial;
                             cell.CssClass = "text-center align-middle";
@@ -118,7 +114,9 @@ namespace FixFinder.Pages
                                 btn.CommandName = "editarFornecedor";
                                 btn.CommandArgument = fornecedor.idFornecedor.ToString();
                                 cell.Controls.Add(btn);
+                                row.Cells.Add(cell);
                             }
+                            tbl_Fornecedores.Rows.Add(row);
                         }
                     }
                     else

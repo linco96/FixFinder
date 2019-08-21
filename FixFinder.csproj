@@ -105,6 +105,8 @@
     <Content Include="Pages\fornecedor_Editar.aspx" />
     <Content Include="Pages\fornecedor_Lista.aspx" />
     <Content Include="Pages\funcionario_Cadastro.aspx" />
+    <Content Include="Pages\funcionario_Editar.aspx" />
+    <Content Include="Pages\funcionario_Lista.aspx" />
     <Content Include="Pages\funcionario_Requisicoes.aspx" />
     <Content Include="Pages\home.aspx" />
     <Content Include="Pages\login.aspx" />
@@ -303,6 +305,20 @@
     </Compile>
     <Compile Include="Pages\funcionario_Cadastro.aspx.designer.cs">
       <DependentUpon>funcionario_Cadastro.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\funcionario_Editar.aspx.cs">
+      <DependentUpon>funcionario_Editar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\funcionario_Editar.aspx.designer.cs">
+      <DependentUpon>funcionario_Editar.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\funcionario_Lista.aspx.cs">
+      <DependentUpon>funcionario_Lista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\funcionario_Lista.aspx.designer.cs">
+      <DependentUpon>funcionario_Lista.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\funcionario_Requisicoes.aspx.cs">
       <DependentUpon>funcionario_Requisicoes.aspx</DependentUpon>

@@ -66,7 +66,7 @@ namespace FixFinder.Pages
                         status = 1
                     };
 
-                    if (context.Fornecedor.Where(forn => forn.cnpjFornecedor.Equals(f.cnpjFornecedor) && forn.cnpjOficina.Equals(f.cnpjOficina)).FirstOrDefault() != null)
+                    if (context.Fornecedor.Where(forn => forn.cnpjFornecedor.Equals(f.cnpjFornecedor) && forn.cnpjOficina.Equals(f.cnpjOficina) && forn.status == 1).FirstOrDefault() != null)
                     {
                         pnl_Alert.Visible = true;
                         pnl_Alert.CssClass = "alert alert-danger";
@@ -89,6 +89,11 @@ namespace FixFinder.Pages
                 pnl_Alert.Visible = true;
                 lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
             }
+        }
+
+        protected void btn_Cancelar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("fornecedor_Lista.aspx", false);
         }
     }
 }

@@ -36,6 +36,7 @@
 
             <div class="form-group">
                 <asp:Button runat="server" ID="btn_Cadastrar" CssClass="btn btn-primary" OnClick="btn_Cadastrar_Click" Text="Cadastrar" />
+                <asp:Button runat="server" ID="btn_Cancelar" CssClass="btn btn-danger" OnClick="btn_Cancelar_Click" Text="Cancelar" />
             </div>
             <div class="form-group">
                 <asp:Panel runat="server" ID="pnl_Alert" Visible="false" CssClass="alert alert-danger" role="alert">

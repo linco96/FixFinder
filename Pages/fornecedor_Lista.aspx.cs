@@ -59,14 +59,16 @@ namespace FixFinder.Pages
 
         private void preencher_Tabela()
         {
+            int adicionados = 0;
+            TableRow row;
+            TableCell cell;
+            Button btn;
             try
             {
                 using (var context = new DatabaseEntities())
                 {
                     var query = context.Fornecedor.Where(f => f.cnpjOficina.Equals(oficina.cnpj)).ToList();
-                    TableRow row;
-                    TableCell cell;
-                    Button btn;
+
                     if (query.Count > 0)
                     {
                         if (funcionario.cargo.ToUpper().Equals("GERENTE"))
@@ -129,19 +131,20 @@ namespace FixFinder.Pages
                                     row.Cells.Add(cell);
                                 }
                                 tbl_Fornecedores.Rows.Add(row);
+                                adicionados += 1;
                             }
                         }
                     }
-                    else
-                    {
-                        row = new TableRow();
-                        cell = new TableCell();
-                        cell.Text = "Você não tem nenhum fornecedor cadastrado";
-                        cell.ColumnSpan = 5;
-                        cell.CssClass = "text-center align-middle font-weight-bold text-primary";
-                        row.Cells.Add(cell);
-                        tbl_Fornecedores.Rows.Add(row);
-                    }
+                }
+                if (adicionados == 0)
+                {
+                    row = new TableRow();
+                    cell = new TableCell();
+                    cell.Text = "Você não tem nenhum fornecedor cadastrado";
+                    cell.ColumnSpan = 6;
+                    cell.CssClass = "text-center align-middle font-weight-bold text-primary";
+                    row.Cells.Add(cell);
+                    tbl_Fornecedores.Rows.Add(row);
                 }
             }
             catch (Exception ex)
@@ -186,7 +189,7 @@ namespace FixFinder.Pages
                             {
                                 fornecedor.status = 0;
                                 context.SaveChanges();
-                                Response.Redirect("fornecedor_Editar.aspx", false);
+                                Response.Redirect("fornecedor_Lista.aspx", false);
                             }
                             else
                             {

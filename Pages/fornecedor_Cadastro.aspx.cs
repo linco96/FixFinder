@@ -27,11 +27,11 @@ namespace FixFinder.Pages
                 {
                     using (var context = new DatabaseEntities())
                     {
-                        funcionario = (Funcionario)context.Funcionario.Where(f => f.cpf.Equals(c.cpf)).FirstOrDefault();
+                        funcionario = context.Funcionario.Where(f => f.cpf.Equals(c.cpf)).FirstOrDefault();
 
                         if (funcionario != null)
                         {
-                            oficina = (Oficina)context.Oficina.Where(o => o.cnpj.Equals(funcionario.cnpjOficina)).FirstOrDefault();
+                            oficina = context.Oficina.Where(o => o.cnpj.Equals(funcionario.cnpjOficina)).FirstOrDefault();
                             if (oficina == null || funcionario.cargo.ToUpper() != "GERENTE")
                             {
                                 Response.Redirect("home.aspx", false);
@@ -62,7 +62,8 @@ namespace FixFinder.Pages
                         razaoSocial = txt_Nome.Text,
                         email = txt_Email.Text,
                         telefone = txt_Telefone.Text.Replace("(", "").Replace(")", "").Replace(" ", "").Replace("-", ""),
-                        cnpjOficina = oficina.cnpj
+                        cnpjOficina = oficina.cnpj,
+                        status = 1
                     };
 
                     if (context.Fornecedor.Where(forn => forn.cnpjFornecedor.Equals(f.cnpjFornecedor) && forn.cnpjOficina.Equals(f.cnpjOficina)).FirstOrDefault() != null)

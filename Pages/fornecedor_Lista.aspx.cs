@@ -26,15 +26,15 @@ namespace FixFinder.Pages
                 {
                     using (var context = new DatabaseEntities())
                     {
-                        c = (Cliente)context.Cliente.Where(cliente => cliente.cpf.Equals(c.cpf)).FirstOrDefault();
-                        funcionario = (Funcionario)context.Funcionario.Where(f => f.cpf.Equals(c.cpf)).FirstOrDefault();
+                        c = context.Cliente.Where(cliente => cliente.cpf.Equals(c.cpf)).FirstOrDefault();
+                        funcionario = context.Funcionario.Where(f => f.cpf.Equals(c.cpf)).FirstOrDefault();
                         if (funcionario == null)
                         {
                             Response.Redirect("home.aspx", false);
                         }
                         else
                         {
-                            oficina = (Oficina)context.Oficina.Where(o => o.cnpj.Equals(funcionario.cnpjOficina)).FirstOrDefault();
+                            oficina = context.Oficina.Where(o => o.cnpj.Equals(funcionario.cnpjOficina)).FirstOrDefault();
                             if (oficina != null)
                             {
                                 if (funcionario.cargo.ToUpper().Equals("GERENTE"))
@@ -80,43 +80,56 @@ namespace FixFinder.Pages
 
                         foreach (var fornecedor in query)
                         {
-                            row = new TableRow();
-                            //CNPJ
-                            cell = new TableCell();
-                            cell.Text = fornecedor.cnpjFornecedor;
-                            cell.CssClass = "text-center align-middle";
-                            row.Cells.Add(cell);
-                            //FORNECEDOR
-                            cell = new TableCell();
-                            cell.Text = fornecedor.razaoSocial;
-                            cell.CssClass = "text-center align-middle";
-                            row.Cells.Add(cell);
-                            //TELEFONE
-                            cell = new TableCell();
-                            cell.Text = fornecedor.telefone;
-                            cell.CssClass = "text-center align-middle";
-                            row.Cells.Add(cell);
-                            //EMAIL
-                            cell = new TableCell();
-                            cell.Text = fornecedor.email;
-                            cell.CssClass = "text-center align-middle";
-                            row.Cells.Add(cell);
-
-                            if (funcionario.cargo.ToUpper().Equals("GERENTE"))
+                            if (fornecedor.status == 1)
                             {
-                                //EDITAR
+                                row = new TableRow();
+                                //CNPJ
                                 cell = new TableCell();
+                                cell.Text = fornecedor.cnpjFornecedor;
                                 cell.CssClass = "text-center align-middle";
-                                btn = new Button();
-                                btn.Click += new EventHandler(btn_Acao_Click);
-                                btn.Text = "Editar";
-                                btn.CssClass = "btn btn-primary ml-2";
-                                btn.CommandName = "editarFornecedor";
-                                btn.CommandArgument = fornecedor.idFornecedor.ToString();
-                                cell.Controls.Add(btn);
                                 row.Cells.Add(cell);
+                                //FORNECEDOR
+                                cell = new TableCell();
+                                cell.Text = fornecedor.razaoSocial;
+                                cell.CssClass = "text-center align-middle";
+                                row.Cells.Add(cell);
+                                //TELEFONE
+                                cell = new TableCell();
+                                cell.Text = fornecedor.telefone;
+                                cell.CssClass = "text-center align-middle";
+                                row.Cells.Add(cell);
+                                //EMAIL
+                                cell = new TableCell();
+                                cell.Text = fornecedor.email;
+                                cell.CssClass = "text-center align-middle";
+                                row.Cells.Add(cell);
+
+                                if (funcionario.cargo.ToUpper().Equals("GERENTE"))
+                                {
+                                    //EDITAR
+                                    cell = new TableCell();
+                                    cell.CssClass = "text-center align-middle";
+                                    btn = new Button();
+                                    btn.Click += new EventHandler(btn_Acao_Click);
+                                    btn.Text = "Editar";
+                                    btn.CssClass = "btn btn-primary ml-2";
+                                    btn.CommandName = "editarFornecedor";
+                                    btn.CommandArgument = fornecedor.idFornecedor.ToString();
+                                    cell.Controls.Add(btn);
+                                    row.Cells.Add(cell);
+
+                                    //EXCLUIR
+                                    btn = new Button();
+                                    btn.Click += new EventHandler(btn_Acao_Click);
+                                    btn.Text = "Excluir";
+                                    btn.CssClass = "btn btn-danger ml-2";
+                                    btn.CommandName = "excluirFornecedor";
+                                    btn.CommandArgument = fornecedor.idFornecedor.ToString();
+                                    cell.Controls.Add(btn);
+                                    row.Cells.Add(cell);
+                                }
+                                tbl_Fornecedores.Rows.Add(row);
                             }
-                            tbl_Fornecedores.Rows.Add(row);
                         }
                     }
                     else
@@ -147,7 +160,7 @@ namespace FixFinder.Pages
                     {
                         using (var context = new DatabaseEntities())
                         {
-                            Fornecedor fornecedor = (Fornecedor)context.Fornecedor.Where(f => f.idFornecedor.ToString().Equals(btn.CommandArgument)).FirstOrDefault();
+                            Fornecedor fornecedor = context.Fornecedor.Where(f => f.idFornecedor.ToString().Equals(btn.CommandArgument)).FirstOrDefault();
                             if (fornecedor != null)
                             {
                                 Session["fornecedor"] = fornecedor;
@@ -155,6 +168,30 @@ namespace FixFinder.Pages
                             }
                             else
                                 Response.Write("<script>alert('Erro na aplicacao, fornecedor nao existe mais no BD');</script>");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Response.Write("<script>alert('" + ex.Message + "');</script>");
+                    }
+                    break;
+
+                case "excluirFornecedor":
+                    try
+                    {
+                        using (var context = new DatabaseEntities())
+                        {
+                            Fornecedor fornecedor = context.Fornecedor.Where(f => f.idFornecedor.ToString().Equals(btn.CommandArgument)).FirstOrDefault();
+                            if (fornecedor != null)
+                            {
+                                fornecedor.status = 0;
+                                context.SaveChanges();
+                                Response.Redirect("fornecedor_Editar.aspx", false);
+                            }
+                            else
+                            {
+                                Response.Write("<script>alert('Erro na aplicacao, fornecedor nao existe mais no BD');</script>");
+                            }
                         }
                     }
                     catch (Exception ex)

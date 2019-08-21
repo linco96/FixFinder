@@ -84,6 +84,7 @@
           <Property Name="telefone" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="cnpjOficina" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="status" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="FotoOficina">
           <Key>
@@ -915,6 +916,7 @@
           <Property Name="telefone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="cnpjOficina" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="status" Type="Byte" Nullable="false" />
           <NavigationProperty Name="Compra" Relationship="Self.FK_Compra_Fornecedor" FromRole="Fornecedor" ToRole="Compra" />
           <NavigationProperty Name="Oficina" Relationship="Self.FK_Fornecedor_Oficina" FromRole="Fornecedor" ToRole="Oficina" />
         </EntityType>
@@ -1782,6 +1784,7 @@
                 <ScalarProperty Name="telefone" ColumnName="telefone" />
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="cnpjOficina" ColumnName="cnpjOficina" />
+                <ScalarProperty Name="status" ColumnName="status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

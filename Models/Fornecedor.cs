@@ -26,6 +26,7 @@ namespace FixFinder.Models
         public string telefone { get; set; }
         public string email { get; set; }
         public string cnpjOficina { get; set; }
+        public byte status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Compra> Compra { get; set; }

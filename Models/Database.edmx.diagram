@@ -4,30 +4,30 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="9592a9612c024c5d9c5ab1a471886918" Name="Diagram1">
-        <EntityTypeShape EntityType="DatabaseModel.Agendamento" Width="1.5" PointX="3" PointY="22.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Avaliacao" Width="1.5" PointX="6" PointY="24.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Cartao" Width="1.5" PointX="3" PointY="14.875" IsExpanded="true" />
+      <Diagram DiagramId="d4426c71efff44a086d60a06b87cf418" Name="Diagram1">
+        <EntityTypeShape EntityType="DatabaseModel.Agendamento" Width="1.5" PointX="3" PointY="22.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Avaliacao" Width="1.5" PointX="6" PointY="24.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Cartao" Width="1.5" PointX="3" PointY="15" IsExpanded="true" />
         <EntityTypeShape EntityType="DatabaseModel.Cliente" Width="1.5" PointX="0.75" PointY="17.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Compra" Width="1.5" PointX="5.25" PointY="28.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Compra" Width="1.5" PointX="5.25" PointY="28.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DatabaseModel.Endereco" Width="1.5" PointX="3" PointY="26.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Fornecedor" Width="1.5" PointX="3" PointY="29.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.FotoOficina" Width="1.5" PointX="3" PointY="33.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Funcionario" Width="1.5" PointX="6" PointY="20.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Localizacao" Width="1.5" PointX="3" PointY="11.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Mensagem" Width="1.5" PointX="10.25" PointY="28" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Oficina" Width="1.5" PointX="0.75" PointY="23.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Orcamento" Width="1.5" PointX="8" PointY="28.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Pagamento" Width="1.5" PointX="10.25" PointY="31.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.PagamentoAssinatura" Width="1.5" PointX="3" PointY="45.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Parcela" Width="1.5" PointX="12.5" PointY="31.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Produto" Width="1.5" PointX="3" PointY="48.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.ProdutosCompra" Width="1.5" PointX="7.5" PointY="39.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.ProdutosServico" Width="1.5" PointX="5.25" PointY="52.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.RequisicaoFuncionario" Width="1.5" PointX="3" PointY="18.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Servico" Width="1.5" PointX="3" PointY="56.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.ServicosOrcamento" Width="1.5" PointX="10.25" PointY="42.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Veiculo" Width="1.5" PointX="0.75" PointY="29.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Fornecedor" Width="1.5" PointX="3" PointY="30" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.FotoOficina" Width="1.5" PointX="3" PointY="33.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Funcionario" Width="1.5" PointX="6" PointY="20.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Localizacao" Width="1.5" PointX="3" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Mensagem" Width="1.5" PointX="10.25" PointY="28.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Oficina" Width="1.5" PointX="0.75" PointY="23.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Orcamento" Width="1.5" PointX="8" PointY="28.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Pagamento" Width="1.5" PointX="10.25" PointY="31.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.PagamentoAssinatura" Width="1.5" PointX="3" PointY="45.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Parcela" Width="1.5" PointX="12.5" PointY="31.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Produto" Width="1.5" PointX="3" PointY="49" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.ProdutosCompra" Width="1.5" PointX="7.5" PointY="39.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.ProdutosServico" Width="1.5" PointX="5.25" PointY="53.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.RequisicaoFuncionario" Width="1.5" PointX="3" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Servico" Width="1.5" PointX="3" PointY="56.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.ServicosOrcamento" Width="1.5" PointX="10.25" PointY="43" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Veiculo" Width="1.5" PointX="0.75" PointY="29.5" IsExpanded="true" />
         <AssociationConnector Association="DatabaseModel.FK_Agendamento_Cliente" ManuallyRouted="false" />
         <AssociationConnector Association="DatabaseModel.FK_Agendamento_Oficina" ManuallyRouted="false" />
         <AssociationConnector Association="DatabaseModel.FK_Agendamento_Veiculo" ManuallyRouted="false" />

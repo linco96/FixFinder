@@ -27,7 +27,6 @@
                         <asp:TableHeaderCell Scope="Column" CssClass="text-center">Fornecedor</asp:TableHeaderCell>
                         <asp:TableHeaderCell Scope="Column" CssClass="text-center">Telefone</asp:TableHeaderCell>
                         <asp:TableHeaderCell Scope="Column" CssClass="text-center">E-mail</asp:TableHeaderCell>
-                        <asp:TableHeaderCell Scope="Column" CssClass="text-center">Ações</asp:TableHeaderCell>
                     </asp:TableHeaderRow>
                 </asp:Table>
             </div>

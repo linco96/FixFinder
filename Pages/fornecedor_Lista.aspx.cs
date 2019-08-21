@@ -1,6 +1,7 @@
 ﻿using FixFinder.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -68,15 +69,18 @@ namespace FixFinder.Pages
                     Button btn;
                     if (query.Count > 0)
                     {
+                        MaskedTextProvider mask;
                         foreach (var fornecedor in query)
                         {
                             row = new TableRow();
                             //CNPJ
+                            mask = new MaskedTextProvider(@"00\.000\.000/0000-00");
                             cell = new TableCell();
-                            cell.Text = fornecedor.cnpjFornecedor;
+                            cell.Text = mask.Set(fornecedor.cnpjFornecedor).ToString();
                             cell.CssClass = "text-center align-middle";
                             row.Cells.Add(cell);
                             //FORNECEDOR
+                            mask = new MaskedTextProvider(@"(00) 0 0000-0000");
                             cell = new TableCell();
                             cell.Text = fornecedor.razaoSocial;
                             cell.CssClass = "text-center align-middle";
@@ -91,16 +95,15 @@ namespace FixFinder.Pages
                             cell.Text = fornecedor.email;
                             cell.CssClass = "text-center align-middle";
                             row.Cells.Add(cell);
-                            //ACOES
-                            //EXCLUIR
+                            //EDITAR
                             cell = new TableCell();
                             cell.CssClass = "text-center align-middle";
                             btn = new Button();
                             btn.Click += new EventHandler(btn_Acao_Click);
-                            btn.Text = "Excluir";
-                            btn.CssClass = "btn btn-danger ml-2";
-                            btn.CommandName = "excluirVeiculo";
-                            btn.CommandArgument = veiculo.idVeiculo.ToString();
+                            btn.Text = "Editar";
+                            btn.CssClass = "btn btn-primary ml-2";
+                            btn.CommandName = "editarFornecedor";
+                            btn.CommandArgument = fornecedor.idFornecedor.ToString();
                             cell.Controls.Add(btn);
                         }
                     }
@@ -119,6 +122,38 @@ namespace FixFinder.Pages
             catch (Exception ex)
             {
                 Response.Write("<script>alert('" + ex.Message + "');</script>");
+            }
+        }
+
+        private void btn_Acao_Click(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+            switch (btn.CommandName)
+            {
+                case "editarFornecedor":
+                    try
+                    {
+                        using (var context = new DatabaseEntities())
+                        {
+                            Fornecedor fornecedor = (Fornecedor)context.Fornecedor.Where(f => f.idFornecedor.ToString().Equals(btn.CommandArgument)).FirstOrDefault();
+                            if (fornecedor != null)
+                            {
+                                Session["fornecedor"] = fornecedor;
+                                Response.Redirect("fornecedor_Editar.aspx", false);
+                            }
+                            else
+                                Response.Write("<script>alert('Erro na aplicacao, fornecedor nao existe mais no BD');</script>");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Response.Write("<script>alert('" + ex.Message + "');</script>");
+                    }
+                    break;
+
+                default:
+                    Response.Write("<script>alert('Erro na opção');</script>");
+                    break;
             }
         }
 

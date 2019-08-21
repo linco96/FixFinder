@@ -25,6 +25,12 @@ namespace FixFinder.Pages
                 div_Cards.InnerHtml = "";
                 carregar_Requisicoes();
             }
+            if (Session["msgSuccess"] != null)
+            {
+                pnl_Alert.CssClass = "alert alert-success";
+                lbl_Alert.Text = (String)Session["msgSuccess"];
+                pnl_Alert.Visible = true;
+            }
         }
 
         protected void carregar_Requisicoes()
@@ -94,7 +100,6 @@ namespace FixFinder.Pages
                         card.Controls.Add(body);
                         div_Cards.Controls.Add(card);
                     }
-                    pnl_Alert.Visible = false;
                 }
             }
             catch (Exception ex)
@@ -107,11 +112,64 @@ namespace FixFinder.Pages
 
         protected void btn_Aceitar_Click(object sender, EventArgs e)
         {
+            try
+            {
+                Button btn = sender as Button;
+                using (DatabaseEntities context = new DatabaseEntities())
+                {
+                    RequisicaoFuncionario req = context.RequisicaoFuncionario.Where(requisicao => requisicao.cpfCliente == c.cpf && requisicao.cnpjOficina == btn.CommandArgument).FirstOrDefault();
+                    Funcionario funcionario = new Funcionario
+                    {
+                        cpf = c.cpf,
+                        cnpjOficina = btn.CommandArgument,
+                        cargo = req.cargo,
+                        salario = req.salario,
+                        banco = req.banco,
+                        agencia = req.agencia,
+                        conta = req.conta
+                    };
+                    context.Funcionario.Add(funcionario);
+
+                    List<RequisicaoFuncionario> requisicoes = context.RequisicaoFuncionario.Where(requisicao => requisicao.cpfCliente == c.cpf).ToList();
+                    context.RequisicaoFuncionario.RemoveRange(requisicoes);
+
+                    context.SaveChanges();
+
+                    Session["msgSuccess"] = "Requisição aceita<br />As opções de funcionário estão agora disponíveis no menu lateral";
+
+                    Response.Redirect(Request.RawUrl);
+                }
+            }
+            catch (Exception ex)
+            {
+                pnl_Alert.CssClass = "alert alert-danger";
+                lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                pnl_Alert.Visible = true;
+            }
         }
 
         protected void btn_Rejeitar_Click(object sender, EventArgs e)
         {
-            Response.Write("<script>alert('É ritmo de festa (só q ñ rsrs)');</script>");
+            try
+            {
+                Button btn = sender as Button;
+                using (DatabaseEntities context = new DatabaseEntities())
+                {
+                    RequisicaoFuncionario req = context.RequisicaoFuncionario.Where(requisicao => requisicao.cpfCliente == c.cpf && requisicao.cnpjOficina == btn.CommandArgument).FirstOrDefault();
+                    context.RequisicaoFuncionario.Remove(req);
+                    context.SaveChanges();
+
+                    Session["msgSuccess"] = "Requisição rejeitada";
+
+                    Response.Redirect(Request.RawUrl);
+                }
+            }
+            catch (Exception ex)
+            {
+                pnl_Alert.CssClass = "alert alert-danger";
+                lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                pnl_Alert.Visible = true;
+            }
         }
     }
 }

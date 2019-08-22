@@ -18,7 +18,7 @@ namespace FixFinder.Models
         public Produto()
         {
             this.ProdutosCompra = new HashSet<ProdutosCompra>();
-            this.ProdutosServico = new HashSet<ProdutosServico>();
+            this.ProdutosOrcamento = new HashSet<ProdutosOrcamento>();
         }
     
         public int idProduto { get; set; }
@@ -35,6 +35,6 @@ namespace FixFinder.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProdutosCompra> ProdutosCompra { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProdutosServico> ProdutosServico { get; set; }
+        public virtual ICollection<ProdutosOrcamento> ProdutosOrcamento { get; set; }
     }
 }

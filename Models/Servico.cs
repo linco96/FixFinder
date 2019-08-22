@@ -17,7 +17,6 @@ namespace FixFinder.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Servico()
         {
-            this.ProdutosServico = new HashSet<ProdutosServico>();
             this.ServicosOrcamento = new HashSet<ServicosOrcamento>();
         }
     
@@ -27,8 +26,6 @@ namespace FixFinder.Models
         public string cnpjOficina { get; set; }
     
         public virtual Oficina Oficina { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProdutosServico> ProdutosServico { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ServicosOrcamento> ServicosOrcamento { get; set; }
     }

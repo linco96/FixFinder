@@ -18,6 +18,7 @@ namespace FixFinder.Models
         public Orcamento()
         {
             this.Mensagem = new HashSet<Mensagem>();
+            this.ProdutosOrcamento = new HashSet<ProdutosOrcamento>();
             this.ServicosOrcamento = new HashSet<ServicosOrcamento>();
         }
     
@@ -34,10 +35,10 @@ namespace FixFinder.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Mensagem> Mensagem { get; set; }
         public virtual Oficina Oficina { get; set; }
-        public virtual Orcamento Orcamento1 { get; set; }
-        public virtual Orcamento Orcamento2 { get; set; }
         public virtual Veiculo Veiculo { get; set; }
         public virtual Pagamento Pagamento { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProdutosOrcamento> ProdutosOrcamento { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ServicosOrcamento> ServicosOrcamento { get; set; }
     }

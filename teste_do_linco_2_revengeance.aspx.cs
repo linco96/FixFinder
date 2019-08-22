@@ -20,7 +20,7 @@ namespace FixFinder
             {
                 Session["usuario"] = context.Cliente.Where(cliente => cliente.cpf.Equals("06850142909")).FirstOrDefault();
             }
-            Response.Redirect("Pages/funcionario_Lista.aspx", false);
+            Response.Redirect("Pages/produto_Cadastro.aspx", false);
         }
     }
 }

@@ -113,7 +113,7 @@
     <Content Include="Pages\login_EsqueciSenha.aspx" />
     <Content Include="Pages\oficina_Cadastro.aspx" />
     <Content Include="Pages\produto_Cadastro.aspx" />
-    <Content Include="Pages\servico_Cadastro.aspx" />
+    <Content Include="Pages\produto_Lista.aspx" />
     <Content Include="Pages\veiculo_Cadastro.aspx" />
     <Content Include="Pages\veiculo_Lista.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -364,12 +364,12 @@
     <Compile Include="Pages\produto_Cadastro.aspx.designer.cs">
       <DependentUpon>produto_Cadastro.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\servico_Cadastro.aspx.cs">
-      <DependentUpon>servico_Cadastro.aspx</DependentUpon>
+    <Compile Include="Pages\produto_Lista.aspx.cs">
+      <DependentUpon>produto_Lista.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\servico_Cadastro.aspx.designer.cs">
-      <DependentUpon>servico_Cadastro.aspx</DependentUpon>
+    <Compile Include="Pages\produto_Lista.aspx.designer.cs">
+      <DependentUpon>produto_Lista.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\veiculo_Cadastro.aspx.cs">
       <DependentUpon>veiculo_Cadastro.aspx</DependentUpon>

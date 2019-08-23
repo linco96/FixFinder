@@ -27,6 +27,7 @@
                 </div>
                 <div class="form-group">
                     <asp:Button runat="server" ID="btn_Cadastro" CssClass="btn btn-primary" OnClick="btn_Cadastro_Click" Text="Cadastrar" />
+                    <asp:Button runat="server" ID="btn_CancelarCadastro" Text="Cancelar" CssClass="btn btn-danger" OnClick="btn_CancelarCadastro_Click" formnovalidate="true" />
                 </div>
                 <div class="form-group">
                     <asp:Panel runat="server" ID="pnl_Alert" Visible="false" CssClass="alert alert-danger" role="alert">
@@ -39,10 +40,11 @@
                 <asp:Button runat="server" ID="btn_CadastrarServico" Text="Novo serviço" CssClass="btn btn-outline-primary btn-sm mb-2" aria-pressed="true" OnClick="btn_CadastrarServico_Click" formnovalidate="true" />
             </div>
             <div class="table-responsive-xl">
-                <asp:Table runat="server" ID="tbl_Veiculos" CssClass="table border rounded-lg">
+                <asp:Table runat="server" ID="tbl_Servicos" CssClass="table border rounded-lg">
                     <asp:TableHeaderRow runat="server" ID="tblH_Veiculos" CssClass="thead-dark">
                         <asp:TableHeaderCell Scope="Column" CssClass="text-center">Descrição</asp:TableHeaderCell>
                         <asp:TableHeaderCell Scope="Column" CssClass="text-center">Valor</asp:TableHeaderCell>
+                        <asp:TableHeaderCell Scope="Column" CssClass="text-center">Ações</asp:TableHeaderCell>
                     </asp:TableHeaderRow>
                 </asp:Table>
             </div>

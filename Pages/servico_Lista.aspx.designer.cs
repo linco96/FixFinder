@@ -58,6 +58,15 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.WebControls.Button btn_Cadastro;
         
         /// <summary>
+        /// btn_CancelarCadastro control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_CancelarCadastro;
+        
+        /// <summary>
         /// pnl_Alert control.
         /// </summary>
         /// <remarks>
@@ -85,13 +94,13 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.WebControls.Button btn_CadastrarServico;
         
         /// <summary>
-        /// tbl_Veiculos control.
+        /// tbl_Servicos control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Table tbl_Veiculos;
+        protected global::System.Web.UI.WebControls.Table tbl_Servicos;
         
         /// <summary>
         /// tblH_Veiculos control.

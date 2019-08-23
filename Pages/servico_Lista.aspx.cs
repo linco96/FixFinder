@@ -14,22 +14,26 @@ namespace FixFinder.Pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //c = (Cliente)Session["usuario"];
-            //if (c == null)
-            //{
-            //    Response.Redirect("home.aspx", false);
-            //}
-            //else
-            //{
-            //    using (DatabaseEntities context = new DatabaseEntities())
-            //    {
-            //        c = context.Cliente.Where(cliente => cliente.cpf.Equals(c.cpf)).FirstOrDefault();
-            //        if (c.Funcionario == null)
-            //        {
-            //            Response.Redirect("home.aspx", false);
-            //        }
-            //    }
-            //}
+            c = (Cliente)Session["usuario"];
+            if (c == null)
+            {
+                Response.Redirect("home.aspx", false);
+            }
+            else
+            {
+                using (DatabaseEntities context = new DatabaseEntities())
+                {
+                    c = context.Cliente.Where(cliente => cliente.cpf.Equals(c.cpf)).FirstOrDefault();
+                    if (c.Funcionario == null)
+                    {
+                        Response.Redirect("home.aspx", false);
+                    }
+                    else
+                    {
+                        preencher_Tabela();
+                    }
+                }
+            }
         }
 
         protected void btn_Cadastro_Click(object sender, EventArgs e)
@@ -48,6 +52,7 @@ namespace FixFinder.Pages
                     context.SaveChanges();
 
                     form_Cadastro.Visible = false;
+                    btn_CadastrarServico.Visible = true;
                 }
             }
             catch (Exception ex)
@@ -61,6 +66,78 @@ namespace FixFinder.Pages
         protected void btn_CadastrarServico_Click(object sender, EventArgs e)
         {
             form_Cadastro.Visible = true;
+            btn_CadastrarServico.Visible = false;
+        }
+
+        protected void btn_CancelarCadastro_Click(object sender, EventArgs e)
+        {
+            form_Cadastro.Visible = false;
+            btn_CadastrarServico.Visible = true;
+        }
+
+        protected void preencher_Tabela()
+        {
+            try
+            {
+                using (DatabaseEntities context = new DatabaseEntities())
+                {
+                    List<Servico> servicos = context.Servico.Where(s => s.cnpjOficina.Equals(c.Funcionario.cnpjOficina)).ToList();
+                    TableRow row;
+                    TableCell cell;
+                    Button btn;
+                    if (servicos.Count > 0)
+                    {
+                        foreach (Servico s in servicos)
+                        {
+                            row = new TableRow();
+
+                            cell = new TableCell();
+                            cell.Text = s.descricao;
+                            cell.CssClass = "text-center align-middle";
+                            row.Cells.Add(cell);
+
+                            cell = new TableCell();
+                            cell.Text = "R$ " + s.valor.ToString();
+                            cell.CssClass = "text-center align-middle";
+                            row.Cells.Add(cell);
+
+                            //Botao Excluir
+                            cell = new TableCell();
+                            cell.CssClass = "text-center align-middle";
+                            btn = new Button();
+                            btn.Click += new EventHandler(btn_EditarServico_Click);
+                            btn.Text = "Editar";
+                            btn.CssClass = "btn btn-primary ml-2";
+                            btn.CommandArgument = s.idServico.ToString();
+                            cell.Controls.Add(btn);
+
+                            row.Cells.Add(cell);
+
+                            tbl_Servicos.Rows.Add(row);
+                        }
+                    }
+                    else
+                    {
+                        row = new TableRow();
+                        cell = new TableCell();
+                        cell.Text = "Nenhum serviço encontrado";
+                        cell.ColumnSpan = 6;
+                        cell.CssClass = "text-center align-middle font-weight-bold text-primary";
+                        row.Cells.Add(cell);
+                        tbl_Servicos.Rows.Add(row);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                pnl_Alert.CssClass = "alert alert-danger";
+                lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                pnl_Alert.Visible = true;
+            }
+        }
+
+        protected void btn_EditarServico_Click(object sender, EventArgs e)
+        {
         }
     }
 }

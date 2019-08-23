@@ -22,6 +22,15 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
+        /// form_Cadastro control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl form_Cadastro;
+        
+        /// <summary>
         /// txt_Descricao control.
         /// </summary>
         /// <remarks>
@@ -49,15 +58,6 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.WebControls.Button btn_Cadastro;
         
         /// <summary>
-        /// btn_Voltar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_Voltar;
-        
-        /// <summary>
         /// pnl_Alert control.
         /// </summary>
         /// <remarks>
@@ -74,5 +74,32 @@ namespace FixFinder.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_Alert;
+        
+        /// <summary>
+        /// btn_CadastrarServico control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_CadastrarServico;
+        
+        /// <summary>
+        /// tbl_Veiculos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Table tbl_Veiculos;
+        
+        /// <summary>
+        /// tblH_Veiculos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TableHeaderRow tblH_Veiculos;
     }
 }

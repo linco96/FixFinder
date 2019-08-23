@@ -31,21 +31,21 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.WebControls.Button btn_CadastrarProduto;
         
         /// <summary>
-        /// tbl_Veiculos control.
+        /// tbl_Produtos control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Table tbl_Veiculos;
+        protected global::System.Web.UI.WebControls.Table tbl_Produtos;
         
         /// <summary>
-        /// tblH_Veiculos control.
+        /// tblH_Produtos control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TableHeaderRow tblH_Veiculos;
+        protected global::System.Web.UI.WebControls.TableHeaderRow tblH_Produtos;
     }
 }

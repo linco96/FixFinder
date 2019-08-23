@@ -251,7 +251,7 @@
     <Compile Include="Models\ProdutosCompra.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ProdutosServico.cs">
+    <Compile Include="Models\ProdutosOrcamento.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RequisicaoFuncionario.cs">

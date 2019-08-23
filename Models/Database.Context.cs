@@ -43,7 +43,7 @@ namespace FixFinder.Models
         public virtual DbSet<Parcela> Parcela { get; set; }
         public virtual DbSet<Produto> Produto { get; set; }
         public virtual DbSet<ProdutosCompra> ProdutosCompra { get; set; }
-        public virtual DbSet<ProdutosServico> ProdutosServico { get; set; }
+        public virtual DbSet<ProdutosOrcamento> ProdutosOrcamento { get; set; }
         public virtual DbSet<RequisicaoFuncionario> RequisicaoFuncionario { get; set; }
         public virtual DbSet<Servico> Servico { get; set; }
         public virtual DbSet<ServicosOrcamento> ServicosOrcamento { get; set; }

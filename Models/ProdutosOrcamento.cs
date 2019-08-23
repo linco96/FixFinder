@@ -12,13 +12,13 @@ namespace FixFinder.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ProdutosServico
+    public partial class ProdutosOrcamento
     {
-        public int idServico { get; set; }
+        public int idOrcamento { get; set; }
         public int idProduto { get; set; }
         public int quantidade { get; set; }
     
+        public virtual Orcamento Orcamento { get; set; }
         public virtual Produto Produto { get; set; }
-        public virtual Servico Servico { get; set; }
     }
 }

@@ -17,17 +17,24 @@ namespace FixFinder.Pages
         {
             compra = (Compra)Session["compra"];
             cliente = (Cliente)Session["usuario"];
-            using (DatabaseEntities context = new DatabaseEntities())
+            if (cliente == null)
             {
-                cliente = context.Cliente.Where(c => c.cpf.Equals(cliente.cpf)).FirstOrDefault();
-                if (cliente == null || cliente.Funcionario == null)
+                Response.Redirect("home.aspx", false);
+            }
+            else
+            {
+                using (DatabaseEntities context = new DatabaseEntities())
                 {
-                    Response.Redirect("home.aspx", false);
-                }
-                else if (compra != null)
-                {
-                    txt_Quantidade.ReadOnly = true;
-                    txt_Quantidade.Text = "0";
+                    cliente = context.Cliente.Where(c => c.cpf.Equals(cliente.cpf)).FirstOrDefault();
+                    if (cliente.Funcionario == null)
+                    {
+                        Response.Redirect("home.aspx", false);
+                    }
+                    else if (compra != null)
+                    {
+                        txt_Quantidade.ReadOnly = true;
+                        txt_Quantidade.Text = "0";
+                    }
                 }
             }
         }

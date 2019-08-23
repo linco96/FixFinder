@@ -40,33 +40,6 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.WebControls.TextBox txt_Valor;
         
         /// <summary>
-        /// tbl_Produto control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Table tbl_Produto;
-        
-        /// <summary>
-        /// tblH_Produtos control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TableHeaderRow tblH_Produtos;
-        
-        /// <summary>
-        /// btn_AdicionarProduto control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_AdicionarProduto;
-        
-        /// <summary>
         /// btn_Cadastro control.
         /// </summary>
         /// <remarks>

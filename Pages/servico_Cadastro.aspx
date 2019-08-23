@@ -24,19 +24,6 @@
                 <asp:TextBox runat="server" ID="txt_Valor" CssClass="form-control" onkeypress="$(this).mask('#.##0,00', {reverse: true});" required="required"></asp:TextBox>
             </div>
             <div class="form-group">
-                <div class="table-responsive-xl">
-                    <asp:Table runat="server" ID="tbl_Produto" CssClass="table border rounded-lg">
-                        <asp:TableHeaderRow runat="server" ID="tblH_Produtos" CssClass="thead-dark">
-                            <asp:TableHeaderCell Scope="Column" CssClass="text-center">Produto</asp:TableHeaderCell>
-                            <asp:TableHeaderCell Scope="Column" CssClass="text-center">Quantidade</asp:TableHeaderCell>
-                        </asp:TableHeaderRow>
-                    </asp:Table>
-                </div>
-            </div>
-            <div class="form-group">
-                <asp:Button runat="server" ID="btn_AdicionarProduto" CssClass="btn btn-primary" OnClick="btn_AdicionarProduto_Click" Text="Adicionar produto" />
-            </div>
-            <div class="form-group">
                 <asp:Button runat="server" ID="btn_Cadastro" CssClass="btn btn-primary" OnClick="btn_Cadastro_Click" Text="Cadastrar" />
                 <asp:Button runat="server" ID="btn_Voltar" CssClass="btn btn-danger" OnClick="btn_Voltar_Click" Text="Voltar" formnovalidate="true" />
             </div>

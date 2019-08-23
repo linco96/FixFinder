@@ -12,15 +12,15 @@ namespace FixFinder
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-        }
-
-        protected void butao_Click(object sender, EventArgs e)
-        {
             using (DatabaseEntities context = new DatabaseEntities())
             {
                 Session["usuario"] = context.Cliente.Where(cliente => cliente.cpf.Equals("06850142909")).FirstOrDefault();
             }
             Response.Redirect("Pages/servico_Lista.aspx", false);
+        }
+
+        protected void butao_Click(object sender, EventArgs e)
+        {
         }
     }
 }

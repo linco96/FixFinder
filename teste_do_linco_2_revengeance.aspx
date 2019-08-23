@@ -9,7 +9,6 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <asp:Button ID="butao" runat="server" Text="testa aí jovem" OnClick="butao_Click" />
         </div>
     </form>
 </body>

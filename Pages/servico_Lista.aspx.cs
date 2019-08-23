@@ -53,6 +53,8 @@ namespace FixFinder.Pages
 
                     form_Cadastro.Visible = false;
                     btn_CadastrarServico.Visible = true;
+
+                    Response.Redirect(Request.RawUrl);
                 }
             }
             catch (Exception ex)
@@ -97,17 +99,17 @@ namespace FixFinder.Pages
                             row.Cells.Add(cell);
 
                             cell = new TableCell();
-                            cell.Text = "R$ " + s.valor.ToString();
+                            cell.Text = "R$ " + s.valor.ToString("0.00");
                             cell.CssClass = "text-center align-middle";
                             row.Cells.Add(cell);
 
-                            //Botao Excluir
+                            //Botao Editar
                             cell = new TableCell();
                             cell.CssClass = "text-center align-middle";
                             btn = new Button();
                             btn.Click += new EventHandler(btn_EditarServico_Click);
                             btn.Text = "Editar";
-                            btn.CssClass = "btn btn-primary ml-2";
+                            btn.CssClass = "btn btn-primary";
                             btn.CommandArgument = s.idServico.ToString();
                             cell.Controls.Add(btn);
 

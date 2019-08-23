@@ -29,11 +29,6 @@
                     <asp:Button runat="server" ID="btn_Cadastro" CssClass="btn btn-primary" OnClick="btn_Cadastro_Click" Text="Cadastrar" />
                     <asp:Button runat="server" ID="btn_CancelarCadastro" Text="Cancelar" CssClass="btn btn-danger" OnClick="btn_CancelarCadastro_Click" formnovalidate="true" />
                 </div>
-                <div class="form-group">
-                    <asp:Panel runat="server" ID="pnl_Alert" Visible="false" CssClass="alert alert-danger" role="alert">
-                        <asp:Label ID="lbl_Alert" runat="server"></asp:Label>
-                    </asp:Panel>
-                </div>
             </div>
             <hr class="border-primary" />
             <div>
@@ -47,6 +42,9 @@
                         <asp:TableHeaderCell Scope="Column" CssClass="text-center">Ações</asp:TableHeaderCell>
                     </asp:TableHeaderRow>
                 </asp:Table>
+                <asp:Panel runat="server" ID="pnl_Alert" Visible="false" CssClass="alert alert-danger" role="alert">
+                    <asp:Label ID="lbl_Alert" runat="server"></asp:Label>
+                </asp:Panel>
             </div>
         </div>
     </form>

@@ -67,13 +67,13 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.WebControls.Button btn_CancelarCadastro;
         
         /// <summary>
-        /// formEditar control.
+        /// form_Edicao control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl formEditar;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl form_Edicao;
         
         /// <summary>
         /// head_Edicao control.

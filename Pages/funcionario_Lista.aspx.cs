@@ -79,7 +79,8 @@ namespace FixFinder.Pages
                                 row.Cells.Add(cell);
 
                                 cell = new TableCell();
-                                cell.Text = "R$ " + funcionario.salario.ToString("0.00");
+                                double salario = (Double)funcionario.salario;
+                                cell.Text = "R$ " + salario.ToString("0.00");
                                 cell.CssClass = "text-center align-middle";
                                 row.Cells.Add(cell);
 

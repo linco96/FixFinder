@@ -34,7 +34,7 @@
             </div>
 
             <%--FORMULÁRIO DE EDIÇÃO--%>
-            <div runat="server" id="formEditar" visible="false">
+            <div runat="server" id="form_Edicao" visible="false">
                 <hr class="border-primary" />
                 <h4 class="display-4" runat="server" id="head_Edicao"></h4>
                 <div class="form-group">

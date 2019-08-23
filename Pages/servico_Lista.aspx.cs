@@ -148,7 +148,12 @@ namespace FixFinder.Pages
                 Button btn = sender as Button;
                 using (DatabaseEntities context = new DatabaseEntities())
                 {
-                    Servico servico = context.Servico.Where(s => s.idServico == int.Parse(btn.CommandArgument)).FirstOrDefault();
+                    Servico servico = context.Servico.Where(s => s.idServico == Int32.Parse(btn.CommandArgument)).FirstOrDefault();
+                    head_Edicao.InnerText = "Editando o serviço: " + servico.descricao + " - R$ " + servico.valor.ToString("0.00");
+                    txt_DescricaoEdicao.Text = servico.descricao;
+                    txt_Valor.Text = servico.valor.ToString("0.00");
+                    form_Edicao.Visible = true;
+                    btn_CadastrarServico.Visible = false;
                 }
             }
             catch (Exception ex)

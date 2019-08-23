@@ -67,6 +67,60 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.WebControls.Button btn_CancelarCadastro;
         
         /// <summary>
+        /// formEditar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl formEditar;
+        
+        /// <summary>
+        /// head_Edicao control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl head_Edicao;
+        
+        /// <summary>
+        /// txt_DescricaoEdicao control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_DescricaoEdicao;
+        
+        /// <summary>
+        /// txt_ValorEdicao control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_ValorEdicao;
+        
+        /// <summary>
+        /// btn_SalvarEdicao control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_SalvarEdicao;
+        
+        /// <summary>
+        /// btn_CancelarEdicao control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_CancelarEdicao;
+        
+        /// <summary>
         /// btn_CadastrarServico control.
         /// </summary>
         /// <remarks>

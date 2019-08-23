@@ -75,6 +75,8 @@ namespace FixFinder.Pages
         {
             form_Cadastro.Visible = false;
             btn_CadastrarServico.Visible = true;
+            txt_Descricao.Text = "";
+            txt_Valor.Text = "";
         }
 
         protected void preencher_Tabela()
@@ -111,6 +113,7 @@ namespace FixFinder.Pages
                             btn.Text = "Editar";
                             btn.CssClass = "btn btn-primary";
                             btn.CommandArgument = s.idServico.ToString();
+                            btn.Attributes.Add("formnovalidate", "true");
                             cell.Controls.Add(btn);
 
                             row.Cells.Add(cell);
@@ -139,6 +142,28 @@ namespace FixFinder.Pages
         }
 
         protected void btn_EditarServico_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Button btn = sender as Button;
+                using (DatabaseEntities context = new DatabaseEntities())
+                {
+                    Servico servico = context.Servico.Where(s => s.idServico == int.Parse(btn.CommandArgument)).FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                pnl_Alert.CssClass = "alert alert-danger";
+                lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                pnl_Alert.Visible = true;
+            }
+        }
+
+        protected void btn_SalvarEdicao_Click(object sender, EventArgs e)
+        {
+        }
+
+        protected void btn_CancelarEdicao_Click(object sender, EventArgs e)
         {
         }
     }

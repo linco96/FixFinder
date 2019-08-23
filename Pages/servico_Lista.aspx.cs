@@ -148,11 +148,13 @@ namespace FixFinder.Pages
                 Button btn = sender as Button;
                 using (DatabaseEntities context = new DatabaseEntities())
                 {
-                    Servico servico = context.Servico.Where(s => s.idServico == Int32.Parse(btn.CommandArgument)).FirstOrDefault();
-                    head_Edicao.InnerText = "Editando o serviço: " + servico.descricao + " - R$ " + servico.valor.ToString("0.00");
+                    int id = int.Parse(btn.CommandArgument);
+                    Servico servico = context.Servico.Where(s => s.idServico == id).FirstOrDefault();
+                    head_Edicao.InnerText = "Editando o serviço:    " + servico.descricao + " - R$ " + servico.valor.ToString("0.00");
                     txt_DescricaoEdicao.Text = servico.descricao;
-                    txt_Valor.Text = servico.valor.ToString("0.00");
+                    txt_ValorEdicao.Text = servico.valor.ToString("0.00");
                     form_Edicao.Visible = true;
+                    form_Cadastro.Visible = false;
                     btn_CadastrarServico.Visible = false;
                 }
             }
@@ -166,10 +168,24 @@ namespace FixFinder.Pages
 
         protected void btn_SalvarEdicao_Click(object sender, EventArgs e)
         {
+            try
+            {
+                using (DatabaseEntities context = new DatabaseEntities())
+                {
+                }
+            }
+            catch (Exception ex)
+            {
+                pnl_Alert.CssClass = "alert alert-danger";
+                lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                pnl_Alert.Visible = true;
+            }
         }
 
         protected void btn_CancelarEdicao_Click(object sender, EventArgs e)
         {
+            form_Edicao.Visible = false;
+            btn_CadastrarServico.Visible = true;
         }
     }
 }

@@ -36,7 +36,7 @@
             <%--FORMULÁRIO DE EDIÇÃO--%>
             <div runat="server" id="form_Edicao" visible="false">
                 <hr class="border-primary" />
-                <h4 class="display-4" runat="server" id="head_Edicao"></h4>
+                <h4 runat="server" id="head_Edicao"></h4>
                 <div class="form-group">
                     <label for="txt_DescricaoEdicao">Descrição</label>
                     <asp:TextBox runat="server" ID="txt_DescricaoEdicao" CssClass="form-control" minlength="4" required="required"></asp:TextBox>

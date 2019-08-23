@@ -156,6 +156,7 @@ namespace FixFinder.Pages
                     form_Edicao.Visible = true;
                     form_Cadastro.Visible = false;
                     btn_CadastrarServico.Visible = false;
+                    btn_SalvarEdicao.CommandArgument = servico.idServico.ToString();
                 }
             }
             catch (Exception ex)
@@ -170,8 +171,19 @@ namespace FixFinder.Pages
         {
             try
             {
+                Button btn = sender as Button;
                 using (DatabaseEntities context = new DatabaseEntities())
                 {
+                    int id = int.Parse(btn.CommandArgument);
+                    Servico servico = context.Servico.Where(s => s.idServico == id).FirstOrDefault();
+                    servico.descricao = txt_DescricaoEdicao.Text;
+                    servico.valor = double.Parse(txt_ValorEdicao.Text);
+                    context.SaveChanges();
+
+                    form_Edicao.Visible = false;
+                    btn_CadastrarServico.Visible = true;
+
+                    Response.Redirect(Request.RawUrl);
                 }
             }
             catch (Exception ex)

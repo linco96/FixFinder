@@ -61,7 +61,8 @@ namespace FixFinder.Pages
                         marca = txt_Marca.Text,
                         validade = dataValidade,
                         categoria = txt_Categoria.Text,
-                        cnpjOficina = cliente.Funcionario.cnpjOficina
+                        cnpjOficina = cliente.Funcionario.cnpjOficina,
+                        ativo = 1
                     };
 
                     context.Produto.Add(p);

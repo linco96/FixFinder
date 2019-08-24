@@ -125,11 +125,8 @@ namespace FixFinder.Pages
                                 btn.CommandName = "editarProduto";
                                 btn.CommandArgument = produto.idProduto.ToString();
                                 cell.Controls.Add(btn);
-                                row.Cells.Add(cell);
 
                                 //EXCLUIR
-                                cell = new TableCell();
-                                cell.CssClass = "text-center align-middle";
                                 btn = new Button();
                                 btn.Click += new EventHandler(btn_Acao_Click);
                                 btn.Text = "Excluir";

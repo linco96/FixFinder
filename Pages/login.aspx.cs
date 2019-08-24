@@ -40,7 +40,7 @@ namespace FixFinder.Pages
                     else
                     {
                         Session["usuario"] = cliente;
-                        //Response.Redirect("paginaDestino.aspx", false);
+                        Response.Redirect("home.aspx", false);
                     }
                 }
                 catch (Exception ex)

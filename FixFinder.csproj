@@ -113,6 +113,7 @@
     <Content Include="Pages\login_EsqueciSenha.aspx" />
     <Content Include="Pages\oficina_Cadastro.aspx" />
     <Content Include="Pages\produto_Cadastro.aspx" />
+    <Content Include="Pages\produto_Editar.aspx" />
     <Content Include="Pages\produto_Lista.aspx" />
     <Content Include="Pages\servico_Lista.aspx" />
     <Content Include="Pages\veiculo_Cadastro.aspx" />
@@ -364,6 +365,13 @@
     </Compile>
     <Compile Include="Pages\produto_Cadastro.aspx.designer.cs">
       <DependentUpon>produto_Cadastro.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\produto_Editar.aspx.cs">
+      <DependentUpon>produto_Editar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\produto_Editar.aspx.designer.cs">
+      <DependentUpon>produto_Editar.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\produto_Lista.aspx.cs">
       <DependentUpon>produto_Lista.aspx</DependentUpon>

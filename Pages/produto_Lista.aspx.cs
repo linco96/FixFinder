@@ -145,20 +145,20 @@ namespace FixFinder.Pages
                         }
                     }
                 }
+                if (adicionados == 0)
+                {
+                    row = new TableRow();
+                    cell = new TableCell();
+                    cell.Text = "Você não tem nenhum produto cadastrado";
+                    cell.ColumnSpan = 8;
+                    cell.CssClass = "text-center align-middle font-weight-bold text-primary";
+                    row.Cells.Add(cell);
+                    tbl_Produtos.Rows.Add(row);
+                }
             }
             catch (Exception ex)
             {
                 Response.Write("<script>alert('" + ex.Message + "');</script>");
-            }
-            if (adicionados == 0)
-            {
-                row = new TableRow();
-                cell = new TableCell();
-                cell.Text = "Você não tem nenhum produto cadastrado";
-                cell.ColumnSpan = 8;
-                cell.CssClass = "text-center align-middle font-weight-bold text-primary";
-                row.Cells.Add(cell);
-                tbl_Produtos.Rows.Add(row);
             }
         }
 

@@ -90,9 +90,12 @@ namespace FixFinder.Pages
                                 row.Cells.Add(cell);
 
                                 //VALIDADE
+
                                 cell = new TableCell();
                                 if (produto.validade != null)
-                                    cell.Text = produto.validade.ToString();
+                                {
+                                    cell.Text = DateTime.Parse(produto.validade.ToString()).ToString("dd/MM/yyyy");
+                                }
                                 else
                                     cell.Text = "";
                                 cell.CssClass = "text-center align-middle";
@@ -100,21 +103,24 @@ namespace FixFinder.Pages
 
                                 //PRECO COMPRA
                                 cell = new TableCell();
-                                cell.Text = produto.precoCompra.ToString();
+                                cell.Text = "R$ " + produto.precoCompra.ToString("0.00");
                                 cell.CssClass = "text-center align-middle";
                                 row.Cells.Add(cell);
 
                                 //PRECO VENDA
                                 cell = new TableCell();
+
                                 if (produto.precoVenda != null)
-                                    cell.Text = produto.precoVenda.ToString();
+                                {
+                                    double dbl = (Double)produto.precoVenda;
+                                    cell.Text = "R$ " + dbl.ToString("0.00");
+                                }
                                 else
                                     cell.Text = "";
                                 cell.CssClass = "text-center align-middle";
                                 row.Cells.Add(cell);
 
                                 //ACOES
-
                                 //EDITAR
                                 cell = new TableCell();
                                 cell.CssClass = "text-center align-middle";

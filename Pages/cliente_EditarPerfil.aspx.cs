@@ -17,13 +17,20 @@ namespace FixFinder.Pages
         protected void Page_Load(object sender, EventArgs e)
         {
             c = (Cliente)Session["usuario"];
-            if (!alterar)
+            if (c == null)
             {
-                txt_Nome.Text = c.nome;
-                txt_Telefone.Text = c.telefone;
-                txt_Email.Text = c.email;
-                date_DataNascimento.Text = c.dataNascimento.ToString("yyyy-MM-dd");
-                alterar = true;
+                Response.Redirect("login.aspx", false);
+            }
+            else
+            {
+                if (!alterar)
+                {
+                    txt_Nome.Text = c.nome;
+                    txt_Telefone.Text = c.telefone;
+                    txt_Email.Text = c.email;
+                    date_DataNascimento.Text = c.dataNascimento.ToString("yyyy-MM-dd");
+                    alterar = true;
+                }
             }
         }
 

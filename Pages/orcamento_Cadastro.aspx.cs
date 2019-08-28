@@ -11,7 +11,18 @@ namespace FixFinder.Pages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+        }
 
+        protected void btn_Cadastro_Click(object sender, EventArgs e)
+        {
+        }
+
+        protected void btn_AdicionarServico_Click(object sender, EventArgs e)
+        {
+        }
+
+        protected void btn_AdicionarProduto_Click(object sender, EventArgs e)
+        {
         }
     }
 }

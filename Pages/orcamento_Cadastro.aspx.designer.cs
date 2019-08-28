@@ -49,6 +49,60 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.WebControls.DropDownList txt_Veiculo;
         
         /// <summary>
+        /// btn_NovoServico control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_NovoServico;
+        
+        /// <summary>
+        /// form_CadastroServico control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl form_CadastroServico;
+        
+        /// <summary>
+        /// txt_Descricao control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_Descricao;
+        
+        /// <summary>
+        /// txt_Valor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_Valor;
+        
+        /// <summary>
+        /// btn_CadastrarServico control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_CadastrarServico;
+        
+        /// <summary>
+        /// btn_CancelarCadastroServico control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_CancelarCadastroServico;
+        
+        /// <summary>
         /// txt_ServicoSelecionado control.
         /// </summary>
         /// <remarks>
@@ -119,6 +173,15 @@ namespace FixFinder.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TableHeaderRow tblH_Produtos;
+        
+        /// <summary>
+        /// txt_DescontoAcrescimo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList txt_DescontoAcrescimo;
         
         /// <summary>
         /// txt_Desconto control.

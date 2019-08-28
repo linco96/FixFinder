@@ -34,6 +34,24 @@
 
             <div class="form-group align-content-center mt-5">
                 <h4>Serviços</h4>
+                <div>
+                    <asp:Button runat="server" ID="btn_NovoServico" Text="Novo serviço" CssClass="btn btn-outline-primary btn-sm mb-2" aria-pressed="true" OnClick="btn_NovoServico_Click" formnovalidate="true" />
+                </div>
+            </div>
+            <div runat="server" id="form_CadastroServico" visible="false">
+                <div class="form-group">
+                    <label for="txt_Descricao">Descrição</label>
+                    <asp:TextBox runat="server" ID="txt_Descricao" CssClass="form-control" minlength="4"></asp:TextBox>
+                </div>
+                <div class="form-group">
+                    <label for="txt_Valor">Valor</label>
+                    <asp:TextBox runat="server" ID="txt_Valor" CssClass="form-control" onkeypress="$(this).mask('#.##0,00', {reverse: true});"></asp:TextBox>
+                </div>
+                <div class="form-group">
+                    <asp:Button runat="server" ID="btn_CadastrarServico" CssClass="btn btn-primary" OnClick="btn_CadastrarServico_Click" Text="Cadastrar" />
+                    <asp:Button runat="server" ID="btn_CancelarCadastroServico" Text="Cancelar" CssClass="btn btn-danger" OnClick="btn_CancelarCadastroServico_Click" formnovalidate="true" />
+                </div>
+                <hr class="border-primary" />
             </div>
             <div class="form-group">
                 <div class="input-group">
@@ -70,7 +88,7 @@
             </div>
             <div class="form-group">
                 <div class="table-responsive-xl">
-                    <asp:Table runat="server" ID="tbl_Produtos" Visible="true" CssClass="table border rounded-lg">
+                    <asp:Table runat="server" ID="tbl_Produtos" Visible="false" CssClass="table border rounded-lg">
                         <asp:TableHeaderRow runat="server" ID="tblH_Produtos" CssClass="thead-light">
                             <asp:TableHeaderCell Scope="Column" CssClass="text-center">Descrição</asp:TableHeaderCell>
                             <asp:TableHeaderCell Scope="Column" CssClass="text-center">Valor</asp:TableHeaderCell>
@@ -82,11 +100,20 @@
 
             <div class="form-group mt-5">
                 <label for="txtDesconto">Desconto/Acréscimo</label>
-                <asp:TextBox runat="server" ID="txt_Desconto" CssClass="form-control" ClientIDMode="Static" onkeypress="$(this).mask('-?#');"></asp:TextBox>
+                <div class="input-group">
+                    <span class="input-group-prepend">
+                        <asp:DropDownList runat="server" ID="txt_DescontoAcrescimo" CssClass="form-control custom-select bg-light" Style="border-top-right-radius: 0; border-bottom-right-radius: 0;">
+                            <asp:ListItem Value="d">Desconto</asp:ListItem>
+                            <asp:ListItem Value="a">Acréscimo</asp:ListItem>
+                        </asp:DropDownList>
+                    </span>
+                    <asp:TextBox runat="server" ID="txt_Desconto" CssClass="form-control" ClientIDMode="Static" onkeypress="$(this).mask('#.##0,00', { reverse: true });"></asp:TextBox>
+                </div>
                 <h3 runat="server" id="lbl_ValorTotal" class="mt-2 text-center text-primary">Valor total: R$ 150,00</h3>
             </div>
 
             <div class="form-group mt-5 text-center">
+
                 <asp:Button runat="server" ID="btn_Cadastro" CssClass="btn btn-primary btn-lg" OnClick="btn_Cadastro_Click" Text="Criar orçamento" />
             </div>
             <div class="form-group">

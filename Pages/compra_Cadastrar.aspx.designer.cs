@@ -40,39 +40,138 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.WebControls.Panel pnl_Alert;
         
         /// <summary>
-        /// txt_CNPJ control.
+        /// lbl_Alert control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_CNPJ;
+        protected global::System.Web.UI.WebControls.Label lbl_Alert;
         
         /// <summary>
-        /// txt_Nome control.
+        /// txt_FornecedorCNPJ control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_Nome;
+        protected global::System.Web.UI.WebControls.TextBox txt_FornecedorCNPJ;
         
         /// <summary>
-        /// txt_Telefone control.
+        /// txt_FornecedorNome control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_Telefone;
+        protected global::System.Web.UI.WebControls.TextBox txt_FornecedorNome;
         
         /// <summary>
-        /// txt_Email control.
+        /// txt_FornecedorTelefone control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_Email;
+        protected global::System.Web.UI.WebControls.TextBox txt_FornecedorTelefone;
+        
+        /// <summary>
+        /// txt_FornecedorEmail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_FornecedorEmail;
+        
+        /// <summary>
+        /// select_Produto control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList select_Produto;
+        
+        /// <summary>
+        /// pnl_AlertProduto control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnl_AlertProduto;
+        
+        /// <summary>
+        /// lbl_AlertProduto control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_AlertProduto;
+        
+        /// <summary>
+        /// txt_Produto control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_Produto;
+        
+        /// <summary>
+        /// txt_ProdutoQuantidadeAtual control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_ProdutoQuantidadeAtual;
+        
+        /// <summary>
+        /// txt_ProdutoMarca control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_ProdutoMarca;
+        
+        /// <summary>
+        /// txt_ProdutoCategoria control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_ProdutoCategoria;
+        
+        /// <summary>
+        /// txt_ProdutoPrecoCompra control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_ProdutoPrecoCompra;
+        
+        /// <summary>
+        /// txt_ProdutoPrecoVenda control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_ProdutoPrecoVenda;
+        
+        /// <summary>
+        /// btn_CadastrarProduto control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_CadastrarProduto;
     }
 }

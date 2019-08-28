@@ -15,35 +15,83 @@
     <form id="form_Compra" runat="server">
         <div class="container mt-5">
             <h1 class="display-4 text-primary" style="text-align: center">Realizar Compras</h1>
+            <%--FORNECEDOR--%>
             <div class="form-group">
-                <label for="txt_cnpj">Selecione um fornecedor</label>
-                <asp:DropDownList runat="server" ID="select_Fornecedores" CssClass="form-control" OnSelectedIndexChanged="select_Fornecedores_SelectedIndexChanged"></asp:DropDownList>
+                <label class="h4">Fornecedor</label>
+                <asp:DropDownList runat="server" ID="select_Fornecedores" CssClass="form-control" OnSelectedIndexChanged="select_Fornecedores_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
             </div>
             <div class="form-group">
                 <asp:Panel runat="server" ID="pnl_Alert" Visible="false" CssClass="alert alert-danger" role="alert">
-                    <small class="form-text text-muted">Nenhum fornecedor cadastrado.</small>
+                    <asp:Label runat="server" ID="lbl_Alert" CssClass="text-danger form-text text-muted" Text="Nenhum fornecedor cadastrado."></asp:Label>
                 </asp:Panel>
             </div>
             <div class="form-inline">
-                <span class="w-50 text-left pr-3">
-                    <label for="txt_CNPJ" style="display: block">CNPJ</label>
-                    <asp:TextBox runat="server" ID="txt_CNPJ" CssClass="form-control w-100" minlength="18" onkeypress="$(this).mask('00.000.000/0000-00');" ReadOnly="true"></asp:TextBox>
+                <span class="w-50 text-left pr-3 mb-1">
+                    <label for="txt_FornecedorCNPJ" style="display: block">CNPJ</label>
+                    <asp:TextBox runat="server" ID="txt_FornecedorCNPJ" CssClass="form-control w-100" ReadOnly="true"></asp:TextBox>
                 </span>
                 <span class="w-50 text-left pl-3">
-                    <label for="txt_Nome" style="display: block">Nome</label>
-                    <asp:TextBox runat="server" ID="txt_Nome" CssClass="form-control w-100" minlength="4" ReadOnly="true"></asp:TextBox>
+                    <label for="txt_FornecedorNome" style="display: block">Nome</label>
+                    <asp:TextBox runat="server" ID="txt_FornecedorNome" CssClass="form-control w-100" ReadOnly="true"></asp:TextBox>
                 </span>
             </div>
             <div class="form-inline">
-                <span class="w-50 text-left pr-3">
-                    <label for="txt_Telefone" style="display: block">Telefone</label>
-                    <asp:TextBox runat="server" ID="txt_Telefone" CssClass="form-control w-100" onkeypress="$(this).mask('(00) 0 0000-0000');" ReadOnly="true"></asp:TextBox>
+                <span class="w-50 text-left pr-3 mb-1">
+                    <label for="txt_FornecedorTelefone" style="display: block">Telefone</label>
+                    <asp:TextBox runat="server" ID="txt_FornecedorTelefone" CssClass="form-control w-100" ReadOnly="true"></asp:TextBox>
                 </span>
                 <span class="w-50 text-left pl-3">
-                    <label for="txt_Email" style="display: block">E-mail</label>
-                    <asp:TextBox runat="server" ID="txt_Email" CssClass="form-control w-100" type="email" ReadOnly="true"></asp:TextBox>
+                    <label for="txt_FornecedorEmail" style="display: block">E-mail</label>
+                    <asp:TextBox runat="server" ID="txt_FornecedorEmail" CssClass="form-control w-100" ReadOnly="true"></asp:TextBox>
                 </span>
             </div>
+
+            <hr class="border border-primary border-bottom-0" />
+
+            <%--PRODUTO--%>
+            <div class="form-group">
+                <label class="h4">Produto</label>
+                <asp:DropDownList runat="server" ID="select_Produto" CssClass="form-control" OnSelectedIndexChanged="select_Produto_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+            </div>
+            <div class="form-group">
+                <asp:Panel runat="server" ID="pnl_AlertProduto" Visible="false" CssClass="alert alert-danger" role="alert">
+                    <asp:Label runat="server" ID="lbl_AlertProduto" CssClass="text-danger form-text text-muted" Text="Nenhum produto cadastrado."></asp:Label>
+                </asp:Panel>
+            </div>
+            <div class="form-inline">
+                <span class="w-50 text-left pr-3 mb-1">
+                    <label for="txt_Produto" style="display: block">Produto</label>
+                    <asp:TextBox runat="server" ID="txt_Produto" CssClass="form-control w-100" ReadOnly="true"></asp:TextBox>
+                </span>
+                <span class="w-50 text-left pl-3 mb-1">
+                    <label for="txt_ProdutoQuantidadeAtual" style="display: block">Quantidade atual</label>
+                    <asp:TextBox runat="server" ID="txt_ProdutoQuantidadeAtual" CssClass="form-control w-100" ReadOnly="true"></asp:TextBox>
+                </span>
+            </div>
+            <div class="form-inline">
+                <span class="w-50 text-left pr-3 mb-1">
+                    <label for="txt_ProdutoMarca" style="display: block">Marca</label>
+                    <asp:TextBox runat="server" ID="txt_ProdutoMarca" CssClass="form-control w-100" ReadOnly="true"></asp:TextBox>
+                </span>
+                <span class="w-50 text-left pl-3 mb-1">
+                    <label for="txt_ProdutoCategoria" style="display: block">Categoria</label>
+                    <asp:TextBox runat="server" ID="txt_ProdutoCategoria" CssClass="form-control w-100" ReadOnly="true"></asp:TextBox>
+                </span>
+            </div>
+
+            <div class="form-inline">
+                <span class="w-50 text-left pr-3">
+                    <label for="txt_ProdutoPrecoCompra" style="display: block">Preço Compra</label>
+                    <asp:TextBox runat="server" ID="txt_ProdutoPrecoCompra" CssClass="form-control w-100" ReadOnly="true"></asp:TextBox>
+                </span>
+                <span class="w-50 text-left pl-3">
+                    <label for="txt_ProdutoPrecoVenda" style="display: block">Preço Venda</label>
+                    <asp:TextBox runat="server" ID="txt_ProdutoPrecoVenda" CssClass="form-control w-100" ReadOnly="true"></asp:TextBox>
+                </span>
+            </div>
+            <asp:Button runat="server" ID="btn_CadastrarProduto" CssClass="btn btn-outline-primary" Text="Cadastrar Produto" />
+
+            <%--LISTA PRODUTOS--%>
         </div>
     </form>
 </body>

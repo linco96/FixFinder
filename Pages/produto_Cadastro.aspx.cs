@@ -34,6 +34,8 @@ namespace FixFinder.Pages
                     {
                         txt_Quantidade.ReadOnly = true;
                         txt_Quantidade.Text = "0";
+                        txt_PrecoCompra.ReadOnly = true;
+                        txt_PrecoCompra.Text = "0";
                     }
                 }
             }

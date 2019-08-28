@@ -70,13 +70,12 @@ namespace FixFinder.Pages
                             btn.Click += new EventHandler(btn_RemoverServico_Click);
                             btn.Text = "Remover";
                             btn.CssClass = "btn btn-danger";
-                            btn.CommandName = "excluirVeiculo";
-                            btn.CommandArgument = veiculo.idVeiculo.ToString();
+                            btn.CommandArgument = s.idServico.ToString();
                             cell.Controls.Add(btn);
 
                             row.Cells.Add(cell);
 
-                            tbl_Veiculos.Rows.Add(row);
+                            tbl_Servicos.Rows.Add(row);
                         }
                     }
                     else

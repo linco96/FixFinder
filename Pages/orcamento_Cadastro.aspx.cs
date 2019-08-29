@@ -11,7 +11,6 @@ namespace FixFinder.Pages
     public partial class orcamento_Cadastro : System.Web.UI.Page
     {
         private Cliente c;
-        private Oficina o;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -42,47 +41,57 @@ namespace FixFinder.Pages
             {
                 using (DatabaseEntities context = new DatabaseEntities())
                 {
-                    List<Servico> servicos = context.Servico.Where(servico => servico.cnpjOficina.Equals(o.cnpj)).ToList();
-                    List<Produto> produtos = context.Produto.Where(produto => produto.cnpjOficina.Equals(o.cnpj)).ToList();
+                    List<Servico> servicos = context.Servico.Where(servico => servico.cnpjOficina.Equals(c.Funcionario.cnpjOficina)).ToList();
+                    List<Produto> produtos = context.Produto.Where(produto => produto.cnpjOficina.Equals(c.Funcionario.cnpjOficina)).ToList();
+                    ListItem item;
 
                     if (servicos.Count > 0)
                     {
-                        TableRow row;
-                        TableCell cell;
-                        Button btn;
                         foreach (Servico s in servicos)
                         {
-                            row = new TableRow();
-
-                            cell = new TableCell();
-                            cell.Text = s.descricao;
-                            cell.CssClass = "text-center align-middle";
-                            row.Cells.Add(cell);
-
-                            cell = new TableCell();
-                            cell.Text = s.valor.ToString("0.00");
-                            cell.CssClass = "text-center align-middle";
-                            row.Cells.Add(cell);
-
-                            cell = new TableCell();
-                            cell.CssClass = "text-center align-middle";
-                            btn = new Button();
-                            btn.Click += new EventHandler(btn_RemoverServico_Click);
-                            btn.Text = "Remover";
-                            btn.CssClass = "btn btn-danger";
-                            btn.CommandArgument = s.idServico.ToString();
-                            cell.Controls.Add(btn);
-
-                            row.Cells.Add(cell);
-
-                            tbl_Servicos.Rows.Add(row);
+                            item = new ListItem();
+                            item.Text = s.descricao + " - R$ " + s.valor.ToString("0.00");
+                            item.Value = s.idServico.ToString();
+                            txt_ServicoSelecionado.Items.Add(item);
                         }
                     }
                     else
                     {
-                        ListItem item = new ListItem();
+                        item = new ListItem();
                         item.Text = "Nenhum serviço encontrado";
-                        item.Enabled = false;
+                        item.Value = "-";
+                        txt_ServicoSelecionado.Items.Add(item);
+                        txt_ServicoSelecionado.Enabled = false;
+                    }
+
+                    if (produtos.Count > 0)
+                    {
+                        double precoVenda;
+                        DateTime validade;
+                        foreach (Produto p in produtos)
+                        {
+                            precoVenda = (Double)p.precoVenda;
+                            item = new ListItem();
+                            if (p.validade == null)
+                            {
+                                item.Text = p.descricao + " " + p.marca + " - R$ " + precoVenda.ToString("0.00");
+                            }
+                            else
+                            {
+                                validade = (DateTime)p.validade;
+                                item.Text = p.descricao + " " + p.marca + " - R$ " + precoVenda.ToString("0.00") + " (Vence em " + validade.ToString("dd/MM/yyyy") + ")";
+                            }
+                            item.Value = p.idProduto.ToString();
+                            txt_ProdutoSelecionado.Items.Add(item);
+                        }
+                    }
+                    else
+                    {
+                        item = new ListItem();
+                        item.Text = "Nenhum produto encontrado";
+                        item.Value = "-";
+                        txt_ProdutoSelecionado.Items.Add(item);
+                        txt_ProdutoSelecionado.Enabled = false;
                     }
                 }
             }

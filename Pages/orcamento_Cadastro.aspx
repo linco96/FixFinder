@@ -35,7 +35,7 @@
             <div class="form-group align-content-center mt-5">
                 <h4>Serviços</h4>
                 <div>
-                    <asp:Button runat="server" ID="btn_NovoServico" Text="Novo serviço" CssClass="btn btn-outline-primary btn-sm mb-2" aria-pressed="true" OnClick="btn_NovoServico_Click" formnovalidate="true" />
+                    <asp:Button runat="server" ID="btn_NovoServico" Text="Novo serviço" CssClass="btn btn-outline-primary btn-sm mt-1" aria-pressed="true" OnClick="btn_NovoServico_Click" formnovalidate="true" />
                 </div>
             </div>
             <div runat="server" id="form_CadastroServico" visible="false">

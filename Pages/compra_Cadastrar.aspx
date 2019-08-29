@@ -89,9 +89,34 @@
                     <asp:TextBox runat="server" ID="txt_ProdutoPrecoVenda" CssClass="form-control w-100" ReadOnly="true"></asp:TextBox>
                 </span>
             </div>
-            <asp:Button runat="server" ID="btn_CadastrarProduto" CssClass="btn btn-outline-primary" Text="Cadastrar Produto" />
-
+            <div class="form-inline">
+                <span class="w-50 text-left pr-3">
+                    <label for="txt_ProdutoQuantidade" style="display: block">Quantidade</label>
+                    <asp:TextBox runat="server" ID="txt_ProdutoQuantidade" CssClass="form-control w-100" minlength="1" onkeypress="$(this).mask('#.##0', {reverse: true});" placeholder="Digite a quantidade de produtos a serem comprados..."></asp:TextBox>
+                </span>
+                <span class="w-50 text-left pl-3">
+                    <label for="txt_ProdutoValidade" style="display: block">Validade</label>
+                    <asp:TextBox runat="server" ID="txt_ProdutoValidade" CssClass="form-control w-100" type="date" placeholder="Digite a validade do produto..."></asp:TextBox>
+                </span>
+            </div>
+            <div class="form-group">
+                <asp:Button runat="server" ID="btn_AdicionarProduto" CssClass="btn btn-outline-success btn-sm mt-2" Text="Adicionar Produto" OnClick="btn_AdicionarProduto_Click" />
+                <asp:Button runat="server" ID="btn_CadastrarProduto" CssClass="btn btn-outline-primary btn-sm mt-2" Text="Cadastrar Produto" OnClick="btn_CadastrarProduto_Click" />
+            </div>
             <%--LISTA PRODUTOS--%>
+            <div class="table-responsive-xl">
+                <asp:Table runat="server" ID="tbl_Produtos" CssClass="table border rounded-lg">
+                    <asp:TableHeaderRow runat="server" ID="tblH_Produtos" CssClass="thead-light">
+                        <asp:TableHeaderCell Scope="Column" CssClass="text-center">Produto</asp:TableHeaderCell>
+                        <asp:TableHeaderCell Scope="Column" CssClass="text-center">Marca</asp:TableHeaderCell>
+                        <asp:TableHeaderCell Scope="Column" CssClass="text-center">Categoria</asp:TableHeaderCell>
+                        <asp:TableHeaderCell Scope="Column" CssClass="text-center">Quantidade</asp:TableHeaderCell>
+                        <asp:TableHeaderCell Scope="Column" CssClass="text-center">Preço Compra</asp:TableHeaderCell>
+                        <asp:TableHeaderCell Scope="Column" CssClass="text-center">Preço Venda</asp:TableHeaderCell>
+                        <asp:TableHeaderCell Scope="Column" CssClass="text-center">Ações</asp:TableHeaderCell>
+                    </asp:TableHeaderRow>
+                </asp:Table>
+            </div>
         </div>
     </form>
 </body>

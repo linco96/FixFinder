@@ -13,6 +13,7 @@ namespace FixFinder.Pages
         private Cliente c;
         private Funcionario funcionario;
         private Compra compra;
+        private List<Produto> listaProdutos;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -20,6 +21,7 @@ namespace FixFinder.Pages
             compra = (Compra)Session["compra"];
             if (c == null)
             {
+                Session["compra"] = null;
                 Response.Redirect("login.aspx", false);
             }
             else
@@ -34,10 +36,14 @@ namespace FixFinder.Pages
                         {
                             if (context.Oficina.Where(o => o.cnpj.Equals(funcionario.cnpjOficina)).FirstOrDefault() == null || funcionario.cargo.ToUpper() != "GERENTE")
                             {
+                                Session["compra"] = null;
                                 Response.Redirect("home.aspx", false);
                             }
                             else
                             {
+                                if (listaProdutos == null)
+                                    listaProdutos = new List<Produto>();
+                                //rodar tabela
                                 pnl_Alert.Visible = false;
                                 if (!IsPostBack)
                                 {
@@ -48,6 +54,7 @@ namespace FixFinder.Pages
                         }
                         else
                         {
+                            Session["compra"] = null;
                             Response.Redirect("home.aspx", false);
                         }
                     }
@@ -101,7 +108,15 @@ namespace FixFinder.Pages
                         select_Produto.Items.Add(new ListItem("Selecione um produto", ""));
                         foreach (var produto in query)
                         {
-                            select_Produto.Items.Add(new ListItem(produto.descricao, produto.idProduto.ToString()));
+                            if (produto.validade != null)
+                            {
+                                DateTime validade = (DateTime)produto.validade;
+                                select_Produto.Items.Add(new ListItem(produto.descricao + " - Preço Compra: R$ " + produto.precoCompra.ToString("0.00") + " - Validade: " + validade.ToString("dd/MM/yyyy"), produto.idProduto.ToString()));
+                            }
+                            else
+                            {
+                                select_Produto.Items.Add(new ListItem(produto.descricao + " - Preço Compra: R$ " + produto.precoCompra.ToString("0.00"), produto.idProduto.ToString()));
+                            }
                         }
                     }
                     else
@@ -140,6 +155,8 @@ namespace FixFinder.Pages
                         txt_FornecedorNome.Text = "";
                         txt_FornecedorTelefone.Text = "";
                         txt_FornecedorEmail.Text = "";
+                        txt_ProdutoPrecoCompra.ReadOnly = true;
+                        txt_ProdutoPrecoVenda.ReadOnly = true;
                     }
                 }
             }
@@ -185,6 +202,87 @@ namespace FixFinder.Pages
                         txt_ProdutoPrecoCompra.Text = "";
                         txt_ProdutoPrecoVenda.Text = "";
                     }
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script>alert('" + ex.Message + "');</script>");
+            }
+        }
+
+        protected void btn_CadastrarProduto_Click(object sender, EventArgs e)
+        {
+            compra = null;
+            Session["compra"] = null;
+            compra.cnpjOficina = funcionario.cnpjOficina;
+            compra.cpfFuncionario = funcionario.cpf;
+            compra.idFornecedor = int.Parse(select_Fornecedores.SelectedValue);
+        }
+
+        private void preencher_Tabela()
+        {
+            TableRow row;
+            TableCell cell;
+            Button btn;
+            if (listaProdutos != null)
+            {
+                foreach (Produto produto in listaProdutos)
+                {
+                    row = new TableRow();
+                    //PRODUTO
+                    cell = new TableCell();
+                    cell.Text = produto.descricao;
+                    cell.CssClass = "text-center align-middle";
+                    row.Cells.Add(cell);
+                    //MARCA
+                    cell = new TableCell();
+                    cell.Text = produto.marca;
+                    cell.CssClass = "text-center align-middle";
+                    row.Cells.Add(cell);
+                    //CATEGORIA
+                    cell = new TableCell();
+                    cell.Text = produto.categoria;
+                    cell.CssClass = "text-center align-middle";
+                    row.Cells.Add(cell);
+                    //QUANTIDADE
+                    cell = new TableCell();
+                    cell.Text = produto.quantidade.ToString();
+                    cell.CssClass = "text-center align-middle";
+                    row.Cells.Add(cell);
+                    //PRECO COMPRA
+                    cell = new TableCell();
+                    cell.Text = "R$ " + produto.precoCompra.ToString("0.00");
+                    cell.CssClass = "text-center align-middle";
+                    row.Cells.Add(cell);
+                    //PRECO VENDA
+                    cell = new TableCell();
+                    if (produto.precoVenda != null)
+                    {
+                        double dbl = (double)produto.precoVenda;
+                        cell.Text = dbl.ToString("0.00");
+                    }
+                    else
+                    {
+                        cell.Text = "N/A";
+                    }
+
+                    cell.CssClass = "text-center align-middle";
+                    row.Cells.Add(cell);
+                }
+            }
+        }
+
+        protected void btn_AdicionarProduto_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (var context = new DatabaseEntities())
+                {
+                    Produto produto = context.Produto.Where(p => p.idProduto.ToString().Equals(select_Fornecedores.SelectedValue)).FirstOrDefault();
+                    produto.quantidade = int.Parse(txt_ProdutoQuantidade.Text.Replace(".", ""));
+                    if (txt_ProdutoPrecoCompra.Text != produto.precoCompra.ToString())
+                        produto.precoCompra = double.Parse(txt_ProdutoPrecoCompra.Text);
+                    listaProdutos.Add(produto);
                 }
             }
             catch (Exception ex)

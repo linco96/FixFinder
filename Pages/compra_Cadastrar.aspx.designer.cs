@@ -166,6 +166,33 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.WebControls.TextBox txt_ProdutoPrecoVenda;
         
         /// <summary>
+        /// txt_ProdutoQuantidade control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_ProdutoQuantidade;
+        
+        /// <summary>
+        /// txt_ProdutoValidade control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_ProdutoValidade;
+        
+        /// <summary>
+        /// btn_AdicionarProduto control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_AdicionarProduto;
+        
+        /// <summary>
         /// btn_CadastrarProduto control.
         /// </summary>
         /// <remarks>
@@ -173,5 +200,23 @@ namespace FixFinder.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btn_CadastrarProduto;
+        
+        /// <summary>
+        /// tbl_Produtos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Table tbl_Produtos;
+        
+        /// <summary>
+        /// tblH_Produtos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TableHeaderRow tblH_Produtos;
     }
 }

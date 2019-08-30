@@ -148,6 +148,15 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.WebControls.DropDownList txt_ProdutoSelecionado;
         
         /// <summary>
+        /// txt_ProdutoQuantidade control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_ProdutoQuantidade;
+        
+        /// <summary>
         /// btn_AdicionarProduto control.
         /// </summary>
         /// <remarks>

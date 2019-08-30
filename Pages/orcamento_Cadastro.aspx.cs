@@ -13,6 +13,7 @@ namespace FixFinder.Pages
         private Cliente c;
         private static List<Servico> servicosSelecionados;
         private static List<Produto> produtosSelecionados;
+        private static List<int> quantidades;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -33,13 +34,15 @@ namespace FixFinder.Pages
                             produtosSelecionados = new List<Produto>();
                         if (servicosSelecionados == null)
                             servicosSelecionados = new List<Servico>();
+                        if (quantidades == null)
+                            quantidades = new List<int>();
                         preencherCampos();
                     }
                 }
             }
             else
             {
-                Response.Redirect("home.aspx", false);
+                Response.Redirect("login.aspx", false);
             }
         }
 
@@ -165,6 +168,7 @@ namespace FixFinder.Pages
                             btn = new Button();
                             btn.Text = "Remover";
                             btn.Click += new EventHandler(btn_RemoverServico_Click);
+                            btn.CommandArgument = s.idServico.ToString();
                             btn.CssClass = "btn btn-danger";
                             cell.Controls.Add(btn);
                             row.Cells.Add(cell);
@@ -228,7 +232,8 @@ namespace FixFinder.Pages
                             cell.CssClass = "text-center align-middle";
                             btn = new Button();
                             btn.Text = "Remover";
-                            btn.Click += new EventHandler(btn_RemoverServico_Click);
+                            btn.Click += new EventHandler(btn_RemoverProduto_Click);
+                            btn.CommandArgument = p.idProduto.ToString();
                             btn.CssClass = "btn btn-danger";
                             cell.Controls.Add(btn);
                             row.Cells.Add(cell);
@@ -257,6 +262,7 @@ namespace FixFinder.Pages
                         int id = int.Parse(txt_ServicoSelecionado.SelectedValue);
                         Servico s = context.Servico.Where(servico => servico.idServico == id).FirstOrDefault();
                         servicosSelecionados.Add(s);
+                        pnl_Alert.Visible = false;
                         Response.Redirect(Request.RawUrl);
                     }
                 }
@@ -271,30 +277,89 @@ namespace FixFinder.Pages
         protected void btn_AdicionarProduto_Click(object sender, EventArgs e)
         {
             if (!txt_ProdutoSelecionado.SelectedValue.Equals("-"))
-                try
+            {
+                int quantidade = int.Parse(txt_ProdutoQuantidade.Text);
+                if (quantidade > 0)
                 {
-                    using (DatabaseEntities context = new DatabaseEntities())
+                    try
                     {
-                        int id = int.Parse(txt_ProdutoSelecionado.SelectedValue);
-                        Produto p = context.Produto.Where(produto => produto.idProduto == id).FirstOrDefault();
-                        produtosSelecionados.Add(p);
-                        Response.Redirect(Request.RawUrl);
+                        using (DatabaseEntities context = new DatabaseEntities())
+                        {
+                            int id = int.Parse(txt_ProdutoSelecionado.SelectedValue);
+                            Produto p = context.Produto.Where(produto => produto.idProduto == id).FirstOrDefault();
+                            produtosSelecionados.Add(p);
+                            quantidades.Add(quantidade);
+                            pnl_Alert.Visible = false;
+                            Response.Redirect(Request.RawUrl);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        pnl_Alert.CssClass = "alert alert-danger";
+                        lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                        pnl_Alert.Visible = true;
                     }
                 }
-                catch (Exception ex)
+                else
                 {
                     pnl_Alert.CssClass = "alert alert-danger";
-                    lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                    lbl_Alert.Text = "Informe uma quantidade válida";
                     pnl_Alert.Visible = true;
                 }
+            }
         }
 
         protected void btn_RemoverServico_Click(object sender, EventArgs e)
         {
+            Button btn = sender as Button;
+            int id;
+            try
+            {
+                foreach (Servico s in servicosSelecionados)
+                {
+                    id = int.Parse(btn.CommandArgument);
+                    if (s.idServico == id)
+                    {
+                        servicosSelecionados.Remove(s);
+                        break;
+                    }
+                }
+                pnl_Alert.Visible = false;
+                Response.Redirect(Request.RawUrl);
+            }
+            catch (Exception ex)
+            {
+                pnl_Alert.CssClass = "alert alert-danger";
+                lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                pnl_Alert.Visible = true;
+            }
         }
 
         protected void btn_RemoverProduto_Click(object sender, EventArgs e)
         {
+            Button btn = sender as Button;
+            int id;
+            try
+            {
+                foreach (Produto p in produtosSelecionados)
+                {
+                    id = int.Parse(btn.CommandArgument);
+                    if (p.idProduto == id)
+                    {
+                        quantidades.RemoveAt(produtosSelecionados.FindIndex(produto => produto == p));
+                        produtosSelecionados.Remove(p);
+                        break;
+                    }
+                }
+                pnl_Alert.Visible = false;
+                Response.Redirect(Request.RawUrl);
+            }
+            catch (Exception ex)
+            {
+                pnl_Alert.CssClass = "alert alert-danger";
+                lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                pnl_Alert.Visible = true;
+            }
         }
 
         protected void btn_NovoServico_Click(object sender, EventArgs e)

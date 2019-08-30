@@ -79,9 +79,11 @@
             </div>
             <div class="form-group">
                 <div class="input-group">
-                    <asp:DropDownList runat="server" ID="txt_ProdutoSelecionado" CssClass="form-control custom-select width100">
+                    <asp:DropDownList runat="server" ID="txt_ProdutoSelecionado" CssClass="form-control custom-select">
                     </asp:DropDownList>
+
                     <span class="input-group-append">
+                        <asp:TextBox runat="server" ID="txt_ProdutoQuantidade" type="number" CssClass="form-control" placeholder="Qtde" Style="border-radius: 0px"></asp:TextBox>
                         <asp:Button runat="server" ID="btn_AdicionarProduto" Text="Adicionar" CssClass="btn btn-primary" OnClick="btn_AdicionarProduto_Click" />
                     </span>
                 </div>

@@ -13,7 +13,15 @@ namespace FixFinder.Pages
         private Cliente c;
         private Funcionario funcionario;
         private Compra compra;
-        private List<Produto> listaProdutos;
+        private static List<Produto> listaProdutos;
+        private static int idProduto;
+
+        //A FAZER
+        //VALIDADE NAO ESTA INDO PARA O FORMULARIO
+        //AO ADICIONAR PRODUTO, SE A VALIDADE FOR DIFERENTE É NECESSARIO CADASTRAR UM NOVO PRODUTO (PENSADO SOBRE ISSO AINDA)
+        //FAZER BOTAO DE REMOVER E FAZER O BOTAO FUNCIONAR
+        //FAZER A COLLECTION VIRAR LIST PARA ASSIM SE TIVER UMA COMPRA CADASTRADA ELE JA CARREGAR OS PRODUTOS NA LISTA
+        //SEI LA FALTA BASTANTE
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -41,9 +49,16 @@ namespace FixFinder.Pages
                             }
                             else
                             {
+                                compra = (Compra)Session["compra"];
+                                if (compra != null)
+                                {
+                                    //transformar a collection da compra em list de produto
+                                    //listaProdutos = compra.ProdutosCompra.ToList<Produto>;
+                                }
+
                                 if (listaProdutos == null)
                                     listaProdutos = new List<Produto>();
-                                //rodar tabela
+                                preencher_Tabela();
                                 pnl_Alert.Visible = false;
                                 if (!IsPostBack)
                                 {
@@ -175,7 +190,10 @@ namespace FixFinder.Pages
                 using (var context = new DatabaseEntities())
                 {
                     produto = context.Produto.Where(p => p.idProduto.ToString().Equals(select_Produto.SelectedValue) && p.ativo == 1).FirstOrDefault();
-
+                    if (select_Produto.SelectedValue != "")
+                        idProduto = int.Parse(select_Produto.SelectedValue);
+                    else
+                        idProduto = 0;
                     if (produto != null)
                     {
                         txt_Produto.Text = produto.descricao;
@@ -221,9 +239,53 @@ namespace FixFinder.Pages
 
         private void preencher_Tabela()
         {
+            tbl_Produtos.Rows.Clear();
             TableRow row;
             TableCell cell;
             Button btn;
+
+            TableHeaderCell headerCell;
+            TableHeaderRow header = new TableHeaderRow();
+
+            headerCell = new TableHeaderCell();
+            headerCell.Text = "Produto";
+            headerCell.CssClass = "text-center";
+            header.Cells.Add(headerCell);
+
+            headerCell = new TableHeaderCell();
+            headerCell.Text = "Marca";
+            headerCell.CssClass = "text-center";
+            header.Cells.Add(headerCell);
+
+            headerCell = new TableHeaderCell();
+            headerCell.Text = "Categoria";
+            headerCell.CssClass = "text-center";
+            header.Cells.Add(headerCell);
+
+            headerCell = new TableHeaderCell();
+            headerCell.Text = "Quantidade";
+            headerCell.CssClass = "text-center";
+            header.Cells.Add(headerCell);
+
+            headerCell = new TableHeaderCell();
+            headerCell.Text = "Preço Compra";
+            headerCell.CssClass = "text-center";
+            header.Cells.Add(headerCell);
+
+            headerCell = new TableHeaderCell();
+            headerCell.Text = "Preço Venda";
+            headerCell.CssClass = "text-center";
+            header.Cells.Add(headerCell);
+
+            headerCell = new TableHeaderCell();
+            headerCell.Text = "Ações";
+            headerCell.CssClass = "text-center";
+            header.Cells.Add(headerCell);
+
+            header.CssClass = "thead-light";
+
+            tbl_Produtos.Rows.Add(header);
+
             if (listaProdutos != null)
             {
                 foreach (Produto produto in listaProdutos)
@@ -268,6 +330,7 @@ namespace FixFinder.Pages
 
                     cell.CssClass = "text-center align-middle";
                     row.Cells.Add(cell);
+                    tbl_Produtos.Rows.Add(row);
                 }
             }
         }
@@ -276,14 +339,20 @@ namespace FixFinder.Pages
         {
             try
             {
-                using (var context = new DatabaseEntities())
-                {
-                    Produto produto = context.Produto.Where(p => p.idProduto.ToString().Equals(select_Fornecedores.SelectedValue)).FirstOrDefault();
-                    produto.quantidade = int.Parse(txt_ProdutoQuantidade.Text.Replace(".", ""));
-                    if (txt_ProdutoPrecoCompra.Text != produto.precoCompra.ToString())
-                        produto.precoCompra = double.Parse(txt_ProdutoPrecoCompra.Text);
-                    listaProdutos.Add(produto);
-                }
+                if (txt_ProdutoQuantidade.Text != "")
+                    if (int.Parse(txt_ProdutoQuantidade.Text) > 0)
+                        using (var context = new DatabaseEntities())
+                        {
+                            Produto produto = context.Produto.Where(p => p.idProduto == idProduto).FirstOrDefault();
+                            if (produto != null)
+                            {
+                                produto.quantidade = int.Parse(txt_ProdutoQuantidade.Text.Replace(".", ""));
+                                if (txt_ProdutoPrecoCompra.Text != produto.precoCompra.ToString())
+                                    produto.precoCompra = double.Parse(txt_ProdutoPrecoCompra.Text.Replace("R$", ""));
+                                listaProdutos.Add(produto);
+                                preencher_Tabela();
+                            }
+                        }
             }
             catch (Exception ex)
             {

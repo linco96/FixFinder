@@ -18,9 +18,5 @@ namespace FixFinder
             }
             Response.Redirect("Pages/orcamento_Cadastro.aspx", false);
         }
-
-        protected void butao_Click(object sender, EventArgs e)
-        {
-        }
     }
 }

@@ -97,6 +97,7 @@
                             <asp:TableHeaderCell Scope="Column" CssClass="text-center">Preço</asp:TableHeaderCell>
                             <asp:TableHeaderCell Scope="Column" CssClass="text-center">Validade</asp:TableHeaderCell>
                             <asp:TableHeaderCell Scope="Column" CssClass="text-center">Quantidade em<br />estoque</asp:TableHeaderCell>
+                            <asp:TableHeaderCell Scope="Column" CssClass="text-center">Quantidade<br />selecionada</asp:TableHeaderCell>
                             <asp:TableHeaderCell Scope="Column" CssClass="text-center">Ações</asp:TableHeaderCell>
                         </asp:TableHeaderRow>
                     </asp:Table>

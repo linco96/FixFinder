@@ -12,8 +12,7 @@ namespace FixFinder.Pages
     {
         private Cliente c;
         private static List<Servico> servicosSelecionados;
-        private static List<Produto> produtosSelecionados;
-        private static List<int> quantidades;
+        private static Dictionary<Produto, int> produtosSelecionados;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -31,11 +30,9 @@ namespace FixFinder.Pages
                     else
                     {
                         if (produtosSelecionados == null)
-                            produtosSelecionados = new List<Produto>();
+                            produtosSelecionados = new Dictionary<Produto, int>();
                         if (servicosSelecionados == null)
                             servicosSelecionados = new List<Servico>();
-                        if (quantidades == null)
-                            quantidades = new List<int>();
                         preencherCampos();
                     }
                 }
@@ -116,7 +113,7 @@ namespace FixFinder.Pages
                                 item.Value = p.idProduto.ToString();
                                 txt_ProdutoSelecionado.Items.Add(item);
                             }
-                            foreach (Produto p in produtosSelecionados)
+                            foreach (Produto p in produtosSelecionados.Keys)
                             {
                                 item = txt_ProdutoSelecionado.Items.FindByValue(p.idProduto.ToString());
                                 if (item != null)
@@ -183,7 +180,7 @@ namespace FixFinder.Pages
                         Double precoVenda;
                         DateTime validade;
 
-                        foreach (Produto p in produtosSelecionados)
+                        foreach (Produto p in produtosSelecionados.Keys)
                         {
                             row = new TableRow();
 
@@ -225,6 +222,11 @@ namespace FixFinder.Pages
 
                             cell = new TableCell();
                             cell.Text = p.quantidade.ToString();
+                            cell.CssClass = "text-center align-middle";
+                            row.Cells.Add(cell);
+
+                            cell = new TableCell();
+                            cell.Text = produtosSelecionados[p].ToString();
                             cell.CssClass = "text-center align-middle";
                             row.Cells.Add(cell);
 
@@ -278,32 +280,40 @@ namespace FixFinder.Pages
         {
             if (!txt_ProdutoSelecionado.SelectedValue.Equals("-"))
             {
-                int quantidade = int.Parse(txt_ProdutoQuantidade.Text);
-                if (quantidade > 0)
+                try
                 {
-                    try
+                    if (txt_ProdutoQuantidade.Text.Length > 0)
                     {
-                        using (DatabaseEntities context = new DatabaseEntities())
+                        int quantidade = int.Parse(txt_ProdutoQuantidade.Text);
+                        if (quantidade > 0)
                         {
-                            int id = int.Parse(txt_ProdutoSelecionado.SelectedValue);
-                            Produto p = context.Produto.Where(produto => produto.idProduto == id).FirstOrDefault();
-                            produtosSelecionados.Add(p);
-                            quantidades.Add(quantidade);
-                            pnl_Alert.Visible = false;
-                            Response.Redirect(Request.RawUrl);
+                            using (DatabaseEntities context = new DatabaseEntities())
+                            {
+                                int id = int.Parse(txt_ProdutoSelecionado.SelectedValue);
+                                Produto p = context.Produto.Where(produto => produto.idProduto == id).FirstOrDefault();
+                                produtosSelecionados.Add(p, quantidade);
+                                pnl_Alert.Visible = false;
+                                Response.Redirect(Request.RawUrl);
+                            }
+                        }
+                        else
+                        {
+                            pnl_Alert.CssClass = "alert alert-danger";
+                            lbl_Alert.Text = "Informe uma quantidade válida";
+                            pnl_Alert.Visible = true;
                         }
                     }
-                    catch (Exception ex)
+                    else
                     {
                         pnl_Alert.CssClass = "alert alert-danger";
-                        lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                        lbl_Alert.Text = "Informe uma quantidade válida";
                         pnl_Alert.Visible = true;
                     }
                 }
-                else
+                catch (Exception ex)
                 {
                     pnl_Alert.CssClass = "alert alert-danger";
-                    lbl_Alert.Text = "Informe uma quantidade válida";
+                    lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
                     pnl_Alert.Visible = true;
                 }
             }
@@ -341,12 +351,11 @@ namespace FixFinder.Pages
             int id;
             try
             {
-                foreach (Produto p in produtosSelecionados)
+                foreach (Produto p in produtosSelecionados.Keys)
                 {
                     id = int.Parse(btn.CommandArgument);
                     if (p.idProduto == id)
                     {
-                        quantidades.RemoveAt(produtosSelecionados.FindIndex(produto => produto == p));
                         produtosSelecionados.Remove(p);
                         break;
                     }

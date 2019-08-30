@@ -106,15 +106,15 @@
             <%--LISTA PRODUTOS--%>
             <div class="table-responsive-xl">
                 <asp:Table runat="server" ID="tbl_Produtos" CssClass="table border rounded-lg">
-                    <asp:TableHeaderRow runat="server" ID="tblH_Produtos" CssClass="thead-light">
-                        <asp:TableHeaderCell Scope="Column" CssClass="text-center">Produto</asp:TableHeaderCell>
+                    <%--<asp:TableHeaderRow runat="server" ID="tblH_Produtos" CssClass="thead-light">--%>
+                    <%--<asp:TableHeaderCell Scope="Column" CssClass="text-center">Produto</asp:TableHeaderCell>
                         <asp:TableHeaderCell Scope="Column" CssClass="text-center">Marca</asp:TableHeaderCell>
                         <asp:TableHeaderCell Scope="Column" CssClass="text-center">Categoria</asp:TableHeaderCell>
                         <asp:TableHeaderCell Scope="Column" CssClass="text-center">Quantidade</asp:TableHeaderCell>
                         <asp:TableHeaderCell Scope="Column" CssClass="text-center">Preço Compra</asp:TableHeaderCell>
                         <asp:TableHeaderCell Scope="Column" CssClass="text-center">Preço Venda</asp:TableHeaderCell>
-                        <asp:TableHeaderCell Scope="Column" CssClass="text-center">Ações</asp:TableHeaderCell>
-                    </asp:TableHeaderRow>
+                        <asp:TableHeaderCell Scope="Column" CssClass="text-center">Ações</asp:TableHeaderCell>--%>
+                    <%--</asp:TableHeaderRow>--%>
                 </asp:Table>
             </div>
         </div>

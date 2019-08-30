@@ -41,11 +41,11 @@
             <div runat="server" id="form_CadastroServico" visible="false">
                 <div class="form-group">
                     <label for="txt_Descricao">Descrição</label>
-                    <asp:TextBox runat="server" ID="txt_Descricao" CssClass="form-control" minlength="4"></asp:TextBox>
+                    <asp:TextBox runat="server" ID="txt_Descricao" CssClass="form-control" minlength="4" required="required"></asp:TextBox>
                 </div>
                 <div class="form-group">
                     <label for="txt_Valor">Valor</label>
-                    <asp:TextBox runat="server" ID="txt_Valor" CssClass="form-control" onkeypress="$(this).mask('#.##0,00', {reverse: true});"></asp:TextBox>
+                    <asp:TextBox runat="server" ID="txt_Valor" CssClass="form-control" onkeypress="$(this).mask('#.##0,00', {reverse: true});" required="required"></asp:TextBox>
                 </div>
                 <div class="form-group">
                     <asp:Button runat="server" ID="btn_CadastrarServico" CssClass="btn btn-primary" OnClick="btn_CadastrarServico_Click" Text="Cadastrar" />
@@ -91,7 +91,10 @@
                     <asp:Table runat="server" ID="tbl_Produtos" Visible="false" CssClass="table border rounded-lg">
                         <asp:TableHeaderRow runat="server" ID="tblH_Produtos" CssClass="thead-light">
                             <asp:TableHeaderCell Scope="Column" CssClass="text-center">Descrição</asp:TableHeaderCell>
-                            <asp:TableHeaderCell Scope="Column" CssClass="text-center">Valor</asp:TableHeaderCell>
+                            <asp:TableHeaderCell Scope="Column" CssClass="text-center">Marca</asp:TableHeaderCell>
+                            <asp:TableHeaderCell Scope="Column" CssClass="text-center">Preço</asp:TableHeaderCell>
+                            <asp:TableHeaderCell Scope="Column" CssClass="text-center">Validade</asp:TableHeaderCell>
+                            <asp:TableHeaderCell Scope="Column" CssClass="text-center">Quantidade em<br />estoque</asp:TableHeaderCell>
                             <asp:TableHeaderCell Scope="Column" CssClass="text-center">Ações</asp:TableHeaderCell>
                         </asp:TableHeaderRow>
                     </asp:Table>

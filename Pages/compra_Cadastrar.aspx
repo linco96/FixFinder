@@ -96,7 +96,7 @@
                 </span>
                 <span class="w-50 text-left pl-3">
                     <label for="txt_ProdutoValidade" style="display: block">Validade</label>
-                    <asp:TextBox runat="server" ID="txt_ProdutoValidade" CssClass="form-control w-100" Text="" placeholder="dd/mm/yyyy" type="date"></asp:TextBox>
+                    <asp:TextBox runat="server" ID="txt_ProdutoValidade" CssClass="form-control w-100"  type="date"></asp:TextBox>
                 </span>
             </div>
             <div class="form-group">

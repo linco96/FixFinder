@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="orcamento_Cadastro.aspx.cs" Inherits="FixFinder.Pages.orcamento_Cadastro" %>
+﻿<%@ Page Language="C#" MaintainScrollPositionOnPostback="true" AutoEventWireup="true" CodeBehind="orcamento_Cadastro.aspx.cs" Inherits="FixFinder.Pages.orcamento_Cadastro" %>
 
 <!DOCTYPE html>
 
@@ -10,6 +10,16 @@
     <script src="../Scripts/jquery-3.4.1.min.js"></script>
     <script src="../Scripts/popper.min.js"></script>
     <script src="../Scripts/jquery.mask.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#txt_CPF").blur(function () {
+                $("#btn_CarregarCliente").trigger('click');
+            });
+            $("#txt_Desconto").blur(function () {
+                $("#btn_AtualizarValor").trigger('click');
+            });
+        });
+    </script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -21,6 +31,7 @@
             <div class="form-group">
                 <label for="txt_CPF">CPF</label>
                 <asp:TextBox runat="server" ID="txt_CPF" CssClass="form-control" minlength="14" onkeypress="$(this).mask('000.000.000-00');" ClientIDMode="Static"></asp:TextBox>
+                <small runat="server" id="alert_CPF" visible="false" class="form-text text-danger"></small>
             </div>
             <div class="form-group">
                 <label for="txt_Nome">Nome completo</label>
@@ -41,11 +52,11 @@
             <div runat="server" id="form_CadastroServico" visible="false">
                 <div class="form-group">
                     <label for="txt_Descricao">Descrição</label>
-                    <asp:TextBox runat="server" ID="txt_Descricao" CssClass="form-control" minlength="4" required="required"></asp:TextBox>
+                    <asp:TextBox runat="server" ID="txt_DescricaoServico" CssClass="form-control" minlength="4" required="required"></asp:TextBox>
                 </div>
                 <div class="form-group">
                     <label for="txt_Valor">Valor</label>
-                    <asp:TextBox runat="server" ID="txt_Valor" CssClass="form-control" onkeypress="$(this).mask('#.##0,00', {reverse: true});" required="required"></asp:TextBox>
+                    <asp:TextBox runat="server" ID="txt_ValorServico" CssClass="form-control" onkeypress="$(this).mask('#.##0,00', {reverse: true});" required="required"></asp:TextBox>
                 </div>
                 <div class="form-group">
                     <asp:Button runat="server" ID="btn_CadastrarServico" CssClass="btn btn-primary" OnClick="btn_CadastrarServico_Click" Text="Cadastrar" />
@@ -76,6 +87,57 @@
 
             <div class="form-group align-content-center mt-5">
                 <h4>Produtos</h4>
+                <div>
+                    <asp:Button runat="server" ID="btn_NovoProduto" Text="Novo produto" CssClass="btn btn-outline-primary btn-sm mt-1" aria-pressed="true" OnClick="btn_NovoProduto_Click" formnovalidate="true" />
+                </div>
+            </div>
+            <div runat="server" id="form_CadastroProduto" visible="false">
+                <div class="form-inline">
+                    <span class="w-50 text-left pr-3 mb-1">
+                        <label for="txt_DescricaoProduto" style="display: block">Descrição</label>
+                        <asp:TextBox runat="server" ID="txt_DescricaoProduto" CssClass="form-control w-100" required="required"></asp:TextBox>
+                    </span>
+                    <span class="w-50 text-left pl-3 mb-1">
+                        <label for="txt_ProdutoQuantidadeAtual" style="display: block">Quantidade atual</label>
+                        <asp:TextBox runat="server" ID="txt_QuantidadeAtualProduto" CssClass="form-control w-100" required="required"></asp:TextBox>
+                    </span>
+                </div>
+                <div class="form-inline">
+                    <span class="w-50 text-left pr-3 mb-1">
+                        <label for="txt_ProdutoMarca" style="display: block">Marca</label>
+                        <asp:TextBox runat="server" ID="txt_MarcaProduto" CssClass="form-control w-100" required="required"></asp:TextBox>
+                    </span>
+                    <span class="w-50 text-left pl-3 mb-1">
+                        <label for="txt_ProdutoCategoria" style="display: block">Categoria</label>
+                        <asp:TextBox runat="server" ID="txt_CategoriaProduto" CssClass="form-control w-100" required="required"></asp:TextBox>
+                    </span>
+                </div>
+
+                <div class="form-inline">
+                    <span class="w-50 text-left pr-3">
+                        <label for="txt_ProdutoPrecoCompra" style="display: block">Preço Compra</label>
+                        <asp:TextBox runat="server" ID="txt_PrecoCompraProduto" CssClass="form-control w-100" onkeypress="$(this).mask('#.##0,00', {reverse: true});" required="required"></asp:TextBox>
+                    </span>
+                    <span class="w-50 text-left pl-3">
+                        <label for="txt_ProdutoPrecoVenda" style="display: block">Preço Venda</label>
+                        <asp:TextBox runat="server" ID="txt_PrecoVendaProduto" CssClass="form-control w-100" onkeypress="$(this).mask('#.##0,00', {reverse: true});" required="required"></asp:TextBox>
+                    </span>
+                </div>
+                <div class="form-inline">
+                    <span class="w-50 text-left pr-3">
+                        <label for="txt_ProdutoValidade" style="display: block">Validade</label>
+                        <asp:TextBox runat="server" ID="txt_ValidadeProduto" CssClass="form-control w-100" type="date"></asp:TextBox>
+                    </span>
+                    <span class="w-50 text-left pl-3">
+                        <label for="txt_ProdutoQuantidade" style="display: block">Quantidade a ser utilizada</label>
+                        <asp:TextBox runat="server" ID="txt_QuantidadeUtilizadaProduto" CssClass="form-control w-100" minlength="1" onkeypress="$(this).mask('#.##0', {reverse: true});" required="required"></asp:TextBox>
+                    </span>
+                </div>
+                <div class="form-group mt-3">
+                    <asp:Button runat="server" ID="btn_CadastrarProduto" CssClass="btn btn-primary" OnClick="btn_CadastrarProduto_Click" Text="Cadastrar" />
+                    <asp:Button runat="server" ID="btn_CancelarCadastroProduto" Text="Cancelar" CssClass="btn btn-danger" OnClick="btn_CancelarCadastroProduto_Click" formnovalidate="true" />
+                </div>
+                <hr class="border-primary" />
             </div>
             <div class="form-group">
                 <div class="input-group">
@@ -128,6 +190,8 @@
                 </asp:Panel>
             </div>
         </div>
+        <asp:Button runat="server" ID="btn_CarregarCliente" Style="display: none" OnClick="btn_CarregarCliente_Click" ClientIDMode="Static" formnovalidate="formnovalidate" />
+        <asp:Button runat="server" ID="btn_AtualizarTotal" Style="display: none" OnClick="btn_AtualizarTotal_Click" ClientIDMode="Static" formnovalidate="formnovalidate" />
     </form>
 </body>
 </html>

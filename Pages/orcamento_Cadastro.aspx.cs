@@ -381,16 +381,188 @@ namespace FixFinder.Pages
         {
             form_CadastroServico.Visible = false;
             btn_NovoServico.Visible = true;
-            txt_Descricao.Text = "";
-            txt_Valor.Text = "";
+            txt_DescricaoServico.Text = "";
+            txt_ValorServico.Text = "";
         }
 
         protected void btn_CadastrarServico_Click(object sender, EventArgs e)
         {
+            try
+            {
+                using (DatabaseEntities context = new DatabaseEntities())
+                {
+                    Funcionario f = context.Funcionario.Where(funcionario => funcionario.cpf.Equals(c.cpf)).FirstOrDefault();
+                    Servico s = new Servico
+                    {
+                        descricao = txt_DescricaoServico.Text,
+                        valor = Double.Parse(txt_ValorServico.Text),
+                        cnpjOficina = f.cnpjOficina
+                    };
+                    context.Servico.Add(s);
+                    context.SaveChanges();
+                    servicosSelecionados.Add(s);
+                    txt_DescricaoServico.Text = "";
+                    txt_ValorServico.Text = "";
+                    pnl_Alert.Visible = false;
+                    Response.Redirect(Request.RawUrl);
+                }
+            }
+            catch (Exception ex)
+            {
+                pnl_Alert.CssClass = "alert alert-danger";
+                lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                pnl_Alert.Visible = true;
+            }
+        }
+
+        protected void btn_NovoProduto_Click(object sender, EventArgs e)
+        {
+            form_CadastroProduto.Visible = true;
+            btn_NovoProduto.Visible = false;
+        }
+
+        protected void btn_CadastrarProduto_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (int.Parse(txt_QuantidadeAtualProduto.Text) > 0 && int.Parse(txt_QuantidadeUtilizadaProduto.Text) > 0)
+                {
+                    using (DatabaseEntities context = new DatabaseEntities())
+                    {
+                        Funcionario f = context.Funcionario.Where(funcionario => funcionario.cpf.Equals(c.cpf)).FirstOrDefault();
+                        DateTime? validade = null;
+
+                        if (txt_ValidadeProduto.Text.Length > 0)
+                            validade = DateTime.Parse(txt_ValidadeProduto.Text);
+
+                        Produto p = new Produto()
+                        {
+                            descricao = txt_DescricaoProduto.Text,
+                            quantidade = int.Parse(txt_QuantidadeAtualProduto.Text),
+                            marca = txt_MarcaProduto.Text,
+                            categoria = txt_CategoriaProduto.Text,
+                            precoCompra = Double.Parse(txt_PrecoCompraProduto.Text),
+                            precoVenda = Double.Parse(txt_PrecoVendaProduto.Text),
+                            validade = validade,
+                            ativo = 1,
+                            cnpjOficina = f.cnpjOficina
+                        };
+
+                        context.Produto.Add(p);
+                        context.SaveChanges();
+
+                        produtosSelecionados.Add(p, int.Parse(txt_QuantidadeUtilizadaProduto.Text));
+                        txt_DescricaoProduto.Text = "";
+                        txt_QuantidadeAtualProduto.Text = "";
+                        txt_MarcaProduto.Text = "";
+                        txt_CategoriaProduto.Text = "";
+                        txt_PrecoCompraProduto.Text = "";
+                        txt_PrecoVendaProduto.Text = "";
+                        txt_ValidadeProduto.Text = "";
+                        txt_QuantidadeUtilizadaProduto.Text = "";
+
+                        pnl_Alert.Visible = false;
+                        Response.Redirect(Request.RawUrl);
+                    }
+                }
+                else
+                {
+                    pnl_Alert.CssClass = "alert alert-danger";
+                    lbl_Alert.Text = "Insira quantidades válidas";
+                    pnl_Alert.Visible = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                pnl_Alert.CssClass = "alert alert-danger";
+                lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                pnl_Alert.Visible = true;
+            }
+        }
+
+        protected void btn_CancelarCadastroProduto_Click(object sender, EventArgs e)
+        {
+            form_CadastroProduto.Visible = false;
+            btn_NovoProduto.Visible = true;
+            txt_DescricaoProduto.Text = "";
+            txt_QuantidadeAtualProduto.Text = "";
+            txt_MarcaProduto.Text = "";
+            txt_CategoriaProduto.Text = "";
+            txt_PrecoCompraProduto.Text = "";
+            txt_PrecoVendaProduto.Text = "";
+            txt_ValidadeProduto.Text = "";
+            txt_QuantidadeUtilizadaProduto.Text = "";
         }
 
         protected void btn_Cadastro_Click(object sender, EventArgs e)
         {
+        }
+
+        protected void btn_CarregarCliente_Click(object sender, EventArgs e)
+        {
+            if (txt_CPF.Text.Length < 14)
+            {
+                alert_CPF.InnerText = "CPF inválido";
+                alert_CPF.Visible = true;
+            }
+            else
+            {
+                try
+                {
+                    using (DatabaseEntities context = new DatabaseEntities())
+                    {
+                        Cliente cliente = context.Cliente.Where(cl => cl.cpf.Equals(txt_CPF.Text.Replace(".", "").Replace("-", ""))).FirstOrDefault();
+                        if (cliente == null)
+                        {
+                            alert_CPF.InnerText = "CPF inválido";
+                            alert_CPF.Visible = true;
+                            txt_CPF.Text = "";
+                        }
+                        else if (cliente.cpf.Equals(c.cpf))
+                        {
+                            alert_CPF.InnerText = "CPF inválido";
+                            alert_CPF.Visible = true;
+                            txt_CPF.Text = "";
+                        }
+                        else
+                        {
+                            List<Veiculo> veiculos = context.Veiculo.Where(v => v.cpfCliente.Equals(cliente.cpf)).ToList();
+                            if (veiculos.Count == 0)
+                            {
+                                alert_CPF.InnerText = "Este usuário não possui veículos cadastrados";
+                                alert_CPF.Visible = true;
+                            }
+                            else
+                            {
+                                if (txt_Veiculo.Items.Count > 0)
+                                    txt_Veiculo.Items.Clear();
+                                ListItem item;
+                                foreach (Veiculo v in veiculos)
+                                {
+                                    item = new ListItem();
+                                    item.Text = v.marca + " - " + v.placa;
+                                    item.Value = v.idVeiculo.ToString();
+                                    txt_Veiculo.Items.Add(item);
+                                }
+                                txt_Veiculo.Attributes.Remove("disabled");
+                                txt_Nome.Text = cliente.nome;
+                                alert_CPF.Visible = false;
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    pnl_Alert.CssClass = "alert alert-danger";
+                    lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                    pnl_Alert.Visible = true;
+                }
+            }
+        }
+
+        protected void btn_AtualizarTotal_Click(object sender, EventArgs e)
+        {
+            txt_Desconto.Text = "123456";
         }
     }
 }

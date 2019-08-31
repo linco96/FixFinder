@@ -207,7 +207,7 @@ namespace FixFinder.Pages
                         if (produto.validade != null)
                         {
                             DateTime dt = (DateTime)produto.validade;
-                            txt_ProdutoValidade.Text = dt.ToString("dd/MM/yyyy");
+                            txt_ProdutoValidade.Text = dt.ToString("yyyy-MM-dd");
                         }
                         else
                         {
@@ -354,7 +354,11 @@ namespace FixFinder.Pages
                     //VALIDADE
                     cell = new TableCell();
                     cell.CssClass = "text-center align-middle";
-                    cell.Text = produto.precoCompra.ToString();
+                    if (produto.validade != null)
+                    {
+                        DateTime dt = (DateTime)produto.validade;
+                        cell.Text = dt.ToString("dd/MM/yyyy");
+                    }
                     row.Cells.Add(cell);
 
                     tbl_Produtos.Rows.Add(row);
@@ -370,6 +374,7 @@ namespace FixFinder.Pages
                 {
                     int qtd = int.Parse(txt_ProdutoQuantidade.Text.Replace(".", ""));
                     if (qtd > 0)
+                    {
                         using (var context = new DatabaseEntities())
                         {
                             Produto produto = context.Produto.Where(p => p.idProduto == idProduto).FirstOrDefault();
@@ -380,11 +385,19 @@ namespace FixFinder.Pages
                                     produto.precoCompra = double.Parse(txt_ProdutoPrecoCompra.Text.Replace("R$", ""));
                                 if (txt_ProdutoPrecoVenda.Text.Replace(".", "").Replace("R$", "") != produto.precoVenda.ToString())
                                     produto.precoVenda = double.Parse(txt_ProdutoPrecoVenda.Text.Replace("R$", ""));
-                                produto.validade = DateTime.Parse(txt_ProdutoValidade.Text);
+                                if (txt_ProdutoValidade.Text.ToUpper() != "")
+                                {
+                                    produto.validade = DateTime.Parse(txt_ProdutoValidade.Text);
+                                }
+                                else
+                                {
+                                    produto.validade = null;
+                                }
                                 listaProdutos.Add(produto);
                                 preencher_Tabela();
                             }
                         }
+                    }
                 }
             }
             catch (Exception ex)

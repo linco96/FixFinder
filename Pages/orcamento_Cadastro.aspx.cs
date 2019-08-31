@@ -184,8 +184,7 @@ namespace FixFinder.Pages
                     TableHeaderCell headerCell;
                     Button btn;
 
-                    if (tbl_Servicos.Rows.Count > 0)
-                        tbl_Servicos.Rows.Clear();
+                    tbl_Servicos.Rows.Clear();
 
                     if (servicosSelecionados.Count > 0)
                     {
@@ -259,8 +258,7 @@ namespace FixFinder.Pages
                     TableHeaderCell headerCell;
                     Button btn;
 
-                    if (tbl_Produtos.Rows.Count > 0)
-                        tbl_Produtos.Rows.Clear();
+                    tbl_Produtos.Rows.Clear();
 
                     if (produtosSelecionados.Count > 0)
                     {
@@ -392,7 +390,6 @@ namespace FixFinder.Pages
                         Servico s = context.Servico.Where(servico => servico.idServico == id).FirstOrDefault();
                         servicosSelecionados.Add(s);
                         pnl_Alert.Visible = false;
-                        carregarTabelaServicos();
                     }
                 }
                 catch (Exception ex)
@@ -420,7 +417,6 @@ namespace FixFinder.Pages
                                 Produto p = context.Produto.Where(produto => produto.idProduto == id).FirstOrDefault();
                                 produtosSelecionados.Add(p, quantidade);
                                 pnl_Alert.Visible = false;
-                                carregarTabelaProdutos();
                             }
                         }
                         else
@@ -462,7 +458,6 @@ namespace FixFinder.Pages
                     }
                 }
                 pnl_Alert.Visible = false;
-                carregarTabelaServicos();
             }
             catch (Exception ex)
             {
@@ -488,7 +483,6 @@ namespace FixFinder.Pages
                     }
                 }
                 pnl_Alert.Visible = false;
-                carregarTabelaProdutos();
             }
             catch (Exception ex)
             {

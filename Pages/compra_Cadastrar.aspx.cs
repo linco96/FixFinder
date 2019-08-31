@@ -20,7 +20,6 @@ namespace FixFinder.Pages
 
         //A FAZER
         //AO ADICIONAR PRODUTO, SE A VALIDADE FOR DIFERENTE É NECESSARIO CADASTRAR UM NOVO PRODUTO (PENSADO SOBRE ISSO AINDA)
-        //FAZER BOTAO DE REMOVER E FAZER O BOTAO FUNCIONAR
         //FAZER A COLLECTION VIRAR LIST PARA ASSIM SE TIVER UMA COMPRA CADASTRADA ELE JA CARREGAR OS PRODUTOS NA LISTA
         //SEI LA FALTA BASTANTE
 
@@ -77,7 +76,9 @@ namespace FixFinder.Pages
                                     listaProdutos = new List<Produto>();
 
                                 pnl_Alert.Visible = false;
+
                                 preencher_Tabela(true);
+
                                 if (!IsPostBack)
                                 {
                                     preencher_Fornecedores();

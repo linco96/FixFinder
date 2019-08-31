@@ -96,12 +96,12 @@
                 </span>
                 <span class="w-50 text-left pl-3">
                     <label for="txt_ProdutoValidade" style="display: block">Validade</label>
-                    <asp:TextBox runat="server" ID="txt_ProdutoValidade" CssClass="form-control w-100"  type="date"></asp:TextBox>
+                    <asp:TextBox runat="server" ID="txt_ProdutoValidade" CssClass="form-control w-100" type="date"></asp:TextBox>
                 </span>
             </div>
             <div class="form-group">
                 <asp:Button runat="server" ID="btn_AdicionarProduto" CssClass="btn btn-outline-success btn-sm mt-2" Text="Adicionar Produto" OnClick="btn_AdicionarProduto_Click" Enabled="false" />
-                <asp:Button runat="server" ID="btn_CadastrarProduto" CssClass="btn btn-outline-primary btn-sm mt-2" Text="Cadastrar Produto" OnClick="btn_CadastrarProduto_Click" />
+                <asp:Button runat="server" ID="btn_CadastrarProduto" CssClass="btn btn-outline-primary btn-sm mt-2" Text="Cadastrar Produto" OnClick="btn_CadastrarProduto_Click" formnovalidate />
             </div>
             <%--LISTA PRODUTOS--%>
             <div class="table-responsive-xl">

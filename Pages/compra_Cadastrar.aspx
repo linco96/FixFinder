@@ -81,26 +81,26 @@
 
             <div class="form-inline">
                 <span class="w-50 text-left pr-3">
-                    <label for="txt_ProdutoPrecoCompra" style="display: block">Preço Compra</label>
-                    <asp:TextBox runat="server" ID="txt_ProdutoPrecoCompra" CssClass="form-control w-100" ReadOnly="true"></asp:TextBox>
+                    <label for="txt_ProdutoPrecoCompra" style="display: block">Preço Compra (R$)</label>
+                    <asp:TextBox runat="server" ID="txt_ProdutoPrecoCompra" onkeypress="$(this).mask('#.##0,00', {reverse: true});" CssClass="form-control w-100" ReadOnly="true"></asp:TextBox>
                 </span>
                 <span class="w-50 text-left pl-3">
-                    <label for="txt_ProdutoPrecoVenda" style="display: block">Preço Venda</label>
-                    <asp:TextBox runat="server" ID="txt_ProdutoPrecoVenda" CssClass="form-control w-100" ReadOnly="true"></asp:TextBox>
+                    <label for="txt_ProdutoPrecoVenda" style="display: block">Preço Venda (R$)</label>
+                    <asp:TextBox runat="server" ID="txt_ProdutoPrecoVenda" onkeypress="$(this).mask('#.##0,00', {reverse: true});" CssClass="form-control w-100" ReadOnly="true"></asp:TextBox>
                 </span>
             </div>
             <div class="form-inline">
                 <span class="w-50 text-left pr-3">
                     <label for="txt_ProdutoQuantidade" style="display: block">Quantidade</label>
-                    <asp:TextBox runat="server" ID="txt_ProdutoQuantidade" CssClass="form-control w-100" minlength="1" onkeypress="$(this).mask('#.##0', {reverse: true});" placeholder="Digite a quantidade de produtos a serem comprados..."></asp:TextBox>
+                    <asp:TextBox runat="server" ID="txt_ProdutoQuantidade" CssClass="form-control w-100" minlength="1" required onkeypress="$(this).mask('#.##0', {reverse: true});" placeholder="Digite a quantidade de produtos a serem comprados..."></asp:TextBox>
                 </span>
                 <span class="w-50 text-left pl-3">
                     <label for="txt_ProdutoValidade" style="display: block">Validade</label>
-                    <asp:TextBox runat="server" ID="txt_ProdutoValidade" CssClass="form-control w-100" type="date" placeholder="Digite a validade do produto..."></asp:TextBox>
+                    <asp:TextBox runat="server" ID="txt_ProdutoValidade" CssClass="form-control w-100" Text="" placeholder="dd/mm/yyyy" type="date"></asp:TextBox>
                 </span>
             </div>
             <div class="form-group">
-                <asp:Button runat="server" ID="btn_AdicionarProduto" CssClass="btn btn-outline-success btn-sm mt-2" Text="Adicionar Produto" OnClick="btn_AdicionarProduto_Click" />
+                <asp:Button runat="server" ID="btn_AdicionarProduto" CssClass="btn btn-outline-success btn-sm mt-2" Text="Adicionar Produto" OnClick="btn_AdicionarProduto_Click" Enabled="false" />
                 <asp:Button runat="server" ID="btn_CadastrarProduto" CssClass="btn btn-outline-primary btn-sm mt-2" Text="Cadastrar Produto" OnClick="btn_CadastrarProduto_Click" />
             </div>
             <%--LISTA PRODUTOS--%>

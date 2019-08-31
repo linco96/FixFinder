@@ -200,16 +200,30 @@ namespace FixFinder.Pages
                         txt_ProdutoCategoria.Text = produto.categoria;
                         txt_ProdutoMarca.Text = produto.marca;
                         txt_ProdutoQuantidadeAtual.Text = produto.quantidade.ToString();
-                        txt_ProdutoPrecoCompra.Text = "R$ " + produto.precoCompra.ToString("0.00");
+                        txt_ProdutoPrecoCompra.Text = produto.precoCompra.ToString("0.00");
                         txt_ProdutoPrecoCompra.ReadOnly = false;
+                        txt_ProdutoPrecoVenda.ReadOnly = false;
+
+                        if (produto.validade != null)
+                        {
+                            DateTime dt = (DateTime)produto.validade;
+                            txt_ProdutoValidade.Text = dt.ToString("dd/MM/yyyy");
+                        }
+                        else
+                        {
+                            txt_ProdutoValidade.Text = "";
+                        }
+
                         if (produto.precoVenda != null)
                         {
                             double dbl = (double)produto.precoVenda;
-                            txt_ProdutoPrecoVenda.Text = "R$ " + dbl.ToString("0.00");
-                            txt_ProdutoPrecoVenda.ReadOnly = false;
+                            txt_ProdutoPrecoVenda.Text = dbl.ToString("0.00");
                         }
                         else
-                            txt_ProdutoPrecoVenda.Text = "Não foi deifinido preço venda";
+                        {
+                            txt_ProdutoPrecoVenda.Text = "";
+                        }
+                        btn_AdicionarProduto.Enabled = true;
                     }
                     else
                     {
@@ -219,6 +233,8 @@ namespace FixFinder.Pages
                         txt_ProdutoQuantidadeAtual.Text = "";
                         txt_ProdutoPrecoCompra.Text = "";
                         txt_ProdutoPrecoVenda.Text = "";
+                        txt_ProdutoValidade.Text = "";
+                        btn_AdicionarProduto.Enabled = false;
                     }
                 }
             }
@@ -278,6 +294,11 @@ namespace FixFinder.Pages
             header.Cells.Add(headerCell);
 
             headerCell = new TableHeaderCell();
+            headerCell.Text = "Data de validade";
+            headerCell.CssClass = "text-center";
+            header.Cells.Add(headerCell);
+
+            headerCell = new TableHeaderCell();
             headerCell.Text = "Ações";
             headerCell.CssClass = "text-center";
             header.Cells.Add(headerCell);
@@ -318,18 +339,24 @@ namespace FixFinder.Pages
                     row.Cells.Add(cell);
                     //PRECO VENDA
                     cell = new TableCell();
+                    cell.CssClass = "text-center align-middle";
                     if (produto.precoVenda != null)
                     {
                         double dbl = (double)produto.precoVenda;
-                        cell.Text = dbl.ToString("0.00");
+                        cell.Text = "R$ " + dbl.ToString("0.00");
                     }
                     else
                     {
                         cell.Text = "N/A";
                     }
-
-                    cell.CssClass = "text-center align-middle";
                     row.Cells.Add(cell);
+
+                    //VALIDADE
+                    cell = new TableCell();
+                    cell.CssClass = "text-center align-middle";
+                    cell.Text = produto.precoCompra.ToString();
+                    row.Cells.Add(cell);
+
                     tbl_Produtos.Rows.Add(row);
                 }
             }
@@ -340,19 +367,25 @@ namespace FixFinder.Pages
             try
             {
                 if (txt_ProdutoQuantidade.Text != "")
-                    if (int.Parse(txt_ProdutoQuantidade.Text) > 0)
+                {
+                    int qtd = int.Parse(txt_ProdutoQuantidade.Text.Replace(".", ""));
+                    if (qtd > 0)
                         using (var context = new DatabaseEntities())
                         {
                             Produto produto = context.Produto.Where(p => p.idProduto == idProduto).FirstOrDefault();
                             if (produto != null)
                             {
-                                produto.quantidade = int.Parse(txt_ProdutoQuantidade.Text.Replace(".", ""));
-                                if (txt_ProdutoPrecoCompra.Text != produto.precoCompra.ToString())
+                                produto.quantidade = qtd;
+                                if (txt_ProdutoPrecoCompra.Text.Replace(".", "").Replace("R$", "") != produto.precoCompra.ToString())
                                     produto.precoCompra = double.Parse(txt_ProdutoPrecoCompra.Text.Replace("R$", ""));
+                                if (txt_ProdutoPrecoVenda.Text.Replace(".", "").Replace("R$", "") != produto.precoVenda.ToString())
+                                    produto.precoVenda = double.Parse(txt_ProdutoPrecoVenda.Text.Replace("R$", ""));
+                                produto.validade = DateTime.Parse(txt_ProdutoValidade.Text);
                                 listaProdutos.Add(produto);
                                 preencher_Tabela();
                             }
                         }
+                }
             }
             catch (Exception ex)
             {

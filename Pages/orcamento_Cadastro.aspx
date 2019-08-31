@@ -16,7 +16,7 @@
                 $("#btn_CarregarCliente").trigger('click');
             });
             $("#txt_Desconto").blur(function () {
-                $("#btn_AtualizarValor").trigger('click');
+                $("#btn_AtualizarTotal").trigger('click');
             });
         });
     </script>
@@ -76,11 +76,11 @@
             <div class="form-group">
                 <div class="table-responsive-xl">
                     <asp:Table runat="server" ID="tbl_Servicos" Visible="false" CssClass="table border rounded-lg">
-                        <asp:TableHeaderRow runat="server" ID="tblH_Servicos" CssClass="thead-light">
+                        <%--<asp:TableHeaderRow runat="server" ID="tblH_Servicos" CssClass="thead-light">
                             <asp:TableHeaderCell Scope="Column" CssClass="text-center">Descrição</asp:TableHeaderCell>
                             <asp:TableHeaderCell Scope="Column" CssClass="text-center">Valor</asp:TableHeaderCell>
                             <asp:TableHeaderCell Scope="Column" CssClass="text-center">Ações</asp:TableHeaderCell>
-                        </asp:TableHeaderRow>
+                        </asp:TableHeaderRow>--%>
                     </asp:Table>
                 </div>
             </div>
@@ -153,7 +153,7 @@
             <div class="form-group">
                 <div class="table-responsive-xl">
                     <asp:Table runat="server" ID="tbl_Produtos" Visible="false" CssClass="table border rounded-lg">
-                        <asp:TableHeaderRow runat="server" ID="tblH_Produtos" CssClass="thead-light">
+                        <%--<asp:TableHeaderRow runat="server" ID="tblH_Produtos" CssClass="thead-light">
                             <asp:TableHeaderCell Scope="Column" CssClass="text-center">Descrição</asp:TableHeaderCell>
                             <asp:TableHeaderCell Scope="Column" CssClass="text-center">Marca</asp:TableHeaderCell>
                             <asp:TableHeaderCell Scope="Column" CssClass="text-center">Preço</asp:TableHeaderCell>
@@ -161,7 +161,7 @@
                             <asp:TableHeaderCell Scope="Column" CssClass="text-center">Quantidade em<br />estoque</asp:TableHeaderCell>
                             <asp:TableHeaderCell Scope="Column" CssClass="text-center">Quantidade<br />selecionada</asp:TableHeaderCell>
                             <asp:TableHeaderCell Scope="Column" CssClass="text-center">Ações</asp:TableHeaderCell>
-                        </asp:TableHeaderRow>
+                        </asp:TableHeaderRow>--%>
                     </asp:Table>
                 </div>
             </div>

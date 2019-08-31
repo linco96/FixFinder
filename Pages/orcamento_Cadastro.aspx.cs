@@ -14,7 +14,6 @@ namespace FixFinder.Pages
         private Cliente c;
         private static List<Servico> servicosSelecionados;
         private static Dictionary<Produto, int> produtosSelecionados;
-        private static Cliente fregues;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -35,7 +34,8 @@ namespace FixFinder.Pages
                             produtosSelecionados = new Dictionary<Produto, int>();
                         if (servicosSelecionados == null)
                             servicosSelecionados = new List<Servico>();
-                        preencherCampos();
+                        carregarTabelaServicos();
+                        carregarTabelaProdutos();
                     }
                 }
             }
@@ -45,136 +45,170 @@ namespace FixFinder.Pages
             }
         }
 
-        protected void preencherCampos()
+        protected void Page_LoadComplete(object sender, EventArgs e)
+        {
+            carregarSelectServicos();
+            carregarSelectProdutos();
+        }
+
+        protected void carregarSelectServicos()
         {
             try
             {
                 using (DatabaseEntities context = new DatabaseEntities())
                 {
-                    ListItem item;
-                    if (fregues != null)
-                    {
-                        List<Veiculo> veiculos = context.Veiculo.Where(v => v.cpfCliente.Equals(fregues.cpf)).ToList();
-                        if (veiculos.Count == 0)
-                        {
-                            alert_CPF.InnerText = "Este usuário não possui veículos cadastrados";
-                            alert_CPF.Visible = true;
-                        }
-                        else
-                        {
-                            if (txt_Veiculo.Items.Count > 0)
-                                txt_Veiculo.Items.Clear();
-
-                            foreach (Veiculo v in veiculos)
-                            {
-                                item = new ListItem();
-                                item.Text = v.marca + " - " + v.placa;
-                                item.Value = v.idVeiculo.ToString();
-                                txt_Veiculo.Items.Add(item);
-                            }
-                            txt_Veiculo.Attributes.Remove("disabled");
-                            txt_Nome.Text = fregues.nome;
-                            txt_CPF.Text = fregues.cpf;
-                            alert_CPF.Visible = false;
-                        }
-                    }
-
                     List<Servico> servicos = context.Servico.Where(servico => servico.cnpjOficina.Equals(c.Funcionario.cnpjOficina)).ToList();
-                    List<Produto> produtos = context.Produto.Where(produto => produto.cnpjOficina.Equals(c.Funcionario.cnpjOficina)).ToList();
+                    ListItem item;
 
-                    if (txt_ServicoSelecionado.Items.Count == 0)
+                    if (servicos.Count > 0)
                     {
-                        if (servicos.Count > 0)
-                        {
-                            foreach (Servico s in servicos)
-                            {
-                                item = new ListItem();
-                                item.Text = s.descricao + " - R$ " + s.valor.ToString("0.00");
-                                item.Value = s.idServico.ToString();
-                                txt_ServicoSelecionado.Items.Add(item);
-                            }
-                            foreach (Servico s in servicosSelecionados)
-                            {
-                                item = txt_ServicoSelecionado.Items.FindByValue(s.idServico.ToString());
-                                if (item != null)
-                                {
-                                    txt_ServicoSelecionado.Items.Remove(item);
-                                }
-                            }
-                            if (txt_ServicoSelecionado.Items.Count == 0)
-                            {
-                                item = new ListItem();
-                                item.Text = "Todos os serviços cadastrados já foram adicionados";
-                                item.Value = "-";
-                                txt_ServicoSelecionado.Items.Add(item);
-                                txt_ServicoSelecionado.Enabled = false;
-                            }
-                        }
-                        else
+                        if (txt_ServicoSelecionado.Items.Count > 0)
+                            txt_ServicoSelecionado.Items.Clear();
+                        foreach (Servico s in servicos)
                         {
                             item = new ListItem();
-                            item.Text = "Nenhum serviço encontrado";
+                            item.Text = s.descricao + " - R$ " + s.valor.ToString("0.00");
+                            item.Value = s.idServico.ToString();
+                            txt_ServicoSelecionado.Items.Add(item);
+                        }
+                        foreach (Servico s in servicosSelecionados)
+                        {
+                            item = txt_ServicoSelecionado.Items.FindByValue(s.idServico.ToString());
+                            if (item != null)
+                            {
+                                txt_ServicoSelecionado.Items.Remove(item);
+                            }
+                        }
+                        if (txt_ServicoSelecionado.Items.Count == 0)
+                        {
+                            item = new ListItem();
+                            item.Text = "Todos os serviços cadastrados já foram adicionados";
                             item.Value = "-";
                             txt_ServicoSelecionado.Items.Add(item);
                             txt_ServicoSelecionado.Enabled = false;
                         }
                     }
-
-                    if (txt_ProdutoSelecionado.Items.Count == 0)
+                    else
                     {
-                        if (produtos.Count > 0)
+                        item = new ListItem();
+                        item.Text = "Nenhum serviço encontrado";
+                        item.Value = "-";
+                        txt_ServicoSelecionado.Items.Add(item);
+                        txt_ServicoSelecionado.Enabled = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                pnl_Alert.CssClass = "alert alert-danger";
+                lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                pnl_Alert.Visible = true;
+            }
+        }
+
+        protected void carregarSelectProdutos()
+        {
+            try
+            {
+                using (DatabaseEntities context = new DatabaseEntities())
+                {
+                    List<Produto> produtos = context.Produto.Where(produto => produto.cnpjOficina.Equals(c.Funcionario.cnpjOficina)).ToList();
+                    ListItem item;
+
+                    if (produtos.Count > 0)
+                    {
+                        if (txt_ProdutoSelecionado.Items.Count > 0)
+                            txt_ProdutoSelecionado.Items.Clear();
+                        double precoVenda;
+                        DateTime validade;
+                        foreach (Produto p in produtos)
                         {
-                            double precoVenda;
-                            DateTime validade;
-                            foreach (Produto p in produtos)
+                            precoVenda = (Double)p.precoVenda;
+                            item = new ListItem();
+                            if (p.validade == null)
                             {
-                                precoVenda = (Double)p.precoVenda;
-                                item = new ListItem();
-                                if (p.validade == null)
-                                {
-                                    item.Text = p.descricao + " " + p.marca + " - R$ " + precoVenda.ToString("0.00");
-                                }
-                                else
-                                {
-                                    validade = (DateTime)p.validade;
-                                    item.Text = p.descricao + " " + p.marca + " - R$ " + precoVenda.ToString("0.00") + " (Vence em " + validade.ToString("dd/MM/yyyy") + ")";
-                                }
-                                item.Value = p.idProduto.ToString();
-                                txt_ProdutoSelecionado.Items.Add(item);
+                                item.Text = p.descricao + " " + p.marca + " - R$ " + precoVenda.ToString("0.00");
                             }
-                            foreach (Produto p in produtosSelecionados.Keys)
+                            else
                             {
-                                item = txt_ProdutoSelecionado.Items.FindByValue(p.idProduto.ToString());
-                                if (item != null)
-                                {
-                                    txt_ProdutoSelecionado.Items.Remove(item);
-                                }
+                                validade = (DateTime)p.validade;
+                                item.Text = p.descricao + " " + p.marca + " - R$ " + precoVenda.ToString("0.00") + " (Vence em " + validade.ToString("dd/MM/yyyy") + ")";
                             }
-                            if (txt_ProdutoSelecionado.Items.Count == 0)
+                            item.Value = p.idProduto.ToString();
+                            txt_ProdutoSelecionado.Items.Add(item);
+                        }
+                        foreach (Produto p in produtosSelecionados.Keys)
+                        {
+                            item = txt_ProdutoSelecionado.Items.FindByValue(p.idProduto.ToString());
+                            if (item != null)
                             {
-                                item = new ListItem();
-                                item.Text = "Todos os produtos cadastrados já foram adicionados";
-                                item.Value = "-";
-                                txt_ProdutoSelecionado.Items.Add(item);
-                                txt_ProdutoSelecionado.Enabled = false;
+                                txt_ProdutoSelecionado.Items.Remove(item);
                             }
                         }
-                        else
+                        if (txt_ProdutoSelecionado.Items.Count == 0)
                         {
                             item = new ListItem();
-                            item.Text = "Nenhum produto encontrado";
+                            item.Text = "Todos os produtos cadastrados já foram adicionados";
                             item.Value = "-";
                             txt_ProdutoSelecionado.Items.Add(item);
                             txt_ProdutoSelecionado.Enabled = false;
                         }
                     }
+                    else
+                    {
+                        item = new ListItem();
+                        item.Text = "Nenhum produto encontrado";
+                        item.Value = "-";
+                        txt_ProdutoSelecionado.Items.Add(item);
+                        txt_ProdutoSelecionado.Enabled = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                pnl_Alert.CssClass = "alert alert-danger";
+                lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                pnl_Alert.Visible = true;
+            }
+        }
 
+        protected void carregarTabelaServicos()
+        {
+            try
+            {
+                using (DatabaseEntities context = new DatabaseEntities())
+                {
                     TableRow row;
+                    TableHeaderRow headerRow;
                     TableCell cell;
+                    TableHeaderCell headerCell;
                     Button btn;
+
+                    if (tbl_Servicos.Rows.Count > 0)
+                        tbl_Servicos.Rows.Clear();
 
                     if (servicosSelecionados.Count > 0)
                     {
+                        headerRow = new TableHeaderRow();
+                        headerRow.CssClass = "thead-light";
+
+                        headerCell = new TableHeaderCell();
+                        headerCell.CssClass = "text-center";
+                        headerCell.Text = "Descrição";
+                        headerRow.Cells.Add(headerCell);
+
+                        headerCell = new TableHeaderCell();
+                        headerCell.CssClass = "text-center";
+                        headerCell.Text = "Valor";
+                        headerRow.Cells.Add(headerCell);
+
+                        headerCell = new TableHeaderCell();
+                        headerCell.CssClass = "text-center";
+                        headerCell.Text = "Ações";
+                        headerRow.Cells.Add(headerCell);
+
+                        tbl_Servicos.Rows.Add(headerRow);
+
                         foreach (Servico s in servicosSelecionados)
                         {
                             row = new TableRow();
@@ -203,9 +237,73 @@ namespace FixFinder.Pages
                         }
                         tbl_Servicos.Visible = true;
                     }
+                }
+            }
+            catch (Exception ex)
+            {
+                pnl_Alert.CssClass = "alert alert-danger";
+                lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                pnl_Alert.Visible = true;
+            }
+        }
+
+        protected void carregarTabelaProdutos()
+        {
+            try
+            {
+                using (DatabaseEntities context = new DatabaseEntities())
+                {
+                    TableRow row;
+                    TableHeaderRow headerRow;
+                    TableCell cell;
+                    TableHeaderCell headerCell;
+                    Button btn;
+
+                    if (tbl_Produtos.Rows.Count > 0)
+                        tbl_Produtos.Rows.Clear();
 
                     if (produtosSelecionados.Count > 0)
                     {
+                        headerRow = new TableHeaderRow();
+                        headerRow.CssClass = "thead-light";
+
+                        headerCell = new TableHeaderCell();
+                        headerCell.CssClass = "text-center";
+                        headerCell.Text = "Descrição";
+                        headerRow.Cells.Add(headerCell);
+
+                        headerCell = new TableHeaderCell();
+                        headerCell.CssClass = "text-center";
+                        headerCell.Text = "Marca";
+                        headerRow.Cells.Add(headerCell);
+
+                        headerCell = new TableHeaderCell();
+                        headerCell.CssClass = "text-center";
+                        headerCell.Text = "Preço";
+                        headerRow.Cells.Add(headerCell);
+
+                        headerCell = new TableHeaderCell();
+                        headerCell.CssClass = "text-center";
+                        headerCell.Text = "Validade";
+                        headerRow.Cells.Add(headerCell);
+
+                        headerCell = new TableHeaderCell();
+                        headerCell.CssClass = "text-center";
+                        headerCell.Text = "Quantidade em<br />estoque";
+                        headerRow.Cells.Add(headerCell);
+
+                        headerCell = new TableHeaderCell();
+                        headerCell.CssClass = "text-center";
+                        headerCell.Text = "Quantidade<br />selecionada";
+                        headerRow.Cells.Add(headerCell);
+
+                        headerCell = new TableHeaderCell();
+                        headerCell.CssClass = "text-center";
+                        headerCell.Text = "Ações";
+                        headerRow.Cells.Add(headerCell);
+
+                        tbl_Produtos.Rows.Add(headerRow);
+
                         Double precoVenda;
                         DateTime validade;
 
@@ -294,7 +392,7 @@ namespace FixFinder.Pages
                         Servico s = context.Servico.Where(servico => servico.idServico == id).FirstOrDefault();
                         servicosSelecionados.Add(s);
                         pnl_Alert.Visible = false;
-                        Response.Redirect(Request.RawUrl);
+                        carregarTabelaServicos();
                     }
                 }
                 catch (Exception ex)
@@ -322,7 +420,7 @@ namespace FixFinder.Pages
                                 Produto p = context.Produto.Where(produto => produto.idProduto == id).FirstOrDefault();
                                 produtosSelecionados.Add(p, quantidade);
                                 pnl_Alert.Visible = false;
-                                Response.Redirect(Request.RawUrl);
+                                carregarTabelaProdutos();
                             }
                         }
                         else
@@ -364,7 +462,7 @@ namespace FixFinder.Pages
                     }
                 }
                 pnl_Alert.Visible = false;
-                Response.Redirect(Request.RawUrl);
+                carregarTabelaServicos();
             }
             catch (Exception ex)
             {
@@ -390,7 +488,7 @@ namespace FixFinder.Pages
                     }
                 }
                 pnl_Alert.Visible = false;
-                Response.Redirect(Request.RawUrl);
+                carregarTabelaProdutos();
             }
             catch (Exception ex)
             {
@@ -433,7 +531,6 @@ namespace FixFinder.Pages
                     txt_DescricaoServico.Text = "";
                     txt_ValorServico.Text = "";
                     pnl_Alert.Visible = false;
-                    Response.Redirect(Request.RawUrl);
                 }
             }
             catch (Exception ex)
@@ -491,7 +588,6 @@ namespace FixFinder.Pages
                         txt_QuantidadeUtilizadaProduto.Text = "";
 
                         pnl_Alert.Visible = false;
-                        Response.Redirect(Request.RawUrl);
                     }
                 }
                 else
@@ -523,7 +619,6 @@ namespace FixFinder.Pages
             txt_QuantidadeUtilizadaProduto.Text = "";
         }
 
-        [Obsolete]
         protected void btn_CarregarCliente_Click(object sender, EventArgs e)
         {
             if (txt_CPF.Text.Length < 14)
@@ -552,7 +647,30 @@ namespace FixFinder.Pages
                         }
                         else
                         {
-                            fregues = cliente;
+                            List<Veiculo> veiculos = context.Veiculo.Where(v => v.cpfCliente.Equals(cliente.cpf)).ToList();
+                            ListItem item;
+                            if (veiculos.Count == 0)
+                            {
+                                alert_CPF.InnerText = "Este usuário não possui veículos cadastrados";
+                                alert_CPF.Visible = true;
+                            }
+                            else
+                            {
+                                if (txt_Veiculo.Items.Count > 0)
+                                    txt_Veiculo.Items.Clear();
+
+                                foreach (Veiculo v in veiculos)
+                                {
+                                    item = new ListItem();
+                                    item.Text = v.marca + " - " + v.placa;
+                                    item.Value = v.idVeiculo.ToString();
+                                    txt_Veiculo.Items.Add(item);
+                                }
+                                txt_Veiculo.Attributes.Remove("disabled");
+                                txt_Nome.Text = cliente.nome;
+                                txt_CPF.Text = cliente.cpf;
+                                alert_CPF.Visible = false;
+                            }
                         }
                     }
                 }
@@ -571,10 +689,6 @@ namespace FixFinder.Pages
         }
 
         protected void btn_Cadastro_Click(object sender, EventArgs e)
-        {
-        }
-
-        protected void do_Postback()
         {
         }
     }

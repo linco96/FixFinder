@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -13,6 +14,7 @@ namespace FixFinder.Pages
         private Cliente c;
         private static List<Servico> servicosSelecionados;
         private static Dictionary<Produto, int> produtosSelecionados;
+        private static Cliente fregues;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -49,9 +51,36 @@ namespace FixFinder.Pages
             {
                 using (DatabaseEntities context = new DatabaseEntities())
                 {
+                    ListItem item;
+                    if (fregues != null)
+                    {
+                        List<Veiculo> veiculos = context.Veiculo.Where(v => v.cpfCliente.Equals(fregues.cpf)).ToList();
+                        if (veiculos.Count == 0)
+                        {
+                            alert_CPF.InnerText = "Este usuário não possui veículos cadastrados";
+                            alert_CPF.Visible = true;
+                        }
+                        else
+                        {
+                            if (txt_Veiculo.Items.Count > 0)
+                                txt_Veiculo.Items.Clear();
+
+                            foreach (Veiculo v in veiculos)
+                            {
+                                item = new ListItem();
+                                item.Text = v.marca + " - " + v.placa;
+                                item.Value = v.idVeiculo.ToString();
+                                txt_Veiculo.Items.Add(item);
+                            }
+                            txt_Veiculo.Attributes.Remove("disabled");
+                            txt_Nome.Text = fregues.nome;
+                            txt_CPF.Text = fregues.cpf;
+                            alert_CPF.Visible = false;
+                        }
+                    }
+
                     List<Servico> servicos = context.Servico.Where(servico => servico.cnpjOficina.Equals(c.Funcionario.cnpjOficina)).ToList();
                     List<Produto> produtos = context.Produto.Where(produto => produto.cnpjOficina.Equals(c.Funcionario.cnpjOficina)).ToList();
-                    ListItem item;
 
                     if (txt_ServicoSelecionado.Items.Count == 0)
                     {
@@ -494,10 +523,7 @@ namespace FixFinder.Pages
             txt_QuantidadeUtilizadaProduto.Text = "";
         }
 
-        protected void btn_Cadastro_Click(object sender, EventArgs e)
-        {
-        }
-
+        [Obsolete]
         protected void btn_CarregarCliente_Click(object sender, EventArgs e)
         {
             if (txt_CPF.Text.Length < 14)
@@ -526,28 +552,7 @@ namespace FixFinder.Pages
                         }
                         else
                         {
-                            List<Veiculo> veiculos = context.Veiculo.Where(v => v.cpfCliente.Equals(cliente.cpf)).ToList();
-                            if (veiculos.Count == 0)
-                            {
-                                alert_CPF.InnerText = "Este usuário não possui veículos cadastrados";
-                                alert_CPF.Visible = true;
-                            }
-                            else
-                            {
-                                if (txt_Veiculo.Items.Count > 0)
-                                    txt_Veiculo.Items.Clear();
-                                ListItem item;
-                                foreach (Veiculo v in veiculos)
-                                {
-                                    item = new ListItem();
-                                    item.Text = v.marca + " - " + v.placa;
-                                    item.Value = v.idVeiculo.ToString();
-                                    txt_Veiculo.Items.Add(item);
-                                }
-                                txt_Veiculo.Attributes.Remove("disabled");
-                                txt_Nome.Text = cliente.nome;
-                                alert_CPF.Visible = false;
-                            }
+                            fregues = cliente;
                         }
                     }
                 }
@@ -563,6 +568,14 @@ namespace FixFinder.Pages
         protected void btn_AtualizarTotal_Click(object sender, EventArgs e)
         {
             txt_Desconto.Text = "123456";
+        }
+
+        protected void btn_Cadastro_Click(object sender, EventArgs e)
+        {
+        }
+
+        protected void do_Postback()
+        {
         }
     }
 }

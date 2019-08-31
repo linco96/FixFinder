@@ -15,6 +15,7 @@ namespace FixFinder.Pages
         private Compra compra;
         private static List<Produto> listaProdutos;
         private static int idProduto;
+        private static Fornecedor fornecedor;
 
         //A FAZER
         //VALIDADE NAO ESTA INDO PARA O FORMULARIO
@@ -64,6 +65,25 @@ namespace FixFinder.Pages
                                 {
                                     preencher_Fornecedores();
                                     preencher_Produto();
+                                }
+                                else
+                                {
+                                    if (fornecedor != null)
+                                    {
+                                        txt_FornecedorCNPJ.Text = fornecedor.cnpjFornecedor;
+                                        txt_FornecedorNome.Text = fornecedor.razaoSocial;
+                                        txt_FornecedorTelefone.Text = fornecedor.telefone;
+                                        txt_FornecedorEmail.Text = fornecedor.email;
+                                    }
+                                    else
+                                    {
+                                        txt_FornecedorCNPJ.Text = "";
+                                        txt_FornecedorNome.Text = "";
+                                        txt_FornecedorTelefone.Text = "";
+                                        txt_FornecedorEmail.Text = "";
+                                        txt_ProdutoPrecoCompra.ReadOnly = true;
+                                        txt_ProdutoPrecoVenda.ReadOnly = true;
+                                    }
                                 }
                             }
                         }
@@ -149,8 +169,6 @@ namespace FixFinder.Pages
 
         protected void select_Fornecedores_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Fornecedor fornecedor = null;
-
             try
             {
                 using (var context = new DatabaseEntities())
@@ -394,7 +412,8 @@ namespace FixFinder.Pages
                                     produto.validade = null;
                                 }
                                 listaProdutos.Add(produto);
-                                preencher_Tabela();
+                                Response.Redirect(Request.RawUrl);
+                                //preencher_Tabela();
                             }
                         }
                     }

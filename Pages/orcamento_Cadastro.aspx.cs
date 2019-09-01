@@ -70,6 +70,7 @@ namespace FixFinder.Pages
                             item.Text = s.descricao + " - R$ " + s.valor.ToString("0.00");
                             item.Value = s.idServico.ToString();
                             txt_ServicoSelecionado.Items.Add(item);
+                            txt_ServicoSelecionado.Enabled = true;
                         }
                         foreach (Servico s in servicosSelecionados)
                         {
@@ -136,6 +137,7 @@ namespace FixFinder.Pages
                             }
                             item.Value = p.idProduto.ToString();
                             txt_ProdutoSelecionado.Items.Add(item);
+                            txt_ProdutoSelecionado.Enabled = true;
                         }
                         foreach (Produto p in produtosSelecionados.Keys)
                         {
@@ -184,8 +186,6 @@ namespace FixFinder.Pages
                     TableHeaderCell headerCell;
                     Button btn;
 
-                    tbl_Servicos.Rows.Clear();
-
                     if (servicosSelecionados.Count > 0)
                     {
                         headerRow = new TableHeaderRow();
@@ -227,6 +227,7 @@ namespace FixFinder.Pages
                             btn = new Button();
                             btn.Text = "Remover";
                             btn.Click += new EventHandler(btn_RemoverServico_Click);
+                            btn.ID = "btn_Servico" + s.idServico.ToString();
                             btn.CommandArgument = s.idServico.ToString();
                             btn.CssClass = "btn btn-danger";
                             cell.Controls.Add(btn);
@@ -257,8 +258,6 @@ namespace FixFinder.Pages
                     TableCell cell;
                     TableHeaderCell headerCell;
                     Button btn;
-
-                    tbl_Produtos.Rows.Clear();
 
                     if (produtosSelecionados.Count > 0)
                     {
@@ -360,6 +359,7 @@ namespace FixFinder.Pages
                             btn = new Button();
                             btn.Text = "Remover";
                             btn.Click += new EventHandler(btn_RemoverProduto_Click);
+                            btn.ID = "btn_Produto" + p.idProduto.ToString();
                             btn.CommandArgument = p.idProduto.ToString();
                             btn.CssClass = "btn btn-danger";
                             cell.Controls.Add(btn);
@@ -368,6 +368,259 @@ namespace FixFinder.Pages
                             tbl_Produtos.Rows.Add(row);
                         }
                         tbl_Produtos.Visible = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                pnl_Alert.CssClass = "alert alert-danger";
+                lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                pnl_Alert.Visible = true;
+            }
+        }
+
+        protected void adicionarTabelaServicos(Servico s)
+        {
+            try
+            {
+                if (tbl_Servicos.Rows.Count == 0)
+                {
+                    TableHeaderRow headerRow;
+                    TableHeaderCell headerCell;
+
+                    headerRow = new TableHeaderRow();
+                    headerRow.CssClass = "thead-light";
+
+                    headerCell = new TableHeaderCell();
+                    headerCell.CssClass = "text-center";
+                    headerCell.Text = "Descrição";
+                    headerRow.Cells.Add(headerCell);
+
+                    headerCell = new TableHeaderCell();
+                    headerCell.CssClass = "text-center";
+                    headerCell.Text = "Valor";
+                    headerRow.Cells.Add(headerCell);
+
+                    headerCell = new TableHeaderCell();
+                    headerCell.CssClass = "text-center";
+                    headerCell.Text = "Ações";
+                    headerRow.Cells.Add(headerCell);
+
+                    tbl_Servicos.Rows.Add(headerRow);
+                }
+
+                TableRow row;
+                TableCell cell;
+                Button btn;
+
+                row = new TableRow();
+
+                cell = new TableCell();
+                cell.Text = s.descricao;
+                cell.CssClass = "text-center align-middle";
+                row.Cells.Add(cell);
+
+                cell = new TableCell();
+                cell.Text = "R$ " + s.valor.ToString("0.00");
+                cell.CssClass = "text-center align-middle";
+                row.Cells.Add(cell);
+
+                cell = new TableCell();
+                cell.CssClass = "text-center align-middle";
+                btn = new Button();
+                btn.Text = "Remover";
+                btn.Click += new EventHandler(btn_RemoverServico_Click);
+                btn.ID = "btn_Servico" + s.idServico.ToString();
+                btn.CommandArgument = s.idServico.ToString();
+                btn.CssClass = "btn btn-danger";
+                cell.Controls.Add(btn);
+                row.Cells.Add(cell);
+
+                tbl_Servicos.Rows.Add(row);
+            }
+            catch (Exception ex)
+            {
+                pnl_Alert.CssClass = "alert alert-danger";
+                lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                pnl_Alert.Visible = true;
+            }
+        }
+
+        protected void removerTabelaServicos(Servico s)
+        {
+            try
+            {
+                if (servicosSelecionados.Count == 0)
+                {
+                    tbl_Servicos.Rows.Clear();
+                }
+                else
+                {
+                    Button btn;
+                    foreach (TableRow row in tbl_Servicos.Rows)
+                    {
+                        if (row.Cells[2].Controls.Count > 0)
+                        {
+                            btn = (Button)row.Cells[2].Controls[0];
+                            if (int.Parse(btn.CommandArgument) == s.idServico)
+                                tbl_Servicos.Rows.Remove(row);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                pnl_Alert.CssClass = "alert alert-danger";
+                lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                pnl_Alert.Visible = true;
+            }
+        }
+
+        protected void adicionarTabelaProdutos(Produto p)
+        {
+            try
+            {
+                if (tbl_Produtos.Rows.Count == 0)
+                {
+                    TableHeaderRow headerRow;
+                    TableHeaderCell headerCell;
+
+                    headerRow = new TableHeaderRow();
+                    headerRow.CssClass = "thead-light";
+
+                    headerCell = new TableHeaderCell();
+                    headerCell.CssClass = "text-center";
+                    headerCell.Text = "Descrição";
+                    headerRow.Cells.Add(headerCell);
+
+                    headerCell = new TableHeaderCell();
+                    headerCell.CssClass = "text-center";
+                    headerCell.Text = "Marca";
+                    headerRow.Cells.Add(headerCell);
+
+                    headerCell = new TableHeaderCell();
+                    headerCell.CssClass = "text-center";
+                    headerCell.Text = "Preço";
+                    headerRow.Cells.Add(headerCell);
+
+                    headerCell = new TableHeaderCell();
+                    headerCell.CssClass = "text-center";
+                    headerCell.Text = "Validade";
+                    headerRow.Cells.Add(headerCell);
+
+                    headerCell = new TableHeaderCell();
+                    headerCell.CssClass = "text-center";
+                    headerCell.Text = "Quantidade em<br />estoque";
+                    headerRow.Cells.Add(headerCell);
+
+                    headerCell = new TableHeaderCell();
+                    headerCell.CssClass = "text-center";
+                    headerCell.Text = "Quantidade<br />selecionada";
+                    headerRow.Cells.Add(headerCell);
+
+                    headerCell = new TableHeaderCell();
+                    headerCell.CssClass = "text-center";
+                    headerCell.Text = "Ações";
+                    headerRow.Cells.Add(headerCell);
+
+                    tbl_Produtos.Rows.Add(headerRow);
+                }
+
+                TableRow row;
+                TableCell cell;
+                Button btn;
+
+                Double precoVenda;
+                DateTime validade;
+
+                row = new TableRow();
+
+                cell = new TableCell();
+                cell.Text = p.descricao;
+                cell.CssClass = "text-center align-middle";
+                row.Cells.Add(cell);
+
+                cell = new TableCell();
+                cell.Text = p.marca;
+                cell.CssClass = "text-center align-middle";
+                row.Cells.Add(cell);
+
+                cell = new TableCell();
+                if (p.precoVenda == null)
+                {
+                    cell.Text = "-";
+                }
+                else
+                {
+                    precoVenda = (Double)p.precoVenda;
+                    cell.Text = "R$ " + precoVenda.ToString("0.00");
+                }
+                cell.CssClass = "text-center align-middle";
+                row.Cells.Add(cell);
+
+                cell = new TableCell();
+                if (p.validade == null)
+                {
+                    cell.Text = "-";
+                }
+                else
+                {
+                    validade = (DateTime)p.validade;
+                    cell.Text = validade.ToString("dd/MM/yyyy");
+                }
+                cell.CssClass = "text-center align-middle";
+                row.Cells.Add(cell);
+
+                cell = new TableCell();
+                cell.Text = p.quantidade.ToString();
+                cell.CssClass = "text-center align-middle";
+                row.Cells.Add(cell);
+
+                cell = new TableCell();
+                cell.Text = produtosSelecionados[p].ToString();
+                cell.CssClass = "text-center align-middle";
+                row.Cells.Add(cell);
+
+                cell = new TableCell();
+                cell.CssClass = "text-center align-middle";
+                btn = new Button();
+                btn.Text = "Remover";
+                btn.Click += new EventHandler(btn_RemoverProduto_Click);
+                btn.ID = "btn_Produto" + p.idProduto.ToString();
+                btn.CommandArgument = p.idProduto.ToString();
+                btn.CssClass = "btn btn-danger";
+                cell.Controls.Add(btn);
+                row.Cells.Add(cell);
+
+                tbl_Produtos.Rows.Add(row);
+            }
+            catch (Exception ex)
+            {
+                pnl_Alert.CssClass = "alert alert-danger";
+                lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                pnl_Alert.Visible = true;
+            }
+        }
+
+        protected void removerTabelaProdutos(Produto p)
+        {
+            try
+            {
+                if (produtosSelecionados.Count == 0)
+                {
+                    tbl_Produtos.Rows.Clear();
+                }
+                else
+                {
+                    Button btn;
+                    foreach (TableRow row in tbl_Produtos.Rows)
+                    {
+                        if (row.Cells[6].Controls.Count > 0)
+                        {
+                            btn = (Button)row.Cells[6].Controls[0];
+                            if (int.Parse(btn.CommandArgument) == p.idProduto)
+                                tbl_Produtos.Rows.Remove(row);
+                        }
                     }
                 }
             }
@@ -390,6 +643,8 @@ namespace FixFinder.Pages
                         Servico s = context.Servico.Where(servico => servico.idServico == id).FirstOrDefault();
                         servicosSelecionados.Add(s);
                         pnl_Alert.Visible = false;
+                        adicionarTabelaServicos(s);
+                        atualizarTotal();
                     }
                 }
                 catch (Exception ex)
@@ -417,6 +672,8 @@ namespace FixFinder.Pages
                                 Produto p = context.Produto.Where(produto => produto.idProduto == id).FirstOrDefault();
                                 produtosSelecionados.Add(p, quantidade);
                                 pnl_Alert.Visible = false;
+                                adicionarTabelaProdutos(p);
+                                atualizarTotal();
                             }
                         }
                         else
@@ -454,10 +711,12 @@ namespace FixFinder.Pages
                     if (s.idServico == id)
                     {
                         servicosSelecionados.Remove(s);
+                        removerTabelaServicos(s);
                         break;
                     }
                 }
                 pnl_Alert.Visible = false;
+                atualizarTotal();
             }
             catch (Exception ex)
             {
@@ -479,10 +738,12 @@ namespace FixFinder.Pages
                     if (p.idProduto == id)
                     {
                         produtosSelecionados.Remove(p);
+                        removerTabelaProdutos(p);
                         break;
                     }
                 }
                 pnl_Alert.Visible = false;
+                atualizarTotal();
             }
             catch (Exception ex)
             {
@@ -525,6 +786,8 @@ namespace FixFinder.Pages
                     txt_DescricaoServico.Text = "";
                     txt_ValorServico.Text = "";
                     pnl_Alert.Visible = false;
+                    adicionarTabelaServicos(s);
+                    atualizarTotal();
                 }
             }
             catch (Exception ex)
@@ -582,6 +845,9 @@ namespace FixFinder.Pages
                         txt_QuantidadeUtilizadaProduto.Text = "";
 
                         pnl_Alert.Visible = false;
+
+                        adicionarTabelaProdutos(p);
+                        atualizarTotal();
                     }
                 }
                 else
@@ -615,6 +881,12 @@ namespace FixFinder.Pages
 
         protected void btn_CarregarCliente_Click(object sender, EventArgs e)
         {
+            txt_Nome.Text = "";
+            if (txt_Veiculo.Items.Count > 0)
+            {
+                txt_Veiculo.Items.Clear();
+                txt_Veiculo.Enabled = false;
+            }
             if (txt_CPF.Text.Length < 14)
             {
                 alert_CPF.InnerText = "CPF inválido";
@@ -660,7 +932,7 @@ namespace FixFinder.Pages
                                     item.Value = v.idVeiculo.ToString();
                                     txt_Veiculo.Items.Add(item);
                                 }
-                                txt_Veiculo.Attributes.Remove("disabled");
+                                txt_Veiculo.Enabled = true;
                                 txt_Nome.Text = cliente.nome;
                                 txt_CPF.Text = cliente.cpf;
                                 alert_CPF.Visible = false;
@@ -679,7 +951,42 @@ namespace FixFinder.Pages
 
         protected void btn_AtualizarTotal_Click(object sender, EventArgs e)
         {
-            txt_Desconto.Text = "123456";
+            atualizarTotal();
+        }
+
+        protected void txt_DescontoAcrescimo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            atualizarTotal();
+        }
+
+        protected void atualizarTotal()
+        {
+            double total = 0;
+            foreach (Servico s in servicosSelecionados)
+            {
+                total += s.valor;
+            }
+            foreach (Produto p in produtosSelecionados.Keys)
+            {
+                if (p.precoVenda != null)
+                    total += ((Double)p.precoVenda) * produtosSelecionados[p];
+            }
+            if (txt_Desconto.Text.Length > 0)
+            {
+                if (txt_DescontoAcrescimo.SelectedValue == "d")
+                {
+                    total -= Double.Parse(txt_Desconto.Text);
+                }
+                else
+                {
+                    total += Double.Parse(txt_Desconto.Text);
+                }
+            }
+            if (total < 0)
+                lbl_ValorTotal.Attributes.Add("class", "mt-2 text-center text-danger");
+            else
+                lbl_ValorTotal.Attributes.Add("class", "mt-2 text-center text-primary");
+            lbl_ValorTotal.InnerText = "Valor total: R$ " + total.ToString("0.00");
         }
 
         protected void btn_Cadastro_Click(object sender, EventArgs e)

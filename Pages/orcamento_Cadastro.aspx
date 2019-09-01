@@ -39,7 +39,7 @@
             </div>
             <div class="form-group">
                 <label for="txt_Veiculo">Veículo</label>
-                <asp:DropDownList runat="server" ID="txt_Veiculo" disabled="disabled" CssClass="form-control custom-select">
+                <asp:DropDownList runat="server" ID="txt_Veiculo" Enabled="false" CssClass="form-control custom-select">
                 </asp:DropDownList>
             </div>
 
@@ -75,7 +75,7 @@
             </div>
             <div class="form-group">
                 <div class="table-responsive-xl">
-                    <asp:Table runat="server" ID="tbl_Servicos" Visible="false" CssClass="table border rounded-lg">
+                    <asp:Table runat="server" ID="tbl_Servicos" CssClass="table border rounded-lg">
                         <%--<asp:TableHeaderRow runat="server" ID="tblH_Servicos" CssClass="thead-light">
                             <asp:TableHeaderCell Scope="Column" CssClass="text-center">Descrição</asp:TableHeaderCell>
                             <asp:TableHeaderCell Scope="Column" CssClass="text-center">Valor</asp:TableHeaderCell>
@@ -152,7 +152,7 @@
             </div>
             <div class="form-group">
                 <div class="table-responsive-xl">
-                    <asp:Table runat="server" ID="tbl_Produtos" Visible="false" CssClass="table border rounded-lg">
+                    <asp:Table runat="server" ID="tbl_Produtos" CssClass="table border rounded-lg">
                         <%--<asp:TableHeaderRow runat="server" ID="tblH_Produtos" CssClass="thead-light">
                             <asp:TableHeaderCell Scope="Column" CssClass="text-center">Descrição</asp:TableHeaderCell>
                             <asp:TableHeaderCell Scope="Column" CssClass="text-center">Marca</asp:TableHeaderCell>
@@ -170,14 +170,14 @@
                 <label for="txtDesconto">Desconto/Acréscimo</label>
                 <div class="input-group">
                     <span class="input-group-prepend">
-                        <asp:DropDownList runat="server" ID="txt_DescontoAcrescimo" CssClass="form-control custom-select bg-light" Style="border-top-right-radius: 0; border-bottom-right-radius: 0;">
+                        <asp:DropDownList runat="server" ID="txt_DescontoAcrescimo" CssClass="form-control custom-select bg-light" Style="border-top-right-radius: 0; border-bottom-right-radius: 0;" OnSelectedIndexChanged="txt_DescontoAcrescimo_SelectedIndexChanged" AutoPostBack="true">
                             <asp:ListItem Value="d">Desconto</asp:ListItem>
                             <asp:ListItem Value="a">Acréscimo</asp:ListItem>
                         </asp:DropDownList>
                     </span>
                     <asp:TextBox runat="server" ID="txt_Desconto" CssClass="form-control" ClientIDMode="Static" onkeypress="$(this).mask('#.##0,00', { reverse: true });"></asp:TextBox>
                 </div>
-                <h3 runat="server" id="lbl_ValorTotal" class="mt-2 text-center text-primary">Valor total: R$ 150,00</h3>
+                <h3 runat="server" id="lbl_ValorTotal" class="mt-2 text-center text-primary">Valor total: R$ 0,00</h3>
             </div>
 
             <div class="form-group mt-5 text-center">

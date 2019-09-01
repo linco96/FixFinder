@@ -72,7 +72,7 @@ namespace FixFinder.Pages
 
                     if (compra != null)
                     {
-                        Response.Redirect("compra_Cadastro.aspx", false);
+                        Response.Redirect("compra_Cadastrar.aspx", false);
                     }
                     else
                     {
@@ -92,7 +92,7 @@ namespace FixFinder.Pages
         {
             if (compra != null)
             {
-                Response.Redirect("compra_Cadastro.aspx", false);
+                Response.Redirect("compra_Cadastrar.aspx", false);
             }
             else
             {

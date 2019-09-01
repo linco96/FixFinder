@@ -20,7 +20,6 @@ namespace FixFinder.Pages
 
         //A FAZER
         //AO ADICIONAR PRODUTO, SE A VALIDADE FOR DIFERENTE É NECESSARIO CADASTRAR UM NOVO PRODUTO (PENSADO SOBRE ISSO AINDA)
-        //FAZER A COLLECTION VIRAR LIST PARA ASSIM SE TIVER UMA COMPRA CADASTRADA ELE JA CARREGAR OS PRODUTOS NA LISTA
         //SEI LA FALTA BASTANTE
 
         protected void Page_Load(object sender, EventArgs e)
@@ -68,8 +67,7 @@ namespace FixFinder.Pages
                                 compra = (Compra)Session["compra"];
                                 if (compra != null)
                                 {
-                                    //transformar a collection da compra em list de produto
-                                    //listaProdutos = compra.ProdutosCompra.ToList<Produto>;
+                                    preencher_CamposCompra(compra);
                                 }
 
                                 if (listaProdutos == null)
@@ -77,7 +75,7 @@ namespace FixFinder.Pages
 
                                 pnl_Alert.Visible = false;
 
-                                preencher_Tabela(true);
+                                preencher_Tabela();
 
                                 if (!IsPostBack)
                                 {
@@ -123,6 +121,44 @@ namespace FixFinder.Pages
         //{
         //    preencher_Tabela(true);
         //}
+
+        private void preencher_CamposCompra(Compra compra)
+        {
+            try
+            {
+                using (var context = new DatabaseEntities())
+                {
+                    if (compra.cpfFuncionario != funcionario.cpf)
+                    {
+                        Session["compra"] = null;
+                        Response.Redirect("home.aspx");
+                    }
+
+                    fornecedor = context.Fornecedor.Where(f => f.idFornecedor == compra.idFornecedor).FirstOrDefault();
+                    if (fornecedor != null)
+                    {
+                        txt_FornecedorCNPJ.Text = fornecedor.cnpjFornecedor;
+                        txt_FornecedorNome.Text = fornecedor.razaoSocial;
+                        txt_FornecedorTelefone.Text = fornecedor.telefone;
+                        txt_FornecedorEmail.Text = fornecedor.email;
+                    }
+
+                    listaProdutos = new List<Produto>();
+                    Produto produto;
+
+                    foreach (ProdutosCompra pCompra in compra.ProdutosCompra)
+                    {
+                        produto = context.Produto.Where(p => p.idProduto == pCompra.idProduto).FirstOrDefault();
+                        if (produto != null)
+                            listaProdutos.Add(produto);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script>alert('" + ex.Message + "');</script>");
+            }
+        }
 
         private void preencher_Fornecedores()
         {
@@ -287,20 +323,38 @@ namespace FixFinder.Pages
 
         protected void btn_CadastrarProduto_Click(object sender, EventArgs e)
         {
-            compra = null;
-            Session["compra"] = null;
+            ProdutosCompra pCompra;
+
+            compra = new Compra();
             compra.cnpjOficina = funcionario.cnpjOficina;
             compra.cpfFuncionario = funcionario.cpf;
-            compra.idFornecedor = int.Parse(select_Fornecedores.SelectedValue);
+            if (fornecedor != null)
+                compra.idFornecedor = fornecedor.idFornecedor;
+
+            if (listaProdutos != null && listaProdutos.Count > 0)
+            {
+                foreach (Produto p in listaProdutos)
+                {
+                    pCompra = new ProdutosCompra()
+                    {
+                        idProduto = p.idProduto,
+                        idCompra = 0,
+                        quantidade = p.quantidade
+                    };
+                    compra.ProdutosCompra.Add(pCompra);
+                }
+            }
+            Session["compra"] = compra;
+            Response.Redirect("produto_Cadastro.aspx", false);
         }
 
-        private void preencher_Tabela(bool limpar)
+        private void preencher_Tabela()
         {
-            if (limpar)
-                tbl_Produtos.Rows.Clear();
             TableRow row;
             TableCell cell;
             Button btn;
+
+            tbl_Produtos.Rows.Clear();
 
             TableHeaderCell headerCell;
             TableHeaderRow header = new TableHeaderRow();
@@ -430,7 +484,7 @@ namespace FixFinder.Pages
                     if (p.idProduto == int.Parse(btn.CommandArgument))
                     {
                         listaProdutos.Remove(p);
-                        preencher_Tabela(true);
+                        preencher_Tabela();
                         ///have a
                         break;
                         //have a kitkat
@@ -472,7 +526,7 @@ namespace FixFinder.Pages
                                         produto.validade = null;
                                     }
                                     listaProdutos.Add(produto);
-                                    preencher_Tabela(true);
+                                    preencher_Tabela();
                                     //Response.Redirect(Request.RawUrl);
                                 }
                             }

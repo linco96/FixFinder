@@ -117,6 +117,17 @@
                     <%--</asp:TableHeaderRow>--%>
                 </asp:Table>
             </div>
+
+            <div class="form-group">
+                <asp:Button runat="server" ID="btn_ConcluirCompra" CssClass="btn btn-primary mt-2" Text="Concluir Compra" OnClick="btn_ConcluirCompra_Click" formnovalidate />
+                <asp:Button runat="server" ID="btn_Voltar" CssClass="btn btn-danger mt-2" Text="Voltar" OnClick="btn_Voltar_Click" formnovalidate />
+            </div>
+
+            <div class="form-group">
+                <asp:Panel runat="server" ID="pnl_Concluir" Visible="false" CssClass="alert alert-danger" role="alert">
+                    <asp:Label runat="server" ID="lbl_AlertConcluir" CssClass="text-danger form-text text-muted" Text=""></asp:Label>
+                </asp:Panel>
+            </div>
         </div>
     </form>
 </body>

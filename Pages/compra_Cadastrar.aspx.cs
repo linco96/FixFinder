@@ -19,8 +19,8 @@ namespace FixFinder.Pages
         private bool isRefresh;
 
         //A FAZER
-        //AO ADICIONAR PRODUTO, SE A VALIDADE FOR DIFERENTE É NECESSARIO CADASTRAR UM NOVO PRODUTO (PENSADO SOBRE ISSO AINDA)
-        //SEI LA FALTA BASTANTE
+        //ao adicionar a compra ele ira editar os dados de vencimento do produto e de preco compra e venda
+        //se ele nao quiser, ele que cadastre outro
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -537,6 +537,32 @@ namespace FixFinder.Pages
                 {
                     Response.Write("<script>alert('" + ex.Message + "');</script>");
                 }
+        }
+
+        protected void btn_ConcluirCompra_Click(object sender, EventArgs e)
+        {
+            if (fornecedor == null)
+            {
+                pnl_Concluir.Visible = true;
+                lbl_AlertConcluir.Text = "Selecione um fornecedor para concluir a compra";
+            }
+            else if (listaProdutos == null || listaProdutos.Count <= 0)
+            {
+                pnl_Concluir.Visible = true;
+                lbl_AlertConcluir.Text = "Selecione ao menos 1 roduto para concluir a compra";
+            }
+            else
+            {
+                //pnl_Concluir.Visible = false;
+                pnl_Concluir.Visible = true;
+                lbl_AlertConcluir.Text = "É pra ter dado certo";
+            }
+        }
+
+        protected void btn_Voltar_Click(object sender, EventArgs e)
+        {
+            Session["compra"] = null;
+            Response.Redirect("home.aspx", false);
         }
     }
 }

@@ -959,7 +959,7 @@ namespace FixFinder.Pages
             atualizarTotal();
         }
 
-        protected void atualizarTotal()
+        protected double atualizarTotal()
         {
             double total = 0;
             foreach (Servico s in servicosSelecionados)
@@ -987,10 +987,109 @@ namespace FixFinder.Pages
             else
                 lbl_ValorTotal.Attributes.Add("class", "mt-2 text-center text-primary");
             lbl_ValorTotal.InnerText = "Valor total: R$ " + total.ToString("0.00");
+            return total;
+        }
+
+        protected void clearForm()
+        {
+            txt_CPF.Text = "";
+            txt_Nome.Text = "";
+            txt_Veiculo.Items.Clear();
+            txt_Veiculo.Enabled = false;
+            servicosSelecionados.Clear();
+            tbl_Servicos.Rows.Clear();
+            produtosSelecionados.Clear();
+            tbl_Produtos.Rows.Clear();
+            txt_Desconto.Text = "";
+            lbl_ValorTotal.InnerText = "Valor total: R$ 0,00";
         }
 
         protected void btn_Cadastro_Click(object sender, EventArgs e)
         {
+            if (servicosSelecionados.Count == 0)
+            {
+                pnl_Alert.CssClass = "alert alert-danger";
+                lbl_Alert.Text = "Insira no mínimo 1 serviço";
+                pnl_Alert.Visible = true;
+            }
+            else
+            {
+                if (txt_Veiculo.Enabled == false)
+                {
+                    pnl_Alert.CssClass = "alert alert-danger";
+                    lbl_Alert.Text = "Informe um cliente com no mínimo 1 veículo cadastrado";
+                    pnl_Alert.Visible = true;
+                }
+                else
+                {
+                    try
+                    {
+                        using (DatabaseEntities context = new DatabaseEntities())
+                        {
+                            int id = int.Parse(txt_Veiculo.SelectedValue);
+                            Veiculo veiculo = context.Veiculo.Where(v => v.idVeiculo == id).FirstOrDefault();
+                            Cliente cliente = veiculo.Cliente;
+                            Funcionario funcionario = context.Funcionario.Where(f => f.cpf.Equals(c.cpf)).FirstOrDefault();
+                            Oficina oficina = funcionario.Oficina;
+                            DateTime data = DateTime.Now;
+                            Double total = atualizarTotal();
+                            String status = "Aprovação pendente";
+
+                            Orcamento orcamento = new Orcamento()
+                            {
+                                valor = total,
+                                data = data,
+                                status = status,
+                                cpfFuncionario = funcionario.cpf,
+                                cnpjOficina = oficina.cnpj,
+                                idVeiculo = veiculo.idVeiculo,
+                                cpfCliente = cliente.cpf,
+                            };
+
+                            context.Orcamento.Add(orcamento);
+                            context.SaveChanges();
+
+                            ServicosOrcamento so;
+                            foreach (Servico s in servicosSelecionados)
+                            {
+                                so = new ServicosOrcamento()
+                                {
+                                    idOrcamento = orcamento.idOrcamento,
+                                    idServico = s.idServico,
+                                    status = "pendente"
+                                };
+                                context.ServicosOrcamento.Add(so);
+                                context.SaveChanges();
+                            }
+                            if (produtosSelecionados.Count > 0)
+                            {
+                                ProdutosOrcamento po;
+                                foreach (Produto p in produtosSelecionados.Keys)
+                                {
+                                    po = new ProdutosOrcamento()
+                                    {
+                                        idOrcamento = orcamento.idOrcamento,
+                                        idProduto = p.idProduto,
+                                        quantidade = produtosSelecionados[p]
+                                    };
+                                    context.ProdutosOrcamento.Add(po);
+                                    context.SaveChanges();
+                                }
+                            }
+                            clearForm();
+                            pnl_Alert.CssClass = "alert alert-success";
+                            lbl_Alert.Text = "Orçamento criado com sucesso";
+                            pnl_Alert.Visible = true;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        pnl_Alert.CssClass = "alert alert-danger";
+                        lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                        pnl_Alert.Visible = true;
+                    }
+                }
+            }
         }
     }
 }

@@ -32,6 +32,7 @@ namespace FixFinder.Models
         public string cpfCliente { get; set; }
     
         public virtual Cliente Cliente { get; set; }
+        public virtual Funcionario Funcionario { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Mensagem> Mensagem { get; set; }
         public virtual Oficina Oficina { get; set; }

@@ -180,14 +180,15 @@
                 <h3 runat="server" id="lbl_ValorTotal" class="mt-2 text-center text-primary">Valor total: R$ 0,00</h3>
             </div>
 
-            <div class="form-group mt-5 text-center">
-
-                <asp:Button runat="server" ID="btn_Cadastro" CssClass="btn btn-primary btn-lg" OnClick="btn_Cadastro_Click" Text="Criar orçamento" />
-            </div>
             <div class="form-group">
                 <asp:Panel runat="server" ID="pnl_Alert" Visible="false" CssClass="alert alert-danger" role="alert">
                     <asp:Label ID="lbl_Alert" runat="server"></asp:Label>
                 </asp:Panel>
+            </div>
+
+            <div class="form-group mt-5 text-center">
+
+                <asp:Button runat="server" ID="btn_Cadastro" CssClass="btn btn-primary btn-lg" OnClick="btn_Cadastro_Click" Text="Criar orçamento" />
             </div>
         </div>
         <asp:Button runat="server" ID="btn_CarregarCliente" Style="display: none" OnClick="btn_CarregarCliente_Click" ClientIDMode="Static" formnovalidate="formnovalidate" />

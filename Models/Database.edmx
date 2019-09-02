@@ -201,6 +201,7 @@
           <Property Name="categoria" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="cnpjOficina" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="ativo" Type="tinyint" Nullable="false" />
+          <Property Name="precoMedio" Type="float" />
         </EntityType>
         <EntityType Name="ProdutosCompra">
           <Key>
@@ -1066,6 +1067,7 @@
           <Property Name="categoria" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="cnpjOficina" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ativo" Type="Byte" Nullable="false" />
+          <Property Name="precoMedio" Type="Double" />
           <NavigationProperty Name="Oficina" Relationship="Self.FK_Produto_Oficina" FromRole="Produto" ToRole="Oficina" />
           <NavigationProperty Name="ProdutosCompra" Relationship="Self.FK_ProdutosCompra_Produto" FromRole="Produto" ToRole="ProdutosCompra" />
           <NavigationProperty Name="ProdutosOrcamento" Relationship="Self.FK_ProdutosOrcamento_Produto" FromRole="Produto" ToRole="ProdutosOrcamento" />
@@ -1913,6 +1915,7 @@
                 <ScalarProperty Name="categoria" ColumnName="categoria" />
                 <ScalarProperty Name="cnpjOficina" ColumnName="cnpjOficina" />
                 <ScalarProperty Name="ativo" ColumnName="ativo" />
+                <ScalarProperty Name="precoMedio" ColumnName="precoMedio" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

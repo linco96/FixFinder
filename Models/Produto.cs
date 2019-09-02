@@ -31,6 +31,7 @@ namespace FixFinder.Models
         public string categoria { get; set; }
         public string cnpjOficina { get; set; }
         public byte ativo { get; set; }
+        public Nullable<double> precoMedio { get; set; }
     
         public virtual Oficina Oficina { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

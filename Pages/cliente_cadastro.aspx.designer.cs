@@ -10,7 +10,7 @@
 namespace FixFinder.Pages {
     
     
-    public partial class cliente_Cadastro {
+    public partial class cadastroCliente {
         
         /// <summary>
         /// form1 control.

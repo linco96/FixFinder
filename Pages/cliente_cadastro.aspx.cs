@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 
 namespace FixFinder.Pages
 {
-    public partial class cliente_Cadastro : System.Web.UI.Page
+    public partial class cadastroCliente : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -64,8 +64,6 @@ namespace FixFinder.Pages
                             pnl_Alert.Visible = true;
                             pnl_Alert.CssClass = "alert alert-success";
                             lbl_Alert.Text = "Usuário cadastrado com sucesso";
-
-                            Response.Redirect("login.aspx", false);
                         }
                     }
                 }

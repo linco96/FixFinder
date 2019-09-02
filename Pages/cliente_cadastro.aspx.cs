@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 
 namespace FixFinder.Pages
 {
-    public partial class cadastroCliente : System.Web.UI.Page
+    public partial class cliente_Cadastro : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

@@ -77,30 +77,22 @@ namespace FixFinder.Pages
 
                                 preencher_Tabela();
 
-                                if (!IsPostBack)
+                                if (fornecedor != null)
                                 {
-                                    preencher_Fornecedores();
-                                    preencher_Produto();
+                                    txt_FornecedorCNPJ.Text = fornecedor.cnpjFornecedor;
+                                    txt_FornecedorNome.Text = fornecedor.razaoSocial;
+                                    txt_FornecedorTelefone.Text = fornecedor.telefone;
+                                    txt_FornecedorEmail.Text = fornecedor.email;
                                 }
                                 else
                                 {
-                                    if (fornecedor != null)
-                                    {
-                                        txt_FornecedorCNPJ.Text = fornecedor.cnpjFornecedor;
-                                        txt_FornecedorNome.Text = fornecedor.razaoSocial;
-                                        txt_FornecedorTelefone.Text = fornecedor.telefone;
-                                        txt_FornecedorEmail.Text = fornecedor.email;
-                                    }
-                                    else
-                                    {
-                                        txt_FornecedorCNPJ.Text = "";
-                                        txt_FornecedorNome.Text = "";
-                                        txt_FornecedorTelefone.Text = "";
-                                        txt_FornecedorEmail.Text = "";
-                                        txt_ProdutoPrecoCompra.ReadOnly = true;
-                                        txt_ProdutoPrecoVenda.ReadOnly = true;
-                                        txt_ProdutoQuantidade.ReadOnly = false;
-                                    }
+                                    txt_FornecedorCNPJ.Text = "";
+                                    txt_FornecedorNome.Text = "";
+                                    txt_FornecedorTelefone.Text = "";
+                                    txt_FornecedorEmail.Text = "";
+                                    txt_ProdutoPrecoCompra.ReadOnly = true;
+                                    txt_ProdutoPrecoVenda.ReadOnly = true;
+                                    txt_ProdutoQuantidade.ReadOnly = false;
                                 }
                             }
                         }
@@ -118,10 +110,11 @@ namespace FixFinder.Pages
             }
         }
 
-        //protected void Page_LoadComplete(Object sender, EventArgs e)
-        //{
-        //    preencher_Tabela(true);
-        //}
+        protected void Page_LoadComplete(Object sender, EventArgs e)
+        {
+            preencher_Fornecedores();
+            preencher_Produto();
+        }
 
         private void preencher_CamposCompra(Compra compra)
         {
@@ -463,6 +456,7 @@ namespace FixFinder.Pages
                     btn.Attributes.Add("formnovalidate", "formnovalidate");
                     btn.Click += new EventHandler(btn_RemoverProduto_Click);
                     btn.CommandArgument = produto.idProduto.ToString();
+                    btn.ID = "btnExcluir_" + produto.idProduto.ToString();
                     cell.Controls.Add(btn);
                     row.Cells.Add(cell);
 
@@ -481,12 +475,12 @@ namespace FixFinder.Pages
                     if (p.idProduto == int.Parse(btn.CommandArgument))
                     {
                         listaProdutos.Remove(p);
-                        preencher_Tabela();
                         ///have a
                         break;
                         //have a kitkat
                     }
                 }
+                preencher_Tabela();
             }
             catch (Exception ex)
             {

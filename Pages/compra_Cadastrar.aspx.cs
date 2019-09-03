@@ -99,6 +99,7 @@ namespace FixFinder.Pages
                                         txt_FornecedorEmail.Text = "";
                                         txt_ProdutoPrecoCompra.ReadOnly = true;
                                         txt_ProdutoPrecoVenda.ReadOnly = true;
+                                        txt_ProdutoQuantidade.ReadOnly = true;
                                     }
                                 }
                             }
@@ -247,8 +248,6 @@ namespace FixFinder.Pages
                         txt_FornecedorNome.Text = "";
                         txt_FornecedorTelefone.Text = "";
                         txt_FornecedorEmail.Text = "";
-                        txt_ProdutoPrecoCompra.ReadOnly = true;
-                        txt_ProdutoPrecoVenda.ReadOnly = true;
                     }
                 }
             }
@@ -278,8 +277,6 @@ namespace FixFinder.Pages
                         txt_ProdutoMarca.Text = produto.marca;
                         txt_ProdutoQuantidadeAtual.Text = produto.quantidade.ToString();
                         txt_ProdutoPrecoCompra.Text = produto.precoCompra.ToString("0.00");
-                        txt_ProdutoPrecoCompra.ReadOnly = false;
-                        txt_ProdutoPrecoVenda.ReadOnly = false;
 
                         if (produto.validade != null)
                         {
@@ -507,9 +504,10 @@ namespace FixFinder.Pages
                         int qtd = int.Parse(txt_ProdutoQuantidade.Text.Replace(".", ""));
                         if (qtd > 0)
                         {
+                            Produto produto;
                             using (var context = new DatabaseEntities())
                             {
-                                Produto produto = context.Produto.Where(p => p.idProduto == idProduto).FirstOrDefault();
+                                produto = context.Produto.Where(p => p.idProduto == idProduto).FirstOrDefault();
                                 if (produto != null)
                                 {
                                     produto.quantidade = qtd;
@@ -525,11 +523,11 @@ namespace FixFinder.Pages
                                     {
                                         produto.validade = null;
                                     }
-                                    listaProdutos.Add(produto);
-                                    preencher_Tabela();
                                     //Response.Redirect(Request.RawUrl);
                                 }
                             }
+                            listaProdutos.Add(produto);
+                            preencher_Tabela();
                         }
                     }
                 }
@@ -554,6 +552,17 @@ namespace FixFinder.Pages
             else
             {
                 //pnl_Concluir.Visible = false;
+                DateTime validade = DateTime.Parse("01-12-1900");
+                foreach (Produto produto in listaProdutos)
+                {
+                    if (produto.validade != DateTime.Parse(txt_ProdutoValidade.Text))
+                    {
+                        //cadastra novo produto
+                    }
+                    else
+                    {
+                    }
+                }
                 pnl_Concluir.Visible = true;
                 lbl_AlertConcluir.Text = "É pra ter dado certo";
             }

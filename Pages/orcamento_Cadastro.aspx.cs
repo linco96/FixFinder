@@ -124,8 +124,15 @@ namespace FixFinder.Pages
                         DateTime validade;
                         foreach (Produto p in produtos)
                         {
-                            precoVenda = (Double)p.precoVenda;
                             item = new ListItem();
+                            if (p.precoVenda != null)
+                            {
+                                precoVenda = (Double)p.precoVenda;
+                            }
+                            else
+                            {
+                                precoVenda = 0;
+                            }
                             if (p.validade == null)
                             {
                                 item.Text = p.descricao + " " + p.marca + " - R$ " + precoVenda.ToString("0.00");

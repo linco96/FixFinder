@@ -99,7 +99,7 @@ namespace FixFinder.Pages
                                         txt_FornecedorEmail.Text = "";
                                         txt_ProdutoPrecoCompra.ReadOnly = true;
                                         txt_ProdutoPrecoVenda.ReadOnly = true;
-                                        txt_ProdutoQuantidade.ReadOnly = true;
+                                        txt_ProdutoQuantidade.ReadOnly = false;
                                     }
                                 }
                             }
@@ -549,22 +549,53 @@ namespace FixFinder.Pages
                 pnl_Concluir.Visible = true;
                 lbl_AlertConcluir.Text = "Selecione ao menos 1 roduto para concluir a compra";
             }
+            else if (funcionario == null)
+            {
+                Session["compra"] = null;
+                Response.Redirect("home.aspx", false);
+            }
+            else if (fornecedor == null)
+            {
+                pnl_Concluir.Visible = true;
+                lbl_AlertConcluir.Text = "Erro com fornecedor selecionado";
+            }
             else
             {
-                //pnl_Concluir.Visible = false;
-                DateTime validade = DateTime.Parse("01-12-1900");
-                foreach (Produto produto in listaProdutos)
+                try
                 {
-                    if (produto.validade != DateTime.Parse(txt_ProdutoValidade.Text))
+                    using (var context = new DatabaseEntities())
                     {
-                        //cadastra novo produto
-                    }
-                    else
-                    {
+                        compra = new Compra()
+                        {
+                            cnpjOficina = funcionario.cnpjOficina,
+                            data = DateTime.Now,
+                            idFornecedor = fornecedor.idFornecedor,
+                            cpfFuncionario = funcionario.cpf
+                        };
+                        context.Compra.Add(compra);
+                        context.SaveChanges();
+
+                        ProdutosCompra pCompra;
+                        //pnl_Concluir.Visible = false;
+                        foreach (Produto produto in listaProdutos)
+                        {
+                            pCompra = new ProdutosCompra()
+                            {
+                                idCompra = compra.idCompra,
+                                idProduto = produto.idProduto,
+                                quantidade = int.Parse(txt_ProdutoQuantidade.Text)
+                            };
+                            context.ProdutosCompra.Add(pCompra);
+                        }
+
+                        pnl_Concluir.Visible = true;
+                        lbl_AlertConcluir.Text = "É pra ter dado certo";
                     }
                 }
-                pnl_Concluir.Visible = true;
-                lbl_AlertConcluir.Text = "É pra ter dado certo";
+                catch (Exception ex)
+                {
+                    Response.Write("<script>alert('" + ex.Message + "');</script>");
+                }
             }
         }
 

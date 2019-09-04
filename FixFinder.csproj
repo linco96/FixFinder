@@ -116,6 +116,7 @@
     <Content Include="Pages\oficina_Cadastro.aspx" />
     <Content Include="Pages\orcamento_Cadastro.aspx" />
     <Content Include="Pages\orcamento_ListaCliente.aspx" />
+    <Content Include="Pages\orcamento_ListaOficina.aspx" />
     <Content Include="Pages\produto_Cadastro.aspx" />
     <Content Include="Pages\produto_Editar.aspx" />
     <Content Include="Pages\produto_Lista.aspx" />
@@ -390,6 +391,13 @@
     </Compile>
     <Compile Include="Pages\orcamento_ListaCliente.aspx.designer.cs">
       <DependentUpon>orcamento_ListaCliente.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\orcamento_ListaOficina.aspx.cs">
+      <DependentUpon>orcamento_ListaOficina.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\orcamento_ListaOficina.aspx.designer.cs">
+      <DependentUpon>orcamento_ListaOficina.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\produto_Cadastro.aspx.cs">
       <DependentUpon>produto_Cadastro.aspx</DependentUpon>

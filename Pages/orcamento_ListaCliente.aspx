@@ -24,15 +24,6 @@
                 </asp:Table>
             </div>
         </div>
-        <%--<p>
-            <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" aria-expanded="false">Link with href
-            </a>
-        </p>
-        <div class="collapse" id="collapseExample">
-            <div class="card card-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-            </div>
-        </div>--%>
     </form>
 </body>
 </html>

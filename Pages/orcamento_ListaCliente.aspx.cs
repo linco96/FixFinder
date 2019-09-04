@@ -112,7 +112,7 @@ namespace FixFinder.Pages
                             cell = new TableCell();
                             cell.CssClass = "text-center align-middle";
                             btnExpandir = new HtmlGenericControl("a");
-                            btnExpandir.Attributes.Add("class", "btn btn-primary");
+                            btnExpandir.Attributes.Add("class", "btn btn-info");
                             btnExpandir.Attributes.Add("data-toggle", "collapse");
                             btnExpandir.Attributes.Add("href", "#collapse_" + o.idOrcamento);
                             btnExpandir.Attributes.Add("aria-expanded", "false");
@@ -296,12 +296,12 @@ namespace FixFinder.Pages
                         btn_Aceitar.Click += new EventHandler(btn_Aprovar_Click);
                         btn_Aceitar.ID = "btn_Aprovar" + o.idOrcamento.ToString();
                         btn_Aceitar.Text = "Aprovar";
-                        btn_Aceitar.CssClass = "btn btn-primary mr-1 mt-3";
+                        btn_Aceitar.CssClass = "btn btn-success mr-1 mt-3";
                         btn_Aceitar.CommandArgument = o.idOrcamento.ToString();
 
                         btn_Rejeitar = new Button();
                         btn_Rejeitar.Click += new EventHandler(btn_Rejeitar_Click);
-                        btn_Aceitar.ID = "btn_Rejeitar" + o.idOrcamento.ToString();
+                        btn_Rejeitar.ID = "btn_Rejeitar" + o.idOrcamento.ToString();
                         btn_Rejeitar.Text = "Rejeitar";
                         btn_Rejeitar.CssClass = "btn btn-danger ml-1 mt-3";
                         btn_Rejeitar.CommandArgument = o.idOrcamento.ToString();

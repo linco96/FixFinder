@@ -1040,7 +1040,7 @@ namespace FixFinder.Pages
                             Oficina oficina = funcionario.Oficina;
                             DateTime data = DateTime.Now;
                             Double total = atualizarTotal();
-                            String status = "Aprovação pendente";
+                            String status = "Aprovação da gerencia pendente";
 
                             Orcamento orcamento = new Orcamento()
                             {
@@ -1063,7 +1063,7 @@ namespace FixFinder.Pages
                                 {
                                     idOrcamento = orcamento.idOrcamento,
                                     idServico = s.idServico,
-                                    status = "pendente"
+                                    status = "Pendente"
                                 };
                                 context.ServicosOrcamento.Add(so);
                                 context.SaveChanges();

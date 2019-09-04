@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Comprar</title>
+    <title>Nova Compra</title>
     <link href="../Content/bootstrap.min.css" rel="stylesheet" />
     <script src="../Scripts/bootstrap.min.js"></script>
     <script src="../Scripts/jquery-3.4.1.min.js"></script>

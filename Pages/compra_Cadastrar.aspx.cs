@@ -593,8 +593,8 @@ namespace FixFinder.Pages
                             context.SaveChanges();
                         }
 
-                        pnl_Concluir.Visible = true;
-                        lbl_AlertConcluir.Text = "É pra ter dado certo";
+                        Session["compra"] = null;
+                        Response.Redirect("compra_Lista.aspx", false);
                     }
                 }
                 catch (Exception ex)

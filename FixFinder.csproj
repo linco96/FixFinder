@@ -102,6 +102,7 @@
     <Content Include="Pages\cliente_Cadastro.aspx" />
     <Content Include="Pages\cliente_EditarPerfil.aspx" />
     <Content Include="Pages\compra_Cadastrar.aspx" />
+    <Content Include="Pages\compra_Lista.aspx" />
     <Content Include="Pages\fornecedor_Cadastro.aspx" />
     <Content Include="Pages\fornecedor_Editar.aspx" />
     <Content Include="Pages\fornecedor_Lista.aspx" />
@@ -291,6 +292,13 @@
     </Compile>
     <Compile Include="Pages\compra_Cadastrar.aspx.designer.cs">
       <DependentUpon>compra_Cadastrar.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\compra_Lista.aspx.cs">
+      <DependentUpon>compra_Lista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\compra_Lista.aspx.designer.cs">
+      <DependentUpon>compra_Lista.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\fornecedor_Cadastro.aspx.cs">
       <DependentUpon>fornecedor_Cadastro.aspx</DependentUpon>

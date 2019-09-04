@@ -326,10 +326,46 @@ namespace FixFinder.Pages
 
         protected void btn_Aprovar_Click(object sender, EventArgs e)
         {
+            Button btn = sender as Button;
+            try
+            {
+                using (DatabaseEntities context = new DatabaseEntities())
+                {
+                    int id = int.Parse(btn.CommandArgument);
+                    Orcamento orcamento = context.Orcamento.Where(o => o.idOrcamento == id).FirstOrDefault();
+                    orcamento.status = "Aprovado";
+                    context.SaveChanges();
+                    preencherTabela();
+                }
+            }
+            catch (Exception ex)
+            {
+                pnl_Alert.CssClass = "alert alert-danger";
+                lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                pnl_Alert.Visible = true;
+            }
         }
 
         protected void btn_Rejeitar_Click(object sender, EventArgs e)
         {
+            Button btn = sender as Button;
+            try
+            {
+                using (DatabaseEntities context = new DatabaseEntities())
+                {
+                    int id = int.Parse(btn.CommandArgument);
+                    Orcamento orcamento = context.Orcamento.Where(o => o.idOrcamento == id).FirstOrDefault();
+                    orcamento.status = "Rejeitado pelo cliente";
+                    context.SaveChanges();
+                    preencherTabela();
+                }
+            }
+            catch (Exception ex)
+            {
+                pnl_Alert.CssClass = "alert alert-danger";
+                lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                pnl_Alert.Visible = true;
+            }
         }
     }
 }

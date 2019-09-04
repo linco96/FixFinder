@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="orcamento_ListaCliente.aspx.cs" Inherits="FixFinder.Pages.orcamento_ListaCliente" %>
+﻿<%@ Page Language="C#" MaintainScrollPositionOnPostback="true" AutoEventWireup="true" CodeBehind="orcamento_ListaCliente.aspx.cs" Inherits="FixFinder.Pages.orcamento_ListaCliente" %>
 
 <!DOCTYPE html>
 

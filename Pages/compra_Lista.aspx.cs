@@ -36,6 +36,10 @@ namespace FixFinder.Pages
                             {
                                 Response.Redirect("home.aspx", false);
                             }
+                            else
+                            {
+                                preencher_Compras();
+                            }
                         }
                     }
                 }
@@ -46,19 +50,12 @@ namespace FixFinder.Pages
             }
         }
 
-        protected void Page_LoadComplete(object sender, EventArgs e)
-        {
-            if (c != null && funcionario != null)
-                preencher_Compras();
-        }
-
         private void preencher_Compras()
         {
             try
             {
                 using (var context = new DatabaseEntities())
                 {
-                    var query = context.Compra.Where(comp => comp.cnpjOficina.Equals(funcionario.cnpjOficina)).ToList();
                     Fornecedor fornecedor;
                     List<ProdutosCompra> lista_pCompra;
                     int adicionados = 0;
@@ -91,6 +88,8 @@ namespace FixFinder.Pages
                     headerRow.Cells.Add(headerCell);
 
                     tbl_Compras.Rows.Add(headerRow);
+
+                    var query = context.Compra.Where(comp => comp.cnpjOficina.Equals(funcionario.cnpjOficina)).ToList();
 
                     foreach (Compra compra in query)
                     {

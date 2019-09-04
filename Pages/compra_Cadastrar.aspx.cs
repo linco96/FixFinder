@@ -18,10 +18,6 @@ namespace FixFinder.Pages
         private static Fornecedor fornecedor;
         private bool isRefresh;
 
-        //A FAZER
-        //ao adicionar a compra ele ira editar os dados de vencimento do produto e de preco compra e venda
-        //se ele nao quiser, ele que cadastre outro
-
         protected void Page_Load(object sender, EventArgs e)
         {
             c = (Cliente)Session["usuario"];
@@ -74,6 +70,7 @@ namespace FixFinder.Pages
                                     listaProdutos = new List<Produto>();
 
                                 pnl_Alert.Visible = false;
+                                pnl_AlertProdutoDuplicado.Visible = false;
 
                                 preencher_Tabela();
 
@@ -82,25 +79,23 @@ namespace FixFinder.Pages
                                     preencher_Fornecedores();
                                     preencher_Produto();
                                 }
+
+                                if (fornecedor != null)
+                                {
+                                    txt_FornecedorCNPJ.Text = fornecedor.cnpjFornecedor;
+                                    txt_FornecedorNome.Text = fornecedor.razaoSocial;
+                                    txt_FornecedorTelefone.Text = fornecedor.telefone;
+                                    txt_FornecedorEmail.Text = fornecedor.email;
+                                }
                                 else
                                 {
-                                    if (fornecedor != null)
-                                    {
-                                        txt_FornecedorCNPJ.Text = fornecedor.cnpjFornecedor;
-                                        txt_FornecedorNome.Text = fornecedor.razaoSocial;
-                                        txt_FornecedorTelefone.Text = fornecedor.telefone;
-                                        txt_FornecedorEmail.Text = fornecedor.email;
-                                    }
-                                    else
-                                    {
-                                        txt_FornecedorCNPJ.Text = "";
-                                        txt_FornecedorNome.Text = "";
-                                        txt_FornecedorTelefone.Text = "";
-                                        txt_FornecedorEmail.Text = "";
-                                        txt_ProdutoPrecoCompra.ReadOnly = true;
-                                        txt_ProdutoPrecoVenda.ReadOnly = true;
-                                        txt_ProdutoQuantidade.ReadOnly = false;
-                                    }
+                                    txt_FornecedorCNPJ.Text = "";
+                                    txt_FornecedorNome.Text = "";
+                                    txt_FornecedorTelefone.Text = "";
+                                    txt_FornecedorEmail.Text = "";
+                                    txt_ProdutoPrecoCompra.ReadOnly = true;
+                                    txt_ProdutoPrecoVenda.ReadOnly = true;
+                                    txt_ProdutoQuantidade.ReadOnly = false;
                                 }
                             }
                         }
@@ -117,11 +112,6 @@ namespace FixFinder.Pages
                 }
             }
         }
-
-        //protected void Page_LoadComplete(Object sender, EventArgs e)
-        //{
-        //    preencher_Tabela(true);
-        //}
 
         private void preencher_CamposCompra(Compra compra)
         {
@@ -151,8 +141,12 @@ namespace FixFinder.Pages
                     {
                         produto = context.Produto.Where(p => p.idProduto == pCompra.idProduto).FirstOrDefault();
                         if (produto != null)
+                        {
+                            produto.quantidade = pCompra.quantidade;
                             listaProdutos.Add(produto);
+                        }
                     }
+                    Session["compra"] = null;
                 }
             }
             catch (Exception ex)
@@ -463,6 +457,7 @@ namespace FixFinder.Pages
                     btn.Attributes.Add("formnovalidate", "formnovalidate");
                     btn.Click += new EventHandler(btn_RemoverProduto_Click);
                     btn.CommandArgument = produto.idProduto.ToString();
+                    btn.ID = "btnExcluir_" + produto.idProduto.ToString();
                     cell.Controls.Add(btn);
                     row.Cells.Add(cell);
 
@@ -481,12 +476,12 @@ namespace FixFinder.Pages
                     if (p.idProduto == int.Parse(btn.CommandArgument))
                     {
                         listaProdutos.Remove(p);
-                        preencher_Tabela();
                         ///have a
                         break;
                         //have a kitkat
                     }
                 }
+                preencher_Tabela();
             }
             catch (Exception ex)
             {
@@ -508,26 +503,35 @@ namespace FixFinder.Pages
                             using (var context = new DatabaseEntities())
                             {
                                 produto = context.Produto.Where(p => p.idProduto == idProduto).FirstOrDefault();
-                                if (produto != null)
+                                if (listaProdutos.Any(p => p.idProduto == produto.idProduto))
                                 {
-                                    produto.quantidade = qtd;
-                                    if (txt_ProdutoPrecoCompra.Text.Replace(".", "").Replace("R$", "") != produto.precoCompra.ToString())
-                                        produto.precoCompra = double.Parse(txt_ProdutoPrecoCompra.Text.Replace("R$", ""));
-                                    if (txt_ProdutoPrecoVenda.Text.Replace(".", "").Replace("R$", "") != produto.precoVenda.ToString())
-                                        produto.precoVenda = double.Parse(txt_ProdutoPrecoVenda.Text.Replace("R$", ""));
-                                    if (txt_ProdutoValidade.Text.ToUpper() != "")
+                                    pnl_AlertProdutoDuplicado.Visible = true;
+                                }
+                                else
+                                {
+                                    pnl_AlertProdutoDuplicado.Visible = false;
+                                    lbl_AlertProduto.Text = "";
+                                    if (produto != null)
                                     {
-                                        produto.validade = DateTime.Parse(txt_ProdutoValidade.Text);
+                                        produto.quantidade = qtd;
+                                        if (txt_ProdutoPrecoCompra.Text.Replace(".", "").Replace("R$", "") != produto.precoCompra.ToString())
+                                            produto.precoCompra = double.Parse(txt_ProdutoPrecoCompra.Text.Replace("R$", ""));
+                                        if (txt_ProdutoPrecoVenda.Text.Replace(".", "").Replace("R$", "") != produto.precoVenda.ToString())
+                                            produto.precoVenda = double.Parse(txt_ProdutoPrecoVenda.Text.Replace("R$", ""));
+                                        if (txt_ProdutoValidade.Text.ToUpper() != "")
+                                        {
+                                            produto.validade = DateTime.Parse(txt_ProdutoValidade.Text);
+                                        }
+                                        else
+                                        {
+                                            produto.validade = null;
+                                        }
+                                        //Response.Redirect(Request.RawUrl);
                                     }
-                                    else
-                                    {
-                                        produto.validade = null;
-                                    }
-                                    //Response.Redirect(Request.RawUrl);
+                                    listaProdutos.Add(produto);
+                                    preencher_Tabela();
                                 }
                             }
-                            listaProdutos.Add(produto);
-                            preencher_Tabela();
                         }
                     }
                 }
@@ -583,13 +587,14 @@ namespace FixFinder.Pages
                             {
                                 idCompra = compra.idCompra,
                                 idProduto = produto.idProduto,
-                                quantidade = int.Parse(txt_ProdutoQuantidade.Text)
+                                quantidade = produto.quantidade
                             };
                             context.ProdutosCompra.Add(pCompra);
+                            context.SaveChanges();
                         }
 
-                        pnl_Concluir.Visible = true;
-                        lbl_AlertConcluir.Text = "É pra ter dado certo";
+                        Session["compra"] = null;
+                        Response.Redirect("compra_Lista.aspx", false);
                     }
                 }
                 catch (Exception ex)

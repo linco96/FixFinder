@@ -202,6 +202,24 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.WebControls.Button btn_CadastrarProduto;
         
         /// <summary>
+        /// pnl_AlertProdutoDuplicado control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnl_AlertProdutoDuplicado;
+        
+        /// <summary>
+        /// txt_AlertProduto control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label txt_AlertProduto;
+        
+        /// <summary>
         /// tbl_Produtos control.
         /// </summary>
         /// <remarks>

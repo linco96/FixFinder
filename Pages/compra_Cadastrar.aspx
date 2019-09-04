@@ -92,7 +92,7 @@
             <div class="form-inline">
                 <span class="w-50 text-left pr-3">
                     <label for="txt_ProdutoQuantidade" style="display: block">Quantidade</label>
-                    <asp:TextBox runat="server" ID="txt_ProdutoQuantidade" CssClass="form-control w-100" minlength="1" required onkeypress="$(this).mask('#.##0', {reverse: true});" placeholder="Digite a quantidade de produtos a serem comprados..."></asp:TextBox>
+                    <asp:TextBox runat="server" ID="txt_ProdutoQuantidade" autocomplete="off" CssClass="form-control w-100" minlength="1" required onkeypress="$(this).mask('#.##0', {reverse: true});" placeholder="Digite a quantidade de produtos a serem comprados..."></asp:TextBox>
                 </span>
                 <span class="w-50 text-left pl-3">
                     <label for="txt_ProdutoValidade" style="display: block">Validade</label>
@@ -102,6 +102,11 @@
             <div class="form-group">
                 <asp:Button runat="server" ID="btn_AdicionarProduto" CssClass="btn btn-outline-success btn-sm mt-2" Text="Adicionar Produto" OnClick="btn_AdicionarProduto_Click" Enabled="false" />
                 <asp:Button runat="server" ID="btn_CadastrarProduto" CssClass="btn btn-outline-primary btn-sm mt-2" Text="Cadastrar Produto" OnClick="btn_CadastrarProduto_Click" formnovalidate />
+            </div>
+            <div class="form-group">
+                <asp:Panel runat="server" ID="pnl_AlertProdutoDuplicado" Visible="false" CssClass="alert alert-danger" role="alert">
+                    <asp:Label runat="server" ID="txt_AlertProduto" CssClass="text-danger form-text text-muted" Text="Não é possivel selecionar o mesmo produto"></asp:Label>
+                </asp:Panel>
             </div>
             <%--LISTA PRODUTOS--%>
             <div class="table-responsive-xl">

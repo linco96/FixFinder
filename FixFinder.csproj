@@ -115,6 +115,7 @@
     <Content Include="Pages\login_EsqueciSenha.aspx" />
     <Content Include="Pages\oficina_Cadastro.aspx" />
     <Content Include="Pages\orcamento_Cadastro.aspx" />
+    <Content Include="Pages\orcamento_Editar.aspx" />
     <Content Include="Pages\orcamento_ListaCliente.aspx" />
     <Content Include="Pages\orcamento_ListaOficina.aspx" />
     <Content Include="Pages\produto_Cadastro.aspx" />
@@ -384,6 +385,13 @@
     </Compile>
     <Compile Include="Pages\orcamento_Cadastro.aspx.designer.cs">
       <DependentUpon>orcamento_Cadastro.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\orcamento_Editar.aspx.cs">
+      <DependentUpon>orcamento_Editar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\orcamento_Editar.aspx.designer.cs">
+      <DependentUpon>orcamento_Editar.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\orcamento_ListaCliente.aspx.cs">
       <DependentUpon>orcamento_ListaCliente.aspx</DependentUpon>

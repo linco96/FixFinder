@@ -33,6 +33,8 @@ namespace FixFinder.Pages
                     else
                     {
                         preencherTabela();
+                        if (Session["orcamento"] != null)
+                            Session["orcamento"] = false;
                     }
                 }
             }
@@ -132,13 +134,16 @@ namespace FixFinder.Pages
                             btnExpandir.InnerText = "Expandir/Retrair";
                             cell.Controls.Add(btnExpandir);
 
-                            btn = new Button();
-                            btn.Click += new EventHandler(btn_AlterarOrcamento_Click);
-                            btn.ID = "btn_Alterar" + o.idOrcamento.ToString();
-                            btn.Text = "Atualizar";
-                            btn.CssClass = "btn btn-primary ml-1";
-                            btn.CommandArgument = o.idOrcamento.ToString();
-                            cell.Controls.Add(btn);
+                            if (o.status.Equals("Aprovado"))
+                            {
+                                btn = new Button();
+                                btn.Click += new EventHandler(btn_AlterarOrcamento_Click);
+                                btn.ID = "btn_Alterar" + o.idOrcamento.ToString();
+                                btn.Text = "Atualizar";
+                                btn.CssClass = "btn btn-primary ml-1";
+                                btn.CommandArgument = o.idOrcamento.ToString();
+                                cell.Controls.Add(btn);
+                            }
 
                             row.Cells.Add(cell);
 
@@ -255,7 +260,7 @@ namespace FixFinder.Pages
                         cell.CssClass = "text-center align-middle w-25";
                         row.Cells.Add(cell);
 
-                        if (so.status.Equals("Pendente"))
+                        if (so.status.Equals("Pendente") || so.status.Equals("Em execução"))
                         {
                             completo = false;
                         }
@@ -319,58 +324,68 @@ namespace FixFinder.Pages
                         body.Controls.Add(tblProdutos);
                     }
 
-                    if (o.status.Equals("Aprovação da gerencia pendente"))
+                    if (!o.status.Equals("Concluído"))
                     {
-                        if (f.cargo.ToLower().Equals("gerente"))
+                        if (o.status.Equals("Aprovação da gerencia pendente"))
                         {
-                            btn_Aceitar = new Button();
-                            btn_Aceitar.Click += new EventHandler(btn_Aprovar_Click);
-                            btn_Aceitar.ID = "btn_Aprovar" + o.idOrcamento.ToString();
-                            btn_Aceitar.Text = "Aprovar";
-                            btn_Aceitar.CssClass = "btn btn-success mr-2 mt-3";
-                            btn_Aceitar.CommandArgument = o.idOrcamento.ToString();
-
-                            btn_Rejeitar = new Button();
-                            btn_Rejeitar.Click += new EventHandler(btn_Rejeitar_Click);
-                            btn_Rejeitar.ID = "btn_Rejeitar" + o.idOrcamento.ToString();
-                            btn_Rejeitar.Text = "Rejeitar";
-                            btn_Rejeitar.CssClass = "btn btn-danger ml-2 mt-3";
-                            btn_Rejeitar.CommandArgument = o.idOrcamento.ToString();
-
-                            body.Controls.Add(btn_Aceitar);
-                            body.Controls.Add(btn_Rejeitar);
-                        }
-                    }
-                    else
-                    {
-                        if (o.status.Equals("Aprovado") || o.status.Equals("Pagamento pendente"))
-                        {
-                            btn = new Button();
-                            btn.Click += new EventHandler(btn_AlterarOrcamento_Click);
-                            btn.ID = "btn_AlterarCollapse" + o.idOrcamento.ToString();
-                            btn.Text = "Atualizar";
-                            btn.CssClass = "btn btn-primary mr-2 mt-3";
-                            btn.CommandArgument = o.idOrcamento.ToString();
-                            body.Controls.Add(btn);
-
-                            if (completo && !o.status.Equals("Pagamento pendente"))
-                            {
-                                btn = new Button();
-                                btn.Click += new EventHandler(btn_FinalizarOrcamento_Click);
-                                btn.ID = "btn_Finalizar" + o.idOrcamento.ToString();
-                                btn.Text = "Enviar para o pagamento";
-                                btn.CssClass = "btn btn-success ml-2 mt-3";
-                                btn.CommandArgument = o.idOrcamento.ToString();
-                                body.Controls.Add(btn);
-                            }
-
                             if (f.cargo.ToLower().Equals("gerente"))
                             {
+                                btn_Aceitar = new Button();
+                                btn_Aceitar.Click += new EventHandler(btn_Aprovar_Click);
+                                btn_Aceitar.ID = "btn_Aprovar" + o.idOrcamento.ToString();
+                                btn_Aceitar.Text = "Aprovar";
+                                btn_Aceitar.CssClass = "btn btn-success mr-2 mt-3";
+                                btn_Aceitar.CommandArgument = o.idOrcamento.ToString();
+
+                                btn_Rejeitar = new Button();
+                                btn_Rejeitar.Click += new EventHandler(btn_Rejeitar_Click);
+                                btn_Rejeitar.ID = "btn_Rejeitar" + o.idOrcamento.ToString();
+                                btn_Rejeitar.Text = "Rejeitar";
+                                btn_Rejeitar.CssClass = "btn btn-danger ml-2 mt-3";
+                                btn_Rejeitar.CommandArgument = o.idOrcamento.ToString();
+
+                                body.Controls.Add(btn_Aceitar);
+                                body.Controls.Add(btn_Rejeitar);
+                            }
+                        }
+                        else
+                        {
+                            if (o.status.Equals("Aprovado"))
+                            {
+                                btn = new Button();
+                                btn.Click += new EventHandler(btn_AlterarOrcamento_Click);
+                                btn.ID = "btn_AlterarCollapse" + o.idOrcamento.ToString();
+                                btn.Text = "Atualizar";
+                                btn.CssClass = "btn btn-primary mt-3";
+                                btn.CommandArgument = o.idOrcamento.ToString();
+                                body.Controls.Add(btn);
+
+                                if (completo)
+                                {
+                                    btn = new Button();
+                                    btn.Click += new EventHandler(btn_FinalizarOrcamento_Click);
+                                    btn.ID = "btn_Finalizar" + o.idOrcamento.ToString();
+                                    btn.Text = "Enviar para o pagamento";
+                                    btn.CssClass = "btn btn-success ml-2 mt-3";
+                                    btn.CommandArgument = o.idOrcamento.ToString();
+                                    body.Controls.Add(btn);
+                                }
+
                                 btn = new Button();
                                 btn.Click += new EventHandler(btn_CancelarOrcamento_Click);
                                 btn.ID = "btn_Cancelar" + o.idOrcamento.ToString();
                                 btn.Text = "Cancelar";
                                 btn.CssClass = "btn btn-danger ml-2 mt-3";
+                                btn.CommandArgument = o.idOrcamento.ToString();
+                                body.Controls.Add(btn);
+                            }
+                            else if (o.status.Equals("Pagamento pendente") || o.status.Equals("Cancelado"))
+                            {
+                                btn = new Button();
+                                btn.Click += new EventHandler(btn_ReabrirOrcamento_Click);
+                                btn.ID = "btn_Reabrir" + o.idOrcamento.ToString();
+                                btn.Text = "Reabrir";
+                                btn.CssClass = "btn btn-warning mt-3";
                                 btn.CommandArgument = o.idOrcamento.ToString();
                                 body.Controls.Add(btn);
                             }
@@ -437,14 +452,89 @@ namespace FixFinder.Pages
 
         protected void btn_AlterarOrcamento_Click(object sender, EventArgs e)
         {
+            Button btn = sender as Button;
+            try
+            {
+                using (DatabaseEntities context = new DatabaseEntities())
+                {
+                    int id = int.Parse(btn.CommandArgument);
+                    Orcamento orcamento = context.Orcamento.Where(o => o.idOrcamento == id).FirstOrDefault();
+                    Session["orcamento"] = orcamento;
+                    Response.Redirect("orcamento_Editar.aspx", false);
+                }
+            }
+            catch (Exception ex)
+            {
+                pnl_Alert.CssClass = "alert alert-danger";
+                lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                pnl_Alert.Visible = true;
+            }
         }
 
         protected void btn_CancelarOrcamento_Click(object sender, EventArgs e)
         {
+            Button btn = sender as Button;
+            try
+            {
+                using (DatabaseEntities context = new DatabaseEntities())
+                {
+                    int id = int.Parse(btn.CommandArgument);
+                    Orcamento orcamento = context.Orcamento.Where(o => o.idOrcamento == id).FirstOrDefault();
+                    orcamento.status = "Cancelado";
+                    context.SaveChanges();
+                    preencherTabela();
+                }
+            }
+            catch (Exception ex)
+            {
+                pnl_Alert.CssClass = "alert alert-danger";
+                lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                pnl_Alert.Visible = true;
+            }
+        }
+
+        protected void btn_ReabrirOrcamento_Click(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+            try
+            {
+                using (DatabaseEntities context = new DatabaseEntities())
+                {
+                    int id = int.Parse(btn.CommandArgument);
+                    Orcamento orcamento = context.Orcamento.Where(o => o.idOrcamento == id).FirstOrDefault();
+                    orcamento.status = "Aprovado";
+                    context.SaveChanges();
+                    preencherTabela();
+                }
+            }
+            catch (Exception ex)
+            {
+                pnl_Alert.CssClass = "alert alert-danger";
+                lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                pnl_Alert.Visible = true;
+            }
         }
 
         protected void btn_FinalizarOrcamento_Click(object sender, EventArgs e)
         {
+            Button btn = sender as Button;
+            try
+            {
+                using (DatabaseEntities context = new DatabaseEntities())
+                {
+                    int id = int.Parse(btn.CommandArgument);
+                    Orcamento orcamento = context.Orcamento.Where(o => o.idOrcamento == id).FirstOrDefault();
+                    orcamento.status = "Pagamento pendente";
+                    context.SaveChanges();
+                    preencherTabela();
+                }
+            }
+            catch (Exception ex)
+            {
+                pnl_Alert.CssClass = "alert alert-danger";
+                lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                pnl_Alert.Visible = true;
+            }
         }
     }
 }

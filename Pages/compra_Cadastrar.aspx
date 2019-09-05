@@ -122,6 +122,9 @@
                     <%--</asp:TableHeaderRow>--%>
                 </asp:Table>
             </div>
+            <div class="form-group">
+                <asp:Label runat="server" CssClass="text-success font-weight-bold" ID="lbl_TotalCompra"></asp:Label>
+            </div>
 
             <div class="form-group">
                 <asp:Button runat="server" ID="btn_ConcluirCompra" CssClass="btn btn-primary mt-2" Text="Concluir Compra" OnClick="btn_ConcluirCompra_Click" formnovalidate />

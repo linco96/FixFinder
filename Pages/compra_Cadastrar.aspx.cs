@@ -344,6 +344,7 @@ namespace FixFinder.Pages
             TableRow row;
             TableCell cell;
             Button btn;
+            double total = 0;
 
             tbl_Produtos.Rows.Clear();
 
@@ -464,6 +465,12 @@ namespace FixFinder.Pages
                     tbl_Produtos.Rows.Add(row);
                 }
             }
+
+            foreach (Produto produto in listaProdutos)
+            {
+                total += produto.quantidade * produto.precoCompra;
+            }
+            lbl_TotalCompra.Text = "Total compra: R$ " + total.ToString("0.00");
         }
 
         protected void btn_RemoverProduto_Click(object sender, EventArgs e)
@@ -607,7 +614,7 @@ namespace FixFinder.Pages
         protected void btn_Voltar_Click(object sender, EventArgs e)
         {
             Session["compra"] = null;
-            Response.Redirect("home.aspx", false);
+            Response.Redirect("compra_Lista.aspx", false);
         }
     }
 }

@@ -38,6 +38,14 @@ namespace FixFinder.Pages
                             }
                             else
                             {
+                                if (funcionario.cargo.ToUpper().Equals("GERENTE"))
+                                {
+                                    btn_Cadastrar.Visible = true;
+                                }
+                                else
+                                {
+                                    btn_Cadastrar.Visible = false;
+                                }
                                 preencher_Compras();
                             }
                         }
@@ -59,6 +67,7 @@ namespace FixFinder.Pages
                     Fornecedor fornecedor;
                     List<ProdutosCompra> lista_pCompra;
                     int adicionados = 0;
+                    double total = 0;
 
                     TableHeaderRow headerRow;
                     TableHeaderCell headerCell;
@@ -80,6 +89,11 @@ namespace FixFinder.Pages
                     headerCell = new TableHeaderCell();
                     headerCell.CssClass = "text-center";
                     headerCell.Text = "Data";
+                    headerRow.Cells.Add(headerCell);
+
+                    headerCell = new TableHeaderCell();
+                    headerCell.CssClass = "text-center";
+                    headerCell.Text = "Total Compra";
                     headerRow.Cells.Add(headerCell);
 
                     headerCell = new TableHeaderCell();
@@ -110,6 +124,15 @@ namespace FixFinder.Pages
                             row.Cells.Add(cell);
 
                             cell = new TableCell();
+                            foreach (ProdutosCompra pCompra in lista_pCompra)
+                            {
+                                total += pCompra.quantidade * context.Produto.Where(p => p.idProduto == pCompra.idProduto).FirstOrDefault().precoCompra;
+                            }
+                            cell.Text = "R$ " + total.ToString("0.00");
+                            cell.CssClass = "text-center align-middle";
+                            row.Cells.Add(cell);
+
+                            cell = new TableCell();
                             cell.CssClass = "text-center align-middle";
                             btnExpandir = new HtmlGenericControl("a");
                             btnExpandir.Attributes.Add("class", "btn btn-primary");
@@ -118,13 +141,16 @@ namespace FixFinder.Pages
                             btnExpandir.Attributes.Add("aria-expanded", "false");
                             btnExpandir.InnerText = "Expandir/Recolher";
                             cell.Controls.Add(btnExpandir);
+
                             row.Cells.Add(cell);
+
+                            tbl_Compras.Rows.Add(row);
 
                             row = new TableRow();
                             row.BorderStyle = BorderStyle.None;
 
                             cell = new TableCell();
-                            cell.ColumnSpan = 3;
+                            cell.ColumnSpan = 4;
                             cell.CssClass = "p-0";
                             divProdutos = new HtmlGenericControl("div");
                             divProdutos.Attributes.Add("class", "collapse");
@@ -279,6 +305,11 @@ namespace FixFinder.Pages
                 Response.Write("<script>alert('" + ex.Message + "');</script>");
                 return null;
             }
+        }
+
+        protected void btn_Cadastrar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("compra_Cadastrar.aspx", false);
         }
     }
 }

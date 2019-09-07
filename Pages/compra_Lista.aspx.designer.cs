@@ -22,6 +22,15 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.HtmlControls.HtmlForm form_Compras;
         
         /// <summary>
+        /// btn_Cadastrar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_Cadastrar;
+        
+        /// <summary>
         /// tbl_Compras control.
         /// </summary>
         /// <remarks>

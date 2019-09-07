@@ -17,6 +17,7 @@
         <div class="container mt-5">
             <h1 class="display-4 text-primary" style="text-align: center">Suas Compras</h1>
             <hr class="border-primary" />
+            <asp:Button runat="server" ID="btn_Cadastrar" Text="Nova Compra" CssClass="btn btn-outline-primary" OnClick="btn_Cadastrar_Click" />
             <asp:Table runat="server" ID="tbl_Compras" CssClass="table border rounded-lg mt-3">
             </asp:Table>
         </div>

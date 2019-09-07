@@ -151,11 +151,11 @@
             </div>
             <div class="form-group">
                 <label for="txt_Agencia">Agência</label>
-                <asp:TextBox runat="server" ID="txt_Agencia" CssClass="form-control" onkeypress="$(this).mask('000000000000');" required="required"></asp:TextBox>
+                <asp:TextBox runat="server" ID="txt_Agencia" CssClass="form-control" onkeypress="$(this).mask('0000000000');" required="required"></asp:TextBox>
             </div>
             <div class="form-group">
                 <label for="txt_Conta">Conta</label>
-                <asp:TextBox runat="server" ID="txt_Conta" CssClass="form-control" onkeypress="$(this).mask('000000000000');" required="required"></asp:TextBox>
+                <asp:TextBox runat="server" ID="txt_Conta" CssClass="form-control" onkeypress="$(this).mask('0000000000');" required="required"></asp:TextBox>
             </div>
             <div class="form-group">
                 <asp:Button runat="server" ID="btn_Registro" CssClass="btn btn-primary" OnClick="btn_Registro_Click" Text="Registrar" />

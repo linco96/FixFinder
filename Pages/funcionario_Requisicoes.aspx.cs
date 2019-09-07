@@ -18,7 +18,7 @@ namespace FixFinder.Pages
             c = (Cliente)Session["usuario"];
             if (c == null)
             {
-                Response.Redirect("home.aspx", false);
+                Response.Redirect("login.aspx", false);
             }
             else
             {

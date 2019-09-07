@@ -25,7 +25,7 @@ namespace FixFinder.Pages
             {
                 using (DatabaseEntities context = new DatabaseEntities())
                 {
-                    f = (Funcionario)Session["funcionario"];
+                    f = context.Funcionario.Where(func => func.cpf.Equals(c.cpf)).FirstOrDefault();
                     if (f == null)
                     {
                         Response.Redirect("home.aspx", false);
@@ -34,7 +34,6 @@ namespace FixFinder.Pages
                     {
                         if (!alterar)
                         {
-                            f = context.Funcionario.Where(func => func.cpf.Equals(f.cpf)).FirstOrDefault();
                             txt_CPF.Text = f.cpf;
                             txt_Nome.Text = f.Cliente.nome;
                             txt_Cargo.Text = f.cargo;

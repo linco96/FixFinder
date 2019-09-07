@@ -16,17 +16,24 @@ namespace FixFinder
         protected void Page_Load(object sender, EventArgs e)
         {
             Cliente c = (Cliente)Session["usuario"];
-            lbl_Nome.Text = c.nome;
-            using (DatabaseEntities context = new DatabaseEntities())
+            if (c == null)
             {
-                Funcionario f = context.Funcionario.Where(func => func.cpf.Equals(c.cpf)).FirstOrDefault();
-                if (f == null)
+                Response.Redirect("Pages/login.aspx", false);
+            }
+            else
+            {
+                lbl_Nome.Text = c.nome;
+                using (DatabaseEntities context = new DatabaseEntities())
                 {
-                    pnl_Oficina.Visible = false;
-                }
-                else
-                {
-                    pnl_Oficina.Visible = true;
+                    Funcionario f = context.Funcionario.Where(func => func.cpf.Equals(c.cpf)).FirstOrDefault();
+                    if (f == null)
+                    {
+                        pnl_Oficina.Visible = false;
+                    }
+                    else
+                    {
+                        pnl_Oficina.Visible = true;
+                    }
                 }
             }
         }

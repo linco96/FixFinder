@@ -84,68 +84,77 @@ namespace FixFinder.Pages
                 DateTime data;
                 if (DateTime.TryParse(txt_Data.Text, out data))
                 {
-                    if (txt_Horario.Items.Count > 0)
-                        txt_Horario.Items.Clear();
-                    using (DatabaseEntities context = new DatabaseEntities())
+                    if (data.DayOfYear.CompareTo(DateTime.Now.DayOfYear) >= 0)
                     {
-                        ListItem item;
-
-                        List<Agendamento> agendamentos = context.Agendamento.Where(a => a.cnpjOficina.Equals(o.cnpj) && a.data.Equals(data)).ToList();
-
-                        TimeSpan horario = o.horaAbertura;
-                        TimeSpan horarioFechamento = o.horaFechamento;
-                        TimeSpan intervalo = o.duracaoAtendimento;
-
-                        if (agendamentos.Count == 0)
+                        if (txt_Horario.Items.Count > 0)
+                            txt_Horario.Items.Clear();
+                        using (DatabaseEntities context = new DatabaseEntities())
                         {
-                            while (true)
+                            ListItem item;
+
+                            List<Agendamento> agendamentos = context.Agendamento.Where(a => a.cnpjOficina.Equals(o.cnpj) && a.data.Equals(data)).ToList();
+
+                            TimeSpan horario = o.horaAbertura;
+                            TimeSpan horarioFechamento = o.horaFechamento;
+                            TimeSpan intervalo = o.duracaoAtendimento;
+
+                            if (data.DayOfYear.Equals(DateTime.Now.DayOfYear))
                             {
-                                if (horario + intervalo > horarioFechamento)
-                                    break;
-
-                                item = new ListItem();
-                                item.Text = horario.Hours.ToString("00") + ":" + horario.Minutes.ToString("00");
-                                item.Value = horario.ToString();
-                                txt_Horario.Items.Add(item);
-
-                                horario += intervalo;
-                            }
-                        }
-                        else
-                        {
-                            while (true)
-                            {
-                                if (horario + intervalo > horarioFechamento)
-                                    break;
-
-                                if (verificarHorario(horario, agendamentos))
+                                TimeSpan now = DateTime.Now.TimeOfDay;
+                                while (true)
                                 {
+                                    if (horario > now)
+                                        break;
+                                    horario += intervalo;
+                                }
+                            }
+
+                            if (agendamentos.Count == 0)
+                            {
+                                while (true)
+                                {
+                                    if (horario + intervalo > horarioFechamento)
+                                        break;
+
                                     item = new ListItem();
                                     item.Text = horario.Hours.ToString("00") + ":" + horario.Minutes.ToString("00");
                                     item.Value = horario.ToString();
                                     txt_Horario.Items.Add(item);
+
+                                    horario += intervalo;
                                 }
-
-                                horario += intervalo;
                             }
-                        }
-                        while (true)
-                        {
-                            if (horario + intervalo > horarioFechamento)
-                                break;
-
-                            if (verificarHorario(horario, agendamentos))
+                            else
                             {
-                                item = new ListItem();
-                                item.Text = horario.Hours.ToString("00") + ":" + horario.Minutes.ToString("00");
-                                item.Value = horario.ToString();
-                                txt_Horario.Items.Add(item);
+                                while (true)
+                                {
+                                    if (horario + intervalo > horarioFechamento)
+                                        break;
+
+                                    if (verificarHorario(horario, agendamentos))
+                                    {
+                                        item = new ListItem();
+                                        item.Text = horario.Hours.ToString("00") + ":" + horario.Minutes.ToString("00");
+                                        item.Value = horario.ToString();
+                                        txt_Horario.Items.Add(item);
+                                    }
+
+                                    horario += intervalo;
+                                }
                             }
 
-                            horario += intervalo;
+                            txt_Horario.Enabled = true;
+                            pnl_Alert.Visible = false;
                         }
-
-                        txt_Horario.Enabled = true;
+                    }
+                    else
+                    {
+                        pnl_Alert.CssClass = "alert alert-danger";
+                        lbl_Alert.Text = "Selecione uma data válida";
+                        pnl_Alert.Visible = true;
+                        if (txt_Horario.Items.Count > 0)
+                            txt_Horario.Items.Clear();
+                        txt_Horario.Enabled = false;
                     }
                 }
                 else
@@ -166,6 +175,7 @@ namespace FixFinder.Pages
         protected bool verificarHorario(TimeSpan horario, List<Agendamento> agendamentos)
         {
             int instancias = 0;
+            DateTime dt;
             foreach (Agendamento a in agendamentos)
             {
                 if (a.hora.Equals(horario))

@@ -22,6 +22,33 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
+        /// lbl_Oficina control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lbl_Oficina;
+        
+        /// <summary>
+        /// lbl_Reputacao control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_Reputacao;
+        
+        /// <summary>
+        /// lbl_Endereco control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lbl_Endereco;
+        
+        /// <summary>
         /// txt_Data control.
         /// </summary>
         /// <remarks>
@@ -31,13 +58,22 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.WebControls.TextBox txt_Data;
         
         /// <summary>
-        /// ddl_Banco control.
+        /// txt_Horario control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddl_Banco;
+        protected global::System.Web.UI.WebControls.DropDownList txt_Horario;
+        
+        /// <summary>
+        /// txt_Veiculo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList txt_Veiculo;
         
         /// <summary>
         /// btn_Cadastrar control.

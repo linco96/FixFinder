@@ -15,7 +15,7 @@ namespace FixFinder.Pages
 
         protected void btn_Cadastrar_Click(object sender, EventArgs e)
         {
-            DateTime dt = DateTime.Parse(txt_Data.Text);
+            DateTime dt = DateTime.Parse(txt_Data.Text + " " + txt_Horario.Text);
             pnl_Alert.Visible = true;
             lbl_Alert.Text = dt.ToString();
         }

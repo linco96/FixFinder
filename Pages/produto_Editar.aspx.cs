@@ -82,12 +82,13 @@ namespace FixFinder.Pages
                     produto.descricao = txt_Descricao.Text;
                     produto.categoria = txt_Categoria.Text;
                     produto.marca = txt_Marca.Text;
+                    produto.quantidade = int.Parse(txt_Quantidade.Text);
                     produto.precoCompra = double.Parse(txt_PrecoCompra.Text.Replace("R$", "").Replace(" ", ""));
                     if (txt_PrecoVenda.Text.Length > 0)
                         produto.precoVenda = double.Parse(txt_PrecoVenda.Text.Replace("R$", "").Replace(" ", ""));
                     if (txt_Validade.Text.Length > 0)
                         produto.validade = DateTime.Parse(txt_Validade.Text);
-
+                    alterar = false;
                     context.SaveChanges();
                     Session["produto"] = null;
                     Response.Redirect("produto_Lista.aspx", false);
@@ -102,6 +103,7 @@ namespace FixFinder.Pages
         protected void btn_Voltar_Click(object sender, EventArgs e)
         {
             Session["produto"] = null;
+            alterar = false;
             Response.Redirect("produto_Lista.aspx", false);
         }
     }

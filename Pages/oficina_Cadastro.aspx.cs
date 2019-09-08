@@ -61,6 +61,17 @@ namespace FixFinder.Pages
                         duracaoAtendimento = TimeSpan.Parse(txt_TempoAtendimento.Text)
                     };
 
+                    Endereco endereco = new Endereco()
+                    {
+                        cep = txt_CEP.Text.Replace("-", ""),
+                        cidade = txt_Cidade.Text,
+                        cnpjOficina = o.cnpj,
+                        complemento = txt_Complemento.Text,
+                        logradouro = txt_Rua.Text,
+                        numero = int.Parse(txt_Numero.Text),
+                        uf = txt_UF.Text
+                    };
+
                     if (context.Oficina.Where(oficina => oficina.cnpj.Equals(o.cnpj)).FirstOrDefault() != null)
                     {
                         pnl_Alert.Visible = true;
@@ -70,6 +81,7 @@ namespace FixFinder.Pages
                     else
                     {
                         context.Oficina.Add(o);
+                        context.Endereco.Add(endereco);
 
                         Funcionario f = new Funcionario
                         {

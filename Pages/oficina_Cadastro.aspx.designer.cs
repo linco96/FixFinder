@@ -103,6 +103,60 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.WebControls.TextBox txt_TempoAtendimento;
         
         /// <summary>
+        /// txt_Rua control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_Rua;
+        
+        /// <summary>
+        /// txt_Numero control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_Numero;
+        
+        /// <summary>
+        /// txt_Complemento control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_Complemento;
+        
+        /// <summary>
+        /// txt_CEP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_CEP;
+        
+        /// <summary>
+        /// txt_Cidade control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_Cidade;
+        
+        /// <summary>
+        /// txt_UF control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_UF;
+        
+        /// <summary>
         /// btn_Cadastrar control.
         /// </summary>
         /// <remarks>

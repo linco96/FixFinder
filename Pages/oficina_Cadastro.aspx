@@ -57,6 +57,43 @@
             <div class="form-group">
                 <small id="agendamento_Help" class="form-text text-muted">Informe quantos clientes a sua oficina pode atender simultâneamente, e qual é o intervalo de tempo para cada atendimento</small>
             </div>
+
+            <%--ENDERECO--%>
+            <div class="form-group">
+                <div class="form-inline">
+                    <label class="h4">Endereço</label>
+                </div>
+                <div class="form-inline mt-1">
+                    <span class="w-75 text-left pr-3">
+                        <label for="txt_Rua" style="display: block">Rua</label>
+                        <asp:TextBox runat="server" ID="txt_Rua" CssClass="form-control w-100" MaxLength="200" required></asp:TextBox>
+                    </span>
+                    <span class="w-25 text-left">
+                        <label for="txt_Numero" style="display: block">Numero</label>
+                        <asp:TextBox runat="server" ID="txt_Numero" CssClass="form-control w-100" required></asp:TextBox>
+                    </span>
+                </div>
+                <div class="form-inline mt-1">
+                    <span class="w-25 text-left pr-3">
+                        <label for="txt_Complemento" style="display: block">Complemento</label>
+                        <asp:TextBox runat="server" ID="txt_Complemento" CssClass="form-control w-100" MaxLength="50"></asp:TextBox>
+                    </span>
+                    <span class="w-25 text-left pr-3">
+                        <label for="txt_CEP" style="display: block">CEP</label>
+                        <asp:TextBox runat="server" ID="txt_CEP" CssClass="form-control w-100" onkeypress="$(this).mask('00000-000', {reverse: true});" required></asp:TextBox>
+                    </span>
+                    <span class="w-25 text-left pr-3">
+                        <label for="txt_Cidade" style="display: block">Cidade</label>
+                        <asp:TextBox runat="server" ID="txt_Cidade" CssClass="form-control w-100" MaxLength="50" required></asp:TextBox>
+                    </span>
+                    <span class="w-25 text-left">
+                        <label for="txt_UF" style="display: block">UF</label>
+                        <asp:TextBox runat="server" ID="txt_UF" CssClass="form-control w-100" MaxLength="2" required></asp:TextBox>
+                    </span>
+                </div>
+            </div>
+
+            <%--BUTAO--%>
             <div class="form-group">
                 <asp:Button runat="server" ID="btn_Cadastrar" CssClass="btn btn-primary" OnClick="btn_Cadastrar_Click" Text="Cadastrar" />
             </div>

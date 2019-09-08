@@ -40,7 +40,10 @@ namespace FixFinder.Pages
                     else
                     {
                         Session["usuario"] = cliente;
-                        Response.Redirect("home.aspx", false);
+                        if (Session["lastPage"] == null)
+                            Response.Redirect("home.aspx", false);
+                        else
+                            Response.Redirect((String)Session["lastPage"], false);
                     }
                 }
                 catch (Exception ex)

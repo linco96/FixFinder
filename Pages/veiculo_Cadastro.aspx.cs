@@ -19,6 +19,10 @@ namespace FixFinder.Pages
             {
                 Response.Redirect("login.aspx", false);
             }
+            else if (Session["lastPage"] != null)
+            {
+                btn_Voltar.Visible = false;
+            }
         }
 
         protected void btn_Cadastrar_Click(object sender, EventArgs e)
@@ -95,7 +99,10 @@ namespace FixFinder.Pages
                         lbl_Alert.Text = "Veículo cadastrado!";
                         pnl_Alert.CssClass = "alert alert-success";
                         pnl_Alert.Visible = true;
-                        Response.AddHeader("REFRESH", "3; url=veiculo_Lista.aspx");
+                        if (Session["lastPage"] == null)
+                            Response.AddHeader("REFRESH", "3; url=veiculo_Lista.aspx");
+                        else
+                            Response.Redirect((String)Session["lastPage"], false);
                     }
                 }
                 catch (Exception ex)

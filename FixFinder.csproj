@@ -86,6 +86,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\dashboard.css" />
     <Content Include="Content\FixFinderIcone.png" />
+    <Content Include="Content\no-image.png" />
     <Content Include="Controls\Header_Control.ascx" />
     <Content Include="dashboard.aspx" />
     <Content Include="Global.asax" />

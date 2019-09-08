@@ -11,7 +11,14 @@ namespace FixFinder.Pages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+        }
 
+        protected void btn_CarregarImagem_Click(object sender, EventArgs e)
+        {
+        }
+
+        protected void btn_Salvar_Click(object sender, EventArgs e)
+        {
         }
     }
 }

@@ -16,21 +16,24 @@
     <form id="form_Configuracoes" runat="server">
         <div class="container mt-5">
             <h1 class="display-4 text-primary" style="text-align: center">Configurações Oficina</h1>
-            <div class="form-inline">
-                <label class="h4">Oficina</label>
-            </div>
-            <div class="form-inline">
-                <span class="w-50 text-left pr-3">
-                    <label for="txt_OficinaCNPJ" style="display: block">CNPJ</label>
-                    <asp:TextBox runat="server" ID="txt_OficinaCNPJ" CssClass="form-control w-100" ReadOnly="true"></asp:TextBox>
-                </span>
-                <span class="w-50 text-left pl-3">
-                    <label for="txt_OficinaNome" style="display: block">Nome</label>
-                    <asp:TextBox runat="server" ID="txt_OficinaNome" CssClass="form-control w-100" autocomplete="off" required></asp:TextBox>
-                </span>
+
+            <div class="form-group">
+                <div class="form-inline">
+                    <label class="h4">Oficina</label>
+                </div>
+                <div class="form-inline">
+                    <span class="w-50 text-left pr-3">
+                        <label for="txt_OficinaCNPJ" style="display: block">CNPJ</label>
+                        <asp:TextBox runat="server" ID="txt_OficinaCNPJ" CssClass="form-control w-100" ReadOnly="true"></asp:TextBox>
+                    </span>
+                    <span class="w-50 text-left pl-3">
+                        <label for="txt_OficinaNome" style="display: block">Nome</label>
+                        <asp:TextBox runat="server" ID="txt_OficinaNome" CssClass="form-control w-100" autocomplete="off" required></asp:TextBox>
+                    </span>
+                </div>
             </div>
 
-            <hr class="border border-primary border-bottom-0 mt-2 mb-1" />
+            <%--<hr class="border border-primary border-bottom-0 mt-2 mb-1" />--%>
 
             <%--<div class="form-inline">
                 <label class="h3">Configurações</label>
@@ -71,7 +74,7 @@
                 </div>
             </div>
 
-            <hr class="border border-primary border-bottom-0 mt-1 mb-1" />
+            <%--<hr class="border border-primary border-bottom-0 mt-1 mb-1" />--%>
 
             <%--DADOS OFICINA--%>
             <div class="form-group">
@@ -104,7 +107,7 @@
                 </div>
             </div>
 
-            <hr class="border border-primary border-bottom-0 mt-1 mb-1" />
+            <%--<hr class="border border-primary border-bottom-0 mt-1 mb-1" />--%>
 
             <%--AGENDAMENTOS--%>
             <div class="form-group">
@@ -123,7 +126,7 @@
                 </div>
             </div>
 
-            <hr class="border border-primary border-bottom-0 mt-1 mb-1" />
+            <%--<hr class="border border-primary border-bottom-0 mt-1 mb-1" />--%>
 
             <div class="form-group">
                 <div class="form-inline">
@@ -131,10 +134,20 @@
                 </div>
                 <div class="form-inline mt-1">
                     <span class="w-25 pr-3">
-                        <asp:Image runat="server" CssClass="Responsive image rounded border border-info" ID="img_Oficina" />
+                        <asp:Image runat="server" Style="max-width: 256px; max-height: 256px" CssClass="Responsive image rounded border border-info" ID="img_Oficina" ImageUrl="~/Content/no-image.png" />
                     </span>
                     <span class="w-50 text-left">
-                        <asp:Button runat="server" ID="btn_CarregarImagem" CssClass="btn btn-info btn-sm" formnovalidate Text="Alterar Foto" />
+                        <asp:Button runat="server" ID="btn_CarregarImagem" CssClass="btn btn-info btn-sm" formnovalidate Text="Alterar Foto" OnClick="btn_CarregarImagem_Click" />
+                    </span>
+                </div>
+            </div>
+
+            <%--<hr class="border border-primary border-bottom-0 mt-1 mb-1" />--%>
+
+            <div class="form-group">
+                <div class="form-inline">
+                    <span class="w-50 text-left">
+                        <asp:Button runat="server" ID="btn_Salvar" CssClass="btn btn-success" Text="Salvar" OnClick="btn_Salvar_Click" />
                     </span>
                 </div>
             </div>

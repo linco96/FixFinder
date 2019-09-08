@@ -90,7 +90,6 @@ namespace FixFinder.Pages
                                 row.Cells.Add(cell);
 
                                 //VALIDADE
-
                                 cell = new TableCell();
                                 if (produto.validade != null)
                                 {
@@ -171,7 +170,26 @@ namespace FixFinder.Pages
             switch (btn.CommandName)
             {
                 case "editarProduto":
-
+                    try
+                    {
+                        using (var context = new DatabaseEntities())
+                        {
+                            Produto produto = context.Produto.Where(p => p.idProduto.ToString().Equals(btn.CommandArgument)).FirstOrDefault();
+                            if (produto != null)
+                            {
+                                Session["produto"] = produto;
+                                Response.Redirect("produto_Editar.aspx", false);
+                            }
+                            else
+                            {
+                                Response.Write("<script>alert('Erro na aplicacao, produto nao existe mais no BD');</script>");
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Response.Write("<script>alert('" + ex.Message + "');</script>");
+                    }
                     break;
 
                 case "excluirProduto":

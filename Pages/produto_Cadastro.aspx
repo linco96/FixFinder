@@ -21,7 +21,7 @@
             </div>
             <div class="form-group">
                 <label for="txt_Quantidade">Quantidade</label>
-                <asp:TextBox runat="server" ID="txt_Quantidade" CssClass="form-control" type="number" required="required"></asp:TextBox>
+                <asp:TextBox runat="server" ID="txt_Quantidade" CssClass="form-control" onkeypress="$(this).mask('#.##0', {reverse: true});" type="number" required="required"></asp:TextBox>
             </div>
             <div class="form-group">
                 <label for="txt_PrecoCompra">Preço de compra</label>

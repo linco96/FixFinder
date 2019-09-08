@@ -596,7 +596,12 @@ namespace FixFinder.Pages
                                 idProduto = produto.idProduto,
                                 quantidade = produto.quantidade
                             };
+
                             context.ProdutosCompra.Add(pCompra);
+                            context.SaveChanges();
+
+                            //Se o produto ja tiver quantidade, tem que adicionar a quantidade do produto
+                            context.Produto.Where(p => p.idProduto == produto.idProduto).FirstOrDefault().quantidade += produto.quantidade;
                             context.SaveChanges();
                         }
 

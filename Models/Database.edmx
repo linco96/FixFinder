@@ -139,6 +139,9 @@
           <Property Name="reputacao" Type="float" />
           <Property Name="telefone" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="horaAbertura" Type="time" Precision="0" Nullable="false" />
+          <Property Name="horaFechamento" Type="time" Precision="0" Nullable="false" />
+          <Property Name="duracaoAtendimento" Type="time" Precision="0" Nullable="false" />
           <Property Name="capacidadeAgendamentos" Type="int" Nullable="false" />
           <Property Name="statusAssinatura" Type="tinyint" Nullable="false" />
           <Property Name="descricao" Type="varchar" MaxLength="500" />
@@ -980,6 +983,9 @@
           <Property Name="reputacao" Type="Double" />
           <Property Name="telefone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="horaAbertura" Type="Time" Nullable="false" Precision="0" />
+          <Property Name="horaFechamento" Type="Time" Nullable="false" Precision="0" />
+          <Property Name="duracaoAtendimento" Type="Time" Nullable="false" Precision="0" />
           <Property Name="capacidadeAgendamentos" Type="Int32" Nullable="false" />
           <Property Name="statusAssinatura" Type="Byte" Nullable="false" />
           <Property Name="descricao" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
@@ -1846,6 +1852,9 @@
                 <ScalarProperty Name="reputacao" ColumnName="reputacao" />
                 <ScalarProperty Name="telefone" ColumnName="telefone" />
                 <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="horaAbertura" ColumnName="horaAbertura" />
+                <ScalarProperty Name="horaFechamento" ColumnName="horaFechamento" />
+                <ScalarProperty Name="duracaoAtendimento" ColumnName="duracaoAtendimento" />
                 <ScalarProperty Name="capacidadeAgendamentos" ColumnName="capacidadeAgendamentos" />
                 <ScalarProperty Name="statusAssinatura" ColumnName="statusAssinatura" />
                 <ScalarProperty Name="descricao" ColumnName="descricao" />

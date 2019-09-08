@@ -35,6 +35,9 @@ namespace FixFinder.Models
         public Nullable<double> reputacao { get; set; }
         public string telefone { get; set; }
         public string email { get; set; }
+        public System.TimeSpan horaAbertura { get; set; }
+        public System.TimeSpan horaFechamento { get; set; }
+        public System.TimeSpan duracaoAtendimento { get; set; }
         public int capacidadeAgendamentos { get; set; }
         public byte statusAssinatura { get; set; }
         public string descricao { get; set; }

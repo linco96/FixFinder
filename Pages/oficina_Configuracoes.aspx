@@ -28,7 +28,7 @@
                     </span>
                     <span class="w-50 text-left pl-3">
                         <label for="txt_OficinaNome" style="display: block">Nome</label>
-                        <asp:TextBox runat="server" ID="txt_OficinaNome" CssClass="form-control w-100" autocomplete="off" required></asp:TextBox>
+                        <asp:TextBox runat="server" ID="txt_OficinaNome" CssClass="form-control w-100" autocomplete="off" MaxLength="100" required></asp:TextBox>
                     </span>
                 </div>
             </div>
@@ -47,7 +47,7 @@
                 <div class="form-inline mt-1">
                     <span class="w-75 text-left pr-3">
                         <label for="txt_Rua" style="display: block">Rua</label>
-                        <asp:TextBox runat="server" ID="txt_Rua" CssClass="form-control w-100" required></asp:TextBox>
+                        <asp:TextBox runat="server" ID="txt_Rua" CssClass="form-control w-100" MaxLength="200" required></asp:TextBox>
                     </span>
                     <span class="w-25 text-left">
                         <label for="txt_Numero" style="display: block">Numero</label>
@@ -57,19 +57,19 @@
                 <div class="form-inline mt-1">
                     <span class="w-25 text-left pr-3">
                         <label for="txt_Complemento" style="display: block">Complemento</label>
-                        <asp:TextBox runat="server" ID="txt_Complemento" CssClass="form-control w-100"></asp:TextBox>
+                        <asp:TextBox runat="server" ID="txt_Complemento" CssClass="form-control w-100" MaxLength="50"></asp:TextBox>
                     </span>
                     <span class="w-25 text-left pr-3">
                         <label for="txt_CEP" style="display: block">CEP</label>
-                        <asp:TextBox runat="server" ID="txt_CEP" CssClass="form-control w-100" required></asp:TextBox>
+                        <asp:TextBox runat="server" ID="txt_CEP" CssClass="form-control w-100" onkeypress="$(this).mask('00000-000', {reverse: true});" required></asp:TextBox>
                     </span>
                     <span class="w-25 text-left pr-3">
                         <label for="txt_Cidade" style="display: block">Cidade</label>
-                        <asp:TextBox runat="server" ID="txt_Cidade" CssClass="form-control w-100" required></asp:TextBox>
+                        <asp:TextBox runat="server" ID="txt_Cidade" CssClass="form-control w-100" MaxLength="50" required></asp:TextBox>
                     </span>
                     <span class="w-25 text-left">
                         <label for="txt_UF" style="display: block">UF</label>
-                        <asp:TextBox runat="server" ID="txt_UF" CssClass="form-control w-100" required></asp:TextBox>
+                        <asp:TextBox runat="server" ID="txt_UF" CssClass="form-control w-100" MaxLength="2" required></asp:TextBox>
                     </span>
                 </div>
             </div>
@@ -88,7 +88,7 @@
                     </span>
                     <span class="w-25 text-left pr-3">
                         <label for="txt_Email" style="display: block">E-Mail</label>
-                        <asp:TextBox runat="server" ID="txt_Email" type="email" CssClass="form-control w-100" required></asp:TextBox>
+                        <asp:TextBox runat="server" ID="txt_Email" type="email" CssClass="form-control w-100" MaxLength="100" required></asp:TextBox>
                     </span>
                     <span class="w-25 text-left pr-3">
                         <label for="txt_Abertura" style="display: block">Hora Abertura</label>
@@ -128,27 +128,45 @@
 
             <%--<hr class="border border-primary border-bottom-0 mt-1 mb-1" />--%>
 
-            <div class="form-group">
-                <div class="form-inline">
-                    <label class="h4">Foto</label>
-                </div>
-                <div class="form-inline mt-1">
-                    <span class="w-25 pr-3">
-                        <asp:Image runat="server" Style="max-width: 256px; max-height: 256px" CssClass="Responsive image rounded border border-info" ID="img_Oficina" ImageUrl="~/Content/no-image.png" />
-                    </span>
-                    <span class="w-50 text-left">
-                        <asp:Button runat="server" ID="btn_CarregarImagem" CssClass="btn btn-info btn-sm" formnovalidate Text="Alterar Foto" OnClick="btn_CarregarImagem_Click" />
-                    </span>
-                </div>
-            </div>
-
-            <%--<hr class="border border-primary border-bottom-0 mt-1 mb-1" />--%>
-
+            <%--BUTAO--%>
             <div class="form-group">
                 <div class="form-inline">
                     <span class="w-50 text-left">
                         <asp:Button runat="server" ID="btn_Salvar" CssClass="btn btn-success" Text="Salvar" OnClick="btn_Salvar_Click" />
                     </span>
+                </div>
+                <div class="form-inline mt-1">
+                    <asp:Panel runat="server" ID="pnl_AlerSalvar" Visible="false" CssClass="alert alert-success w-100" role="alert">
+                        <asp:Label runat="server" ID="lblAlertSalvar" CssClass="text-danger form-text text-muted">Informações alteradas com sucesso</asp:Label>
+                    </asp:Panel>
+                </div>
+            </div>
+
+            <hr class="border border-primary border-bottom-0 mt-1 mb-1" />
+
+            <%--FOTO--%>
+            <div class="form-group">
+                <div class="form-inline">
+                    <label class="h4">Alterar Foto</label>
+                </div>
+                <div class="form-inline mt-1">
+                    <span class="w-25 pr-3">
+                        <asp:Image runat="server" Style="max-width: 256px; max-height: 256px" CssClass="Responsive image rounded border border-info" ID="img_Oficina" ImageUrl="~/Content/no-image.png" />
+                    </span>
+                </div>
+                <div class="form-inline mt-1">
+                    <span class="w-100 text-left">
+                        <asp:FileUpload runat="server" ID="fileUpload" />
+                    </span>
+                </div>
+                <div class="form-inline mt-1">
+                    <asp:Button runat="server" ID="btn_CarregarImagem" CssClass="btn btn-info btn-sm" formnovalidate Text="Alterar Foto" OnClick="btn_CarregarImagem_Click" />
+                </div>
+                <small class="form-text text-muted">Selecione uma imagem (.png, .jpg ou .jpeg) e clique em "Alterar Foto"</small>
+                <div class="form-inline mt-1">
+                    <asp:Panel runat="server" ID="pnl_Alert" Visible="false" CssClass="alert alert-danger" role="alert">
+                        <asp:Label runat="server" ID="lbl_Alert" CssClass="text-danger form-text text-muted"></asp:Label>
+                    </asp:Panel>
                 </div>
             </div>
         </div>

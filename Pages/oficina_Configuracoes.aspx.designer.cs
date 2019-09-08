@@ -157,6 +157,33 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.WebControls.TextBox txt_CapacidadeAtendimento;
         
         /// <summary>
+        /// btn_Salvar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_Salvar;
+        
+        /// <summary>
+        /// pnl_AlerSalvar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnl_AlerSalvar;
+        
+        /// <summary>
+        /// lblAlertSalvar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAlertSalvar;
+        
+        /// <summary>
         /// img_Oficina control.
         /// </summary>
         /// <remarks>
@@ -164,6 +191,15 @@ namespace FixFinder.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image img_Oficina;
+        
+        /// <summary>
+        /// fileUpload control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload fileUpload;
         
         /// <summary>
         /// btn_CarregarImagem control.
@@ -175,12 +211,21 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.WebControls.Button btn_CarregarImagem;
         
         /// <summary>
-        /// btn_Salvar control.
+        /// pnl_Alert control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_Salvar;
+        protected global::System.Web.UI.WebControls.Panel pnl_Alert;
+        
+        /// <summary>
+        /// lbl_Alert control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_Alert;
     }
 }

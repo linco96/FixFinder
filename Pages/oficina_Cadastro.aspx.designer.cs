@@ -67,6 +67,24 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.WebControls.TextBox txt_Email;
         
         /// <summary>
+        /// txt_HorarioAbertura control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_HorarioAbertura;
+        
+        /// <summary>
+        /// txt_HorarioFechamento control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_HorarioFechamento;
+        
+        /// <summary>
         /// num_Agendamentos control.
         /// </summary>
         /// <remarks>
@@ -74,6 +92,15 @@ namespace FixFinder.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox num_Agendamentos;
+        
+        /// <summary>
+        /// txt_TempoAtendimento control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_TempoAtendimento;
         
         /// <summary>
         /// btn_Cadastrar control.

@@ -55,7 +55,10 @@ namespace FixFinder.Pages
                         telefone = txt_Telefone.Text.Replace("(", "").Replace(")", "").Replace(" ", "").Replace("-", ""),
                         email = txt_Email.Text,
                         capacidadeAgendamentos = int.Parse(num_Agendamentos.Text),
-                        statusAssinatura = 1
+                        statusAssinatura = 1,
+                        horaAbertura = TimeSpan.Parse(txt_HorarioAbertura.Text),
+                        horaFechamento = TimeSpan.Parse(txt_HorarioFechamento.Text),
+                        duracaoAtendimento = TimeSpan.Parse(txt_TempoAtendimento.Text)
                     };
 
                     if (context.Oficina.Where(oficina => oficina.cnpj.Equals(o.cnpj)).FirstOrDefault() != null)

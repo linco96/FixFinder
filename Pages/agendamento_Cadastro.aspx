@@ -11,6 +11,13 @@
     <link href="../Content/bootstrap.min.css" rel="stylesheet" />
     <script src="../Scripts/bootstrap.min.js"></script>
     <link href="../Content/dashboard.css" rel="stylesheet" />
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#txt_Data").change(function () {
+                $("#btn_CarregarHorario").click();
+            });
+        });
+    </script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -25,20 +32,17 @@
             <hr class="border-primary" />
             <div class="form-group">
                 <label for="txt_Data">Data</label>
-                <asp:TextBox runat="server" ID="txt_Data" CssClass="form-control" type="date" required="required"></asp:TextBox>
+                <asp:TextBox runat="server" ID="txt_Data" CssClass="form-control" type="date" required="required" ClientIDMode="Static"></asp:TextBox>
             </div>
 
             <div class="form-group">
                 <label for="txt_Hora">Hora</label>
                 <asp:DropDownList runat="server" ID="txt_Horario" CssClass="custom-select form-control">
-                    <asp:ListItem Text="07:00" Value="07:00"></asp:ListItem>
-                    <asp:ListItem Text="08:00" Value="08:00"></asp:ListItem>
                 </asp:DropDownList>
             </div>
             <div class="form-group">
                 <label for="txt_Veiculo">Veículo</label>
                 <asp:DropDownList runat="server" ID="txt_Veiculo" CssClass="custom-select form-control">
-                    <asp:ListItem Text="Onix - BAE-7919"></asp:ListItem>
                 </asp:DropDownList>
             </div>
             <div class="form-group">
@@ -50,6 +54,7 @@
                 </asp:Panel>
             </div>
         </div>
+        <asp:Button runat="server" ID="btn_CarregarHorario" ClientIDMode="Static" OnClick="btn_CarregarHorario_Click" Style="display: none;" />
     </form>
 </body>
 </html>

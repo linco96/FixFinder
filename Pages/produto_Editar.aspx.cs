@@ -48,7 +48,12 @@ namespace FixFinder.Pages
                                         txt_PrecoCompra.Text = produto.precoCompra.ToString();
                                         txt_PrecoVenda.Text = produto.precoVenda.ToString();
                                         txt_Marca.Text = produto.marca;
-                                        txt_Validade.Text = produto.validade.ToString();
+                                        if (produto.validade != null)
+                                        {
+                                            DateTime dt = (DateTime)produto.validade;
+                                            txt_Validade.Text = dt.ToString("yyyy-MM-dd");
+                                        }
+
                                         txt_Categoria.Text = produto.categoria;
                                         alterar = true;
                                     }

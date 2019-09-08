@@ -34,10 +34,28 @@
                 <label for="txt_Email">E-mail</label>
                 <asp:TextBox runat="server" ID="txt_Email" CssClass="form-control" type="email" required="required"></asp:TextBox>
             </div>
+            <div class="form-inline">
+                <span class="w-50 text-left pr-3 mb-1">
+                    <label for="txt_HorarioAbertura" style="display: block">Horário de abertura</label>
+                    <asp:TextBox runat="server" ID="txt_HorarioAbertura" CssClass="form-control w-100" type="time" required="required"></asp:TextBox>
+                </span>
+                <span class="w-50 text-left pl-3 mb-1">
+                    <label for="txt_HorarioFechamento" style="display: block">Horário de fechamento</label>
+                    <asp:TextBox runat="server" ID="txt_HorarioFechamento" CssClass="form-control w-100" type="time" required="required"></asp:TextBox>
+                </span>
+            </div>
+            <div class="form-inline">
+                <span class="w-50 text-left pr-3 mb-1">
+                    <label for="num_Agendamentos" style="display: block">Capacidade de agendamentos</label>
+                    <asp:TextBox runat="server" ID="num_Agendamentos" CssClass="form-control w-100" type="number" required="required"></asp:TextBox>
+                </span>
+                <span class="w-50 text-left pl-3 mb-1">
+                    <label for="txt_TempoAtendimento" style="display: block">Tempo por atendimento</label>
+                    <asp:TextBox runat="server" ID="txt_TempoAtendimento" CssClass="form-control w-100" type="time" required="required"></asp:TextBox>
+                </span>
+            </div>
             <div class="form-group">
-                <label for="num_Agendamentos">Capacidade de agendamentos</label>
-                <asp:TextBox runat="server" ID="num_Agendamentos" CssClass="form-control" aria-describedby="agendamento_Help" type="number" required="required"></asp:TextBox>
-                <small id="agendamento_Help" class="form-text text-muted">Informe quantos clientes a sua oficina pode atender simultâneamente</small>
+                <small id="agendamento_Help" class="form-text text-muted">Informe quantos clientes a sua oficina pode atender simultâneamente, e qual é o intervalo de tempo para cada atendimento</small>
             </div>
             <div class="form-group">
                 <asp:Button runat="server" ID="btn_Cadastrar" CssClass="btn btn-primary" OnClick="btn_Cadastrar_Click" Text="Cadastrar" />

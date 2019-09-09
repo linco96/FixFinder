@@ -309,6 +309,9 @@ namespace FixFinder.Pages
                         body.Controls.Add(btn_Aceitar);
                         body.Controls.Add(btn_Rejeitar);
                     }
+                    else if (o.status.Equals("Concluído"))
+                    {
+                    }
 
                     card.Controls.Add(body);
 

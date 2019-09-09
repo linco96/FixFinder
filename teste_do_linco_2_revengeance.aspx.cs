@@ -14,7 +14,7 @@ namespace FixFinder
         {
             using (DatabaseEntities context = new DatabaseEntities())
             {
-                Session["oficina"] = context.Oficina.Where(oficina => oficina.cnpj.Equals("91198591551915")).FirstOrDefault();
+                Session["oficina"] = context.Oficina.Where(oficina => oficina.cnpj.Equals("12345678945612")).FirstOrDefault();
             }
             Response.Redirect("Pages/agendamento_Cadastro.aspx", false);
         }

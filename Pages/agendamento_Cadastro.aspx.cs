@@ -30,17 +30,33 @@ namespace FixFinder.Pages
             {
                 using (DatabaseEntities context = new DatabaseEntities())
                 {
-                    List<Veiculo> veiculos = context.Veiculo.Where(v => v.cpfCliente.Equals(c.cpf)).ToList();
-                    if (veiculos.Count == 0)
+                    Funcionario f = context.Funcionario.Where(func => func.cpf.Equals(c.cpf)).FirstOrDefault();
+
+                    if (f != null && f.cnpjOficina.Equals(o.cnpj) && f.cargo.ToLower() == "gerente")
                     {
-                        Session["lastPage"] = "agendamento_Cadastro.aspx";
-                        Response.Redirect("veiculo_Cadastro.aspx");
+                        Response.Redirect("home.aspx", false);
                     }
                     else
                     {
-                        if (Session["lastPage"] != null)
-                            Session["lastPage"] = null;
-                        preencherSelect();
+                        List<Veiculo> veiculos = context.Veiculo.Where(v => v.cpfCliente.Equals(c.cpf)).ToList();
+                        if (veiculos.Count == 0)
+                        {
+                            Session["lastPage"] = "agendamento_Cadastro.aspx";
+                            Response.Redirect("veiculo_Cadastro.aspx");
+                        }
+                        else
+                        {
+                            o = context.Oficina.Where(of => of.cnpj.Equals(o.cnpj)).FirstOrDefault();
+                            if (Session["lastPage"] != null)
+                                Session["lastPage"] = null;
+                            preencherSelect();
+                            lbl_Oficina.InnerText = o.nome;
+                            if (o.reputacao == null)
+                                lbl_Reputacao.Text = "-";
+                            else
+                                lbl_Reputacao.Text = o.reputacao + "/10";
+                            //lbl_Endereco.InnerText =
+                        }
                     }
                 }
             }
@@ -84,7 +100,7 @@ namespace FixFinder.Pages
                 DateTime data;
                 if (DateTime.TryParse(txt_Data.Text, out data))
                 {
-                    if (data.DayOfYear.CompareTo(DateTime.Now.DayOfYear) >= 0)
+                    if (data.Date.CompareTo(DateTime.Now.Date) >= 0)
                     {
                         if (txt_Horario.Items.Count > 0)
                             txt_Horario.Items.Clear();
@@ -98,7 +114,7 @@ namespace FixFinder.Pages
                             TimeSpan horarioFechamento = o.horaFechamento;
                             TimeSpan intervalo = o.duracaoAtendimento;
 
-                            if (data.DayOfYear.Equals(DateTime.Now.DayOfYear))
+                            if (data.Date.Equals(DateTime.Now.Date))
                             {
                                 TimeSpan now = DateTime.Now.TimeOfDay;
                                 while (true)
@@ -191,6 +207,46 @@ namespace FixFinder.Pages
 
         protected void btn_Cadastrar_Click(object sender, EventArgs e)
         {
+            try
+            {
+                if (txt_Horario.Items.Count == 0)
+                {
+                    pnl_Alert.CssClass = "alert alert-danger";
+                    lbl_Alert.Text = "Informe uma data e um horário válidos";
+                    pnl_Alert.Visible = true;
+                }
+                else
+                {
+                    DateTime data = DateTime.Parse(txt_Data.Text + " " + txt_Horario.SelectedValue);
+                    if (data.CompareTo(DateTime.Now) < 0)
+                    {
+                        pnl_Alert.CssClass = "alert alert-danger";
+                        lbl_Alert.Text = "Informe uma data e um horário válidos";
+                        pnl_Alert.Visible = true;
+                    }
+                    else
+                    {
+                        using (DatabaseEntities context = new DatabaseEntities())
+                        {
+                            Agendamento a = new Agendamento()
+                            {
+                                data = data.Date,
+                                hora = data.TimeOfDay,
+                                cnpjOficina = o.cnpj,
+                                cpfCliente = c.cpf,
+                                idVeiculo = int.Parse(txt_Veiculo.SelectedValue),
+                                status = "Pendente"
+                            };
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                pnl_Alert.CssClass = "alert alert-danger";
+                lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                pnl_Alert.Visible = true;
+            }
         }
     }
 }

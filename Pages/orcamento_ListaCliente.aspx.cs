@@ -22,6 +22,8 @@ namespace FixFinder.Pages
             }
             else
             {
+                if (Session["orcamento"] != null)
+                    Session["orcamento"] = null;
                 preencherTabela();
             }
         }
@@ -309,6 +311,15 @@ namespace FixFinder.Pages
                         body.Controls.Add(btn_Aceitar);
                         body.Controls.Add(btn_Rejeitar);
                     }
+                    else if (o.status.Equals("Concluído"))
+                    {
+                        Button btn = new Button();
+                        btn.Click += new EventHandler(btn_Avaliar_Click);
+                        btn.ID = "btn_Rejeitar" + o.idOrcamento.ToString();
+                        btn.Text = "Rejeitar";
+                        btn.CssClass = "btn btn-danger ml-1 mt-3";
+                        btn.CommandArgument = o.idOrcamento.ToString();
+                    }
 
                     card.Controls.Add(body);
 
@@ -321,6 +332,21 @@ namespace FixFinder.Pages
                 lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
                 pnl_Alert.Visible = true;
                 return null;
+            }
+        }
+
+        protected void btn_Avaliar_Click(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+            try
+            {
+                Response.Redirect("orcamento_Avaliar.aspx", false);
+            }
+            catch (Exception ex)
+            {
+                pnl_Alert.CssClass = "alert alert-danger";
+                lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                pnl_Alert.Visible = true;
             }
         }
 

@@ -38,24 +38,45 @@ namespace FixFinder.Pages
                     }
                     else
                     {
-                        List<Veiculo> veiculos = context.Veiculo.Where(v => v.cpfCliente.Equals(c.cpf)).ToList();
-                        if (veiculos.Count == 0)
+                        List<Agendamento> agendamentos = context.Agendamento.Where(a => a.cnpjOficina.Equals(o.cnpj) && a.cpfCliente.Equals(c.cpf)).ToList();
+                        bool existe = false;
+                        if (agendamentos.Count > 0)
                         {
-                            Session["lastPage"] = "agendamento_Cadastro.aspx";
-                            Response.Redirect("veiculo_Cadastro.aspx");
+                            foreach (Agendamento a in agendamentos)
+                            {
+                                if (a.status.Equals("Confirmação pendente") || a.status.Equals("Confirmado"))
+                                {
+                                    existe = true;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (existe)
+                        {
+                            Response.Redirect("agendamento_ListaCliente.aspx", false);
                         }
                         else
                         {
-                            o = context.Oficina.Where(of => of.cnpj.Equals(o.cnpj)).FirstOrDefault();
-                            if (Session["lastPage"] != null)
-                                Session["lastPage"] = null;
-                            preencherSelect();
-                            lbl_Oficina.InnerText = o.nome;
-                            if (o.reputacao == null)
-                                lbl_Reputacao.Text = "-";
+                            List<Veiculo> veiculos = context.Veiculo.Where(v => v.cpfCliente.Equals(c.cpf)).ToList();
+                            if (veiculos.Count == 0)
+                            {
+                                Session["lastPage"] = "agendamento_Cadastro.aspx";
+                                Response.Redirect("veiculo_Cadastro.aspx");
+                            }
                             else
-                                lbl_Reputacao.Text = o.reputacao + "/10";
-                            //lbl_Endereco.InnerText =
+                            {
+                                o = context.Oficina.Where(of => of.cnpj.Equals(o.cnpj)).FirstOrDefault();
+                                if (Session["lastPage"] != null)
+                                    Session["lastPage"] = null;
+                                preencherSelect();
+                                lbl_Oficina.InnerText = o.nome;
+                                if (o.reputacao == null)
+                                    lbl_Reputacao.Text = "-/10";
+                                else
+                                    lbl_Reputacao.Text = o.reputacao + "/10";
+                                lbl_Endereco.InnerHtml = o.Endereco.logradouro + ", " + o.Endereco.numero.ToString() + "<br />" + o.Endereco.cep + " - " + o.Endereco.cidade + " " + o.Endereco.uf.ToUpper();
+                            }
                         }
                     }
                 }
@@ -159,8 +180,17 @@ namespace FixFinder.Pages
                                 }
                             }
 
-                            txt_Horario.Enabled = true;
-                            pnl_Alert.Visible = false;
+                            if (txt_Horario.Items.Count > 0)
+                            {
+                                txt_Horario.Enabled = true;
+                                pnl_Alert.Visible = false;
+                            }
+                            else
+                            {
+                                pnl_Alert.CssClass = "alert alert-danger";
+                                lbl_Alert.Text = "Selecione uma data válida";
+                                pnl_Alert.Visible = true;
+                            }
                         }
                     }
                     else
@@ -235,8 +265,11 @@ namespace FixFinder.Pages
                                 cnpjOficina = o.cnpj,
                                 cpfCliente = c.cpf,
                                 idVeiculo = int.Parse(txt_Veiculo.SelectedValue),
-                                status = "Pendente"
+                                status = "Confirmação pendente"
                             };
+                            context.Agendamento.Add(a);
+                            context.SaveChanges();
+                            Response.Redirect("agendamento_ListaCliente.aspx", false);
                         }
                     }
                 }

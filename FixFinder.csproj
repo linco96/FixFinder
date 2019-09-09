@@ -104,6 +104,7 @@
       <LastGenOutput>Database.cs</LastGenOutput>
     </Content>
     <Content Include="Pages\agendamento_Cadastro.aspx" />
+    <Content Include="Pages\agendamento_ListaCliente.aspx" />
     <Content Include="Pages\cliente_Cadastro.aspx" />
     <Content Include="Pages\cliente_EditarPerfil.aspx" />
     <Content Include="Pages\compra_Cadastrar.aspx" />
@@ -286,6 +287,13 @@
     </Compile>
     <Compile Include="Pages\agendamento_Cadastro.aspx.designer.cs">
       <DependentUpon>agendamento_Cadastro.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\agendamento_ListaCliente.aspx.cs">
+      <DependentUpon>agendamento_ListaCliente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\agendamento_ListaCliente.aspx.designer.cs">
+      <DependentUpon>agendamento_ListaCliente.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\cliente_Cadastro.aspx.cs">
       <DependentUpon>cliente_Cadastro.aspx</DependentUpon>

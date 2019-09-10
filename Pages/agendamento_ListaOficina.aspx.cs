@@ -29,8 +29,52 @@ namespace FixFinder.Pages
         {
             try
             {
+                if (tbl_Agendamentos.Rows.Count > 0)
+                    tbl_Agendamentos.Rows.Clear();
                 using (DatabaseEntities context = new DatabaseEntities())
                 {
+                    TableHeaderRow headerRow;
+                    TableHeaderCell headerCell;
+
+                    headerRow = new TableHeaderRow();
+
+                    headerCell = new TableHeaderCell();
+                    headerCell.CssClass = "text-center";
+                    headerCell.Text = "Cliente";
+                    headerRow.Cells.Add(headerCell);
+
+                    headerCell = new TableHeaderCell();
+                    headerCell.CssClass = "text-center";
+                    headerCell.Text = "Telefone";
+                    headerRow.Cells.Add(headerCell);
+
+                    headerCell = new TableHeaderCell();
+                    headerCell.CssClass = "text-center";
+                    headerCell.Text = "E-mail";
+                    headerRow.Cells.Add(headerCell);
+
+                    headerCell = new TableHeaderCell();
+                    headerCell.CssClass = "text-center";
+                    headerCell.Text = "Data/Hora";
+                    headerRow.Cells.Add(headerCell);
+
+                    headerCell = new TableHeaderCell();
+                    headerCell.CssClass = "text-center";
+                    headerCell.Text = "Veículo";
+                    headerRow.Cells.Add(headerCell);
+
+                    headerCell = new TableHeaderCell();
+                    headerCell.CssClass = "text-center";
+                    headerCell.Text = "Status";
+                    headerRow.Cells.Add(headerCell);
+
+                    headerCell = new TableHeaderCell();
+                    headerCell.CssClass = "text-center";
+                    headerCell.Text = "Ações";
+                    headerRow.Cells.Add(headerCell);
+
+                    tbl_Agendamentos.Rows.Add(headerRow);
+
                     TableRow row;
                     TableCell cell;
                     Button btn;
@@ -45,7 +89,17 @@ namespace FixFinder.Pages
                             row = new TableRow();
 
                             cell = new TableCell();
-                            cell.Text = a.Oficina.nome;
+                            cell.Text = a.Cliente.nome;
+                            cell.CssClass = "text-center align-middle";
+                            row.Cells.Add(cell);
+
+                            cell = new TableCell();
+                            cell.Text = a.Cliente.telefone;
+                            cell.CssClass = "text-center align-middle";
+                            row.Cells.Add(cell);
+
+                            cell = new TableCell();
+                            cell.Text = a.Cliente.email;
                             cell.CssClass = "text-center align-middle";
                             row.Cells.Add(cell);
 
@@ -67,7 +121,7 @@ namespace FixFinder.Pages
                                 btn = new Button();
                                 btn.Click += new EventHandler(btn_Confirmar_Click);
                                 btn.Text = "Confirmar";
-                                btn.CssClass = "btn btn-success ml-2";
+                                btn.CssClass = "btn btn-success mr-2";
                                 btn.CommandArgument = a.idAgendamento.ToString();
                                 cell.Controls.Add(btn);
                             }
@@ -107,10 +161,52 @@ namespace FixFinder.Pages
 
         protected void btn_Confirmar_Click(object sender, EventArgs e)
         {
+            Button btn = sender as Button;
+            try
+            {
+                using (DatabaseEntities context = new DatabaseEntities())
+                {
+                    int id = int.Parse(btn.CommandArgument);
+                    Agendamento agendamento = context.Agendamento.Where(a => a.idAgendamento == id).FirstOrDefault();
+                    agendamento.status = "Confirmado";
+                    context.SaveChanges();
+                    preencherTabela();
+                    pnl_Alert.CssClass = "alert alert-success";
+                    lbl_Alert.Text = "Agendamento confirmado";
+                    pnl_Alert.Visible = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                pnl_Alert.CssClass = "alert alert-danger";
+                lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                pnl_Alert.Visible = true;
+            }
         }
 
         protected void btn_Cancelar_Click(object sender, EventArgs e)
         {
+            Button btn = sender as Button;
+            try
+            {
+                using (DatabaseEntities context = new DatabaseEntities())
+                {
+                    int id = int.Parse(btn.CommandArgument);
+                    Agendamento agendamento = context.Agendamento.Where(a => a.idAgendamento == id).FirstOrDefault();
+                    agendamento.status = "Cancelado pela oficina";
+                    context.SaveChanges();
+                    preencherTabela();
+                    pnl_Alert.CssClass = "alert alert-success";
+                    lbl_Alert.Text = "Agendamento cancelado";
+                    pnl_Alert.Visible = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                pnl_Alert.CssClass = "alert alert-danger";
+                lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                pnl_Alert.Visible = true;
+            }
         }
     }
 }

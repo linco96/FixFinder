@@ -21,14 +21,6 @@
             <h1 class="display-4 text-primary" style="text-align: center">Agendamentos</h1>
             <div class="table-responsive-xl">
                 <asp:Table runat="server" ID="tbl_Agendamentos" CssClass="table border rounded-lg mt-3">
-                    <asp:TableHeaderRow>
-                        <asp:TableHeaderCell>
-                            <asp:TableHeaderCell Scope="Column" CssClass="text-center">Oficina</asp:TableHeaderCell>
-                            <asp:TableHeaderCell Scope="Column" CssClass="text-center">Data/Hora</asp:TableHeaderCell>
-                            <asp:TableHeaderCell Scope="Column" CssClass="text-center">Veículo</asp:TableHeaderCell>
-                            <asp:TableHeaderCell Scope="Column" CssClass="text-center">Ações</asp:TableHeaderCell>
-                        </asp:TableHeaderCell>
-                    </asp:TableHeaderRow>
                 </asp:Table>
             </div>
         </div>

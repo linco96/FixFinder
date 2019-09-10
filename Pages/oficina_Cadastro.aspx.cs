@@ -46,58 +46,103 @@ namespace FixFinder.Pages
         {
             try
             {
-                using (var context = new DatabaseEntities())
+                if ((txt_HorarioAberturaUtil.Text.Length == 0 || txt_HorarioFechamentoUtil.Text.Length == 0) && (txt_HorarioAberturaSabado.Text.Length == 0 || txt_HorarioFechamentoSabado.Text.Length == 0) && (txt_HorarioAberturaDomingo.Text.Length == 0 || txt_HorarioFechamentoDomingo.Text.Length == 0))
                 {
-                    Oficina o = new Oficina
+                    pnl_Alert.CssClass = "alert alert-danger";
+                    pnl_Alert.Visible = true;
+                    lbl_Alert.Text = "Informe os horários de abertura e fechamento de pelo menos um dia das semana";
+                }
+                else
+                {
+                    using (var context = new DatabaseEntities())
                     {
-                        cnpj = txt_CNPJ.Text.Replace(".", "").Replace("/", "").Replace("-", ""),
-                        nome = txt_Nome.Text,
-                        telefone = txt_Telefone.Text.Replace("(", "").Replace(")", "").Replace(" ", "").Replace("-", ""),
-                        email = txt_Email.Text,
-                        capacidadeAgendamentos = int.Parse(num_Agendamentos.Text),
-                        statusAssinatura = 1,
-                        horaAbertura = TimeSpan.Parse(txt_HorarioAbertura.Text),
-                        horaFechamento = TimeSpan.Parse(txt_HorarioFechamento.Text),
-                        duracaoAtendimento = TimeSpan.Parse(txt_TempoAtendimento.Text)
-                    };
-
-                    Endereco endereco = new Endereco()
-                    {
-                        cep = txt_CEP.Text.Replace("-", ""),
-                        cidade = txt_Cidade.Text,
-                        cnpjOficina = o.cnpj,
-                        complemento = txt_Complemento.Text,
-                        logradouro = txt_Rua.Text,
-                        numero = int.Parse(txt_Numero.Text),
-                        uf = txt_UF.Text
-                    };
-
-                    if (context.Oficina.Where(oficina => oficina.cnpj.Equals(o.cnpj)).FirstOrDefault() != null)
-                    {
-                        pnl_Alert.Visible = true;
-                        pnl_Alert.CssClass = "alert alert-danger";
-                        lbl_Alert.Text = "Uma oficina com este CNPJ já existe";
-                    }
-                    else
-                    {
-                        context.Oficina.Add(o);
-                        context.Endereco.Add(endereco);
-
-                        Funcionario f = new Funcionario
+                        Oficina o = new Oficina
                         {
-                            cargo = "Gerente",
-                            cpf = c.cpf,
-                            cnpjOficina = o.cnpj,
+                            cnpj = txt_CNPJ.Text.Replace(".", "").Replace("/", "").Replace("-", ""),
+                            nome = txt_Nome.Text,
+                            telefone = txt_Telefone.Text.Replace("(", "").Replace(")", "").Replace(" ", "").Replace("-", ""),
+                            email = txt_Email.Text,
+                            capacidadeAgendamentos = int.Parse(num_Agendamentos.Text),
+                            statusAssinatura = 1,
+                            duracaoAtendimento = TimeSpan.Parse(txt_TempoAtendimento.Text)
                         };
 
-                        context.Funcionario.Add(f);
+                        Endereco endereco = new Endereco()
+                        {
+                            cep = txt_CEP.Text.Replace("-", ""),
+                            cidade = txt_Cidade.Text,
+                            cnpjOficina = o.cnpj,
+                            complemento = txt_Complemento.Text,
+                            logradouro = txt_Rua.Text,
+                            numero = int.Parse(txt_Numero.Text),
+                            uf = txt_UF.Text
+                        };
 
-                        context.SaveChanges();
-                        pnl_Alert.Visible = true;
-                        pnl_Alert.CssClass = "alert alert-success";
-                        lbl_Alert.Text = "Oficina cadastrada com sucesso";
+                        if (context.Oficina.Where(oficina => oficina.cnpj.Equals(o.cnpj)).FirstOrDefault() != null)
+                        {
+                            pnl_Alert.Visible = true;
+                            pnl_Alert.CssClass = "alert alert-danger";
+                            lbl_Alert.Text = "Uma oficina com este CNPJ já existe";
+                        }
+                        else
+                        {
+                            context.Oficina.Add(o);
+                            context.Endereco.Add(endereco);
 
-                        Response.Redirect("home.aspx", false);
+                            DiaFuncionamento dia;
+                            if (txt_HorarioAberturaUtil.Text.Length > 0 && txt_HorarioFechamentoUtil.Text.Length > 0)
+                            {
+                                dia = new DiaFuncionamento()
+                                {
+                                    diaSemana = "util",
+                                    cnpjOficina = o.cnpj,
+                                    horaAbertura = TimeSpan.Parse(txt_HorarioAberturaUtil.Text),
+                                    horaFechamento = TimeSpan.Parse(txt_HorarioFechamentoUtil.Text)
+                                };
+                                context.DiaFuncionamento.Add(dia);
+                                context.SaveChanges();
+                            }
+                            if (txt_HorarioAberturaSabado.Text.Length > 0 && txt_HorarioFechamentoSabado.Text.Length > 0)
+                            {
+                                dia = new DiaFuncionamento()
+                                {
+                                    diaSemana = "sabado",
+                                    cnpjOficina = o.cnpj,
+                                    horaAbertura = TimeSpan.Parse(txt_HorarioAberturaSabado.Text),
+                                    horaFechamento = TimeSpan.Parse(txt_HorarioFechamentoSabado.Text)
+                                };
+                                context.DiaFuncionamento.Add(dia);
+                                context.SaveChanges();
+                            }
+                            if (txt_HorarioAberturaDomingo.Text.Length > 0 && txt_HorarioFechamentoDomingo.Text.Length > 0)
+                            {
+                                dia = new DiaFuncionamento()
+                                {
+                                    diaSemana = "domingo",
+                                    cnpjOficina = o.cnpj,
+                                    horaAbertura = TimeSpan.Parse(txt_HorarioAberturaDomingo.Text),
+                                    horaFechamento = TimeSpan.Parse(txt_HorarioFechamentoDomingo.Text)
+                                };
+                                context.DiaFuncionamento.Add(dia);
+                                context.SaveChanges();
+                            }
+
+                            Funcionario f = new Funcionario
+                            {
+                                cargo = "Gerente",
+                                cpf = c.cpf,
+                                cnpjOficina = o.cnpj,
+                            };
+
+                            context.Funcionario.Add(f);
+
+                            context.SaveChanges();
+                            pnl_Alert.Visible = true;
+                            pnl_Alert.CssClass = "alert alert-success";
+                            lbl_Alert.Text = "Oficina cadastrada com sucesso";
+
+                            Response.Redirect("home.aspx", false);
+                        }
                     }
                 }
             }

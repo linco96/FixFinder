@@ -14,10 +14,11 @@ namespace FixFinder.Models
     
     public partial class DiaFuncionamento
     {
-        public string cnpjOficina { get; set; }
+        public int idDiaFuncionamento { get; set; }
         public System.TimeSpan horaAbertura { get; set; }
         public System.TimeSpan horaFechamento { get; set; }
         public string diaSemana { get; set; }
+        public string cnpjOficina { get; set; }
     
         public virtual Oficina Oficina { get; set; }
     }

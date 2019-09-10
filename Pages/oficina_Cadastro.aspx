@@ -34,15 +34,50 @@
                 <label for="txt_Email">E-mail</label>
                 <asp:TextBox runat="server" ID="txt_Email" CssClass="form-control" type="email" required="required"></asp:TextBox>
             </div>
+            <div class="form-group">
+                <h4>Segunda à Sexta</h4>
+            </div>
             <div class="form-inline">
                 <span class="w-50 text-left pr-3 mb-1">
-                    <label for="txt_HorarioAbertura" style="display: block">Horário de abertura</label>
-                    <asp:TextBox runat="server" ID="txt_HorarioAbertura" CssClass="form-control w-100" type="time" required="required"></asp:TextBox>
+                    <label for="txt_HorarioAberturaUtil" style="display: block">Horário de abertura</label>
+                    <asp:TextBox runat="server" ID="txt_HorarioAberturaUtil" CssClass="form-control w-100" type="time"></asp:TextBox>
                 </span>
                 <span class="w-50 text-left pl-3 mb-1">
-                    <label for="txt_HorarioFechamento" style="display: block">Horário de fechamento</label>
-                    <asp:TextBox runat="server" ID="txt_HorarioFechamento" CssClass="form-control w-100" type="time" required="required"></asp:TextBox>
+                    <label for="txt_HorarioFechamentoUtil" style="display: block">Horário de fechamento</label>
+                    <asp:TextBox runat="server" ID="txt_HorarioFechamentoUtil" CssClass="form-control w-100" type="time"></asp:TextBox>
                 </span>
+            </div>
+            <div class="form-group mt-3">
+                <h4>Sábado</h4>
+            </div>
+            <div class="form-inline">
+                <span class="w-50 text-left pr-3 mb-1">
+                    <label for="txt_HorarioAberturaSabado" style="display: block">Horário de abertura</label>
+                    <asp:TextBox runat="server" ID="txt_HorarioAberturaSabado" CssClass="form-control w-100" type="time"></asp:TextBox>
+                </span>
+                <span class="w-50 text-left pl-3 mb-1">
+                    <label for="txt_HorarioFechamentoSabado" style="display: block">Horário de fechamento</label>
+                    <asp:TextBox runat="server" ID="txt_HorarioFechamentoSabado" CssClass="form-control w-100" type="time"></asp:TextBox>
+                </span>
+            </div>
+            <div class="form-group mt-3">
+                <h4>Domingo</h4>
+            </div>
+            <div class="form-inline">
+                <span class="w-50 text-left pr-3 mb-1">
+                    <label for="txt_HorarioAberturaDomingo" style="display: block">Horário de abertura</label>
+                    <asp:TextBox runat="server" ID="txt_HorarioAberturaDomingo" CssClass="form-control w-100" type="time"></asp:TextBox>
+                </span>
+                <span class="w-50 text-left pl-3 mb-1">
+                    <label for="txt_HorarioFechamentoDomingo" style="display: block">Horário de fechamento</label>
+                    <asp:TextBox runat="server" ID="txt_HorarioFechamentoDomingo" CssClass="form-control w-100" type="time"></asp:TextBox>
+                </span>
+            </div>
+            <div class="form-group">
+                <small id="horario_Help" class="form-text text-muted">Caso a oficina não abra no dia especificado, deixe os campos vazios</small>
+            </div>
+            <div class="form-group mt-3">
+                <h4>Agendamentos</h4>
             </div>
             <div class="form-inline">
                 <span class="w-50 text-left pr-3 mb-1">

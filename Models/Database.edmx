@@ -64,12 +64,13 @@
         </EntityType>
         <EntityType Name="DiaFuncionamento">
           <Key>
-            <PropertyRef Name="cnpjOficina" />
+            <PropertyRef Name="idDiaFuncionamento" />
           </Key>
-          <Property Name="cnpjOficina" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="idDiaFuncionamento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="horaAbertura" Type="time" Precision="0" Nullable="false" />
           <Property Name="horaFechamento" Type="time" Precision="0" Nullable="false" />
           <Property Name="diaSemana" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="cnpjOficina" Type="varchar" MaxLength="15" Nullable="false" />
         </EntityType>
         <EntityType Name="Endereco">
           <Key>
@@ -370,7 +371,7 @@
         </Association>
         <Association Name="FK_DiaFuncionamento_Oficina">
           <End Role="Oficina" Type="Self.Oficina" Multiplicity="1" />
-          <End Role="DiaFuncionamento" Type="Self.DiaFuncionamento" Multiplicity="0..1" />
+          <End Role="DiaFuncionamento" Type="Self.DiaFuncionamento" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Oficina">
               <PropertyRef Name="cnpj" />
@@ -923,12 +924,13 @@
         </EntityType>
         <EntityType Name="DiaFuncionamento">
           <Key>
-            <PropertyRef Name="cnpjOficina" />
+            <PropertyRef Name="idDiaFuncionamento" />
           </Key>
-          <Property Name="cnpjOficina" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idDiaFuncionamento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="horaAbertura" Type="Time" Nullable="false" Precision="0" />
           <Property Name="horaFechamento" Type="Time" Nullable="false" Precision="0" />
           <Property Name="diaSemana" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cnpjOficina" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Oficina" Relationship="Self.FK_DiaFuncionamento_Oficina" FromRole="DiaFuncionamento" ToRole="Oficina" />
         </EntityType>
         <EntityType Name="Endereco">
@@ -1352,7 +1354,7 @@
         </Association>
         <Association Name="FK_DiaFuncionamento_Oficina">
           <End Role="Oficina" Type="Self.Oficina" Multiplicity="1" />
-          <End Role="DiaFuncionamento" Type="Self.DiaFuncionamento" Multiplicity="0..1" />
+          <End Role="DiaFuncionamento" Type="Self.DiaFuncionamento" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Oficina">
               <PropertyRef Name="cnpj" />
@@ -1823,10 +1825,11 @@
           <EntitySetMapping Name="DiaFuncionamento">
             <EntityTypeMapping TypeName="DatabaseModel.DiaFuncionamento">
               <MappingFragment StoreEntitySet="DiaFuncionamento">
-                <ScalarProperty Name="cnpjOficina" ColumnName="cnpjOficina" />
+                <ScalarProperty Name="idDiaFuncionamento" ColumnName="idDiaFuncionamento" />
                 <ScalarProperty Name="horaAbertura" ColumnName="horaAbertura" />
                 <ScalarProperty Name="horaFechamento" ColumnName="horaFechamento" />
                 <ScalarProperty Name="diaSemana" ColumnName="diaSemana" />
+                <ScalarProperty Name="cnpjOficina" ColumnName="cnpjOficina" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

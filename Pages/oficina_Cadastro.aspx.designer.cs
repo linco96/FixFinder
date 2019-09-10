@@ -67,22 +67,58 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.WebControls.TextBox txt_Email;
         
         /// <summary>
-        /// txt_HorarioAbertura control.
+        /// txt_HorarioAberturaUtil control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_HorarioAbertura;
+        protected global::System.Web.UI.WebControls.TextBox txt_HorarioAberturaUtil;
         
         /// <summary>
-        /// txt_HorarioFechamento control.
+        /// txt_HorarioFechamentoUtil control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_HorarioFechamento;
+        protected global::System.Web.UI.WebControls.TextBox txt_HorarioFechamentoUtil;
+        
+        /// <summary>
+        /// txt_HorarioAberturaSabado control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_HorarioAberturaSabado;
+        
+        /// <summary>
+        /// txt_HorarioFechamentoSabado control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_HorarioFechamentoSabado;
+        
+        /// <summary>
+        /// txt_HorarioAberturaDomingo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_HorarioAberturaDomingo;
+        
+        /// <summary>
+        /// txt_HorarioFechamentoDomingo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_HorarioFechamentoDomingo;
         
         /// <summary>
         /// num_Agendamentos control.

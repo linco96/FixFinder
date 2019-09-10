@@ -4,30 +4,31 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="16fefe8a02f4481a9c8b69e5d6623483" Name="Diagram1">
-        <EntityTypeShape EntityType="DatabaseModel.Agendamento" Width="1.5" PointX="3" PointY="22" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Avaliacao" Width="1.5" PointX="6" PointY="24.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Cartao" Width="1.5" PointX="6" PointY="11.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Cliente" Width="1.5" PointX="3.75" PointY="16.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Compra" Width="1.5" PointX="5.25" PointY="28.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Endereco" Width="1.5" PointX="3" PointY="26.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Fornecedor" Width="1.5" PointX="3" PointY="29.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.FotoOficina" Width="1.5" PointX="3" PointY="33" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Funcionario" Width="1.5" PointX="6" PointY="20" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Localizacao" Width="1.5" PointX="6" PointY="7.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Mensagem" Width="1.5" PointX="10.5" PointY="21.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Oficina" Width="1.5" PointX="0.75" PointY="22.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Orcamento" Width="1.5" PointX="8.25" PointY="22" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Pagamento" Width="1.5" PointX="10.5" PointY="24.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.PagamentoAssinatura" Width="1.5" PointX="3" PointY="39.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Parcela" Width="1.5" PointX="12.75" PointY="24.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Produto" Width="1.5" PointX="3" PointY="42.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.ProdutosCompra" Width="1.5" PointX="7.5" PointY="36.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.ProdutosOrcamento" Width="1.5" PointX="10.5" PointY="33.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.RequisicaoFuncionario" Width="1.5" PointX="8" PointY="28" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Servico" Width="1.5" PointX="3" PointY="50.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.ServicosOrcamento" Width="1.5" PointX="10.5" PointY="36.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Veiculo" Width="1.5" PointX="6" PointY="15.75" IsExpanded="true" />
+      <Diagram DiagramId="c279b64f26324d7caad3fde5af02a2b9" Name="Diagram1">
+        <EntityTypeShape EntityType="DatabaseModel.Agendamento" Width="1.5" PointX="3" PointY="22.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Avaliacao" Width="1.5" PointX="6" PointY="25.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Cartao" Width="1.5" PointX="6" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Cliente" Width="1.5" PointX="3.75" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Compra" Width="1.5" PointX="5.25" PointY="29.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.DiaFuncionamento" Width="1.5" PointX="3" PointY="26.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Endereco" Width="1.5" PointX="3" PointY="29.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Fornecedor" Width="1.5" PointX="3" PointY="32.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.FotoOficina" Width="1.5" PointX="3" PointY="35.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Funcionario" Width="1.5" PointX="6" PointY="21.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Localizacao" Width="1.5" PointX="6" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Mensagem" Width="1.5" PointX="10.5" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Oficina" Width="1.5" PointX="0.75" PointY="24.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Orcamento" Width="1.5" PointX="8.25" PointY="23.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Pagamento" Width="1.5" PointX="10.5" PointY="25.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.PagamentoAssinatura" Width="1.5" PointX="3" PointY="42.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Parcela" Width="1.5" PointX="12.75" PointY="26" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Produto" Width="1.5" PointX="3" PointY="45.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.ProdutosCompra" Width="1.5" PointX="7.5" PointY="38.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.ProdutosOrcamento" Width="1.5" PointX="10.5" PointY="35.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.RequisicaoFuncionario" Width="1.5" PointX="8" PointY="29.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Servico" Width="1.5" PointX="3" PointY="53.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.ServicosOrcamento" Width="1.5" PointX="10.5" PointY="38.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Veiculo" Width="1.5" PointX="6" PointY="17.125" IsExpanded="true" />
         <AssociationConnector Association="DatabaseModel.FK_Agendamento_Cliente" ManuallyRouted="false" />
         <AssociationConnector Association="DatabaseModel.FK_Agendamento_Oficina" ManuallyRouted="false" />
         <AssociationConnector Association="DatabaseModel.FK_Agendamento_Veiculo" ManuallyRouted="false" />
@@ -42,6 +43,7 @@
         <AssociationConnector Association="DatabaseModel.FK_Compra_Fornecedor" ManuallyRouted="false" />
         <AssociationConnector Association="DatabaseModel.FK_Compra_Oficina" ManuallyRouted="false" />
         <AssociationConnector Association="DatabaseModel.FK_ProdutosCompra_Compra" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModel.FK_DiaFuncionamento_Oficina" ManuallyRouted="false" />
         <AssociationConnector Association="DatabaseModel.FK_Endereco_Oficina" ManuallyRouted="false" />
         <AssociationConnector Association="DatabaseModel.FK_Fornecedor_Oficina" ManuallyRouted="false" />
         <AssociationConnector Association="DatabaseModel.FK_FotoOficina_Oficina" ManuallyRouted="false" />

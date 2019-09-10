@@ -30,6 +30,7 @@ namespace FixFinder.Models
         public virtual DbSet<Cartao> Cartao { get; set; }
         public virtual DbSet<Cliente> Cliente { get; set; }
         public virtual DbSet<Compra> Compra { get; set; }
+        public virtual DbSet<DiaFuncionamento> DiaFuncionamento { get; set; }
         public virtual DbSet<Endereco> Endereco { get; set; }
         public virtual DbSet<Fornecedor> Fornecedor { get; set; }
         public virtual DbSet<FotoOficina> FotoOficina { get; set; }

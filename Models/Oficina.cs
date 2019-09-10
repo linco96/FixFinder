@@ -35,8 +35,6 @@ namespace FixFinder.Models
         public Nullable<double> reputacao { get; set; }
         public string telefone { get; set; }
         public string email { get; set; }
-        public System.TimeSpan horaAbertura { get; set; }
-        public System.TimeSpan horaFechamento { get; set; }
         public System.TimeSpan duracaoAtendimento { get; set; }
         public int capacidadeAgendamentos { get; set; }
         public byte statusAssinatura { get; set; }
@@ -48,6 +46,7 @@ namespace FixFinder.Models
         public virtual ICollection<Avaliacao> Avaliacao { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Compra> Compra { get; set; }
+        public virtual DiaFuncionamento DiaFuncionamento { get; set; }
         public virtual Endereco Endereco { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Fornecedor> Fornecedor { get; set; }

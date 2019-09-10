@@ -62,6 +62,15 @@
           <Property Name="idFornecedor" Type="int" Nullable="false" />
           <Property Name="cnpjOficina" Type="varchar" MaxLength="15" Nullable="false" />
         </EntityType>
+        <EntityType Name="DiaFuncionamento">
+          <Key>
+            <PropertyRef Name="cnpjOficina" />
+          </Key>
+          <Property Name="cnpjOficina" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="horaAbertura" Type="time" Precision="0" Nullable="false" />
+          <Property Name="horaFechamento" Type="time" Precision="0" Nullable="false" />
+          <Property Name="diaSemana" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
         <EntityType Name="Endereco">
           <Key>
             <PropertyRef Name="cnpjOficina" />
@@ -139,8 +148,6 @@
           <Property Name="reputacao" Type="float" />
           <Property Name="telefone" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="horaAbertura" Type="time" Precision="0" Nullable="false" />
-          <Property Name="horaFechamento" Type="time" Precision="0" Nullable="false" />
           <Property Name="duracaoAtendimento" Type="time" Precision="0" Nullable="false" />
           <Property Name="capacidadeAgendamentos" Type="int" Nullable="false" />
           <Property Name="statusAssinatura" Type="tinyint" Nullable="false" />
@@ -357,6 +364,18 @@
               <PropertyRef Name="cnpj" />
             </Principal>
             <Dependent Role="Compra">
+              <PropertyRef Name="cnpjOficina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DiaFuncionamento_Oficina">
+          <End Role="Oficina" Type="Self.Oficina" Multiplicity="1" />
+          <End Role="DiaFuncionamento" Type="Self.DiaFuncionamento" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Oficina">
+              <PropertyRef Name="cnpj" />
+            </Principal>
+            <Dependent Role="DiaFuncionamento">
               <PropertyRef Name="cnpjOficina" />
             </Dependent>
           </ReferentialConstraint>
@@ -667,6 +686,7 @@
           <EntitySet Name="Cartao" EntityType="Self.Cartao" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Compra" EntityType="Self.Compra" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DiaFuncionamento" EntityType="Self.DiaFuncionamento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Endereco" EntityType="Self.Endereco" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Fornecedor" EntityType="Self.Fornecedor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FotoOficina" EntityType="Self.FotoOficina" Schema="dbo" store:Type="Tables" />
@@ -716,6 +736,10 @@
           <AssociationSet Name="FK_Compra_Oficina" Association="Self.FK_Compra_Oficina">
             <End Role="Oficina" EntitySet="Oficina" />
             <End Role="Compra" EntitySet="Compra" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DiaFuncionamento_Oficina" Association="Self.FK_DiaFuncionamento_Oficina">
+            <End Role="Oficina" EntitySet="Oficina" />
+            <End Role="DiaFuncionamento" EntitySet="DiaFuncionamento" />
           </AssociationSet>
           <AssociationSet Name="FK_Endereco_Oficina" Association="Self.FK_Endereco_Oficina">
             <End Role="Oficina" EntitySet="Oficina" />
@@ -897,6 +921,16 @@
           <NavigationProperty Name="Oficina" Relationship="Self.FK_Compra_Oficina" FromRole="Compra" ToRole="Oficina" />
           <NavigationProperty Name="ProdutosCompra" Relationship="Self.FK_ProdutosCompra_Compra" FromRole="Compra" ToRole="ProdutosCompra" />
         </EntityType>
+        <EntityType Name="DiaFuncionamento">
+          <Key>
+            <PropertyRef Name="cnpjOficina" />
+          </Key>
+          <Property Name="cnpjOficina" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="horaAbertura" Type="Time" Nullable="false" Precision="0" />
+          <Property Name="horaFechamento" Type="Time" Nullable="false" Precision="0" />
+          <Property Name="diaSemana" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Oficina" Relationship="Self.FK_DiaFuncionamento_Oficina" FromRole="DiaFuncionamento" ToRole="Oficina" />
+        </EntityType>
         <EntityType Name="Endereco">
           <Key>
             <PropertyRef Name="cnpjOficina" />
@@ -983,8 +1017,6 @@
           <Property Name="reputacao" Type="Double" />
           <Property Name="telefone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="horaAbertura" Type="Time" Nullable="false" Precision="0" />
-          <Property Name="horaFechamento" Type="Time" Nullable="false" Precision="0" />
           <Property Name="duracaoAtendimento" Type="Time" Nullable="false" Precision="0" />
           <Property Name="capacidadeAgendamentos" Type="Int32" Nullable="false" />
           <Property Name="statusAssinatura" Type="Byte" Nullable="false" />
@@ -992,6 +1024,7 @@
           <NavigationProperty Name="Agendamento" Relationship="Self.FK_Agendamento_Oficina" FromRole="Oficina" ToRole="Agendamento" />
           <NavigationProperty Name="Avaliacao" Relationship="Self.FK_Avaliacao_Oficina" FromRole="Oficina" ToRole="Avaliacao" />
           <NavigationProperty Name="Compra" Relationship="Self.FK_Compra_Oficina" FromRole="Oficina" ToRole="Compra" />
+          <NavigationProperty Name="DiaFuncionamento" Relationship="Self.FK_DiaFuncionamento_Oficina" FromRole="Oficina" ToRole="DiaFuncionamento" />
           <NavigationProperty Name="Endereco" Relationship="Self.FK_Endereco_Oficina" FromRole="Oficina" ToRole="Endereco" />
           <NavigationProperty Name="Fornecedor" Relationship="Self.FK_Fornecedor_Oficina" FromRole="Oficina" ToRole="Fornecedor" />
           <NavigationProperty Name="FotoOficina" Relationship="Self.FK_FotoOficina_Oficina" FromRole="Oficina" ToRole="FotoOficina" />
@@ -1317,6 +1350,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DiaFuncionamento_Oficina">
+          <End Role="Oficina" Type="Self.Oficina" Multiplicity="1" />
+          <End Role="DiaFuncionamento" Type="Self.DiaFuncionamento" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Oficina">
+              <PropertyRef Name="cnpj" />
+            </Principal>
+            <Dependent Role="DiaFuncionamento">
+              <PropertyRef Name="cnpjOficina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Endereco_Oficina">
           <End Role="Oficina" Type="Self.Oficina" Multiplicity="1" />
           <End Role="Endereco" Type="Self.Endereco" Multiplicity="0..1" />
@@ -1551,6 +1596,7 @@
           <EntitySet Name="Cartao" EntityType="Self.Cartao" />
           <EntitySet Name="Cliente" EntityType="Self.Cliente" />
           <EntitySet Name="Compra" EntityType="Self.Compra" />
+          <EntitySet Name="DiaFuncionamento" EntityType="Self.DiaFuncionamento" />
           <EntitySet Name="Endereco" EntityType="Self.Endereco" />
           <EntitySet Name="Fornecedor" EntityType="Self.Fornecedor" />
           <EntitySet Name="FotoOficina" EntityType="Self.FotoOficina" />
@@ -1624,6 +1670,10 @@
           <AssociationSet Name="FK_ProdutosCompra_Compra" Association="Self.FK_ProdutosCompra_Compra">
             <End Role="Compra" EntitySet="Compra" />
             <End Role="ProdutosCompra" EntitySet="ProdutosCompra" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DiaFuncionamento_Oficina" Association="Self.FK_DiaFuncionamento_Oficina">
+            <End Role="Oficina" EntitySet="Oficina" />
+            <End Role="DiaFuncionamento" EntitySet="DiaFuncionamento" />
           </AssociationSet>
           <AssociationSet Name="FK_Endereco_Oficina" Association="Self.FK_Endereco_Oficina">
             <End Role="Oficina" EntitySet="Oficina" />
@@ -1770,6 +1820,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="DiaFuncionamento">
+            <EntityTypeMapping TypeName="DatabaseModel.DiaFuncionamento">
+              <MappingFragment StoreEntitySet="DiaFuncionamento">
+                <ScalarProperty Name="cnpjOficina" ColumnName="cnpjOficina" />
+                <ScalarProperty Name="horaAbertura" ColumnName="horaAbertura" />
+                <ScalarProperty Name="horaFechamento" ColumnName="horaFechamento" />
+                <ScalarProperty Name="diaSemana" ColumnName="diaSemana" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Endereco">
             <EntityTypeMapping TypeName="DatabaseModel.Endereco">
               <MappingFragment StoreEntitySet="Endereco">
@@ -1852,8 +1912,6 @@
                 <ScalarProperty Name="reputacao" ColumnName="reputacao" />
                 <ScalarProperty Name="telefone" ColumnName="telefone" />
                 <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="horaAbertura" ColumnName="horaAbertura" />
-                <ScalarProperty Name="horaFechamento" ColumnName="horaFechamento" />
                 <ScalarProperty Name="duracaoAtendimento" ColumnName="duracaoAtendimento" />
                 <ScalarProperty Name="capacidadeAgendamentos" ColumnName="capacidadeAgendamentos" />
                 <ScalarProperty Name="statusAssinatura" ColumnName="statusAssinatura" />

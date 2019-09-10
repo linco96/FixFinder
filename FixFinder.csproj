@@ -229,6 +229,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Database.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\DiaFuncionamento.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Endereco.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>

@@ -18,7 +18,9 @@
             <asp:Panel runat="server" ID="pnl_Alert" Visible="false" CssClass="alert alert-danger" role="alert">
                 <asp:Label ID="lbl_Alert" runat="server"></asp:Label>
             </asp:Panel>
-            <h1 class="display-4 text-primary" style="text-align: center">Agendamentos</h1>
+            <div>
+                <asp:Button runat="server" ID="btn_MostrarEsconderPassados" Text="Mostrar agendamentos passados" CssClass="btn btn-outline-primary btn-sm mb-2" aria-pressed="true" OnClick="btn_MostrarEsconderPassados_Click" formnovalidate="true" />
+            </div>
             <div class="table-responsive-xl">
                 <asp:Table runat="server" ID="tbl_Agendamentos" CssClass="table border rounded-lg mt-3">
                 </asp:Table>

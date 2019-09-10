@@ -8,7 +8,7 @@ using FixFinder.Models;
 
 namespace FixFinder.Pages
 {
-    public partial class agendamento_ListaCliente : System.Web.UI.Page
+    public partial class agendamento_ListaOficina : System.Web.UI.Page
     {
         private Cliente c;
 
@@ -62,12 +62,21 @@ namespace FixFinder.Pages
 
                             cell = new TableCell();
                             cell.CssClass = "text-center align-middle";
+                            if (a.status.Equals("Confirmação pendente"))
+                            {
+                                btn = new Button();
+                                btn.Click += new EventHandler(btn_Confirmar_Click);
+                                btn.Text = "Confirmar";
+                                btn.CssClass = "btn btn-success ml-2";
+                                btn.CommandArgument = a.idAgendamento.ToString();
+                                cell.Controls.Add(btn);
+                            }
                             if (a.status.Equals("Confirmação pendente") || a.status.Equals("Confirmado"))
                             {
                                 btn = new Button();
                                 btn.Click += new EventHandler(btn_Cancelar_Click);
                                 btn.Text = "Cancelar";
-                                btn.CssClass = "btn btn-danger";
+                                btn.CssClass = "btn btn-danger ml-2";
                                 btn.CommandArgument = a.idAgendamento.ToString();
                                 cell.Controls.Add(btn);
                             }
@@ -81,7 +90,7 @@ namespace FixFinder.Pages
                         row = new TableRow();
                         cell = new TableCell();
                         cell.Text = "Nenhum agendamento foi encontrado";
-                        cell.ColumnSpan = 4;
+                        cell.ColumnSpan = 6;
                         cell.CssClass = "text-center align-middle font-weight-bold text-primary";
                         row.Cells.Add(cell);
                         tbl_Agendamentos.Rows.Add(row);
@@ -96,24 +105,12 @@ namespace FixFinder.Pages
             }
         }
 
+        protected void btn_Confirmar_Click(object sender, EventArgs e)
+        {
+        }
+
         protected void btn_Cancelar_Click(object sender, EventArgs e)
         {
-            Button btn = sender as Button;
-            try
-            {
-                using (DatabaseEntities context = new DatabaseEntities())
-                {
-                    int id = int.Parse(btn.CommandArgument);
-                    Agendamento agendamento = context.Agendamento.Where(a => a.idAgendamento == id).FirstOrDefault();
-                    agendamento.status = "Cancelado pelo cliente";
-                }
-            }
-            catch (Exception ex)
-            {
-                pnl_Alert.CssClass = "alert alert-danger";
-                lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
-                pnl_Alert.Visible = true;
-            }
         }
     }
 }

@@ -384,6 +384,15 @@ namespace FixFinder.Pages
                     orcamento.status = "Rejeitado pelo cliente";
                     context.SaveChanges();
                     preencherTabela();
+
+                    List<ProdutosOrcamento> produtos = context.ProdutosOrcamento.Where(prod => prod.idOrcamento == id).ToList();
+                    Produto p;
+                    foreach (ProdutosOrcamento produto in produtos)
+                    {
+                        p = context.Produto.Where(prod => prod.idProduto == produto.idProduto).FirstOrDefault();
+                        p.quantidade += produto.quantidade;
+                        context.SaveChanges();
+                    }
                 }
             }
             catch (Exception ex)

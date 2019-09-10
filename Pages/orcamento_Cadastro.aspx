@@ -43,7 +43,8 @@
                 </asp:DropDownList>
             </div>
 
-            <div class="form-group align-content-center mt-5">
+            <div class="form-group align-content-cen
+                ter mt-5">
                 <h4>Serviços</h4>
                 <div>
                     <asp:Button runat="server" ID="btn_NovoServico" Text="Novo serviço" CssClass="btn btn-outline-primary btn-sm mt-1" aria-pressed="true" OnClick="btn_NovoServico_Click" formnovalidate="true" />

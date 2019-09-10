@@ -315,10 +315,11 @@ namespace FixFinder.Pages
                     {
                         Button btn = new Button();
                         btn.Click += new EventHandler(btn_Avaliar_Click);
-                        btn.ID = "btn_Rejeitar" + o.idOrcamento.ToString();
-                        btn.Text = "Rejeitar";
-                        btn.CssClass = "btn btn-danger ml-1 mt-3";
+                        btn.ID = "btn_Avaliar" + o.idOrcamento.ToString();
+                        btn.Text = "Avaliar";
+                        btn.CssClass = "btn btn-success ml-1 mt-3";
                         btn.CommandArgument = o.idOrcamento.ToString();
+                        body.Controls.Add(btn);
                     }
 
                     card.Controls.Add(body);

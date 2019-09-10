@@ -26,7 +26,28 @@
                 <h5 runat="server" id="lbl_Endereco" class="text-muted" style="text-align: center">Rua DAS na Torre, 2062<br />
                     NteInteressa, Curitiba</h5>
             </div>
+            <hr class="border border-primary border-bottom-0 mt-1 mb-1" />
 
+            <%--DADOS ORCAMENTO--%>
+            <div class="form-group">
+                <label for="txt_Veiculo">Veiculo</label>
+                <asp:TextBox runat="server" ID="txt_Veiculo" CssClass="form-control" ReadOnly="true"></asp:TextBox>
+            </div>
+            <div class="form-group">
+                <label for="txt_PrecoTotal">Preço Total</label>
+                <asp:TextBox runat="server" ID="txt_PrecoTotal" CssClass="form-control" ReadOnly="true"></asp:TextBox>
+            </div>
+
+            <%--AVALIAR--%>
+            <div class="form-inline">
+                <asp:RadioButtonList runat="server" ID="radio_ModeloPlaca">
+                    <asp:ListItem Text="Placa nova" Value="nova"></asp:ListItem>
+                    <asp:ListItem Text="Placa antiga" Value="antiga"></asp:ListItem>
+                    <asp:ListItem Text="Placa antiga" Value="antiga"></asp:ListItem>
+                    <asp:ListItem Text="Placa antiga" Value="antiga"></asp:ListItem>
+                    <asp:ListItem Text="Placa antiga" Value="antiga"></asp:ListItem>
+                </asp:RadioButtonList>
+            </div>
             <%--FIM--%>
         </div>
     </form>

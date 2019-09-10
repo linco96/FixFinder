@@ -135,12 +135,12 @@ namespace FixFinder.Pages
                             }
                             if (p.validade == null)
                             {
-                                item.Text = p.descricao + " " + p.marca + " - R$ " + precoVenda.ToString("0.00");
+                                item.Text = p.descricao + " " + p.marca + " - R$ " + precoVenda.ToString("0.00") + " - Estoque: " + p.quantidade;
                             }
                             else
                             {
                                 validade = (DateTime)p.validade;
-                                item.Text = p.descricao + " " + p.marca + " - R$ " + precoVenda.ToString("0.00") + " (Vence em " + validade.ToString("dd/MM/yyyy") + ")";
+                                item.Text = p.descricao + " " + p.marca + " - R$ " + precoVenda.ToString("0.00") + " - Estoque: " + p.quantidade + " (Vence em " + validade.ToString("dd/MM/yyyy") + ")";
                             }
                             item.Value = p.idProduto.ToString();
                             txt_ProdutoSelecionado.Items.Add(item);
@@ -677,10 +677,19 @@ namespace FixFinder.Pages
                             {
                                 int id = int.Parse(txt_ProdutoSelecionado.SelectedValue);
                                 Produto p = context.Produto.Where(produto => produto.idProduto == id).FirstOrDefault();
-                                produtosSelecionados.Add(p, quantidade);
-                                pnl_Alert.Visible = false;
-                                adicionarTabelaProdutos(p);
-                                atualizarTotal();
+                                if (quantidade > p.quantidade)
+                                {
+                                    pnl_Alert.CssClass = "alert alert-danger";
+                                    lbl_Alert.Text = "Informe uma quantidade válida";
+                                    pnl_Alert.Visible = true;
+                                }
+                                else
+                                {
+                                    produtosSelecionados.Add(p, quantidade);
+                                    pnl_Alert.Visible = false;
+                                    adicionarTabelaProdutos(p);
+                                    atualizarTotal();
+                                }
                             }
                         }
                         else
@@ -792,6 +801,8 @@ namespace FixFinder.Pages
                     servicosSelecionados.Add(s);
                     txt_DescricaoServico.Text = "";
                     txt_ValorServico.Text = "";
+                    form_CadastroServico.Visible = false;
+                    btn_NovoServico.Visible = true;
                     pnl_Alert.Visible = false;
                     adicionarTabelaServicos(s);
                     atualizarTotal();
@@ -850,6 +861,8 @@ namespace FixFinder.Pages
                         txt_PrecoVendaProduto.Text = "";
                         txt_ValidadeProduto.Text = "";
                         txt_QuantidadeUtilizadaProduto.Text = "";
+                        form_CadastroProduto.Visible = false;
+                        btn_NovoProduto.Visible = true;
 
                         pnl_Alert.Visible = false;
 
@@ -1041,6 +1054,7 @@ namespace FixFinder.Pages
                             DateTime data = DateTime.Now;
                             Double total = atualizarTotal();
                             String status = "Aprovação da gerencia pendente";
+                            Produto prod;
 
                             Orcamento orcamento = new Orcamento()
                             {
@@ -1080,6 +1094,10 @@ namespace FixFinder.Pages
                                         quantidade = produtosSelecionados[p]
                                     };
                                     context.ProdutosOrcamento.Add(po);
+                                    context.SaveChanges();
+
+                                    prod = context.Produto.Where(produto => produto.idProduto == p.idProduto).FirstOrDefault();
+                                    prod.quantidade -= po.quantidade;
                                     context.SaveChanges();
                                 }
                             }

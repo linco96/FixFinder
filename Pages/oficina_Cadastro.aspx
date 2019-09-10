@@ -28,7 +28,7 @@
             </div>
             <div class="form-group">
                 <label for="txt_Telefone">Telefone</label>
-                <asp:TextBox runat="server" ID="txt_Telefone" CssClass="form-control" onkeypress="$(this).mask('(00) 0 0000-0000');" required="required"></asp:TextBox>
+                <asp:TextBox runat="server" ID="txt_Telefone" CssClass="form-control" minlength="15" onkeypress="$(this).mask('(00) 0 0000-0000');" required="required"></asp:TextBox>
             </div>
             <div class="form-group">
                 <label for="txt_Email">E-mail</label>

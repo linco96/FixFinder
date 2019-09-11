@@ -39,16 +39,42 @@
             </div>
 
             <%--AVALIAR--%>
-            <div class="form-inline">
-                <asp:RadioButtonList runat="server" ID="radio_ModeloPlaca">
-                    <asp:ListItem Text="Placa nova" Value="nova"></asp:ListItem>
-                    <asp:ListItem Text="Placa antiga" Value="antiga"></asp:ListItem>
-                    <asp:ListItem Text="Placa antiga" Value="antiga"></asp:ListItem>
-                    <asp:ListItem Text="Placa antiga" Value="antiga"></asp:ListItem>
-                    <asp:ListItem Text="Placa antiga" Value="antiga"></asp:ListItem>
-                </asp:RadioButtonList>
+            <div class="form-group">
+                <div class="form-inline">
+                    <h4>Faça sua avaliação</h4>
+                </div>
+                <div class="form-inline">
+                    <asp:RadioButtonList runat="server" ID="radio_Avaliacao" RepeatDirection="Horizontal" RepeatLayout="Table" AutoPostBack="true" sytle="display: block" CssClass="w-25 text-center">
+                        <asp:ListItem Text="1" Value="1"></asp:ListItem>
+                        <asp:ListItem Text="2" Value="2"></asp:ListItem>
+                        <asp:ListItem Text="3" Value="3"></asp:ListItem>
+                        <asp:ListItem Text="4" Value="4"></asp:ListItem>
+                        <asp:ListItem Text="5" Value="5"></asp:ListItem>
+                        <asp:ListItem Text="6" Value="6"></asp:ListItem>
+                        <asp:ListItem Text="7" Value="7"></asp:ListItem>
+                        <asp:ListItem Text="8" Value="8"></asp:ListItem>
+                        <asp:ListItem Text="9" Value="9"></asp:ListItem>
+                        <asp:ListItem Text="10" Value="10"></asp:ListItem>
+                    </asp:RadioButtonList>
+                </div>
+                <div class="form-inline">
+                    <h4>Escreva seu comentário</h4>
+                </div>
+                <div class="form-inline mt-1">
+                    <span class="w-100 text-left">
+                        <asp:TextBox runat="server" ID="txt_Descrição" CssClass="form-control w-100" TextMode="MultiLine" autocomplete="off" Columns="100" Rows="3" MaxLength="200"></asp:TextBox>
+                    </span>
+                </div>
             </div>
-            <%--FIM--%>
+            <div class="form-inline mt-1">
+                <asp:Panel ID="pnl_Alert" runat="server" Visible="false" CssClass="alert alert-success w-100" role="alert">
+                    <asp:Label runat="server" ID="lbl_Alert" CssClass="form-text text-muted"></asp:Label>
+                </asp:Panel>
+            </div>
+            <div class="form-inline mt-1">
+                <asp:Button runat="server" ID="btn_Avaliar" Text="Avaliar" CssClass="btn btn-success mr-1" />
+                <asp:Button runat="server" ID="btn_Cancelar" Text="Cancelar" CssClass="btn btn-danger" />
+            </div>
         </div>
     </form>
 </body>

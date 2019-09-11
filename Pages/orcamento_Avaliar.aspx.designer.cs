@@ -67,12 +67,57 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.WebControls.TextBox txt_PrecoTotal;
         
         /// <summary>
-        /// radio_ModeloPlaca control.
+        /// radio_Avaliacao control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList radio_ModeloPlaca;
+        protected global::System.Web.UI.WebControls.RadioButtonList radio_Avaliacao;
+        
+        /// <summary>
+        /// txt_Descrição control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_Descrição;
+        
+        /// <summary>
+        /// pnl_Alert control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnl_Alert;
+        
+        /// <summary>
+        /// lbl_Alert control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_Alert;
+        
+        /// <summary>
+        /// btn_Avaliar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_Avaliar;
+        
+        /// <summary>
+        /// btn_Cancelar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_Cancelar;
     }
 }

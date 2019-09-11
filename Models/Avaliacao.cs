@@ -17,8 +17,8 @@ namespace FixFinder.Models
         public int idAvaliacao { get; set; }
         public string cnpjOficina { get; set; }
         public string cpfCliente { get; set; }
-        public int notaPreco { get; set; }
-        public int notaServico { get; set; }
+        public double notaPreco { get; set; }
+        public double notaServico { get; set; }
         public string descricao { get; set; }
     
         public virtual Cliente Cliente { get; set; }

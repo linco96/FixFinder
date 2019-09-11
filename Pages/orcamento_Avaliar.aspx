@@ -44,7 +44,7 @@
                     <h4>Faça sua avaliação</h4>
                 </div>
                 <div class="form-inline">
-                    <asp:RadioButtonList runat="server" ID="radio_Avaliacao" RepeatDirection="Horizontal" RepeatLayout="Table" AutoPostBack="true" sytle="display: block" CssClass="w-25 text-center">
+                    <asp:RadioButtonList runat="server" ID="radio_AvaliacaoServico" RepeatDirection="Horizontal" RepeatLayout="Table" AutoPostBack="false" sytle="display: block" CssClass="w-25 text-center" required>
                         <asp:ListItem Text="1" Value="1"></asp:ListItem>
                         <asp:ListItem Text="2" Value="2"></asp:ListItem>
                         <asp:ListItem Text="3" Value="3"></asp:ListItem>
@@ -58,11 +58,28 @@
                     </asp:RadioButtonList>
                 </div>
                 <div class="form-inline">
+                    <asp:RadioButtonList runat="server" ID="RadioButtonList1" RepeatDirection="Horizontal" RepeatLayout="Table" AutoPostBack="false" sytle="display: block" CssClass="w-25 text-center" required>
+                        <asp:ListItem Text="1" Value="1"></asp:ListItem>
+                        <asp:ListItem Text="2" Value="2"></asp:ListItem>
+                        <asp:ListItem Text="3" Value="3"></asp:ListItem>
+                        <asp:ListItem Text="4" Value="4"></asp:ListItem>
+                        <asp:ListItem Text="5" Value="5"></asp:ListItem>
+                        <asp:ListItem Text="6" Value="6"></asp:ListItem>
+                        <asp:ListItem Text="7" Value="7"></asp:ListItem>
+                        <asp:ListItem Text="8" Value="8"></asp:ListItem>
+                        <asp:ListItem Text="9" Value="9"></asp:ListItem>
+                        <asp:ListItem Text="10" Value="10"></asp:ListItem>
+                    </asp:RadioButtonList>
+                </div>
+                <div class="form-inline">
+                    <small id="horario_Help" class="form-text text-muted">Selecione 1 para muito ruim ou 10 para muito bom</small>
+                </div>
+                <div class="form-inline">
                     <h4>Escreva seu comentário</h4>
                 </div>
                 <div class="form-inline mt-1">
                     <span class="w-100 text-left">
-                        <asp:TextBox runat="server" ID="txt_Descrição" CssClass="form-control w-100" TextMode="MultiLine" autocomplete="off" Columns="100" Rows="3" MaxLength="200"></asp:TextBox>
+                        <asp:TextBox runat="server" ID="txt_Descrição" CssClass="form-control w-100" TextMode="MultiLine" autocomplete="off" Columns="100" Rows="3" MaxLength="200" required></asp:TextBox>
                     </span>
                 </div>
             </div>
@@ -72,8 +89,8 @@
                 </asp:Panel>
             </div>
             <div class="form-inline mt-1">
-                <asp:Button runat="server" ID="btn_Avaliar" Text="Avaliar" CssClass="btn btn-success mr-1" />
-                <asp:Button runat="server" ID="btn_Cancelar" Text="Cancelar" CssClass="btn btn-danger" />
+                <asp:Button runat="server" ID="btn_Avaliar" Text="Avaliar" OnClick="btn_Avaliar_Click" CssClass="btn btn-success mr-1" />
+                <asp:Button runat="server" ID="btn_Cancelar" Text="Cancelar" OnClick="btn_Cancelar_Click" CssClass="btn btn-danger" formnovalidate />
             </div>
         </div>
     </form>

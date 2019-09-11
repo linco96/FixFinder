@@ -67,13 +67,22 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.WebControls.TextBox txt_PrecoTotal;
         
         /// <summary>
-        /// radio_Avaliacao control.
+        /// radio_AvaliacaoServico control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList radio_Avaliacao;
+        protected global::System.Web.UI.WebControls.RadioButtonList radio_AvaliacaoServico;
+        
+        /// <summary>
+        /// RadioButtonList1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButtonList RadioButtonList1;
         
         /// <summary>
         /// txt_Descrição control.

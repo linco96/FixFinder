@@ -24,9 +24,9 @@
           <Property Name="idAvaliacao" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="cnpjOficina" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="cpfCliente" Type="varchar" MaxLength="15" Nullable="false" />
-          <Property Name="notaPreco" Type="int" Nullable="false" />
-          <Property Name="notaServico" Type="int" Nullable="false" />
-          <Property Name="descricao" Type="varchar" MaxLength="200" />
+          <Property Name="notaPreco" Type="float" Nullable="false" />
+          <Property Name="notaServico" Type="float" Nullable="false" />
+          <Property Name="descricao" Type="varchar" MaxLength="200" Nullable="false" />
         </EntityType>
         <EntityType Name="Cartao">
           <Key>
@@ -870,9 +870,9 @@
           <Property Name="idAvaliacao" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="cnpjOficina" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="cpfCliente" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="notaPreco" Type="Int32" Nullable="false" />
-          <Property Name="notaServico" Type="Int32" Nullable="false" />
-          <Property Name="descricao" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="notaPreco" Type="Double" Nullable="false" />
+          <Property Name="notaServico" Type="Double" Nullable="false" />
+          <Property Name="descricao" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Cliente" Relationship="Self.FK_Avaliacao_Cliente" FromRole="Avaliacao" ToRole="Cliente" />
           <NavigationProperty Name="Oficina" Relationship="Self.FK_Avaliacao_Oficina" FromRole="Avaliacao" ToRole="Oficina" />
         </EntityType>

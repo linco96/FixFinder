@@ -384,7 +384,22 @@ namespace FixFinder.Pages
             Button btn = sender as Button;
             try
             {
-                Response.Redirect("orcamento_Avaliar.aspx", false);
+                using (var context = new DatabaseEntities())
+                {
+                    int id = int.Parse(btn.CommandArgument);
+                    Orcamento orcamento = context.Orcamento.Where(o => o.idOrcamento.Equals(id)).FirstOrDefault();
+                    if (orcamento != null)
+                    {
+                        Session["orcamento"] = orcamento;
+                        Response.Redirect("orcamento_Avaliar.aspx", false);
+                    }
+                    else
+                    {
+                        pnl_Alert.CssClass = "alert alert-danger";
+                        lbl_Alert.Text = "ID do orçamento não encontrado no banco";
+                        pnl_Alert.Visible = true;
+                    }
+                }
             }
             catch (Exception ex)
             {

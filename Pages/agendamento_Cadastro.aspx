@@ -46,7 +46,7 @@
                 </asp:DropDownList>
             </div>
             <div class="form-group">
-                <asp:Button runat="server" ID="btn_Cadastrar" CssClass="btn btn-primary" Text="Agendar" OnClick="btn_Cadastrar_Click" />
+                <asp:Button runat="server" ID="btn_Cadastrar" CssClass="btn btn-success" Text="Agendar" OnClick="btn_Cadastrar_Click" />
             </div>
             <div class="form-group">
                 <asp:Panel runat="server" ID="pnl_Alert" Visible="false" CssClass="alert alert-light" role="alert">

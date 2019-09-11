@@ -30,6 +30,40 @@ namespace FixFinder.Pages
                     {
                         o = context.Oficina.Where(of => of.cnpj.Equals(f.cnpjOficina)).FirstOrDefault();
                         preencher_Tabela();
+                        lbl_Nome.Text = c.nome;
+                        if (f == null)
+                        {
+                            pnl_Oficina.Visible = false;
+                            btn_CadastroOficina.Visible = true;
+
+                            List<RequisicaoFuncionario> requisicoes = context.RequisicaoFuncionario.Where(r => r.cpfCliente.Equals(c.cpf)).ToList();
+                            if (requisicoes.Count > 0)
+                            {
+                                pnl_Funcionario.Visible = true;
+                                badge_Requisicoes.InnerHtml = requisicoes.Count.ToString();
+                            }
+                            else
+                            {
+                                pnl_Funcionario.Visible = false;
+                            }
+                        }
+                        else
+                        {
+                            pnl_Oficina.Visible = true;
+                            pnl_Funcionario.Visible = false;
+                            btn_CadastroOficina.Visible = false;
+                            lbl_Nome.Text += " | " + f.Oficina.nome;
+                            if (f.cargo.ToLower().Equals("gerente"))
+                            {
+                                btn_Configuracoes.Visible = true;
+                                btn_Funcionarios.Visible = true;
+                            }
+                            else
+                            {
+                                btn_Configuracoes.Visible = false;
+                                btn_Funcionarios.Visible = false;
+                            }
+                        }
                     }
                 }
             }
@@ -54,56 +88,86 @@ namespace FixFinder.Pages
                     {
                         foreach (var funcionario in funcionarios)
                         {
-                            if (!funcionario.cargo.ToLower().Equals("gerente"))
+                            row = new TableRow();
+
+                            cell = new TableCell();
+                            cell.Text = funcionario.Cliente.nome;
+                            cell.CssClass = "text-center align-middle";
+                            row.Cells.Add(cell);
+
+                            cell = new TableCell();
+                            cell.Text = funcionario.Cliente.telefone;
+                            cell.CssClass = "text-center align-middle";
+                            row.Cells.Add(cell);
+
+                            cell = new TableCell();
+                            cell.Text = funcionario.Cliente.email;
+                            cell.CssClass = "text-center align-middle";
+                            row.Cells.Add(cell);
+
+                            cell = new TableCell();
+                            cell.Text = funcionario.cargo;
+                            cell.CssClass = "text-center align-middle";
+                            row.Cells.Add(cell);
+
+                            cell = new TableCell();
+                            if (funcionario.salario == null)
                             {
-                                row = new TableRow();
-
-                                cell = new TableCell();
-                                cell.Text = funcionario.Cliente.nome;
-                                cell.CssClass = "text-center align-middle";
-                                row.Cells.Add(cell);
-
-                                cell = new TableCell();
-                                cell.Text = funcionario.Cliente.telefone;
-                                cell.CssClass = "text-center align-middle";
-                                row.Cells.Add(cell);
-
-                                cell = new TableCell();
-                                cell.Text = funcionario.Cliente.email;
-                                cell.CssClass = "text-center align-middle";
-                                row.Cells.Add(cell);
-
-                                cell = new TableCell();
-                                cell.Text = funcionario.cargo;
-                                cell.CssClass = "text-center align-middle";
-                                row.Cells.Add(cell);
-
-                                cell = new TableCell();
                                 double salario = (Double)funcionario.salario;
                                 cell.Text = "R$ " + salario.ToString("0.00");
-                                cell.CssClass = "text-center align-middle";
-                                row.Cells.Add(cell);
+                            }
+                            else
+                            {
+                                cell.Text = "-";
+                            }
+                            cell.CssClass = "text-center align-middle";
+                            row.Cells.Add(cell);
 
-                                cell = new TableCell();
+                            cell = new TableCell();
+                            if (funcionario.banco == null)
+                            {
                                 cell.Text = funcionario.banco.ToString();
-                                cell.CssClass = "text-center align-middle";
-                                row.Cells.Add(cell);
+                            }
+                            else
+                            {
+                                cell.Text = "-";
+                            }
+                            cell.CssClass = "text-center align-middle";
+                            row.Cells.Add(cell);
 
-                                cell = new TableCell();
+                            cell = new TableCell();
+                            if (funcionario.agencia == null)
+                            {
                                 cell.Text = funcionario.agencia;
-                                cell.CssClass = "text-center align-middle";
-                                row.Cells.Add(cell);
+                            }
+                            else
+                            {
+                                cell.Text = "-";
+                            }
+                            cell.CssClass = "text-center align-middle";
+                            row.Cells.Add(cell);
 
-                                cell = new TableCell();
+                            cell = new TableCell();
+                            if (funcionario.conta == null)
+                            {
                                 cell.Text = funcionario.conta;
-                                cell.CssClass = "text-center align-middle";
-                                row.Cells.Add(cell);
+                            }
+                            else
+                            {
+                                cell.Text = "-";
+                            }
+                            cell.CssClass = "text-center align-middle";
+                            row.Cells.Add(cell);
 
+                            cell = new TableCell();
+                            cell.CssClass = "text-center align-middle";
+                            if (!funcionario.cargo.ToLower().Equals("gerente"))
+                            {
                                 //Botao Excluir
-                                cell = new TableCell();
-                                cell.CssClass = "text-center align-middle";
+
                                 btn = new Button();
                                 btn.Click += new EventHandler(btn_Editar_Click);
+                                btn.ID = "btn_Editar" + f.cpf;
                                 btn.Text = "Editar";
                                 btn.CssClass = "btn btn-primary mr-2";
                                 btn.CommandArgument = funcionario.cpf;
@@ -112,14 +176,15 @@ namespace FixFinder.Pages
                                 //Botao Excluir
                                 btn2 = new Button();
                                 btn2.Click += new EventHandler(btn_Excluir_Click);
+                                btn.ID = "btn_Excluir" + f.cpf;
                                 btn2.Text = "Excluir";
                                 btn2.CssClass = "btn btn-danger ml-2";
                                 btn2.CommandArgument = funcionario.cpf;
                                 cell.Controls.Add(btn2);
-                                row.Cells.Add(cell);
-
-                                tbl_Funcionarios.Rows.Add(row);
                             }
+                            row.Cells.Add(cell);
+
+                            tbl_Funcionarios.Rows.Add(row);
                         }
                     }
                     else
@@ -169,13 +234,13 @@ namespace FixFinder.Pages
 
             try
             {
-                Funcionario f;
+                Funcionario func;
                 using (DatabaseEntities context = new DatabaseEntities())
                 {
-                    f = context.Funcionario.Where(func => func.cpf.Equals(btn.CommandArgument)).FirstOrDefault();
+                    func = context.Funcionario.Where(funcionario => funcionario.cpf.Equals(btn.CommandArgument)).FirstOrDefault();
                 }
 
-                Session["funcionario"] = f;
+                Session["funcionarioEditar"] = func;
                 Response.Redirect("funcionario_Editar.aspx", false);
             }
             catch (Exception ex)
@@ -184,6 +249,17 @@ namespace FixFinder.Pages
                 lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
                 pnl_Alert.Visible = true;
             }
+        }
+
+        protected void btn_RegistrarFuncionario_Click1(object sender, EventArgs e)
+        {
+            Response.Redirect("funcionario_Cadastro.aspx", false);
+        }
+
+        protected void btn_Sair_Click(object sender, EventArgs e)
+        {
+            Session["usuario"] = null;
+            Response.Redirect("login.aspx", false);
         }
     }
 }

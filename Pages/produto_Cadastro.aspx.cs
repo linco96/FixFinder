@@ -35,6 +35,41 @@ namespace FixFinder.Pages
                         txt_Quantidade.ReadOnly = true;
                         txt_Quantidade.Text = "0";
                     }
+                    lbl_Nome.Text = cliente.nome;
+                    Funcionario f = context.Funcionario.Where(func => func.cpf.Equals(cliente.cpf)).FirstOrDefault();
+                    if (f == null)
+                    {
+                        pnl_Oficina.Visible = false;
+                        btn_CadastroOficina.Visible = true;
+
+                        List<RequisicaoFuncionario> requisicoes = context.RequisicaoFuncionario.Where(r => r.cpfCliente.Equals(cliente.cpf)).ToList();
+                        if (requisicoes.Count > 0)
+                        {
+                            pnl_Funcionario.Visible = true;
+                            badge_Requisicoes.InnerHtml = requisicoes.Count.ToString();
+                        }
+                        else
+                        {
+                            pnl_Funcionario.Visible = false;
+                        }
+                    }
+                    else
+                    {
+                        pnl_Oficina.Visible = true;
+                        pnl_Funcionario.Visible = false;
+                        btn_CadastroOficina.Visible = false;
+                        lbl_Nome.Text += " | " + f.Oficina.nome;
+                        if (f.cargo.ToLower().Equals("gerente"))
+                        {
+                            btn_Configuracoes.Visible = true;
+                            btn_Funcionarios.Visible = true;
+                        }
+                        else
+                        {
+                            btn_Configuracoes.Visible = false;
+                            btn_Funcionarios.Visible = false;
+                        }
+                    }
                 }
             }
         }
@@ -96,6 +131,12 @@ namespace FixFinder.Pages
             {
                 Response.Redirect("produto_Lista.aspx", false);
             }
+        }
+
+        protected void btn_Sair_Click(object sender, EventArgs e)
+        {
+            Session["usuario"] = null;
+            Response.Redirect("login.aspx", false);
         }
     }
 }

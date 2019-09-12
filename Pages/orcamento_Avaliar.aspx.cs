@@ -30,54 +30,58 @@ namespace FixFinder.Pages
                     {
                         using (var context = new DatabaseEntities())
                         {
-                            List<Orcamento> orcamentos = context.Orcamento.Where(o => o.cpfCliente.Equals(c.cpf) && o.cnpjOficina.Equals(orcamento.cnpjOficina)).ToList();
-                            List<Avaliacao> avaliacoes = context.Avaliacao.Where(o => o.cpfCliente.Equals(c.cpf) && o.cnpjOficina.Equals(orcamento.cnpjOficina)).ToList();
-                            if (avaliacoes.Count >= orcamentos.Count)
+                            if (context.Avaliacao.Where(a => a.idOrcamento == orcamento.idOrcamento && a.cpfCliente.Equals(c.cpf) && orcamento.cnpjOficina.Equals(orcamento.cnpjOficina)).FirstOrDefault() != null)
                             {
-                                Session["orcamento"] = null;
-                                Response.Redirect("orcamento_ListaCliente.aspx", false);
+                                btn_Avaliar.Visible = false;
+                                btn_Cancelar.Text = "Voltar";
+                                txt_Descrição.ReadOnly = true;
+                                radio_AvaliacaoServico.Enabled = false;
                             }
                             else
                             {
-                                pnl_Alert.Visible = false;
-                                if (!IsPostBack)
-                                    preencher_Orcamento(orcamento);
+                                btn_Avaliar.Visible = true;
+                                txt_Descrição.ReadOnly = false;
+                                radio_AvaliacaoServico.Enabled = true;
+                            }
 
-                                //CODIGO DASHBOARD
-                                Funcionario f = context.Funcionario.Where(func => func.cpf.Equals(c.cpf)).FirstOrDefault();
-                                lbl_Nome.Text = c.nome;
-                                if (f == null)
+                            pnl_Alert.Visible = false;
+                            if (!IsPostBack)
+                                preencher_Orcamento(orcamento);
+
+                            //CODIGO DASHBOARD
+                            Funcionario f = context.Funcionario.Where(func => func.cpf.Equals(c.cpf)).FirstOrDefault();
+                            lbl_Nome.Text = c.nome;
+                            if (f == null)
+                            {
+                                pnl_Oficina.Visible = false;
+                                btn_CadastroOficina.Visible = true;
+
+                                List<RequisicaoFuncionario> requisicoes = context.RequisicaoFuncionario.Where(r => r.cpfCliente.Equals(c.cpf)).ToList();
+                                if (requisicoes.Count > 0)
                                 {
-                                    pnl_Oficina.Visible = false;
-                                    btn_CadastroOficina.Visible = true;
-
-                                    List<RequisicaoFuncionario> requisicoes = context.RequisicaoFuncionario.Where(r => r.cpfCliente.Equals(c.cpf)).ToList();
-                                    if (requisicoes.Count > 0)
-                                    {
-                                        pnl_Funcionario.Visible = true;
-                                        badge_Requisicoes.InnerHtml = requisicoes.Count.ToString();
-                                    }
-                                    else
-                                    {
-                                        pnl_Funcionario.Visible = false;
-                                    }
+                                    pnl_Funcionario.Visible = true;
+                                    badge_Requisicoes.InnerHtml = requisicoes.Count.ToString();
                                 }
                                 else
                                 {
-                                    pnl_Oficina.Visible = true;
                                     pnl_Funcionario.Visible = false;
-                                    btn_CadastroOficina.Visible = false;
-                                    lbl_Nome.Text += " | " + f.Oficina.nome;
-                                    if (f.cargo.ToLower().Equals("gerente"))
-                                    {
-                                        btn_Configuracoes.Visible = true;
-                                        btn_Funcionarios.Visible = true;
-                                    }
-                                    else
-                                    {
-                                        btn_Configuracoes.Visible = false;
-                                        btn_Funcionarios.Visible = false;
-                                    }
+                                }
+                            }
+                            else
+                            {
+                                pnl_Oficina.Visible = true;
+                                pnl_Funcionario.Visible = false;
+                                btn_CadastroOficina.Visible = false;
+                                lbl_Nome.Text += " | " + f.Oficina.nome;
+                                if (f.cargo.ToLower().Equals("gerente"))
+                                {
+                                    btn_Configuracoes.Visible = true;
+                                    btn_Funcionarios.Visible = true;
+                                }
+                                else
+                                {
+                                    btn_Configuracoes.Visible = false;
+                                    btn_Funcionarios.Visible = false;
                                 }
                             }
                         }
@@ -116,6 +120,25 @@ namespace FixFinder.Pages
                             lbl_Endereco.InnerHtml = oficina.Endereco.logradouro + ", " + oficina.Endereco.numero + "<br />" + oficina.Endereco.cep + " - " + oficina.Endereco.cidade + " - " + oficina.Endereco.uf.ToUpper();
                             txt_Veiculo.Text = veiculo.marca + " " + veiculo.modelo + " " + veiculo.ano + " | " + veiculo.placa;
                             txt_PrecoTotal.Text = "R$ " + orcamento.valor.ToString("0.00");
+
+                            Avaliacao avaliacao = context.Avaliacao.Where(a => a.idOrcamento == orcamento.idOrcamento && a.cpfCliente.Equals(c.cpf) && orcamento.cnpjOficina.Equals(orcamento.cnpjOficina)).FirstOrDefault();
+
+                            if (avaliacao != null)
+                            {
+                                txt_Descrição.Text = avaliacao.descricao;
+                                radio_AvaliacaoServico.SelectedIndex = int.Parse(avaliacao.notaServico.ToString());
+                                if (avaliacao.comentarioFuncionario != null)
+                                {
+                                    txt_Comentario.Text = avaliacao.comentarioFuncionario;
+                                    pnl_ComentarioOficina.Visible = true;
+                                    pnl_ComentarioOficinaTitulo.Visible = true;
+                                }
+                                else
+                                {
+                                    pnl_ComentarioOficina.Visible = false;
+                                    pnl_ComentarioOficinaTitulo.Visible = false;
+                                }
+                            }
                         }
                         else
                         {
@@ -162,7 +185,8 @@ namespace FixFinder.Pages
                                     cnpjOficina = orcamento.cnpjOficina,
                                     cpfCliente = c.cpf,
                                     descricao = txt_Descrição.Text,
-                                    notaServico = nota
+                                    notaServico = nota,
+                                    idOrcamento = orcamento.idOrcamento
                                 };
                                 context.Avaliacao.Add(avaliacao);
                                 context.SaveChanges();
@@ -196,7 +220,8 @@ namespace FixFinder.Pages
                                     cnpjOficina = orcamento.cnpjOficina,
                                     cpfCliente = c.cpf,
                                     descricao = txt_Descrição.Text,
-                                    notaServico = nota
+                                    notaServico = nota,
+                                    idOrcamento = orcamento.idOrcamento
                                 };
                                 context.Avaliacao.Add(avaliacao);
                                 context.SaveChanges();

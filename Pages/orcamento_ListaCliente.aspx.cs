@@ -356,18 +356,13 @@ namespace FixFinder.Pages
                     }
                     else if (o.status.Equals("Concluído"))
                     {
-                        List<Orcamento> orcamentos = context.Orcamento.Where(var => var.cpfCliente.Equals(c.cpf) && var.cnpjOficina.Equals(o.cnpjOficina)).ToList();
-                        List<Avaliacao> avaliacoes = context.Avaliacao.Where(var => var.cpfCliente.Equals(c.cpf) && var.cnpjOficina.Equals(o.cnpjOficina)).ToList();
-                        if (avaliacoes.Count < orcamentos.Count)
-                        {
-                            Button btn = new Button();
-                            btn.Click += new EventHandler(btn_Avaliar_Click);
-                            btn.ID = "btn_Avaliar" + o.idOrcamento.ToString();
-                            btn.Text = "Avaliar";
-                            btn.CssClass = "btn btn-success ml-1 mt-3";
-                            btn.CommandArgument = o.idOrcamento.ToString();
-                            body.Controls.Add(btn);
-                        }
+                        Button btn = new Button();
+                        btn.Click += new EventHandler(btn_Avaliar_Click);
+                        btn.ID = "btn_Avaliar" + o.idOrcamento.ToString();
+                        btn.Text = "Avaliar / Ver Avaliação";
+                        btn.CssClass = "btn btn-success ml-1 mt-3";
+                        btn.CommandArgument = o.idOrcamento.ToString();
+                        body.Controls.Add(btn);
                     }
 
                     card.Controls.Add(body);

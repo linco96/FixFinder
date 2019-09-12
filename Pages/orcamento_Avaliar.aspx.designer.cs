@@ -157,6 +157,33 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.WebControls.TextBox txt_Descrição;
         
         /// <summary>
+        /// pnl_ComentarioOficinaTitulo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnl_ComentarioOficinaTitulo;
+        
+        /// <summary>
+        /// pnl_ComentarioOficina control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnl_ComentarioOficina;
+        
+        /// <summary>
+        /// txt_Comentario control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_Comentario;
+        
+        /// <summary>
         /// pnl_Alert control.
         /// </summary>
         /// <remarks>

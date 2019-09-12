@@ -215,6 +215,7 @@
                             <div class="form-inline">
                                 <small class="form-text text-muted">Selecione 1 para muito ruim ou 10 para muito bom</small>
                             </div>
+                            <%--COMENTARIO--%>
                             <div class="form-inline">
                                 <h4>Escreva seu comentário</h4>
                             </div>
@@ -223,6 +224,15 @@
                                     <asp:TextBox runat="server" ID="txt_Descrição" CssClass="form-control w-100" TextMode="MultiLine" autocomplete="off" Columns="100" Rows="3" MaxLength="200" required></asp:TextBox>
                                 </span>
                             </div>
+                            <%--COMENTARIO MECCANICO--%>
+                            <asp:Panel runat="server" ID="pnl_ComentarioOficinaTitulo" CssClass="form-inline" Visible="false">
+                                <h4>Comentário da oficina</h4>
+                            </asp:Panel>
+                            <asp:Panel runat="server" ID="pnl_ComentarioOficina" CssClass="form-inline" Visible="false">
+                                <span class="w-100 text-left">
+                                    <asp:TextBox runat="server" ID="txt_Comentario" CssClass="form-control w-100" TextMode="MultiLine" autocomplete="off" Columns="100" Rows="3" MaxLength="200" ReadOnly="true"></asp:TextBox>
+                                </span>
+                            </asp:Panel>
                         </div>
                         <div class="form-inline mt-1">
                             <asp:Panel ID="pnl_Alert" runat="server" Visible="false" CssClass="alert alert-success w-100" role="alert">

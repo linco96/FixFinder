@@ -13,7 +13,6 @@ namespace FixFinder.Pages
         private Fornecedor fornecedor;
         private Cliente c;
         private Funcionario funcionario;
-        private static bool alterar;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -39,14 +38,6 @@ namespace FixFinder.Pages
                                 fornecedor = context.Fornecedor.Where(f => f.idFornecedor == fornecedor.idFornecedor).FirstOrDefault();
                                 if (fornecedor != null)
                                 {
-                                    if (!alterar)
-                                    {
-                                        txt_CNPJ.Text = fornecedor.cnpjFornecedor;
-                                        txt_RazaoSocial.Text = fornecedor.razaoSocial;
-                                        txt_Email.Text = fornecedor.email;
-                                        txt_Telefone.Text = fornecedor.telefone;
-                                        alterar = true;
-                                    }
                                     lbl_Nome.Text = c.nome;
                                     if (funcionario == null)
                                     {
@@ -101,6 +92,18 @@ namespace FixFinder.Pages
             }
         }
 
+        protected void page_LoadComplete(object sender, EventArgs e)
+        {
+            fornecedor = (Fornecedor)Session["fornecedor"];
+            if (fornecedor != null)
+            {
+                txt_CNPJ.Text = fornecedor.cnpjFornecedor;
+                txt_RazaoSocial.Text = fornecedor.razaoSocial;
+                txt_Email.Text = fornecedor.email;
+                txt_Telefone.Text = fornecedor.telefone;
+            }
+        }
+
         protected void btn_Editar_Click(object sender, EventArgs e)
         {
             try
@@ -113,7 +116,6 @@ namespace FixFinder.Pages
                     fornecedor.razaoSocial = txt_RazaoSocial.Text;
                     context.SaveChanges();
                     Session["fornecedor"] = null;
-                    alterar = false;
                     Response.Redirect("fornecedor_Lista.aspx", false);
                 }
             }
@@ -126,13 +128,12 @@ namespace FixFinder.Pages
         protected void btn_Cancelar_Click(object sender, EventArgs e)
         {
             Session["fornecedor"] = null;
-            alterar = false;
             Response.Redirect("fornecedor_Lista.aspx", false);
         }
 
         protected void btn_Sair_Click(object sender, EventArgs e)
         {
-            Session["usuario"] = null;
+            Session.Clear();
             Response.Redirect("login.aspx", false);
         }
     }

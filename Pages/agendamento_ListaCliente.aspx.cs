@@ -310,7 +310,7 @@ namespace FixFinder.Pages
 
         protected void btn_Sair_Click(object sender, EventArgs e)
         {
-            Session["usuario"] = null;
+            Session.Clear();
             Response.Redirect("login.aspx", false);
         }
     }

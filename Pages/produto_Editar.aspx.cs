@@ -13,7 +13,6 @@ namespace FixFinder.Pages
         private Cliente c;
         private Funcionario funcionario;
         private Produto produto;
-        private static bool alterar;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -39,28 +38,9 @@ namespace FixFinder.Pages
                             if (context.Oficina.Where(o => o.cnpj.Equals(funcionario.cnpjOficina)).FirstOrDefault() != null)
                             {
                                 produto = context.Produto.Where(p => p.idProduto == produto.idProduto).FirstOrDefault();
-                                if (produto != null)
+                                if (produto == null)
                                 {
-                                    if (!alterar)
-                                    {
-                                        txt_Descricao.Text = produto.descricao;
-                                        txt_Quantidade.Text = produto.quantidade.ToString();
-                                        txt_PrecoCompra.Text = produto.precoCompra.ToString();
-                                        txt_PrecoVenda.Text = produto.precoVenda.ToString();
-                                        txt_Marca.Text = produto.marca;
-                                        if (produto.validade != null)
-                                        {
-                                            DateTime dt = (DateTime)produto.validade;
-                                            txt_Validade.Text = dt.ToString("yyyy-MM-dd");
-                                        }
-
-                                        txt_Categoria.Text = produto.categoria;
-                                        alterar = true;
-                                    }
-                                }
-                                else
-                                {
-                                    Response.Redirect("fornecedor_Lista.aspx", false);
+                                    Response.Redirect("produto_Lista.aspx", false);
                                 }
                             }
                             else
@@ -111,6 +91,26 @@ namespace FixFinder.Pages
             }
         }
 
+        protected void page_LoadComplete(object sender, EventArgs e)
+        {
+            produto = (Produto)Session["produto"];
+            if (produto != null)
+            {
+                txt_Descricao.Text = produto.descricao;
+                txt_Quantidade.Text = produto.quantidade.ToString();
+                txt_PrecoCompra.Text = produto.precoCompra.ToString();
+                txt_PrecoVenda.Text = produto.precoVenda.ToString();
+                txt_Marca.Text = produto.marca;
+                if (produto.validade != null)
+                {
+                    DateTime dt = (DateTime)produto.validade;
+                    txt_Validade.Text = dt.ToString("yyyy-MM-dd");
+                }
+
+                txt_Categoria.Text = produto.categoria;
+            }
+        }
+
         protected void btn_Editar_Click(object sender, EventArgs e)
         {
             try
@@ -127,7 +127,6 @@ namespace FixFinder.Pages
                         produto.precoVenda = double.Parse(txt_PrecoVenda.Text.Replace("R$", "").Replace(" ", ""));
                     if (txt_Validade.Text.Length > 0)
                         produto.validade = DateTime.Parse(txt_Validade.Text);
-                    alterar = false;
                     context.SaveChanges();
                     Session["produto"] = null;
                     Response.Redirect("produto_Lista.aspx", false);
@@ -142,13 +141,12 @@ namespace FixFinder.Pages
         protected void btn_Voltar_Click(object sender, EventArgs e)
         {
             Session["produto"] = null;
-            alterar = false;
             Response.Redirect("produto_Lista.aspx", false);
         }
 
         protected void btn_Sair_Click(object sender, EventArgs e)
         {
-            Session["usuario"] = null;
+            Session.Clear();
             Response.Redirect("login.aspx", false);
         }
     }

@@ -12,7 +12,6 @@ namespace FixFinder.Pages
     {
         private Cliente c;
         private Funcionario f;
-        private static bool alterar;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -33,20 +32,8 @@ namespace FixFinder.Pages
                     else
                     {
                         Funcionario func = (Funcionario)Session["funcionarioEditar"];
-                        func = context.Funcionario.Where(funcionario => funcionario.cpf.Equals(func.cpf)).FirstOrDefault();
                         if (func != null)
                         {
-                            if (!alterar)
-                            {
-                                txt_CPF.Text = func.cpf;
-                                txt_Nome.Text = func.Cliente.nome;
-                                txt_Cargo.Text = func.cargo;
-                                txt_Salario.Text = func.salario.ToString();
-                                ddl_Banco.SelectedValue = func.banco.ToString();
-                                txt_Agencia.Text = func.agencia;
-                                txt_Conta.Text = func.conta;
-                                alterar = true;
-                            }
                             lbl_Nome.Text = c.nome;
                             if (f == null)
                             {
@@ -91,22 +78,41 @@ namespace FixFinder.Pages
             }
         }
 
+        protected void page_LoadComplete(object sender, EventArgs e)
+        {
+            using (DatabaseEntities context = new DatabaseEntities())
+            {
+                Funcionario func = (Funcionario)Session["funcionarioEditar"];
+                if (func != null)
+                {
+                    func = context.Funcionario.Where(funcionario => funcionario.cpf.Equals(func.cpf)).FirstOrDefault();
+                    txt_CPF.Text = func.cpf;
+                    txt_Nome.Text = func.Cliente.nome;
+                    txt_Cargo.Text = func.cargo;
+                    txt_Salario.Text = func.salario.ToString();
+                    ddl_Banco.SelectedValue = func.banco.ToString();
+                    txt_Agencia.Text = func.agencia;
+                    txt_Conta.Text = func.conta;
+                }
+            }
+        }
+
         protected void btn_Registro_Click(object sender, EventArgs e)
         {
             try
             {
                 using (DatabaseEntities context = new DatabaseEntities())
                 {
-                    f = context.Funcionario.Where(func => func.cpf.Equals(f.cpf)).FirstOrDefault();
-                    f.cargo = txt_Cargo.Text;
-                    f.salario = double.Parse(txt_Salario.Text);
-                    f.banco = int.Parse(ddl_Banco.SelectedValue);
-                    f.agencia = txt_Agencia.Text;
-                    f.conta = txt_Conta.Text;
+                    Funcionario func = (Funcionario)Session["funcionarioEditar"];
+                    func = context.Funcionario.Where(funcionario => funcionario.cpf.Equals(func.cpf)).FirstOrDefault();
+                    func.cargo = txt_Cargo.Text;
+                    func.salario = double.Parse(txt_Salario.Text);
+                    func.banco = int.Parse(ddl_Banco.SelectedValue);
+                    func.agencia = txt_Agencia.Text;
+                    func.conta = txt_Conta.Text;
                     context.SaveChanges();
 
-                    Session["funcionario"] = null;
-                    alterar = false;
+                    Session["funcionarioEditar"] = null;
                     Response.Redirect("funcionario_Lista.aspx", false);
                 }
             }
@@ -120,13 +126,12 @@ namespace FixFinder.Pages
 
         protected void btn_Sair_Click(object sender, EventArgs e)
         {
-            Session["usuario"] = null;
+            Session.Clear();
             Response.Redirect("login.aspx", false);
         }
 
         protected void btn_Cancelar_Click(object sender, EventArgs e)
         {
-            alterar = false;
             Session["funcionarioEditar"] = null;
             Response.Redirect("funcionario_Lista.aspx", false);
         }

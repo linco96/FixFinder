@@ -85,11 +85,11 @@ namespace FixFinder.Pages
         {
             if (orcamento != null)
             {
-                if (radio_Avaliacao.SelectedItem != null)
+                if (radio_AvaliacaoServico.SelectedItem != null)
                 {
                     int nota;
                     Double media;
-                    nota = int.Parse(radio_Avaliacao.SelectedValue);
+                    nota = int.Parse(radio_AvaliacaoServico.SelectedValue);
                     try
                     {
                         using (var context = new DatabaseEntities())

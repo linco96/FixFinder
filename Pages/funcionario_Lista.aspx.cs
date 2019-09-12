@@ -111,7 +111,7 @@ namespace FixFinder.Pages
                             row.Cells.Add(cell);
 
                             cell = new TableCell();
-                            if (funcionario.salario == null)
+                            if (funcionario.salario != null)
                             {
                                 double salario = (Double)funcionario.salario;
                                 cell.Text = "R$ " + salario.ToString("0.00");
@@ -124,7 +124,7 @@ namespace FixFinder.Pages
                             row.Cells.Add(cell);
 
                             cell = new TableCell();
-                            if (funcionario.banco == null)
+                            if (funcionario.banco != null)
                             {
                                 cell.Text = funcionario.banco.ToString();
                             }
@@ -136,7 +136,7 @@ namespace FixFinder.Pages
                             row.Cells.Add(cell);
 
                             cell = new TableCell();
-                            if (funcionario.agencia == null)
+                            if (funcionario.agencia != null)
                             {
                                 cell.Text = funcionario.agencia;
                             }
@@ -148,7 +148,7 @@ namespace FixFinder.Pages
                             row.Cells.Add(cell);
 
                             cell = new TableCell();
-                            if (funcionario.conta == null)
+                            if (funcionario.conta != null)
                             {
                                 cell.Text = funcionario.conta;
                             }
@@ -258,7 +258,7 @@ namespace FixFinder.Pages
 
         protected void btn_Sair_Click(object sender, EventArgs e)
         {
-            Session["usuario"] = null;
+            Session.Clear();
             Response.Redirect("login.aspx", false);
         }
     }

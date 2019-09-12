@@ -12,8 +12,6 @@ namespace FixFinder.Pages
     {
         private Cliente c;
 
-        private static bool alterar;
-
         protected void Page_Load(object sender, EventArgs e)
         {
             c = (Cliente)Session["usuario"];
@@ -23,14 +21,6 @@ namespace FixFinder.Pages
             }
             else
             {
-                if (!alterar)
-                {
-                    txt_Nome.Text = c.nome;
-                    txt_Telefone.Text = c.telefone;
-                    txt_Email.Text = c.email;
-                    date_DataNascimento.Text = c.dataNascimento.ToString("yyyy-MM-dd");
-                    alterar = true;
-                }
                 using (DatabaseEntities context = new DatabaseEntities())
                 {
                     Funcionario f = context.Funcionario.Where(func => func.cpf.Equals(c.cpf)).FirstOrDefault();
@@ -69,6 +59,18 @@ namespace FixFinder.Pages
                         }
                     }
                 }
+            }
+        }
+
+        protected void page_LoadComplete(object sender, EventArgs e)
+        {
+            c = (Cliente)Session["usuario"];
+            if (c != null)
+            {
+                txt_Nome.Text = c.nome;
+                txt_Telefone.Text = c.telefone;
+                txt_Email.Text = c.email;
+                date_DataNascimento.Text = c.dataNascimento.ToString("yyyy-MM-dd");
             }
         }
 
@@ -151,7 +153,7 @@ namespace FixFinder.Pages
 
         protected void btn_Sair_Click(object sender, EventArgs e)
         {
-            Session["usuario"] = null;
+            Session.Clear();
             Response.Redirect("login.aspx", false);
         }
     }

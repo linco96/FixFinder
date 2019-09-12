@@ -110,10 +110,7 @@ namespace FixFinder.Pages
                     {
                         context.Fornecedor.Add(f);
                         context.SaveChanges();
-                        pnl_Alert.Visible = true;
-                        pnl_Alert.CssClass = "alert alert-success";
-                        lbl_Alert.Text = "Fornecedor cadastrada com sucesso";
-                        Response.AddHeader("REFRESH", "2; url=fornecedor_Lista.aspx");
+                        Response.Redirect("fornecedor_Lista.aspx", false);
                     }
                 }
             }

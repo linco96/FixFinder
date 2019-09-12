@@ -102,19 +102,6 @@ namespace FixFinder.Pages
                             cell.CssClass = "text-center align-middle";
                             row.Cells.Add(cell);
 
-                            //Botao Excluir
-                            cell = new TableCell();
-                            cell.CssClass = "text-center align-middle";
-                            btn = new Button();
-                            btn.Click += new EventHandler(btn_Acao_Click);
-                            btn.Text = "Excluir";
-                            btn.CssClass = "btn btn-danger ml-2";
-                            btn.CommandName = "excluirVeiculo";
-                            btn.CommandArgument = veiculo.idVeiculo.ToString();
-                            cell.Controls.Add(btn);
-
-                            row.Cells.Add(cell);
-
                             tbl_Veiculos.Rows.Add(row);
                         }
                     }
@@ -123,7 +110,7 @@ namespace FixFinder.Pages
                         row = new TableRow();
                         cell = new TableCell();
                         cell.Text = "Você não tem nenhum veículo cadastrado";
-                        cell.ColumnSpan = 6;
+                        cell.ColumnSpan = 5;
                         cell.CssClass = "text-center align-middle font-weight-bold text-primary";
                         row.Cells.Add(cell);
                         tbl_Veiculos.Rows.Add(row);

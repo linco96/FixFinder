@@ -26,9 +26,68 @@ namespace FixFinder.Pages
                 orcamento = (Orcamento)Session["orcamento"];
                 if (orcamento != null && orcamento.cpfCliente == c.cpf)
                 {
-                    pnl_Alert.Visible = false;
-                    if (!IsPostBack)
-                        preencher_Orcamento(orcamento);
+                    try
+                    {
+                        using (var context = new DatabaseEntities())
+                        {
+                            List<Orcamento> orcamentos = context.Orcamento.Where(o => o.cpfCliente.Equals(c.cpf) && o.cnpjOficina.Equals(orcamento.cnpjOficina)).ToList();
+                            List<Avaliacao> avaliacoes = context.Avaliacao.Where(o => o.cpfCliente.Equals(c.cpf) && o.cnpjOficina.Equals(orcamento.cnpjOficina)).ToList();
+                            if (avaliacoes.Count >= orcamentos.Count)
+                            {
+                                Session["orcamento"] = null;
+                                Response.Redirect("orcamento_ListaCliente.aspx", false);
+                            }
+                            else
+                            {
+                                pnl_Alert.Visible = false;
+                                if (!IsPostBack)
+                                    preencher_Orcamento(orcamento);
+
+                                //CODIGO DASHBOARD
+                                Funcionario f = context.Funcionario.Where(func => func.cpf.Equals(c.cpf)).FirstOrDefault();
+                                lbl_Nome.Text = c.nome;
+                                if (f == null)
+                                {
+                                    pnl_Oficina.Visible = false;
+                                    btn_CadastroOficina.Visible = true;
+
+                                    List<RequisicaoFuncionario> requisicoes = context.RequisicaoFuncionario.Where(r => r.cpfCliente.Equals(c.cpf)).ToList();
+                                    if (requisicoes.Count > 0)
+                                    {
+                                        pnl_Funcionario.Visible = true;
+                                        badge_Requisicoes.InnerHtml = requisicoes.Count.ToString();
+                                    }
+                                    else
+                                    {
+                                        pnl_Funcionario.Visible = false;
+                                    }
+                                }
+                                else
+                                {
+                                    pnl_Oficina.Visible = true;
+                                    pnl_Funcionario.Visible = false;
+                                    btn_CadastroOficina.Visible = false;
+                                    lbl_Nome.Text += " | " + f.Oficina.nome;
+                                    if (f.cargo.ToLower().Equals("gerente"))
+                                    {
+                                        btn_Configuracoes.Visible = true;
+                                        btn_Funcionarios.Visible = true;
+                                    }
+                                    else
+                                    {
+                                        btn_Configuracoes.Visible = false;
+                                        btn_Funcionarios.Visible = false;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        pnl_Alert.CssClass = "alert alert-danger";
+                        lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                        pnl_Alert.Visible = true;
+                    }
                 }
                 else
                 {
@@ -53,7 +112,7 @@ namespace FixFinder.Pages
                             if (oficina.reputacao == null)
                                 lbl_Reputacao.Text = "-/10";
                             else
-                                lbl_Reputacao.Text = oficina.reputacao + "/10";
+                                lbl_Reputacao.Text = oficina.reputacao.ToString().Replace(",", ".") + "/10";
                             lbl_Endereco.InnerHtml = oficina.Endereco.logradouro + ", " + oficina.Endereco.numero + "<br />" + oficina.Endereco.cep + " - " + oficina.Endereco.cidade + " - " + oficina.Endereco.uf.ToUpper();
                             txt_Veiculo.Text = veiculo.marca + " " + veiculo.modelo + " " + veiculo.ano + " | " + veiculo.placa;
                             txt_PrecoTotal.Text = "R$ " + orcamento.valor.ToString("0.00");
@@ -87,29 +146,75 @@ namespace FixFinder.Pages
             {
                 if (radio_AvaliacaoServico.SelectedItem != null)
                 {
-                    int nota;
-                    Double media;
-                    nota = int.Parse(radio_AvaliacaoServico.SelectedValue);
+                    double nota;
+                    nota = double.Parse(radio_AvaliacaoServico.SelectedValue);
+                    Double media = nota;
                     try
                     {
                         using (var context = new DatabaseEntities())
                         {
                             Avaliacao avaliacao;
                             List<Avaliacao> avaliacoes = context.Avaliacao.Where(a => a.cnpjOficina.Equals(orcamento.cnpjOficina)).ToList();
-                            if (avaliacoes != null)
+                            if (avaliacoes.Count > 0)
                             {
-                                if (avaliacoes.Count > 0)
+                                avaliacao = new Avaliacao()
                                 {
-                                    avaliacao = new Avaliacao()
-                                    {
-                                        cnpjOficina = orcamento.cnpjOficina,
-                                        cpfCliente = c.cpf,
-                                        descricao = txt_Descrição.Text,
-                                    };
+                                    cnpjOficina = orcamento.cnpjOficina,
+                                    cpfCliente = c.cpf,
+                                    descricao = txt_Descrição.Text,
+                                    notaServico = nota
+                                };
+                                context.Avaliacao.Add(avaliacao);
+                                context.SaveChanges();
+
+                                foreach (Avaliacao av in avaliacoes)
+                                {
+                                    media += av.notaServico;
+                                }
+                                media /= avaliacoes.Count + 1;
+
+                                Oficina oficina = context.Oficina.Where(o => o.cnpj.Equals(orcamento.cnpjOficina)).FirstOrDefault();
+
+                                if (oficina != null)
+                                {
+                                    oficina.reputacao = Math.Round(media, 1);
+                                    context.SaveChanges();
+                                    Session["orcamento"] = null;
+                                    Response.Redirect("orcamento_ListaCliente.aspx", false);
+                                }
+                                else
+                                {
+                                    pnl_Alert.CssClass = "alert alert-danger";
+                                    lbl_Alert.Text = "Erro: Oficina nao existe mais no banco";
+                                    pnl_Alert.Visible = true;
                                 }
                             }
                             else
                             {
+                                avaliacao = new Avaliacao()
+                                {
+                                    cnpjOficina = orcamento.cnpjOficina,
+                                    cpfCliente = c.cpf,
+                                    descricao = txt_Descrição.Text,
+                                    notaServico = nota
+                                };
+                                context.Avaliacao.Add(avaliacao);
+                                context.SaveChanges();
+                                Oficina oficina = context.Oficina.Where(o => o.cnpj.Equals(orcamento.cnpjOficina)).FirstOrDefault();
+
+                                if (oficina != null)
+                                {
+                                    oficina.reputacao = nota;
+                                    context.SaveChanges();
+                                    Session["orcamento"] = null;
+                                    Response.Redirect("orcamento_ListaCliente.aspx", false);
+                                }
+                                else
+                                {
+                                    pnl_Alert.CssClass = "alert alert-danger";
+                                    lbl_Alert.Text = "Erro: Oficina nao existe mais no banco";
+                                    pnl_Alert.Visible = true;
+                                }
                             }
                         }
                     }
@@ -123,7 +228,7 @@ namespace FixFinder.Pages
                 else
                 {
                     pnl_Alert.CssClass = "alert alert-danger";
-                    lbl_Alert.Text = "Selecione uma nota para registrar sua avaliação";
+                    lbl_Alert.Text = "Selecione uma nota de serviço para registrar sua avaliação";
                     pnl_Alert.Visible = true;
                 }
             }
@@ -139,6 +244,12 @@ namespace FixFinder.Pages
         {
             Session["orcamento"] = null;
             Response.Redirect("orcamento_ListaCliente.aspx", false);
+        }
+
+        protected void btn_Sair_Click(object sender, EventArgs e)
+        {
+            Session["usuario"] = null;
+            Response.Redirect("login.aspx", false);
         }
     }
 }

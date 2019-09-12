@@ -201,7 +201,7 @@ namespace FixFinder.Pages
                     {
                         row = new TableRow();
                         cell = new TableCell();
-                        cell.ColumnSpan = 3;
+                        cell.ColumnSpan = 4;
                         cell.CssClass = "text-center align-middle font-weight-bold text-primary";
                         cell.Text = "Nenhuma compra cadastrada";
                         row.Cells.Add(cell);

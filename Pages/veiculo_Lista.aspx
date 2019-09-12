@@ -179,7 +179,6 @@
                                     <asp:TableHeaderCell Scope="Column" CssClass="text-center">Modelo</asp:TableHeaderCell>
                                     <asp:TableHeaderCell Scope="Column" CssClass="text-center">Ano</asp:TableHeaderCell>
                                     <asp:TableHeaderCell Scope="Column" CssClass="text-center">Placa</asp:TableHeaderCell>
-                                    <asp:TableHeaderCell Scope="Column" CssClass="text-center">Ações</asp:TableHeaderCell>
                                 </asp:TableHeaderRow>
                             </asp:Table>
                         </div>

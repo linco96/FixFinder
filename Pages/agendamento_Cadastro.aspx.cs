@@ -74,7 +74,7 @@ namespace FixFinder.Pages
                                 if (o.reputacao == null)
                                     lbl_Reputacao.Text = "-/10";
                                 else
-                                    lbl_Reputacao.Text = o.reputacao + "/10";
+                                    lbl_Reputacao.Text = o.reputacao.ToString().Replace(",", ".") + "/10";
                                 lbl_Endereco.InnerHtml = o.Endereco.logradouro + ", " + o.Endereco.numero.ToString() + "<br />" + o.Endereco.cep + " - " + o.Endereco.cidade + " " + o.Endereco.uf.ToUpper();
                             }
                         }

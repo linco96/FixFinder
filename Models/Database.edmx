@@ -24,7 +24,6 @@
           <Property Name="idAvaliacao" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="cnpjOficina" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="cpfCliente" Type="varchar" MaxLength="15" Nullable="false" />
-          <Property Name="notaPreco" Type="float" Nullable="false" />
           <Property Name="notaServico" Type="float" Nullable="false" />
           <Property Name="descricao" Type="varchar" MaxLength="200" Nullable="false" />
         </EntityType>
@@ -870,7 +869,6 @@
           <Property Name="idAvaliacao" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="cnpjOficina" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="cpfCliente" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="notaPreco" Type="Double" Nullable="false" />
           <Property Name="notaServico" Type="Double" Nullable="false" />
           <Property Name="descricao" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Cliente" Relationship="Self.FK_Avaliacao_Cliente" FromRole="Avaliacao" ToRole="Cliente" />
@@ -1779,7 +1777,6 @@
                 <ScalarProperty Name="idAvaliacao" ColumnName="idAvaliacao" />
                 <ScalarProperty Name="cnpjOficina" ColumnName="cnpjOficina" />
                 <ScalarProperty Name="cpfCliente" ColumnName="cpfCliente" />
-                <ScalarProperty Name="notaPreco" ColumnName="notaPreco" />
                 <ScalarProperty Name="notaServico" ColumnName="notaServico" />
                 <ScalarProperty Name="descricao" ColumnName="descricao" />
               </MappingFragment>

@@ -10,6 +10,8 @@
     <script src="../Scripts/jquery-3.4.1.min.js"></script>
     <script src="../Scripts/popper.min.js"></script>
     <script src="../Scripts/jquery.mask.js"></script>
+    <link href="../Content/dashboard.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/1729574db6.js"></script>
 </head>
 <body>
     <form id="form_Compra" runat="server">

@@ -432,13 +432,16 @@ namespace FixFinder.Pages
                     }
                     else if (o.status.Equals("Concluído"))
                     {
-                        btn = new Button();
-                        btn.Click += new EventHandler(btn_Avaliar_Click);
-                        btn.ID = "btn_Avaliar" + o.idOrcamento.ToString();
-                        btn.Text = "Comentar/Ver Avaliação";
-                        btn.CssClass = "btn btn-success ml-1 mt-3";
-                        btn.CommandArgument = o.idOrcamento.ToString();
-                        body.Controls.Add(btn);
+                        if (context.Avaliacao.Where(a => a.idOrcamento == o.idOrcamento).FirstOrDefault() != null)
+                        {
+                            btn = new Button();
+                            btn.Click += new EventHandler(btn_Avaliar_Click);
+                            btn.ID = "btn_Avaliar" + o.idOrcamento.ToString();
+                            btn.Text = "Comentar/Ver Avaliação";
+                            btn.CssClass = "btn btn-success ml-1 mt-3";
+                            btn.CommandArgument = o.idOrcamento.ToString();
+                            body.Controls.Add(btn);
+                        }
                     }
 
                     card.Controls.Add(body);

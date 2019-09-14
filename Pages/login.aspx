@@ -13,8 +13,9 @@
     <script src="../Scripts/popper.min.js"></script>
 </head>
 <body>
+
     <form id="form_Login" runat="server">
-        <uc:Header_Control runat="server" id="Header_Control"></uc:Header_Control>
+        <uc:Header_Control runat="server" ID="Header_Control"></uc:Header_Control>
         <div class="container w-25 p-3">
             <h1 style="text-align: center" class="display-4 text-primary">Login</h1>
             <div class="form-group">

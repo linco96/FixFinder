@@ -1090,55 +1090,64 @@ namespace FixFinder.Pages
                             String status = "Aprovação da gerencia pendente";
                             Produto prod;
 
-                            Orcamento orcamento = new Orcamento()
+                            if (total <= 0)
                             {
-                                valor = total,
-                                data = data,
-                                status = status,
-                                cpfFuncionario = funcionario.cpf,
-                                cnpjOficina = oficina.cnpj,
-                                idVeiculo = veiculo.idVeiculo,
-                                cpfCliente = cliente.cpf,
-                            };
-
-                            context.Orcamento.Add(orcamento);
-                            context.SaveChanges();
-
-                            ServicosOrcamento so;
-                            foreach (Servico s in servicosSelecionados)
-                            {
-                                so = new ServicosOrcamento()
-                                {
-                                    idOrcamento = orcamento.idOrcamento,
-                                    idServico = s.idServico,
-                                    status = "Pendente"
-                                };
-                                context.ServicosOrcamento.Add(so);
-                                context.SaveChanges();
+                                pnl_Alert.CssClass = "alert alert-danger";
+                                lbl_Alert.Text = "Orçamento com valor inválido";
+                                pnl_Alert.Visible = true;
                             }
-                            if (produtosSelecionados.Count > 0)
+                            else
                             {
-                                ProdutosOrcamento po;
-                                foreach (Produto p in produtosSelecionados.Keys)
+                                Orcamento orcamento = new Orcamento()
                                 {
-                                    po = new ProdutosOrcamento()
+                                    valor = total,
+                                    data = data,
+                                    status = status,
+                                    cpfFuncionario = funcionario.cpf,
+                                    cnpjOficina = oficina.cnpj,
+                                    idVeiculo = veiculo.idVeiculo,
+                                    cpfCliente = cliente.cpf,
+                                };
+
+                                context.Orcamento.Add(orcamento);
+                                context.SaveChanges();
+
+                                ServicosOrcamento so;
+                                foreach (Servico s in servicosSelecionados)
+                                {
+                                    so = new ServicosOrcamento()
                                     {
                                         idOrcamento = orcamento.idOrcamento,
-                                        idProduto = p.idProduto,
-                                        quantidade = produtosSelecionados[p]
+                                        idServico = s.idServico,
+                                        status = "Pendente"
                                     };
-                                    context.ProdutosOrcamento.Add(po);
-                                    context.SaveChanges();
-
-                                    prod = context.Produto.Where(produto => produto.idProduto == p.idProduto).FirstOrDefault();
-                                    prod.quantidade -= po.quantidade;
+                                    context.ServicosOrcamento.Add(so);
                                     context.SaveChanges();
                                 }
+                                if (produtosSelecionados.Count > 0)
+                                {
+                                    ProdutosOrcamento po;
+                                    foreach (Produto p in produtosSelecionados.Keys)
+                                    {
+                                        po = new ProdutosOrcamento()
+                                        {
+                                            idOrcamento = orcamento.idOrcamento,
+                                            idProduto = p.idProduto,
+                                            quantidade = produtosSelecionados[p]
+                                        };
+                                        context.ProdutosOrcamento.Add(po);
+                                        context.SaveChanges();
+
+                                        prod = context.Produto.Where(produto => produto.idProduto == p.idProduto).FirstOrDefault();
+                                        prod.quantidade -= po.quantidade;
+                                        context.SaveChanges();
+                                    }
+                                }
+                                clearForm();
+                                pnl_Alert.CssClass = "alert alert-success";
+                                lbl_Alert.Text = "Orçamento criado com sucesso";
+                                pnl_Alert.Visible = true;
                             }
-                            clearForm();
-                            pnl_Alert.CssClass = "alert alert-success";
-                            lbl_Alert.Text = "Orçamento criado com sucesso";
-                            pnl_Alert.Visible = true;
                         }
                     }
                     catch (Exception ex)

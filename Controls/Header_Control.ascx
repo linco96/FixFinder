@@ -6,7 +6,7 @@
 
         <ul class="navbar-nav mr-auto">
             <li class="nav-item ml-2 mt-2">
-                <h5 class="text-white font-weight-normal">Fix Finder</h5>
+                <h5 class="text-white font-weight-normal">FixFinder</h5>
             </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">

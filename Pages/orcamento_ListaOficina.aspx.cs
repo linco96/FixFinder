@@ -173,17 +173,6 @@ namespace FixFinder.Pages
                             btnExpandir.InnerText = "Expandir/Retrair";
                             cell.Controls.Add(btnExpandir);
 
-                            if (o.status.Equals("Aprovado"))
-                            {
-                                btn = new Button();
-                                btn.Click += new EventHandler(btn_AlterarOrcamento_Click);
-                                btn.ID = "btn_Alterar" + o.idOrcamento.ToString();
-                                btn.Text = "Atualizar";
-                                btn.CssClass = "btn btn-primary ml-1";
-                                btn.CommandArgument = o.idOrcamento.ToString();
-                                cell.Controls.Add(btn);
-                            }
-
                             row.Cells.Add(cell);
 
                             tbl_Orcamentos.Rows.Add(row);

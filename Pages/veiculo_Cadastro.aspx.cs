@@ -145,7 +145,7 @@ namespace FixFinder.Pages
                         pnl_Alert.CssClass = "alert alert-success";
                         pnl_Alert.Visible = true;
                         if (Session["lastPage"] == null)
-                            Response.AddHeader("REFRESH", "3; url=veiculo_Lista.aspx");
+                            Response.Redirect("veiculo_Lista.aspx", false);
                         else
                             Response.Redirect((String)Session["lastPage"], false);
                     }

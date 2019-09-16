@@ -169,8 +169,6 @@
                             </button>
                         </div>--%>
                     </div>
-                    <h1>Bem vindo seu otário da porra</h1>
-                    <img src="https://www.ahnegao.com.br/wp-content/uploads/2019/09/img-3.jpg" />
                 </main>
             </div>
         </div>

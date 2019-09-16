@@ -170,7 +170,7 @@
                         </div>--%>
                     </div>
 
-                    <div class="container-fluid mt-5 pl-5 row" runat="server" id="div_Cards">
+                    <div class="container-fluid pl-5 row" runat="server" id="div_Cards">
                     </div>
                     <div class="container container-fluid mt-5 pl-5">
                         <asp:Panel runat="server" ID="pnl_Alert" Visible="false" CssClass="alert alert-danger" role="alert">

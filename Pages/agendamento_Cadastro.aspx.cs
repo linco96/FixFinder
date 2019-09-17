@@ -251,18 +251,15 @@ namespace FixFinder.Pages
         protected bool verificarHorario(TimeSpan horario, List<Agendamento> agendamentos)
         {
             int instancias = 0;
-            DateTime dt;
             foreach (Agendamento a in agendamentos)
             {
                 if (a.hora.Equals(horario))
                     instancias++;
-
-                if (instancias == o.capacidadeAgendamentos)
-                    return false;
-
-                instancias = 0;
             }
-            return true;
+            if (instancias >= o.capacidadeAgendamentos)
+                return false;
+            else
+                return true;
         }
 
         protected void btn_Cadastrar_Click(object sender, EventArgs e)

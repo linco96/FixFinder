@@ -105,7 +105,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="produto_Lista.aspx">
+                                    <a class="nav-link active" href="produto_Lista.aspx">
                                         <i class="fas fa-oil-can fa-1x fa-fw mr-1"></i>
                                         Produtos
                                     </a>
@@ -169,35 +169,45 @@
                         </div>--%>
                     </div>
                     <div class="container mt-5">
-                        <div class="form-group">
-                            <label for="txt_Descrição">Descrição</label>
-                            <asp:TextBox runat="server" ID="txt_Descricao" CssClass="form-control" minlength="4" required="required"></asp:TextBox>
+
+                        <div class="form-inline">
+                            <span class="w-50 text-left pr-3 mb-1">
+                                <label for="txt_Descrição" style="display: block">Descrição</label>
+                                <asp:TextBox runat="server" ID="txt_Descricao" CssClass="form-control w-100" minlength="4" required="required"></asp:TextBox>
+                            </span>
+                            <span class="w-50 text-left mb-1">
+                                <label for="txt_Quantidade" style="display: block">Quantidade</label>
+                                <asp:TextBox runat="server" ID="txt_Quantidade" CssClass="form-control w-100" onkeypress="$(this).mask('#.##0', {reverse: true});" type="number" required="required"></asp:TextBox>
+                            </span>
                         </div>
-                        <div class="form-group">
-                            <label for="txt_Quantidade">Quantidade</label>
-                            <asp:TextBox runat="server" ID="txt_Quantidade" CssClass="form-control" onkeypress="$(this).mask('#.##0', {reverse: true});" type="number" required="required"></asp:TextBox>
+
+                        <div class="form-inline">
+                            <span class="w-50 text-left pr-3 mb-1">
+                                <label for="txt_PrecoCompra" style="display: block">Preço de compra</label>
+                                <asp:TextBox runat="server" ID="txt_PrecoCompra" CssClass="form-control w-100" onkeypress="$(this).mask('#.##0,00', {reverse: true});" required="required"></asp:TextBox>
+                            </span>
+                            <span class="w-50 text-left mb-1">
+                                <label for="txt_PrecoVenda" style="display: block">Preço de venda (Opcional)</label>
+                                <asp:TextBox runat="server" ID="txt_PrecoVenda" CssClass="form-control w-100" onkeypress="$(this).mask('#.##0,00', {reverse: true});"></asp:TextBox>
+                            </span>
                         </div>
-                        <div class="form-group">
-                            <label for="txt_PrecoCompra">Preço de compra</label>
-                            <asp:TextBox runat="server" ID="txt_PrecoCompra" CssClass="form-control" onkeypress="$(this).mask('#.##0,00', {reverse: true});" required="required"></asp:TextBox>
+
+                        <div class="form-inline">
+                            <span class="w-50 text-left pr-3 mb-1">
+                                <label for="txt_Marca" style="display: block">Marca</label>
+                                <asp:TextBox runat="server" ID="txt_Marca" CssClass="form-control w-100" minlength="2" required="required"></asp:TextBox>
+                            </span>
+                            <span class="w-25 text-left pr-3 mb-1">
+                                <label for="txt_Validade" style="display: block">Validade (Opcional)</label>
+                                <asp:TextBox runat="server" ID="txt_Validade" CssClass="form-control w-100" type="date"></asp:TextBox>
+                            </span>
+                            <span class="w-25 text-left mb-1">
+                                <label for="txt_Categoria" style="display: block">Categoria</label>
+                                <asp:TextBox runat="server" ID="txt_Categoria" CssClass="form-control w-100" minlength="2" required="required"></asp:TextBox>
+                            </span>
                         </div>
-                        <div class="form-group">
-                            <label for="txt_PrecoVenda">Preço de venda (Opcional)</label>
-                            <asp:TextBox runat="server" ID="txt_PrecoVenda" CssClass="form-control" onkeypress="$(this).mask('#.##0,00', {reverse: true});"></asp:TextBox>
-                        </div>
-                        <div class="form-group">
-                            <label for="txt_Marca">Marca</label>
-                            <asp:TextBox runat="server" ID="txt_Marca" CssClass="form-control" minlength="2" required="required"></asp:TextBox>
-                        </div>
-                        <div class="form-group">
-                            <label for="txt_Validade">Validade (Opcional)</label>
-                            <asp:TextBox runat="server" ID="txt_Validade" CssClass="form-control" type="date"></asp:TextBox>
-                        </div>
-                        <div class="form-group">
-                            <label for="txt_Categoria">Categoria</label>
-                            <asp:TextBox runat="server" ID="txt_Categoria" CssClass="form-control" minlength="2" required="required"></asp:TextBox>
-                        </div>
-                        <div class="form-group">
+
+                        <div class="form-group mt-1">
                             <asp:Button runat="server" ID="btn_Cadastro" CssClass="btn btn-success" OnClick="btn_Cadastro_Click" Text="Cadastrar" />
                             <asp:Button runat="server" ID="btn_Voltar" CssClass="btn btn-danger" OnClick="btn_Voltar_Click" Text="Voltar" formnovalidate="true" />
                         </div>

@@ -183,15 +183,19 @@
                         <div class="form-group">
                             <h4>Cliente</h4>
                         </div>
-                        <div class="form-group">
-                            <label for="txt_CPF">CPF</label>
-                            <asp:TextBox runat="server" ID="txt_CPF" CssClass="form-control" minlength="14" onkeypress="$(this).mask('000.000.000-00');" ClientIDMode="Static"></asp:TextBox>
-                            <small runat="server" id="alert_CPF" visible="false" class="form-text text-danger"></small>
+
+                        <div class="form-inline">
+                            <span class="w-50 text-left pr-3 mb-1">
+                                <label for="txt_CPF" style="display: block">CPF</label>
+                                <asp:TextBox runat="server" ID="txt_CPF" CssClass="form-control w-100" minlength="14" onkeypress="$(this).mask('000.000.000-00');" ClientIDMode="Static"></asp:TextBox>
+                            </span>
+                            <span class="w-50 text-left mb-1">
+                                <label for="txt_Nome" style="display: block">Nome completo</label>
+                                <asp:TextBox runat="server" ID="txt_Nome" CssClass="form-control w-100" minlength="4" required="required" ReadOnly="true"></asp:TextBox>
+                            </span>
                         </div>
-                        <div class="form-group">
-                            <label for="txt_Nome">Nome completo</label>
-                            <asp:TextBox runat="server" ID="txt_Nome" CssClass="form-control" minlength="4" required="required" ReadOnly="true"></asp:TextBox>
-                        </div>
+                        <small runat="server" id="alert_CPF" visible="false" class="form-text text-danger"></small>
+
                         <div class="form-group">
                             <label for="txt_Veiculo">Veículo</label>
                             <asp:DropDownList runat="server" ID="txt_Veiculo" Enabled="false" CssClass="form-control custom-select">

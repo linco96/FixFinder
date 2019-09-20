@@ -173,15 +173,19 @@
                         <%--FORMULÁRIO DE CADASTRO--%>
                         <div runat="server" id="form_Cadastro" visible="false">
                             <hr class="border-primary" />
-                            <div class="form-group">
-                                <label for="txt_Descricao">Descrição</label>
-                                <asp:TextBox runat="server" ID="txt_Descricao" CssClass="form-control" minlength="4" required="required"></asp:TextBox>
+
+                            <div class="form-inline">
+                                <span class="w-50 text-left pr-3 mb-1">
+                                    <label for="txt_Descricao" style="display: block">Descrição</label>
+                                    <asp:TextBox runat="server" ID="txt_Descricao" CssClass="form-control w-100" minlength="4" required="required"></asp:TextBox>
+                                </span>
+                                <span class="w-50 text-left mb-1">
+                                    <label for="txt_Valor" style="display: block">Valor</label>
+                                    <asp:TextBox runat="server" ID="txt_Valor" CssClass="form-control w-100" onkeypress="$(this).mask('#.##0,00', {reverse: true});" required="required"></asp:TextBox>
+                                </span>
                             </div>
-                            <div class="form-group">
-                                <label for="txt_Valor">Valor</label>
-                                <asp:TextBox runat="server" ID="txt_Valor" CssClass="form-control" onkeypress="$(this).mask('#.##0,00', {reverse: true});" required="required"></asp:TextBox>
-                            </div>
-                            <div class="form-group">
+
+                            <div class="form-group mt-1">
                                 <asp:Button runat="server" ID="btn_Cadastro" CssClass="btn btn-success" OnClick="btn_Cadastro_Click" Text="Cadastrar" />
                                 <asp:Button runat="server" ID="btn_CancelarCadastro" Text="Cancelar" CssClass="btn btn-danger" OnClick="btn_CancelarCadastro_Click" formnovalidate="true" />
                             </div>
@@ -191,15 +195,19 @@
                         <div runat="server" id="form_Edicao" visible="false">
                             <hr class="border-primary" />
                             <h4 runat="server" id="head_Edicao"></h4>
-                            <div class="form-group">
-                                <label for="txt_DescricaoEdicao">Descrição</label>
-                                <asp:TextBox runat="server" ID="txt_DescricaoEdicao" CssClass="form-control" minlength="4" required="required"></asp:TextBox>
+
+                            <div class="form-inline">
+                                <span class="w-50 text-left pr-3 mb-1">
+                                    <label for="txt_DescricaoEdicao" style="display: block">Descrição</label>
+                                    <asp:TextBox runat="server" ID="txt_DescricaoEdicao" CssClass="form-control w-100" minlength="4" required="required"></asp:TextBox>
+                                </span>
+                                <span class="w-50 text-left mb-1">
+                                    <label for="txt_Valor" style="display: block">Valor</label>
+                                    <asp:TextBox runat="server" ID="txt_ValorEdicao" CssClass="form-control w-100" onkeypress="$(this).mask('#.##0,00', {reverse: true});" required="required"></asp:TextBox>
+                                </span>
                             </div>
-                            <div class="form-group">
-                                <label for="txt_Valor">Valor</label>
-                                <asp:TextBox runat="server" ID="txt_ValorEdicao" CssClass="form-control" onkeypress="$(this).mask('#.##0,00', {reverse: true});" required="required"></asp:TextBox>
-                            </div>
-                            <div class="form-group">
+
+                            <div class="form-group mt-1">
                                 <asp:Button runat="server" ID="btn_SalvarEdicao" CssClass="btn btn-success" OnClick="btn_SalvarEdicao_Click" Text="Salvar" />
                                 <asp:Button runat="server" ID="btn_CancelarEdicao" Text="Cancelar" CssClass="btn btn-danger" OnClick="btn_CancelarEdicao_Click" formnovalidate="true" />
                             </div>

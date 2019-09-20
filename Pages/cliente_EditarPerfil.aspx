@@ -170,38 +170,51 @@
                         </div>--%>
                     </div>
                     <div class="container mt-5">
-                        <div class="form-group">
-                            <label for="txt_Nome">Nome completo</label>
-                            <asp:TextBox runat="server" ID="txt_Nome" CssClass="form-control" minlength="4" required="required"></asp:TextBox>
+
+                        <div class="form-inline">
+                            <span class="w-50 text-left pr-3 mb-1">
+                                <label for="txt_Nome" style="display: block">Nome completo</label>
+                                <asp:TextBox runat="server" ID="txt_Nome" CssClass="form-control w-100" minlength="4" required="required"></asp:TextBox></span>
+                            <span class="w-50 text-left mb-1">
+                                <label for="date_DataNascimento" style="display: block">Data de nascimento</label>
+                                <asp:TextBox runat="server" ID="date_DataNascimento" CssClass="form-control w-100" type="date" required="required"></asp:TextBox>
+                            </span>
                         </div>
-                        <div class="form-group">
-                            <label for="txt_Telefone">Telefone</label>
-                            <asp:TextBox runat="server" ID="txt_Telefone" CssClass="form-control" minlength="8" onkeypress="$(this).mask('(00) 0 0000-0000');" required="required"></asp:TextBox>
+
+                        <div class="form-inline">
+                            <span class="w-50 text-left pr-3 mb-1">
+                                <label for="txt_Email" style="display: block">E-mail</label>
+                                <asp:TextBox runat="server" ID="txt_Email" CssClass="form-control w-100" type="email" required="required"></asp:TextBox>
+                            </span>
+                            <span class="w-50 text-left mb-1">
+                                <label for="txt_Telefone" style="display: block">Telefone</label>
+                                <asp:TextBox runat="server" ID="txt_Telefone" CssClass="form-control w-100" minlength="8" onkeypress="$(this).mask('(00) 0 0000-0000');" required="required"></asp:TextBox>
+                            </span>
                         </div>
-                        <div class="form-group">
-                            <label for="txt_Email">E-mail</label>
-                            <asp:TextBox runat="server" ID="txt_Email" CssClass="form-control" type="email" required="required"></asp:TextBox>
-                        </div>
-                        <div class="form-group">
-                            <label for="date_DataNascimento">Data de nascimento</label>
-                            <asp:TextBox runat="server" ID="date_DataNascimento" CssClass="form-control" type="date" required="required"></asp:TextBox>
-                        </div>
-                        <div class="form-group">
+
+                        <div class="form-group mt-2">
                             <h5 aria-describedby="senha_Help">Alterar senha</h5>
                             <small id="senha_Help" class="form-text text-muted">Para alterar a sua senha informe primeiramente a sua senha atual. Caso não deseje alterar a sua senha deixe estes campos em branco</small>
                         </div>
-                        <div class="form-group">
-                            <label for="txt_Senha">Senha atual</label>
-                            <asp:TextBox runat="server" ID="txt_Senha" CssClass="form-control" type="password" minlength="6"></asp:TextBox>
+
+                        <div class="form-inline">
+                            <span class="w-100 text-left mb-1">
+                                <label for="txt_Senha" style="display: block">Senha atual</label>
+                                <asp:TextBox runat="server" ID="txt_Senha" CssClass="form-control w-100" type="password" minlength="6"></asp:TextBox>
+                            </span>
                         </div>
-                        <div class="form-group">
-                            <label for="txt_SenhaNova">Nova senha</label>
-                            <asp:TextBox runat="server" ID="txt_SenhaNova" CssClass="form-control" type="password" minlength="6"></asp:TextBox>
+
+                        <div class="form-inline">
+                            <span class="w-50 text-left pr-3 mb-1">
+                                <label for="txt_SenhaNova" style="display: block">Nova senha</label>
+                                <asp:TextBox runat="server" ID="txt_SenhaNova" CssClass="form-control w-100" type="password" minlength="6"></asp:TextBox>
+                            </span>
+                            <span class="w-50 text-left mb-1">
+                                <label for="txt_SenhaNova" style="display: block">Confirme a nova senha</label>
+                                <asp:TextBox runat="server" ID="txt_SenhaNovaConfirma" CssClass="form-control w-100" type="password" minlength="6"></asp:TextBox>
+                            </span>
                         </div>
-                        <div class="form-group">
-                            <label for="txt_SenhaNova">Confirme a nova senha</label>
-                            <asp:TextBox runat="server" ID="txt_SenhaNovaConfirma" CssClass="form-control" type="password" minlength="6"></asp:TextBox>
-                        </div>
+
                         <div class="form-group">
                             <asp:Button runat="server" ID="btn_Salvar" CssClass="btn btn-success" OnClick="btn_Salvar_Click" Text="Salvar alterações"></asp:Button>
                         </div>

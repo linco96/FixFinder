@@ -17,23 +17,29 @@
         <uc:Header_Control runat="server" ID="Header_Control"></uc:Header_Control>
         <div class="container mt-5">
             <h1 class="display-4 text-primary" style="text-align: center">Cadastro de Oficina</h1>
-            <div class="form-group">
-                <label for="txt_cnpj">CNPJ</label>
-                <asp:TextBox runat="server" ID="txt_CNPJ" CssClass="form-control" minlength="18" onkeypress="$(this).mask('00.000.000/0000-00');" required="required"></asp:TextBox>
-                <%--    32.154.993/0001-42      --%>
+
+            <div class="form-inline">
+                <span class="w-50 text-left pr-3 mb-1">
+                    <label for="txt_cnpj" style="display: block">CNPJ</label>
+                    <asp:TextBox runat="server" ID="txt_CNPJ" CssClass="form-control w-100" minlength="18" onkeypress="$(this).mask('00.000.000/0000-00');" required="required"></asp:TextBox>
+                </span>
+                <span class="w-50 text-left mb-1">
+                    <label for="txt_nome" style="display: block">Nome</label>
+                    <asp:TextBox runat="server" ID="txt_Nome" CssClass="form-control w-100" minlength="4" required="required"></asp:TextBox>
+                </span>
             </div>
-            <div class="form-group">
-                <label for="txt_nome">Nome</label>
-                <asp:TextBox runat="server" ID="txt_Nome" CssClass="form-control" minlength="4" required="required"></asp:TextBox>
+
+            <div class="form-inline">
+                <span class="w-50 text-left pr-3 mb-1">
+                    <label for="txt_Telefone" style="display: block">Telefone</label>
+                    <asp:TextBox runat="server" ID="txt_Telefone" CssClass="form-control w-100" minlength="15" onkeypress="$(this).mask('(00) 0 0000-0000');" required="required"></asp:TextBox>
+                </span>
+                <span class="w-50 text-left mb-1">
+                    <label for="txt_Email" style="display: block">E-mail</label>
+                    <asp:TextBox runat="server" ID="txt_Email" CssClass="form-control w-100" type="email" required="required"></asp:TextBox>
+                </span>
             </div>
-            <div class="form-group">
-                <label for="txt_Telefone">Telefone</label>
-                <asp:TextBox runat="server" ID="txt_Telefone" CssClass="form-control" minlength="15" onkeypress="$(this).mask('(00) 0 0000-0000');" required="required"></asp:TextBox>
-            </div>
-            <div class="form-group">
-                <label for="txt_Email">E-mail</label>
-                <asp:TextBox runat="server" ID="txt_Email" CssClass="form-control" type="email" required="required"></asp:TextBox>
-            </div>
+
             <div class="form-group">
                 <h4>Segunda à Sexta</h4>
             </div>
@@ -42,7 +48,7 @@
                     <label for="txt_HorarioAberturaUtil" style="display: block">Horário de abertura</label>
                     <asp:TextBox runat="server" ID="txt_HorarioAberturaUtil" CssClass="form-control w-100" type="time"></asp:TextBox>
                 </span>
-                <span class="w-50 text-left pl-3 mb-1">
+                <span class="w-50 text-left mb-1">
                     <label for="txt_HorarioFechamentoUtil" style="display: block">Horário de fechamento</label>
                     <asp:TextBox runat="server" ID="txt_HorarioFechamentoUtil" CssClass="form-control w-100" type="time"></asp:TextBox>
                 </span>
@@ -55,7 +61,7 @@
                     <label for="txt_HorarioAberturaSabado" style="display: block">Horário de abertura</label>
                     <asp:TextBox runat="server" ID="txt_HorarioAberturaSabado" CssClass="form-control w-100" type="time"></asp:TextBox>
                 </span>
-                <span class="w-50 text-left pl-3 mb-1">
+                <span class="w-50 text-left mb-1">
                     <label for="txt_HorarioFechamentoSabado" style="display: block">Horário de fechamento</label>
                     <asp:TextBox runat="server" ID="txt_HorarioFechamentoSabado" CssClass="form-control w-100" type="time"></asp:TextBox>
                 </span>
@@ -68,7 +74,7 @@
                     <label for="txt_HorarioAberturaDomingo" style="display: block">Horário de abertura</label>
                     <asp:TextBox runat="server" ID="txt_HorarioAberturaDomingo" CssClass="form-control w-100" type="time"></asp:TextBox>
                 </span>
-                <span class="w-50 text-left pl-3 mb-1">
+                <span class="w-50 text-left mb-1">
                     <label for="txt_HorarioFechamentoDomingo" style="display: block">Horário de fechamento</label>
                     <asp:TextBox runat="server" ID="txt_HorarioFechamentoDomingo" CssClass="form-control w-100" type="time"></asp:TextBox>
                 </span>
@@ -84,7 +90,7 @@
                     <label for="num_Agendamentos" style="display: block">Capacidade de agendamentos</label>
                     <asp:TextBox runat="server" ID="num_Agendamentos" CssClass="form-control w-100" type="number" required="required"></asp:TextBox>
                 </span>
-                <span class="w-50 text-left pl-3 mb-1">
+                <span class="w-50 text-left mb-1">
                     <label for="txt_TempoAtendimento" style="display: block">Tempo por atendimento</label>
                     <asp:TextBox runat="server" ID="txt_TempoAtendimento" CssClass="form-control w-100" type="time" required="required"></asp:TextBox>
                 </span>

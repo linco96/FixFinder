@@ -169,21 +169,25 @@
                         </div>--%>
                     </div>
                     <div class="container mt-5">
-                        <div class="form-group">
-                            <label for="txt_CPF">CPF do Funcionário</label>
-                            <asp:TextBox runat="server" ID="txt_CPF" CssClass="form-control" minlength="14" onkeypress="$(this).mask('000.000.000-00');" ReadOnly="true" required="required" ClientIDMode="Static"></asp:TextBox>
+                        <div class="form-inline">
+                            <span class="w-50 text-left pr-3 mb-1">
+                                <label for="txt_CPF" style="display: block">CPF do Funcionário</label>
+                                <asp:TextBox runat="server" ID="txt_CPF" CssClass="form-control w-100" minlength="14" onkeypress="$(this).mask('000.000.000-00');" required="required" ReadOnly="true" ClientIDMode="Static"></asp:TextBox>
+                            </span>
+                            <span class="w-50 text-left mb-1">
+                                <label for="txt_Nome" style="display: block">Nome completo</label>
+                                <asp:TextBox runat="server" ID="txt_Nome" CssClass="form-control w-100" minlength="4" ReadOnly="true" required="required"></asp:TextBox>
+                            </span>
                         </div>
-                        <div class="form-group">
-                            <label for="txt_Nome">Nome completo</label>
-                            <asp:TextBox runat="server" ID="txt_Nome" CssClass="form-control" minlength="4" ReadOnly="true" required="required"></asp:TextBox>
-                        </div>
-                        <div class="form-group">
-                            <label for="txt_Cargo">Cargo</label>
-                            <asp:TextBox runat="server" ID="txt_Cargo" CssClass="form-control" minlength="2" required="required"></asp:TextBox>
-                        </div>
-                        <div class="form-group">
-                            <label for="txt_Salario">Salário</label>
-                            <asp:TextBox runat="server" ID="txt_Salario" CssClass="form-control" onkeypress="$(this).mask('#.##0,00', {reverse: true});" required="required"></asp:TextBox>
+                        <div class="form-inline">
+                            <span class="w-50 text-left pr-3 mb-1">
+                                <label for="txt_Cargo" style="display: block">Cargo</label>
+                                <asp:TextBox runat="server" ID="txt_Cargo" CssClass="form-control w-100" minlength="2" required="required"></asp:TextBox>
+                            </span>
+                            <span class="w-50 text-left mb-1">
+                                <label for="txt_Salario" style="display: block">Salário</label>
+                                <asp:TextBox runat="server" ID="txt_Salario" CssClass="form-control w-100" onkeypress="$(this).mask('#.##0,00', {reverse: true});" required="required"></asp:TextBox>
+                            </span>
                         </div>
                         <div class="form-group">
                             <label for="ddl_Banco">Banco</label>
@@ -289,15 +293,17 @@
                                 <asp:ListItem Text="756 - Banco Cooperativo do Brasil S.A. - BANCOOB" Value="756"></asp:ListItem>
                             </asp:DropDownList>
                         </div>
-                        <div class="form-group">
-                            <label for="txt_Agencia">Agência</label>
-                            <asp:TextBox runat="server" ID="txt_Agencia" CssClass="form-control" onkeypress="$(this).mask('000000000000');" required="required"></asp:TextBox>
+                        <div class="form-inline">
+                            <span class="w-50 text-left pr-3 mb-1">
+                                <label for="txt_Agencia" style="display: block">Agência</label>
+                                <asp:TextBox runat="server" ID="txt_Agencia" CssClass="form-control w-100" onkeypress="$(this).mask('0000000000');" required="required"></asp:TextBox>
+                            </span>
+                            <span class="w-50 text-left mb-1">
+                                <label for="txt_Conta" style="display: block">Conta</label>
+                                <asp:TextBox runat="server" ID="txt_Conta" CssClass="form-control w-100" onkeypress="$(this).mask('0000000000');" required="required"></asp:TextBox>
+                            </span>
                         </div>
-                        <div class="form-group">
-                            <label for="txt_Conta">Conta</label>
-                            <asp:TextBox runat="server" ID="txt_Conta" CssClass="form-control" onkeypress="$(this).mask('000000000000');" required="required"></asp:TextBox>
-                        </div>
-                        <div class="form-group">
+                        <div class="form-group mt-1">
                             <asp:Button runat="server" ID="btn_Registro" CssClass="btn btn-success" OnClick="btn_Registro_Click" Text="Atualizar" />
                             <asp:Button runat="server" ID="btn_Cancelar" CssClass="btn btn-danger" OnClick="btn_Cancelar_Click" Text="Cancelar" />
                         </div>

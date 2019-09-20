@@ -170,27 +170,31 @@
                         </div>--%>
                     </div>
                     <div class="container mt-5">
-                        <div class="form-group">
-                            <label for="txt_cnpj">CNPJ</label>
-                            <asp:TextBox runat="server" ID="txt_CNPJ" CssClass="form-control" minlength="18" onkeypress="$(this).mask('00.000.000/0000-00');" required="required"></asp:TextBox>
-                            <%--    32.154.993/0001-42      --%>
-                        </div>
-                        <div class="form-group">
-                            <label for="txt_nome">Nome</label>
-                            <asp:TextBox runat="server" ID="txt_Nome" CssClass="form-control" minlength="4" required="required"></asp:TextBox>
-                        </div>
-                        <div class="form-group">
-                            <label for="txt_Telefone">Telefone</label>
-                            <asp:TextBox runat="server" ID="txt_Telefone" CssClass="form-control" onkeypress="$(this).mask('(00) 0 0000-0000');" required="required"></asp:TextBox>
-                        </div>
-                        <div class="form-group">
-                            <label for="txt_Email">E-mail</label>
-                            <asp:TextBox runat="server" ID="txt_Email" CssClass="form-control" type="email" required="required"></asp:TextBox>
+
+                        <div class="form-inline">
+                            <span class="w-50 text-left pr-3 mb-1">
+                                <label for="txt_cnpj" style="display: block">CNPJ</label>
+                                <asp:TextBox runat="server" ID="txt_CNPJ" CssClass="form-control w-100" minlength="18" onkeypress="$(this).mask('00.000.000/0000-00');" required="required"></asp:TextBox>
+                            </span>
+                            <span class="w-50 text-left mb-1">
+                                <label for="txt_nome" style="display: block">Nome</label>
+                                <asp:TextBox runat="server" ID="txt_Nome" CssClass="form-control w-100" minlength="4" required="required"></asp:TextBox>
+                            </span>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-inline">
+                            <span class="w-50 text-left pr-3 mb-1">
+                                <label for="txt_Telefone" style="display: block">Telefone</label>
+                                <asp:TextBox runat="server" ID="txt_Telefone" CssClass="form-control w-100" onkeypress="$(this).mask('(00) 0 0000-0000');" required="required"></asp:TextBox>
+                            </span>
+                            <span class="w-50 text-left mb-1">
+                                <label for="txt_Email" style="display: block">E-mail</label>
+                                <asp:TextBox runat="server" ID="txt_Email" CssClass="form-control w-100" type="email" required="required"></asp:TextBox>
+                            </span>
+                        </div>
+                        <div class="form-group mt-1">
                             <asp:Button runat="server" ID="btn_Cadastrar" CssClass="btn btn-success" OnClick="btn_Cadastrar_Click" Text="Cadastrar" />
-                            <asp:Button runat="server" ID="btn_Cancelar" CssClass="btn btn-danger" OnClick="btn_Cancelar_Click" Text="Cancelar" />
+                            <asp:Button runat="server" ID="btn_Cancelar" CssClass="btn btn-danger" OnClick="btn_Cancelar_Click" Text="Cancelar" formnovalidate />
                         </div>
                         <div class="form-group">
                             <asp:Panel runat="server" ID="pnl_Alert" Visible="false" CssClass="alert alert-danger" role="alert">

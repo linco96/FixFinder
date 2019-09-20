@@ -103,13 +103,13 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.WebControls.TextBox txt_Nome;
         
         /// <summary>
-        /// txt_Telefone control.
+        /// date_DataNascimento control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_Telefone;
+        protected global::System.Web.UI.WebControls.TextBox date_DataNascimento;
         
         /// <summary>
         /// txt_Email control.
@@ -121,13 +121,13 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.WebControls.TextBox txt_Email;
         
         /// <summary>
-        /// date_DataNascimento control.
+        /// txt_Telefone control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox date_DataNascimento;
+        protected global::System.Web.UI.WebControls.TextBox txt_Telefone;
         
         /// <summary>
         /// txt_Senha control.

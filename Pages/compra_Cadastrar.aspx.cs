@@ -640,6 +640,9 @@ namespace FixFinder.Pages
                         }
 
                         Session["compra"] = null;
+                        listaProdutos.Clear();
+                        fornecedor = null;
+                        compra = null;
                         Response.Redirect("compra_Lista.aspx", false);
                     }
                 }
@@ -653,6 +656,8 @@ namespace FixFinder.Pages
         protected void btn_Voltar_Click(object sender, EventArgs e)
         {
             Session["compra"] = null;
+            listaProdutos.Clear();
+            fornecedor = null;
             Response.Redirect("compra_Lista.aspx", false);
         }
 

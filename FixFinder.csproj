@@ -92,6 +92,7 @@
     <Content Include="Content\star_32.png" />
     <Content Include="Controls\Header_Control.ascx" />
     <Content Include="dashboard.aspx" />
+    <Content Include="Geolocation.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Models\Database.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -195,6 +196,13 @@
     </Compile>
     <Compile Include="dashboard.aspx.designer.cs">
       <DependentUpon>dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Geolocation.aspx.cs">
+      <DependentUpon>Geolocation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Geolocation.aspx.designer.cs">
+      <DependentUpon>Geolocation.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

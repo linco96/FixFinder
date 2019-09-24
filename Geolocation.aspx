@@ -1,10 +1,17 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Geolocation.aspx.cs" Inherits="FixFinder.Geolocation" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" Async="true" CodeBehind="Geolocation.aspx.cs" Inherits="FixFinder.Geolocation" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+    <script src="../Scripts/jquery-3.4.1.min.js"></script>
+    <script src="../Scripts/popper.min.js"></script>
+    <script src="../Scripts/jquery.mask.js"></script>
+    <link href="../Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="../Scripts/bootstrap.min.js"></script>
+    <link href="../Content/dashboard.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/1729574db6.js"></script>
 </head>
 <body>
     <p id="demo">Click the button to get your position:</p>
@@ -45,7 +52,20 @@
         }
     </script>
     <form id="form1" runat="server">
-        <div>
+        <div class="container">
+            <div class="form-group">
+                <asp:TextBox runat="server" ID="txt1" CssClass="form-control"></asp:TextBox>
+            </div>
+            <div class="form-group">
+                <asp:TextBox runat="server" ID="txt2" CssClass="form-control"></asp:TextBox>
+            </div>
+            <div class="form-group">
+                <asp:TextBox runat="server" ID="txt3" CssClass="form-control"></asp:TextBox>
+            </div>
+            <div class="form-group">
+                <asp:Button runat="server" ID="btn_SeFude" Text="Vamo lá" OnClick="btn_SeFude_Click" CssClass="btn btn-primary" />
+                <asp:Button runat="server" ID="btn_SeFude2" Text="Vamo lá" OnClick="btn_SeFude2_Click" CssClass="btn btn-primary" />
+            </div>
         </div>
     </form>
 </body>

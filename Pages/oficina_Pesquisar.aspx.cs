@@ -11,7 +11,10 @@ namespace FixFinder.Pages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+        }
 
+        protected void btn_Pesquisar_Click(object sender, EventArgs e)
+        {
         }
     }
 }

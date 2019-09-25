@@ -64,7 +64,6 @@
             </div>
             <div class="form-group">
                 <asp:Button runat="server" ID="btn_SeFude" Text="Vamo lá" OnClick="btn_SeFude_Click" CssClass="btn btn-primary" />
-                <asp:Button runat="server" ID="btn_SeFude2" Text="Vamo lá" OnClick="btn_SeFude2_Click" CssClass="btn btn-primary" />
             </div>
         </div>
     </form>

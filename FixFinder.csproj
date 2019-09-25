@@ -253,6 +253,9 @@
     <Compile Include="Models\Funcionario.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Key.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Localizacao.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>

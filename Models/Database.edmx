@@ -118,6 +118,14 @@
           <Property Name="salario" Type="float" />
           <Property Name="cnpjOficina" Type="varchar" MaxLength="15" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Key">
+          <Key>
+            <PropertyRef Name="idChave" />
+          </Key>
+          <Property Name="idChave" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="Localizacao">
           <Key>
             <PropertyRef Name="idLocalizacao" />
@@ -707,6 +715,11 @@
           <EntitySet Name="Servico" EntityType="Self.Servico" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ServicosOrcamento" EntityType="Self.ServicosOrcamento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Veiculo" EntityType="Self.Veiculo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Key" EntityType="Self.Key" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Key].[idChave] AS [idChave]
+    FROM [dbo].[Key] AS [Key]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_Agendamento_Cliente" Association="Self.FK_Agendamento_Cliente">
             <End Role="Cliente" EntitySet="Cliente" />
             <End Role="Agendamento" EntitySet="Agendamento" />
@@ -1186,6 +1199,12 @@
           <NavigationProperty Name="Cliente" Relationship="Self.FK_Veiculo_Cliente" FromRole="Veiculo" ToRole="Cliente" />
           <NavigationProperty Name="Orcamento" Relationship="Self.FK_Orcamento_Veiculo" FromRole="Veiculo" ToRole="Orcamento" />
         </EntityType>
+        <EntityType Name="Key">
+          <Key>
+            <PropertyRef Name="idChave" />
+          </Key>
+          <Property Name="idChave" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
         <Association Name="FK_Agendamento_Cliente">
           <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
           <End Role="Agendamento" Type="Self.Agendamento" Multiplicity="*" />
@@ -1619,6 +1638,7 @@
           <EntitySet Name="Servico" EntityType="Self.Servico" />
           <EntitySet Name="ServicosOrcamento" EntityType="Self.ServicosOrcamento" />
           <EntitySet Name="Veiculo" EntityType="Self.Veiculo" />
+          <EntitySet Name="Key" EntityType="Self.Key" />
           <AssociationSet Name="FK_Agendamento_Cliente" Association="Self.FK_Agendamento_Cliente">
             <End Role="Cliente" EntitySet="Cliente" />
             <End Role="Agendamento" EntitySet="Agendamento" />
@@ -2049,6 +2069,13 @@
                 <ScalarProperty Name="ano" ColumnName="ano" />
                 <ScalarProperty Name="placa" ColumnName="placa" />
                 <ScalarProperty Name="cpfCliente" ColumnName="cpfCliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Key">
+            <EntityTypeMapping TypeName="DatabaseModel.Key">
+              <MappingFragment StoreEntitySet="Key">
+                <ScalarProperty Name="idChave" ColumnName="idChave" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

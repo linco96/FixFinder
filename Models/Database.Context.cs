@@ -49,5 +49,6 @@ namespace FixFinder.Models
         public virtual DbSet<Servico> Servico { get; set; }
         public virtual DbSet<ServicosOrcamento> ServicosOrcamento { get; set; }
         public virtual DbSet<Veiculo> Veiculo { get; set; }
+        public virtual DbSet<Key> Key { get; set; }
     }
 }

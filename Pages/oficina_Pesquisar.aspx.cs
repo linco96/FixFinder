@@ -16,5 +16,12 @@ namespace FixFinder.Pages
         protected void btn_Pesquisar_Click(object sender, EventArgs e)
         {
         }
+
+        protected void btn_CarregarEndereco_Click(object sender, EventArgs e)
+        {
+            pnl_Alert.Visible = true;
+            pnl_Alert.CssClass = "alert alert-success";
+            lbl_Alert.Text = txt_Pesquisa.Text;
+        }
     }
 }

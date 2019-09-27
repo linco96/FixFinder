@@ -13,7 +13,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <div class="container mt-5">
+        <div class="container mt-5 w-75">
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-prepend">
@@ -22,11 +22,17 @@
                     <asp:TextBox runat="server" ID="txt_Pesquisa" ClientID="txt_Pesquisa" CssClass="form-control width100" ClientIDMode="Static" />
                     <asp:Label runat="server" ID="biglbl"></asp:Label>
                     <span class="input-group-append">
-                        <asp:Button runat="server" ID="btn_Pesquisar" Text="Pesquisar" CssClass="btn btn-primary" OnClick="btn_Pesquisar_Click" />
+                        <asp:Button runat="server" ID="btn_Pesquisar" Text="Pesquisar" CssClass="btn btn-success" OnClick="btn_Pesquisar_Click" />
                     </span>
                 </div>
             </div>
+            <div class="form-group">
+                <asp:Panel runat="server" ID="pnl_Alert" Visible="false" CssClass="alert alert-danger" role="alert">
+                    <asp:Label ID="lbl_Alert" runat="server"></asp:Label>
+                </asp:Panel>
+            </div>
         </div>
+        <asp:Button runat="server" ID="btn_CarregarEndereco" Style="display: none" OnClick="btn_CarregarEndereco_Click" ClientIDMode="Static" />
     </form>
     <script type="text/javascript">
         var x = document.getElementById("demo");
@@ -40,7 +46,7 @@
         function showPosition(position) {
             var latlon = position.coords.latitude + "," + position.coords.longitude;
             $("#txt_Pesquisa").val(latlon);
-            alert(latlon);
+            $("#btn_CarregarEndereco").trigger('click');
         }
 
         function showError(error) {

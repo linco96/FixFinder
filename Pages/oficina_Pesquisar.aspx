@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="oficina_Pesquisar.aspx.cs" Inherits="FixFinder.Pages.oficina_Pesquisar" %>
+﻿<%@ Page Language="C#" Async="true" AutoEventWireup="true" CodeBehind="oficina_Pesquisar.aspx.cs" Inherits="FixFinder.Pages.oficina_Pesquisar" %>
 
 <!DOCTYPE html>
 
@@ -30,6 +30,30 @@
                 <asp:Panel runat="server" ID="pnl_Alert" Visible="false" CssClass="alert alert-danger" role="alert">
                     <asp:Label ID="lbl_Alert" runat="server"></asp:Label>
                 </asp:Panel>
+            </div>
+        </div>
+        <div class="container mt-2">
+            <div class="card mb-3" style="max-height: 400px;">
+                <div class="row no-gutters">
+                    <div class="col-md-3 p-1 border-right">
+                        <img src="../Content/01-SCOPINO-PATIO-OFICINA_setembro2017.jpg" class="card-img" alt="..." />
+                    </div>
+                    <div class="col-md-9">
+                        <div class="card-header bg-light p-1">
+                            <h5 class="card-title mt-2 ml-3">
+                                <span class="align-middle">Paje Motors</span>
+                                <span class="float-right">
+                                    <label runat="server" id="lbl_Reputacao" class="align-middle">7/10</label>
+                                    <img class="align-top" src="../Content/star_24.png" />
+                                </span>
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Rua Visconde de Guarapuava, 1400 - Curitiba, PR</p>
+                            <button class="btn btn-primary ">Solicitar agendamento</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <asp:Button runat="server" ID="btn_CarregarEndereco" Style="display: none" OnClick="btn_CarregarEndereco_Click" ClientIDMode="Static" />

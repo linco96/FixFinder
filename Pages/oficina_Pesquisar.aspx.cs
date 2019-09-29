@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Text;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 namespace FixFinder.Pages
@@ -45,11 +46,37 @@ namespace FixFinder.Pages
 
                     //REALIZAR REQUEST
                     String kelly = context.Key.FirstOrDefault().idChave;
-                    SearchResult result;
+                    SearchResult searchResult;
                     HttpClient client = new HttpClient();
                     var response = await client.GetAsync("https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=" + txt_Pesquisa.Text.Trim().Replace(" ", "+") + "&destinations=" + destinos.ToString() + "&key=" + kelly);
                     var responseString = await response.Content.ReadAsStringAsync();
-                    result = JsonConvert.DeserializeObject<SearchResult>(responseString);
+                    searchResult = JsonConvert.DeserializeObject<SearchResult>(responseString);
+
+                    //MONTA AS PARADA
+                    if (searchResult.status.Equals("OK"))
+                    {
+                        Dictionary<Oficina, Element> resultados = new Dictionary<Oficina, Element>();
+                        for (int i = 0; i < oficinas.Count; i++)
+                        {
+                            resultados.Add(oficinas[i], searchResult.rows[0].elements[i]);
+                        }
+
+                        HtmlGenericControl card;
+                        HtmlGenericControl row;
+                        HtmlGenericControl container;
+                        HtmlGenericControl section1;
+                        HtmlGenericControl section2;
+
+                        Image img;
+                        HtmlGenericControl title;
+                        Label lbl1;
+                        Label lbl2;
+                        HtmlGenericControl biggie;
+                        Button btn;
+                        foreach (KeyValuePair<Oficina, Element> res in resultados)
+                        {
+                        }
+                    }
                 }
             }
             catch (Exception ex)

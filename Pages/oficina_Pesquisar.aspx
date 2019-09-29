@@ -13,13 +13,15 @@
 </head>
 <body>
     <form id="form1" runat="server">
+
+        <%--FORMULARIO PESQUISA--%>
         <div class="container mt-5 w-75">
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-prepend">
                         <button onclick="getLocation(); return false" class="btn btn-primary">Localização atual</button>
                     </span>
-                    <asp:TextBox runat="server" ID="txt_Pesquisa" ClientID="txt_Pesquisa" CssClass="form-control width100" ClientIDMode="Static" ToolTip="Informe a sua localização..." />
+                    <asp:TextBox runat="server" ID="txt_Pesquisa" ClientID="txt_Pesquisa" CssClass="form-control width100" ClientIDMode="Static" placeholder="Informe a sua localização..." />
                     <asp:Label runat="server" ID="biglbl"></asp:Label>
                     <span class="input-group-append">
                         <asp:Button runat="server" ID="btn_Pesquisar" Text="Pesquisar" CssClass="btn btn-success" OnClick="btn_Pesquisar_Click" />
@@ -32,7 +34,13 @@
                 </asp:Panel>
             </div>
         </div>
-        <div runat="server" id="" class="container mt-4">
+
+        <%--HIDDEN BOYS--%>
+        <asp:Button runat="server" ID="btn_CarregarEndereco" Style="display: none" OnClick="btn_CarregarEndereco_Click" ClientIDMode="Static" />
+        <asp:TextBox runat="server" ID="txt_LatLon" ClientID="txtLatLon" Style="display: none" ClientIDMode="Static" />
+
+        <%--RESULTADO PESQUISA--%>
+        <div runat="server" id="div_Resultados" class="container mt-4">
             <div class="card mb-3">
                 <div class="row no-gutters">
                     <div class=" col-md-3 border-right text-center">
@@ -57,7 +65,6 @@
                 </div>
             </div>
         </div>
-        <asp:Button runat="server" ID="btn_CarregarEndereco" Style="display: none" OnClick="btn_CarregarEndereco_Click" ClientIDMode="Static" />
     </form>
     <script type="text/javascript">
         var x = document.getElementById("demo");
@@ -70,7 +77,7 @@
 
         function showPosition(position) {
             var latlon = position.coords.latitude + "," + position.coords.longitude;
-            $("#txt_Pesquisa").val(latlon);
+            $("#txt_LatLon").val(latlon);
             $("#btn_CarregarEndereco").trigger('click');
         }
 

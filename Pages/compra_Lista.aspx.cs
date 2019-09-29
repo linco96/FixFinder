@@ -101,7 +101,6 @@ namespace FixFinder.Pages
                     Fornecedor fornecedor;
                     List<ProdutosCompra> lista_pCompra;
                     int adicionados = 0;
-                    double total = 0;
 
                     TableHeaderRow headerRow;
                     TableHeaderCell headerCell;
@@ -138,9 +137,10 @@ namespace FixFinder.Pages
                     tbl_Compras.Rows.Add(headerRow);
 
                     var query = context.Compra.Where(comp => comp.cnpjOficina.Equals(funcionario.cnpjOficina)).ToList();
-
+                    double total;
                     foreach (Compra compra in query)
                     {
+                        total = 0;
                         fornecedor = context.Fornecedor.Where(f => f.idFornecedor == compra.idFornecedor).FirstOrDefault();
                         lista_pCompra = context.ProdutosCompra.Where(p => p.idCompra == compra.idCompra).ToList();
                         if (fornecedor != null)

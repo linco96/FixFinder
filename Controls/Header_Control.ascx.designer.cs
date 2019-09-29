@@ -40,12 +40,21 @@ namespace FixFinder.Controls {
         protected global::System.Web.UI.HtmlControls.HtmlAnchor btn_Entrar;
         
         /// <summary>
+        /// Controle btn_SairHREF.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor btn_SairHREF;
+        
+        /// <summary>
         /// Controle btn_Sair.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor btn_Sair;
+        protected global::System.Web.UI.WebControls.Button btn_Sair;
     }
 }

@@ -29,9 +29,11 @@ namespace FixFinder.Pages
                     string kelly = context.Key.FirstOrDefault().idChave;
 
                     HttpClient client = new HttpClient();
-                    var response = await client.GetAsync("https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=" + kelly);
+                    var response = await client.GetAsync("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + txt_Pesquisa.Text + "&key=" + kelly);
                     var responseString = await response.Content.ReadAsStringAsync();
-                    txt_Pesquisa.Text = responseString;
+                    Address addr = JsonConvert.DeserializeObject<Address>(responseString);
+                    if (addr.status.Equals("OK"))
+                        txt_Pesquisa.Text = addr.results[0].formatted_address;
                 }
             }
             catch (Exception ex)

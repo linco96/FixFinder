@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" Async="true" AutoEventWireup="true" CodeBehind="oficina_Pesquisar.aspx.cs" Inherits="FixFinder.Pages.oficina_Pesquisar" %>
+﻿<%@ Page Language="C#" Async="true" AutoEventWireup="true" MaintainScrollPositionOnPostback="true" CodeBehind="oficina_Pesquisar.aspx.cs" Inherits="FixFinder.Pages.oficina_Pesquisar" %>
 
 <!DOCTYPE html>
 
@@ -19,7 +19,7 @@
                     <span class="input-group-prepend">
                         <button onclick="getLocation(); return false" class="btn btn-primary">Localização atual</button>
                     </span>
-                    <asp:TextBox runat="server" ID="txt_Pesquisa" ClientID="txt_Pesquisa" CssClass="form-control width100" ClientIDMode="Static" />
+                    <asp:TextBox runat="server" ID="txt_Pesquisa" ClientID="txt_Pesquisa" CssClass="form-control width100" ClientIDMode="Static" ToolTip="Informe a sua localização..." />
                     <asp:Label runat="server" ID="biglbl"></asp:Label>
                     <span class="input-group-append">
                         <asp:Button runat="server" ID="btn_Pesquisar" Text="Pesquisar" CssClass="btn btn-success" OnClick="btn_Pesquisar_Click" />
@@ -32,24 +32,25 @@
                 </asp:Panel>
             </div>
         </div>
-        <div class="container mt-2">
-            <div class="card mb-3" style="max-height: 400px;">
+        <div runat="server" id="" class="container mt-4">
+            <div class="card mb-3">
                 <div class="row no-gutters">
-                    <div class="col-md-3 p-1 border-right">
-                        <img src="../Content/01-SCOPINO-PATIO-OFICINA_setembro2017.jpg" class="card-img" alt="..." />
+                    <div class=" col-md-3 border-right text-center">
+                        <asp:Image runat="server" Style="max-width: 100%" CssClass="Responsive image" ID="Image1" ImageUrl="~/Content/no-image.png" />
                     </div>
                     <div class="col-md-9">
                         <div class="card-header bg-light p-1">
                             <h5 class="card-title mt-2 ml-3">
-                                <span class="align-middle">Paje Motors</span>
+                                <span class="align-middle">Big Motors</span>
                                 <span class="float-right">
-                                    <label runat="server" id="lbl_Reputacao" class="align-middle">7/10</label>
+                                    <label runat="server" id="Label1" class="align-middle">7/10</label>
                                     <img class="align-top" src="../Content/star_24.png" />
                                 </span>
                             </h5>
                         </div>
                         <div class="card-body">
                             <p class="card-text">Rua Visconde de Guarapuava, 1400 - Curitiba, PR</p>
+                            <p class="card-text">Aqui vai a descrição da oficina. Bjork bjork bjork. Será que ficou bom? Hmmmm. Vamos ver. Se não ficar bom é hora de cometer sudoku.</p>
                             <button class="btn btn-primary ">Solicitar agendamento</button>
                         </div>
                     </div>

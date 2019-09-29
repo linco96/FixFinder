@@ -20,7 +20,7 @@ namespace FixFinder
 
     public partial class Geolocation : System.Web.UI.Page
     {
-        private RootObject root;
+        private SearchResult root;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -42,7 +42,7 @@ namespace FixFinder
                     HttpClient client = new HttpClient();
                     var response = await client.GetAsync("https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=-25.5315969,-49.1929708&destinations=2062+desembargador+motta|1155+imaculada+conceicao+curitiba|100+rua+das+azaleias+juina&key=" + kelly);
                     var responseString = await response.Content.ReadAsStringAsync();
-                    root = JsonConvert.DeserializeObject<RootObject>(responseString);
+                    root = JsonConvert.DeserializeObject<SearchResult>(responseString);
                     txt1.Text = root.destination_addresses[0];
                     txt2.Text = root.destination_addresses[1];
                     txt3.Text = root.destination_addresses[2];

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace FixFinder.Models
 {
-    public class RootObject
+    public class SearchResult
     {
         public List<string> destination_addresses { get; set; }
         public List<string> origin_addresses { get; set; }

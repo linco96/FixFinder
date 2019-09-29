@@ -49,11 +49,13 @@
                     <div class="col-md-9">
                         <div class="card-header bg-light p-1">
                             <h5 class="card-title mt-2 ml-3">
-                                <span class="align-middle">Big Motors</span>
-                                <span class="float-right">
+                                <asp:Label runat="server" class="align-middle">Big Motors</asp:Label>
+                                <asp:Label runat="server" class="float-right">
                                     <label runat="server" id="Label1" class="align-middle">7/10</label>
                                     <img class="align-top" src="../Content/star_24.png" />
-                                </span>
+                                </asp:Label>
+                                <br />
+                                <small runat="server" id="distancia" class="card-title text-muted">5 km de distância</small>
                             </h5>
                         </div>
                         <div class="card-body">

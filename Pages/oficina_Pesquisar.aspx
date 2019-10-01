@@ -41,9 +41,9 @@
 
         <%--RESULTADO PESQUISA--%>
         <div runat="server" id="div_Resultados" class="container mt-4">
-            <div class="card mb-3">
+            <asp:Panel runat="server" ID="pnl_cartola" class="card mb-3">
                 <div class="row no-gutters">
-                    <div class=" col-md-3 border-right text-center">
+                    <div class="col-md-3 border-right text-center">
                         <asp:Image runat="server" Style="max-width: 100%" CssClass="Responsive image" ID="Image1" ImageUrl="~/Content/no-image.png" />
                     </div>
                     <div class="col-md-9">
@@ -65,7 +65,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </asp:Panel>
         </div>
     </form>
     <script type="text/javascript">

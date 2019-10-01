@@ -84,6 +84,7 @@
           <Property Name="complemento" Type="varchar" MaxLength="50" />
           <Property Name="cidade" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="uf" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="bairro" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Fornecedor">
           <Key>
@@ -148,6 +149,7 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
           <Property Name="mensagem" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="status" Type="tinyint" Nullable="false" />
           <Property Name="idMensagem" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="remetente" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Oficina">
           <Key>
@@ -959,6 +961,7 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
           <Property Name="complemento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="cidade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="uf" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="bairro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Oficina" Relationship="Self.FK_Endereco_Oficina" FromRole="Endereco" ToRole="Oficina" />
         </EntityType>
         <EntityType Name="Fornecedor">
@@ -1023,6 +1026,7 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
           <Property Name="mensagem1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="status" Type="Byte" Nullable="false" />
           <Property Name="idMensagem" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="remetente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Orcamento" Relationship="Self.FK_Mensagem_Orcamento" FromRole="Mensagem" ToRole="Orcamento" />
         </EntityType>
         <EntityType Name="Oficina">
@@ -1866,6 +1870,7 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
                 <ScalarProperty Name="complemento" ColumnName="complemento" />
                 <ScalarProperty Name="cidade" ColumnName="cidade" />
                 <ScalarProperty Name="uf" ColumnName="uf" />
+                <ScalarProperty Name="bairro" ColumnName="bairro" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1927,6 +1932,7 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
                 <ScalarProperty Name="mensagem1" ColumnName="mensagem" />
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="idMensagem" ColumnName="idMensagem" />
+                <ScalarProperty Name="remetente" ColumnName="remetente" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

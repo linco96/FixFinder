@@ -22,7 +22,6 @@
                         <button onclick="getLocation(); return false" class="btn btn-primary">Localização atual</button>
                     </span>
                     <asp:TextBox runat="server" ID="txt_Pesquisa" ClientID="txt_Pesquisa" CssClass="form-control width100" ClientIDMode="Static" placeholder="Informe a sua localização..." />
-                    <asp:Label runat="server" ID="biglbl"></asp:Label>
                     <span class="input-group-append">
                         <asp:Button runat="server" ID="btn_Pesquisar" Text="Pesquisar" CssClass="btn btn-success" OnClick="btn_Pesquisar_Click" />
                     </span>
@@ -41,7 +40,7 @@
 
         <%--RESULTADO PESQUISA--%>
         <div runat="server" id="div_Resultados" class="container mt-4">
-            <asp:Panel runat="server" ID="pnl_cartola" class="card mb-3">
+            <%--<asp:Panel runat="server" ID="pnl_cartola" class="card mb-3">
                 <div class="row no-gutters">
                     <div class="col-md-3 border-right text-center">
                         <asp:Image runat="server" Style="max-width: 100%" CssClass="Responsive image" ID="Image1" ImageUrl="~/Content/no-image.png" />
@@ -65,7 +64,7 @@
                         </div>
                     </div>
                 </div>
-            </asp:Panel>
+            </asp:Panel>--%>
         </div>
     </form>
     <script type="text/javascript">

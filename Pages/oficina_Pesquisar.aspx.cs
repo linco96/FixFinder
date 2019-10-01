@@ -100,7 +100,7 @@ namespace FixFinder.Pages
                                 img.ImageUrl = "~/Content/no-image.png";
                             }
                             container.Controls.Add(img);
-                            card.Controls.Add(container);
+                            row.Controls.Add(container);
 
                             //INFO
                             container = new Panel();
@@ -150,10 +150,32 @@ namespace FixFinder.Pages
                             section.CssClass = "card-body";
 
                             //ENDERECO
+                            lbl1 = new Label();
+                            lbl1.CssClass = "card-text";
+                            lbl1.Text = res.Key.Endereco.logradouro + ", " + res.Key.Endereco.numero.ToString() + "<br />" + res.Key.Endereco.cep + " - " + res.Key.Endereco.cidade + " " + res.Key.Endereco.uf.ToUpper();
+                            section.Controls.Add(lbl1);
 
                             //DESCRICAO
+                            if (res.Key.descricao != null)
+                            {
+                                lbl1 = new Label();
+                                lbl1.CssClass = "card-text";
+                                lbl1.Text = res.Key.descricao;
+                                section.Controls.Add(lbl1);
+                            }
 
                             //BIUTON
+                            btn = new Button();
+                            btn.CssClass = "btn btn-primary";
+                            btn.Text = "Solicitar agendamento";
+                            btn.Click += new EventHandler(btn_SolicitarAgendamento_Click);
+                            btn.CommandArgument = res.Key.cnpj;
+                            section.Controls.Add(btn);
+                            container.Controls.Add(section);
+                            row.Controls.Add(container);
+
+                            card.Controls.Add(row);
+                            div_Resultados.Controls.Add(card);
                         }
                     }
                 }
@@ -188,6 +210,10 @@ namespace FixFinder.Pages
                 lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
                 pnl_Alert.Visible = true;
             }
+        }
+
+        protected void btn_SolicitarAgendamento_Click(object sender, EventArgs e)
+        {
         }
     }
 }

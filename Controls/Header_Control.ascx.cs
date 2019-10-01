@@ -16,14 +16,12 @@ namespace FixFinder.Controls
             if (c != null)
             {
                 btn_Dashboard.Visible = true;
-                btn_SairHREF.Visible = true;
                 btn_Sair.Visible = true;
                 btn_Entrar.Visible = false;
             }
             else
             {
                 btn_Dashboard.Visible = false;
-                btn_SairHREF.Visible = false;
                 btn_Sair.Visible = false;
                 btn_Entrar.Visible = true;
             }

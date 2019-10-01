@@ -135,6 +135,7 @@
     <Content Include="Pages\produto_Cadastro.aspx" />
     <Content Include="Pages\produto_Editar.aspx" />
     <Content Include="Pages\produto_Lista.aspx" />
+    <Content Include="Pages\saindo.aspx" />
     <Content Include="Pages\servico_Lista.aspx" />
     <Content Include="Pages\veiculo_Cadastro.aspx" />
     <Content Include="Pages\veiculo_Lista.aspx" />
@@ -510,6 +511,13 @@
     </Compile>
     <Compile Include="Pages\produto_Lista.aspx.designer.cs">
       <DependentUpon>produto_Lista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\saindo.aspx.cs">
+      <DependentUpon>saindo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\saindo.aspx.designer.cs">
+      <DependentUpon>saindo.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\servico_Lista.aspx.cs">
       <DependentUpon>servico_Lista.aspx</DependentUpon>

@@ -61,11 +61,10 @@ namespace FixFinder.Pages
                             resultados.Add(oficinas[i], searchResult.rows[0].elements[i]);
                         }
 
-                        HtmlGenericControl card;
-                        HtmlGenericControl row;
-                        HtmlGenericControl container;
-                        HtmlGenericControl section1;
-                        HtmlGenericControl section2;
+                        Panel card;
+                        Panel row;
+                        Panel container;
+                        Panel section;
 
                         Image img;
                         HtmlGenericControl title;
@@ -73,8 +72,88 @@ namespace FixFinder.Pages
                         Label lbl2;
                         HtmlGenericControl biggie;
                         Button btn;
+
+                        FotoOficina picture;
                         foreach (KeyValuePair<Oficina, Element> res in resultados)
                         {
+                            card = new Panel();
+                            card.CssClass = "card mb-3";
+
+                            row = new Panel();
+                            row.CssClass = "row no-gutters";
+
+                            //IMAGE
+                            container = new Panel();
+                            container.CssClass = "col-md-3 border-right text-center";
+
+                            img = new Image();
+                            img.Style.Add("max-width", "100%");
+                            img.CssClass = "Responsive image";
+                            picture = context.FotoOficina.Where(pic => pic.cnpjOficina.Equals(res.Key.cnpj)).FirstOrDefault();
+                            if (picture != null)
+                            {
+                                String base64 = Convert.ToBase64String(picture.foto);
+                                img.ImageUrl = "data:Image/png;base64," + base64;
+                            }
+                            else
+                            {
+                                img.ImageUrl = "~/Content/no-image.png";
+                            }
+                            container.Controls.Add(img);
+                            card.Controls.Add(container);
+
+                            //INFO
+                            container = new Panel();
+                            container.CssClass = "col-md-9";
+
+                            //HEAD
+                            section = new Panel();
+                            section.CssClass = "card-header bg-light p-1";
+
+                            //NOME
+                            title = new HtmlGenericControl("h5");
+                            title.Attributes.Add("class", "card-title mt-2 ml-3");
+
+                            lbl1 = new Label();
+                            lbl1.CssClass = "align-middle";
+                            lbl1.Text = res.Key.nome;
+                            title.Controls.Add(lbl1);
+
+                            //NOTA
+                            lbl1 = new Label();
+                            lbl1.CssClass = "float-right";
+
+                            lbl2 = new Label();
+                            lbl2.CssClass = "align-middle";
+                            if (res.Key.reputacao == null)
+                                lbl2.Text = "-/10";
+                            else
+                                lbl2.Text = res.Key.reputacao.ToString().Replace(",", ".") + "/10";
+                            lbl1.Controls.Add(lbl2);
+
+                            img = new Image();
+                            img.CssClass = "align-top";
+                            img.ImageUrl = "../Content/star_24.png";
+                            lbl1.Controls.Add(img);
+                            section.Controls.Add(lbl1);
+                            section.Controls.Add(new LiteralControl("<br/>"));
+
+                            //DISTANCIA
+                            biggie = new HtmlGenericControl("small");
+                            biggie.Attributes.Add("class", "card-title text-muted");
+                            biggie.InnerHtml = res.Value.distance.text;
+                            section.Controls.Add(biggie);
+                            container.Controls.Add(section);
+
+                            //BODY
+                            section = new Panel();
+                            section.CssClass = "card-body";
+
+                            //ENDERECO
+
+                            //DESCRICAO
+
+                            //BIUTON
                         }
                     }
                 }

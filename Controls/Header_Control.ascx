@@ -3,28 +3,6 @@
     <%--<img id="img_logo" src="../Content/FixFinderIcone.png" width="30" height="30" class="d-inline-block bg-white rounded-circle align-top" />--%>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <script type="text/javascript">
-            $(document).ready(function () {
-
-                document.getElementById("Header_Control_btn_SairHREF").onclick = function () {
-                    //$.ajax({
-                    //    type: "POST",
-                    //    url: 'Header_Control.ascx/Sair',
-                    //    data: "",
-                    //    contentType: "application/json; charset=utf-8",
-                    //    dataType: "json",
-                    //    success: function (msg) {
-                    //        $("#divResult").html("success");
-                    //    },
-                    //    error: function (e) {
-                    //        $("#divResult").html("Something Wrong.");
-                    //    }
-                    //});
-                    $("#btn_Sair").trigger('click');
-                    return false;
-                }
-            });
-        </script>
         <ul class="navbar-nav mr-auto">
             <li class="nav-item ml-2 mt-2">
                 <h5 class="text-white font-weight-normal">FixFinder</h5>
@@ -44,8 +22,7 @@
                 <%--<asp:Button runat="server" ID="btn_Entrar" CssClass="btn btn-dark text-white" Text="Entrar" OnClick="btn_Entrar_Click" formnovalidate />--%>
             </li>
             <li class="nav-item">
-                <a runat="server" id="btn_SairHREF" href="~/Pages/oficina_Pesquisar.aspx" class="text-white nav-link">Sair</a>
-                <asp:Button runat="server" ID="btn_Sair" CssClass="btn btn-dark text-white" Style="display: none" OnClick="btn_Sair_Click" formnovalidate />
+                <a runat="server" id="btn_Sair" href="~/Pages/saindo.aspx" class="text-white nav-link">Sair</a>
             </li>
         </ul>
     </div>

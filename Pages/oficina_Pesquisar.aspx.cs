@@ -126,23 +126,25 @@ namespace FixFinder.Pages
                             lbl2 = new Label();
                             lbl2.CssClass = "align-middle";
                             if (res.Key.reputacao == null)
-                                lbl2.Text = "-/10";
+                                lbl2.Text = "-/10 ";
                             else
-                                lbl2.Text = res.Key.reputacao.ToString().Replace(",", ".") + "/10";
+                                lbl2.Text = res.Key.reputacao.ToString().Replace(",", ".") + "/10 ";
                             lbl1.Controls.Add(lbl2);
 
                             img = new Image();
-                            img.CssClass = "align-top";
+                            img.CssClass = "align-middle";
                             img.ImageUrl = "../Content/star_24.png";
                             lbl1.Controls.Add(img);
-                            section.Controls.Add(lbl1);
-                            section.Controls.Add(new LiteralControl("<br/>"));
+                            title.Controls.Add(lbl1);
+                            title.Controls.Add(new LiteralControl("<br/>"));
 
                             //DISTANCIA
                             biggie = new HtmlGenericControl("small");
                             biggie.Attributes.Add("class", "card-title text-muted");
-                            biggie.InnerHtml = res.Value.distance.text;
-                            section.Controls.Add(biggie);
+                            biggie.InnerHtml = res.Value.distance.text + " de distância";
+                            title.Controls.Add(biggie);
+
+                            section.Controls.Add(title);
                             container.Controls.Add(section);
 
                             //BODY
@@ -152,21 +154,21 @@ namespace FixFinder.Pages
                             //ENDERECO
                             lbl1 = new Label();
                             lbl1.CssClass = "card-text";
-                            lbl1.Text = res.Key.Endereco.logradouro + ", " + res.Key.Endereco.numero.ToString() + "<br />" + res.Key.Endereco.cep + " - " + res.Key.Endereco.cidade + " " + res.Key.Endereco.uf.ToUpper();
+                            lbl1.Text = res.Key.Endereco.logradouro + ", " + res.Key.Endereco.numero.ToString() + " - " + res.Key.Endereco.bairro + ", " + res.Key.Endereco.cidade + " - " + res.Key.Endereco.uf.ToUpper() + ", " + res.Key.Endereco.cep + "<br />";
                             section.Controls.Add(lbl1);
 
                             //DESCRICAO
                             if (res.Key.descricao != null)
                             {
                                 lbl1 = new Label();
-                                lbl1.CssClass = "card-text";
-                                lbl1.Text = res.Key.descricao;
+                                lbl1.CssClass = "card-text font-italic";
+                                lbl1.Text = "\"" + res.Key.descricao + "\"<br />";
                                 section.Controls.Add(lbl1);
                             }
 
                             //BIUTON
                             btn = new Button();
-                            btn.CssClass = "btn btn-primary";
+                            btn.CssClass = "btn btn-primary mt-4";
                             btn.Text = "Solicitar agendamento";
                             btn.Click += new EventHandler(btn_SolicitarAgendamento_Click);
                             btn.CommandArgument = res.Key.cnpj;

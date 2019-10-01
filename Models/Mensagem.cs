@@ -20,6 +20,7 @@ namespace FixFinder.Models
         public string mensagem1 { get; set; }
         public byte status { get; set; }
         public int idMensagem { get; set; }
+        public string remetente { get; set; }
     
         public virtual Orcamento Orcamento { get; set; }
     }

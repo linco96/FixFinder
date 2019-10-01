@@ -21,6 +21,7 @@ namespace FixFinder.Models
         public string complemento { get; set; }
         public string cidade { get; set; }
         public string uf { get; set; }
+        public string bairro { get; set; }
     
         public virtual Oficina Oficina { get; set; }
     }

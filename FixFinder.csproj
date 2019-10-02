@@ -203,7 +203,6 @@
     </Compile>
     <Compile Include="Geolocation.aspx.cs">
       <DependentUpon>Geolocation.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Geolocation.aspx.designer.cs">
       <DependentUpon>Geolocation.aspx</DependentUpon>

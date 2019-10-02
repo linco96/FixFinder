@@ -169,7 +169,6 @@
                         </div>--%>
                     </div>
                     <div class="container mt-5">
-                        <h1 class="display-4 text-primary" style="text-align: center">Realizar Compras</h1>
                         <%--FORNECEDOR--%>
                         <div class="form-group">
                             <label class="h4">Fornecedor</label>

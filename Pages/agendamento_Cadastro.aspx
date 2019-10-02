@@ -1,5 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="agendamento_Cadastro.aspx.cs" Inherits="FixFinder.Pages.agendamento_Cadastro" %>
 
+<%@ Register TagPrefix="uc" TagName="Header_Control" Src="~/Controls/Header_Control.ascx" %>
+
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -21,6 +23,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
+        <uc:Header_Control runat="server" ID="Header_Control"></uc:Header_Control>
         <div class="container mt-5">
             <div class="form-group">
                 <h2 style="text-align: center"><span runat="server" id="lbl_Oficina" class="align-middle mr-2">Paje Motors</span>

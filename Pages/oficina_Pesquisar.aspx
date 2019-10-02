@@ -1,5 +1,7 @@
 ﻿<%@ Page Language="C#" Async="true" AutoEventWireup="true" MaintainScrollPositionOnPostback="true" CodeBehind="oficina_Pesquisar.aspx.cs" Inherits="FixFinder.Pages.oficina_Pesquisar" %>
 
+<%@ Register TagPrefix="uc" TagName="Header_Control" Src="~/Controls/Header_Control.ascx" %>
+
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -13,9 +15,10 @@
 </head>
 <body>
     <form id="form1" runat="server">
-
+        <uc:Header_Control runat="server" ID="Header_Control"></uc:Header_Control>
         <%--FORMULARIO PESQUISA--%>
-        <div class="container mt-5 w-75">
+        <div class="container mt-5 w-75 text-center">
+            <asp:Image runat="server" ID="logo" CssClass="Responsive image" Style="max-width: 50%" ImageUrl="~/Content/logo_milk.png" />
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-prepend">
@@ -32,6 +35,17 @@
                     <asp:Label ID="lbl_Alert" runat="server"></asp:Label>
                 </asp:Panel>
             </div>
+            <div class="form-group">
+                <div class="input-group float-right" style="width: auto">
+                    <span class="input-group-prepend">
+                        <asp:Button runat="server" ID="btn_OrdenarDistancia" Text="Ordenar por distância" CssClass="btn btn-primary" OnClick="btn_OrdenarDistancia_Click" />
+                    </span>
+                    <span class="input-group-append">
+                        <asp:Button runat="server" ID="btn_OrdenarNota" Text="Ordenar por nota" CssClass="btn btn-outline-primary" OnClick="btn_OrdenarNota_Click" />
+                    </span>
+                </div>
+            </div>
+            <br />
         </div>
 
         <%--HIDDEN BOYS--%>

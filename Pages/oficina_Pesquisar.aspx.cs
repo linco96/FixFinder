@@ -14,8 +14,14 @@ namespace FixFinder.Pages
 {
     public partial class oficina_Pesquisar : System.Web.UI.Page
     {
+        private static List<Panel> resultadosAtuais;
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (resultadosAtuais != null)
+            {
+                resultadosAtuais = new List<Panel>();
+            }
         }
 
         protected async void btn_Pesquisar_Click(object sender, EventArgs e)
@@ -55,11 +61,12 @@ namespace FixFinder.Pages
                     //MONTA AS PARADA
                     if (searchResult.status.Equals("OK"))
                     {
-                        Dictionary<Oficina, Element> resultados = new Dictionary<Oficina, Element>();
+                        List<KeyValuePair<Oficina, Element>> resultados = new List<KeyValuePair<Oficina, Element>>();
                         for (int i = 0; i < oficinas.Count; i++)
                         {
-                            resultados.Add(oficinas[i], searchResult.rows[0].elements[i]);
+                            resultados.Add(new KeyValuePair<Oficina, Element>(oficinas[i], searchResult.rows[0].elements[i]));
                         }
+                        resultados.Sort((p1, p2) => p1.Value.distance.value.CompareTo(p2.Value.distance.value));
 
                         Panel card;
                         Panel row;
@@ -87,13 +94,16 @@ namespace FixFinder.Pages
                             container.CssClass = "col-md-3 border-right text-center";
 
                             img = new Image();
-                            img.Style.Add("max-width", "100%");
+                            img.Style.Add("width", "100%");
+                            img.Style.Add("height", "100%");
+                            img.Style.Add("object-fit", "contain");
                             img.CssClass = "Responsive image";
                             picture = context.FotoOficina.Where(pic => pic.cnpjOficina.Equals(res.Key.cnpj)).FirstOrDefault();
                             if (picture != null)
                             {
                                 String base64 = Convert.ToBase64String(picture.foto);
                                 img.ImageUrl = "data:Image/png;base64," + base64;
+                                img.CssClass = "Responsive image bg-dark";
                             }
                             else
                             {
@@ -153,7 +163,7 @@ namespace FixFinder.Pages
 
                             //ENDERECO
                             lbl1 = new Label();
-                            lbl1.CssClass = "card-text";
+                            lbl1.CssClass = "card-text h5 mb-5";
                             lbl1.Text = res.Key.Endereco.logradouro + ", " + res.Key.Endereco.numero.ToString() + " - " + res.Key.Endereco.bairro + ", " + res.Key.Endereco.cidade + " - " + res.Key.Endereco.uf.ToUpper() + ", " + res.Key.Endereco.cep + "<br />";
                             section.Controls.Add(lbl1);
 
@@ -161,8 +171,8 @@ namespace FixFinder.Pages
                             if (res.Key.descricao != null)
                             {
                                 lbl1 = new Label();
-                                lbl1.CssClass = "card-text font-italic";
-                                lbl1.Text = "\"" + res.Key.descricao + "\"<br />";
+                                lbl1.CssClass = "card-text font-italic text-muted";
+                                lbl1.Text = "<br/>\"" + res.Key.descricao + "\"<br />";
                                 section.Controls.Add(lbl1);
                             }
 
@@ -172,6 +182,7 @@ namespace FixFinder.Pages
                             btn.Text = "Solicitar agendamento";
                             btn.Click += new EventHandler(btn_SolicitarAgendamento_Click);
                             btn.CommandArgument = res.Key.cnpj;
+                            btn.ID = "btn_SolicitarAgendamento" + res.Key.cnpj;
                             section.Controls.Add(btn);
                             container.Controls.Add(section);
                             row.Controls.Add(container);

@@ -112,6 +112,15 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.WebControls.TextBox txt_OficinaNome;
         
         /// <summary>
+        /// txt_CEP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_CEP;
+        
+        /// <summary>
         /// txt_Rua control.
         /// </summary>
         /// <remarks>
@@ -130,6 +139,15 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.WebControls.TextBox txt_Numero;
         
         /// <summary>
+        /// alert_CEP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl alert_CEP;
+        
+        /// <summary>
         /// txt_Complemento control.
         /// </summary>
         /// <remarks>
@@ -139,13 +157,13 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.WebControls.TextBox txt_Complemento;
         
         /// <summary>
-        /// txt_CEP control.
+        /// txt_Bairro control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_CEP;
+        protected global::System.Web.UI.WebControls.TextBox txt_Bairro;
         
         /// <summary>
         /// txt_Cidade control.
@@ -335,5 +353,14 @@ namespace FixFinder.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_Alert;
+        
+        /// <summary>
+        /// btn_CarregarEndereco control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_CarregarEndereco;
     }
 }

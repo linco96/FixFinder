@@ -9,6 +9,7 @@ namespace FixFinder.Pages
 {
     public partial class saindo : System.Web.UI.Page
     {
+        //TE DIZER SENHOR MATHEUS
         protected void Page_Load(object sender, EventArgs e)
         {
             Session.Clear();

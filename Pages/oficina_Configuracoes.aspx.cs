@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -114,6 +115,7 @@ namespace FixFinder.Pages
                         txt_CEP.Text = endereco.cep;
                         txt_Cidade.Text = endereco.cidade;
                         txt_UF.Text = endereco.uf;
+                        txt_Bairro.Text = endereco.bairro;
                     }
 
                     txt_Telefone.Text = oficina.telefone;
@@ -404,6 +406,33 @@ namespace FixFinder.Pages
         {
             Session.Clear();
             Response.Redirect("login.aspx", false);
+        }
+
+        protected async void btn_CarregarEndereco_Click(object sender, EventArgs e)
+        {
+            if (txt_CEP.Text.Length > 0)
+            {
+                HttpClient client = new HttpClient();
+                var response = await client.GetAsync("https://viacep.com.br/ws/" + txt_CEP.Text + "/piped/");
+                var responseString = await response.Content.ReadAsStringAsync();
+                if (response.IsSuccessStatusCode && !responseString.Equals("erro:true"))
+                {
+                    txt_Rua.Text = responseString.Split('|')[1].Split(':')[1];
+                    txt_Bairro.Text = responseString.Split('|')[3].Split(':')[1];
+                    txt_Cidade.Text = responseString.Split('|')[4].Split(':')[1];
+                    txt_UF.Text = responseString.Split('|')[5].Split(':')[1];
+                    alert_CEP.Visible = false;
+                }
+                else
+                {
+                    txt_Rua.Text = "";
+                    txt_Bairro.Text = "";
+                    txt_Cidade.Text = "";
+                    txt_UF.Text = "";
+                    txt_CEP.Text = "";
+                    alert_CEP.Visible = true;
+                }
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -75,7 +76,8 @@ namespace FixFinder.Pages
                             complemento = txt_Complemento.Text,
                             logradouro = txt_Rua.Text,
                             numero = int.Parse(txt_Numero.Text),
-                            uf = txt_UF.Text
+                            uf = txt_UF.Text,
+                            bairro = txt_Bairro.Text
                         };
 
                         if (context.Oficina.Where(oficina => oficina.cnpj.Equals(o.cnpj)).FirstOrDefault() != null)
@@ -151,6 +153,33 @@ namespace FixFinder.Pages
                 pnl_Alert.CssClass = "alert alert-danger";
                 pnl_Alert.Visible = true;
                 lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+            }
+        }
+
+        protected async void btn_CarregarEndereco_Click(object sender, EventArgs e)
+        {
+            if (txt_CEP.Text.Length > 0)
+            {
+                HttpClient client = new HttpClient();
+                var response = await client.GetAsync("https://viacep.com.br/ws/" + txt_CEP.Text + "/piped/");
+                var responseString = await response.Content.ReadAsStringAsync();
+                if (response.IsSuccessStatusCode && !responseString.Equals("erro:true"))
+                {
+                    txt_Rua.Text = responseString.Split('|')[1].Split(':')[1];
+                    txt_Bairro.Text = responseString.Split('|')[3].Split(':')[1];
+                    txt_Cidade.Text = responseString.Split('|')[4].Split(':')[1];
+                    txt_UF.Text = responseString.Split('|')[5].Split(':')[1];
+                    alert_CEP.Visible = false;
+                }
+                else
+                {
+                    txt_Rua.Text = "";
+                    txt_Bairro.Text = "";
+                    txt_Cidade.Text = "";
+                    txt_UF.Text = "";
+                    txt_CEP.Text = "";
+                    alert_CEP.Visible = true;
+                }
             }
         }
     }

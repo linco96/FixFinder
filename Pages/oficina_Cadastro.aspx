@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="oficina_Cadastro.aspx.cs" Inherits="FixFinder.Pages.oficina_Cadastro" %>
+﻿<%@ Page Language="C#" Async="true" MaintainScrollPositionOnPostback="true" AutoEventWireup="true" CodeBehind="oficina_Cadastro.aspx.cs" Inherits="FixFinder.Pages.oficina_Cadastro" %>
 
 <%@ Register TagPrefix="uc" TagName="Header_Control" Src="~/Controls/Header_Control.ascx" %>
 <!DOCTYPE html>
@@ -11,6 +11,13 @@
     <script src="../Scripts/jquery-3.4.1.min.js"></script>
     <script src="../Scripts/popper.min.js"></script>
     <script src="../Scripts/jquery.mask.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#txt_CEP").blur(function () {
+                $("#btn_CarregarEndereco").trigger('click');
+            });
+        });
+    </script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -105,31 +112,36 @@
                     <label class="h4">Endereço</label>
                 </div>
                 <div class="form-inline mt-1">
-                    <span class="w-75 text-left pr-3">
+                    <span class="w-25 text-left pr-3">
+                        <label for="txt_CEP" style="display: block">CEP</label>
+                        <asp:TextBox runat="server" ID="txt_CEP" CssClass="form-control w-100" onkeypress="$(this).mask('00000-000', {reverse: true});" required ClientIDMode="Static"></asp:TextBox>
+                    </span>
+                    <span class="w-50 text-left pr-3">
                         <label for="txt_Rua" style="display: block">Rua</label>
-                        <asp:TextBox runat="server" ID="txt_Rua" CssClass="form-control w-100" MaxLength="200" required></asp:TextBox>
+                        <asp:TextBox runat="server" ID="txt_Rua" CssClass="form-control w-100" MaxLength="200" required ReadOnly="true"></asp:TextBox>
                     </span>
                     <span class="w-25 text-left">
                         <label for="txt_Numero" style="display: block">Numero</label>
                         <asp:TextBox runat="server" ID="txt_Numero" CssClass="form-control w-100" required></asp:TextBox>
                     </span>
                 </div>
+                <small runat="server" id="alert_CEP" visible="false" class="form-text text-danger">Informe um CEP válido</small>
                 <div class="form-inline mt-1">
                     <span class="w-25 text-left pr-3">
                         <label for="txt_Complemento" style="display: block">Complemento</label>
                         <asp:TextBox runat="server" ID="txt_Complemento" CssClass="form-control w-100" MaxLength="50"></asp:TextBox>
                     </span>
                     <span class="w-25 text-left pr-3">
-                        <label for="txt_CEP" style="display: block">CEP</label>
-                        <asp:TextBox runat="server" ID="txt_CEP" CssClass="form-control w-100" onkeypress="$(this).mask('00000-000', {reverse: true});" required></asp:TextBox>
+                        <label for="txt_Bairro" style="display: block">Bairro</label>
+                        <asp:TextBox runat="server" ID="txt_Bairro" CssClass="form-control w-100" MaxLength="50" ReadOnly="true"></asp:TextBox>
                     </span>
                     <span class="w-25 text-left pr-3">
                         <label for="txt_Cidade" style="display: block">Cidade</label>
-                        <asp:TextBox runat="server" ID="txt_Cidade" CssClass="form-control w-100" MaxLength="50" required></asp:TextBox>
+                        <asp:TextBox runat="server" ID="txt_Cidade" CssClass="form-control w-100" MaxLength="50" required ReadOnly="true"></asp:TextBox>
                     </span>
                     <span class="w-25 text-left">
                         <label for="txt_UF" style="display: block">UF</label>
-                        <asp:TextBox runat="server" ID="txt_UF" CssClass="form-control w-100" MaxLength="2" required></asp:TextBox>
+                        <asp:TextBox runat="server" ID="txt_UF" CssClass="form-control w-100" MaxLength="2" required ReadOnly="true"></asp:TextBox>
                     </span>
                 </div>
             </div>
@@ -143,6 +155,7 @@
                     <asp:Label ID="lbl_Alert" runat="server"></asp:Label>
                 </asp:Panel>
             </div>
+            <asp:Button runat="server" ID="btn_CarregarEndereco" Style="display: none" ClientIDMode="Static" OnClick="btn_CarregarEndereco_Click" formnovalidate />
         </div>
     </form>
 </body>

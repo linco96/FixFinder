@@ -44,7 +44,7 @@ namespace FixFinder.Pages
                         {
                             foreach (Agendamento a in agendamentos)
                             {
-                                if (a.status.Equals("Confirmação pendente") || a.status.Equals("Confirmado"))
+                                if ((a.status.Equals("Confirmação pendente") || a.status.Equals("Confirmado")) && a.data.CompareTo(DateTime.Now) > 0)
                                 {
                                     existe = true;
                                     break;
@@ -75,7 +75,7 @@ namespace FixFinder.Pages
                                     lbl_Reputacao.Text = "-/10";
                                 else
                                     lbl_Reputacao.Text = o.reputacao.ToString().Replace(",", ".") + "/10";
-                                lbl_Endereco.InnerHtml = o.Endereco.logradouro + ", " + o.Endereco.numero.ToString() + "<br />" + o.Endereco.cep + " - " + o.Endereco.cidade + " " + o.Endereco.uf.ToUpper();
+                                lbl_Endereco.InnerHtml = o.Endereco.logradouro + ", " + o.Endereco.numero.ToString() + "<br />" + o.Endereco.bairro + ", " + o.Endereco.cidade + " - " + o.Endereco.uf.ToUpper() + ", " + o.Endereco.cep;
                             }
                         }
                     }

@@ -40,31 +40,6 @@
 
         <%--RESULTADO PESQUISA--%>
         <div runat="server" id="div_Resultados" class="container mt-4">
-            <%--<asp:Panel runat="server" ID="pnl_cartola" class="card mb-3">
-                <div class="row no-gutters">
-                    <div class="col-md-3 border-right text-center">
-                        <asp:Image runat="server" Style="max-width: 100%" CssClass="Responsive image" ID="Image1" ImageUrl="~/Content/no-image.png" />
-                    </div>
-                    <div class="col-md-9">
-                        <div class="card-header bg-light p-1">
-                            <h5 class="card-title mt-2 ml-3">
-                                <asp:Label runat="server" class="align-middle">Big Motors</asp:Label>
-                                <asp:Label runat="server" class="float-right">
-                                    <label runat="server" id="Label1" class="align-middle">7/10</label>
-                                    <img class="align-top" src="../Content/star_24.png" />
-                                </asp:Label>
-                                <br />
-                                <small runat="server" id="distancia" class="card-title text-muted">5 km de distância</small>
-                            </h5>
-                        </div>
-                        <div class="card-body">
-                            <p class="card-text">Rua Visconde de Guarapuava, 1400 - Curitiba, PR</p>
-                            <p class="card-text">Aqui vai a descrição da oficina. Bjork bjork bjork. Será que ficou bom? Hmmmm. Vamos ver. Se não ficar bom é hora de cometer sudoku.</p>
-                            <button class="btn btn-primary ">Solicitar agendamento</button>
-                        </div>
-                    </div>
-                </div>
-            </asp:Panel>--%>
         </div>
     </form>
     <script type="text/javascript">

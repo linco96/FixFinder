@@ -15,6 +15,7 @@ namespace FixFinder.Pages
     public partial class oficina_Pesquisar : System.Web.UI.Page
     {
         private static List<KeyValuePair<Oficina, Element>> resultadosAtuais;
+        private static bool sortMode;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -34,6 +35,20 @@ namespace FixFinder.Pages
             else
             {
                 logo.Visible = true;
+            }
+        }
+
+        protected void Page_LoadComplete(object sender, EventArgs e)
+        {
+            if (sortMode)
+            {
+                btn_OrdenarDistancia.CssClass = "btn btn-outline-primary";
+                btn_OrdenarNota.CssClass = "btn btn-primary";
+            }
+            else
+            {
+                btn_OrdenarDistancia.CssClass = "btn btn-primary";
+                btn_OrdenarNota.CssClass = "btn btn-outline-primary";
             }
         }
 
@@ -222,7 +237,15 @@ namespace FixFinder.Pages
                         }
                         if (resultados.Count > 0)
                         {
-                            resultados.Sort((p1, p2) => p1.Value.distance.value.CompareTo(p2.Value.distance.value));
+                            if (sortMode)
+                            {
+                                resultados = resultados.OrderByDescending(p => p.Key.reputacao).ToList();
+                            }
+                            else
+                            {
+                                resultados.Sort((p1, p2) => p1.Value.distance.value.CompareTo(p2.Value.distance.value));
+                            }
+                            resultadosAtuais = resultados;
 
                             Panel card;
                             Panel row;
@@ -345,7 +368,6 @@ namespace FixFinder.Pages
 
                                 card.Controls.Add(row);
                                 div_Resultados.Controls.Add(card);
-                                resultadosAtuais.Add(res);
                                 logo.Visible = false;
                                 pnl_Alert.Visible = false;
                             }
@@ -353,11 +375,17 @@ namespace FixFinder.Pages
                         else
                         {
                             logo.Visible = true;
-                            Label nonono = new Label();
                             pnl_Alert.CssClass = "alert alert-danger mt-3";
                             lbl_Alert.Text = "Nenhuma oficina encontrada. Verifique os parâmetros de pesquisa informados";
                             pnl_Alert.Visible = true;
                         }
+                    }
+                    else
+                    {
+                        logo.Visible = true;
+                        pnl_Alert.CssClass = "alert alert-danger mt-3";
+                        lbl_Alert.Text = "Nenhuma oficina encontrada. Verifique os parâmetros de pesquisa informados";
+                        pnl_Alert.Visible = true;
                     }
                 }
             }
@@ -416,14 +444,40 @@ namespace FixFinder.Pages
 
         protected void btn_OrdenarDistancia_Click(object sender, EventArgs e)
         {
-            btn_OrdenarDistancia.CssClass = "btn btn-primary";
-            btn_OrdenarNota.CssClass = "btn btn-outline-primary";
+            if (sortMode)
+            {
+                sortMode = false;
+                btn_OrdenarDistancia.CssClass = "btn btn-primary";
+                btn_OrdenarNota.CssClass = "btn btn-outline-primary";
+                if (resultadosAtuais.Count > 0)
+                {
+                    resultadosAtuais.Sort((p1, p2) => p1.Value.distance.value.CompareTo(p2.Value.distance.value));
+                    div_Resultados.Controls.Clear();
+                    foreach (KeyValuePair<Oficina, Element> res in resultadosAtuais)
+                    {
+                        inserirResultado(res);
+                    }
+                }
+            }
         }
 
         protected void btn_OrdenarNota_Click(object sender, EventArgs e)
         {
-            btn_OrdenarDistancia.CssClass = "btn btn-outline-primary";
-            btn_OrdenarNota.CssClass = "btn btn-primary";
+            if (!sortMode)
+            {
+                sortMode = true;
+                btn_OrdenarDistancia.CssClass = "btn btn-outline-primary";
+                btn_OrdenarNota.CssClass = "btn btn-primary";
+                if (resultadosAtuais.Count > 0)
+                {
+                    resultadosAtuais = resultadosAtuais.OrderByDescending(p => p.Key.reputacao).ToList();
+                    div_Resultados.Controls.Clear();
+                    foreach (KeyValuePair<Oficina, Element> res in resultadosAtuais)
+                    {
+                        inserirResultado(res);
+                    }
+                }
+            }
         }
     }
 }

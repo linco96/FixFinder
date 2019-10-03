@@ -30,11 +30,7 @@
                     </span>
                 </div>
             </div>
-            <div class="form-group">
-                <asp:Panel runat="server" ID="pnl_Alert" Visible="false" CssClass="alert alert-danger" role="alert">
-                    <asp:Label ID="lbl_Alert" runat="server"></asp:Label>
-                </asp:Panel>
-            </div>
+
             <div class="form-group">
                 <div class="input-group float-right" style="width: auto">
                     <span class="input-group-prepend">
@@ -46,6 +42,11 @@
                 </div>
             </div>
             <br />
+            <div class="form-group mt-4">
+                <asp:Panel runat="server" ID="pnl_Alert" Visible="false" CssClass="alert alert-danger " role="alert">
+                    <asp:Label ID="lbl_Alert" runat="server"></asp:Label>
+                </asp:Panel>
+            </div>
         </div>
 
         <%--HIDDEN BOYS--%>

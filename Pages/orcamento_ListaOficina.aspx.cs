@@ -432,6 +432,20 @@ namespace FixFinder.Pages
                             body.Controls.Add(btn);
                         }
                     }
+                    //ADCIONAR BOTAO DE CHAT
+                    if (!o.status.Equals("Concluído"))
+                    {
+                        if (!o.Cliente.cpf.Equals(c.cpf))
+                        {
+                            btn = new Button();
+                            btn.Click += new EventHandler(btn_Chat);
+                            btn.ID = "btn_Chat" + o.idOrcamento.ToString();
+                            btn.Text = "Chat";
+                            btn.CssClass = "btn btn-info ml-1 mt-3";
+                            btn.CommandArgument = o.idOrcamento.ToString();
+                            body.Controls.Add(btn);
+                        }
+                    }
 
                     card.Controls.Add(body);
 
@@ -444,6 +458,36 @@ namespace FixFinder.Pages
                 lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
                 pnl_Alert.Visible = true;
                 return null;
+            }
+        }
+
+        protected void btn_Chat(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+            try
+            {
+                using (var context = new DatabaseEntities())
+                {
+                    int id = int.Parse(btn.CommandArgument);
+                    Orcamento orcamento = context.Orcamento.Where(o => o.idOrcamento == id).FirstOrDefault();
+                    if (orcamento != null)
+                    {
+                        Session["orcamento"] = orcamento;
+                        Response.Redirect("orcamento_Chat.aspx", false);
+                    }
+                    else
+                    {
+                        pnl_Alert.CssClass = "alert alert-danger";
+                        lbl_Alert.Text = "ID do orçamento não encontrado no banco";
+                        pnl_Alert.Visible = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                pnl_Alert.CssClass = "alert alert-danger";
+                lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                pnl_Alert.Visible = true;
             }
         }
 

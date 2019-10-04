@@ -369,6 +369,17 @@ namespace FixFinder.Pages
                         btn.CommandArgument = o.idOrcamento.ToString();
                         body.Controls.Add(btn);
                     }
+                    //ADCIONAR BOTAO DE CHAT
+                    if (!o.status.Equals("Concluído"))
+                    {
+                        btn = new Button();
+                        btn.Click += new EventHandler(btn_Chat);
+                        btn.ID = "btn_Chat" + o.idOrcamento.ToString();
+                        btn.Text = "Chat";
+                        btn.CssClass = "btn btn-info ml-1 mt-3";
+                        btn.CommandArgument = o.idOrcamento.ToString();
+                        body.Controls.Add(btn);
+                    }
 
                     card.Controls.Add(body);
 

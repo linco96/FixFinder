@@ -22,40 +22,49 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// txt_Oficina control.
+        /// lbl_Oficina control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_Oficina;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lbl_Oficina;
         
         /// <summary>
-        /// txt_Status control.
+        /// tbl_Dados control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_Status;
+        protected global::System.Web.UI.WebControls.Table tbl_Dados;
         
         /// <summary>
-        /// txt_Veiculo control.
+        /// lbl_Status control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_Veiculo;
+        protected global::System.Web.UI.WebControls.Label lbl_Status;
         
         /// <summary>
-        /// txt_MecanicoResponsavel control.
+        /// lbl_Veiculo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_MecanicoResponsavel;
+        protected global::System.Web.UI.WebControls.Label lbl_Veiculo;
+        
+        /// <summary>
+        /// lbl_MecanicoResponsavel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_MecanicoResponsavel;
         
         /// <summary>
         /// btn_Mensagem control.
@@ -74,5 +83,23 @@ namespace FixFinder.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btn_EnviarMSG;
+        
+        /// <summary>
+        /// pnl_Alert control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnl_Alert;
+        
+        /// <summary>
+        /// lbl_Alert control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_Alert;
     }
 }

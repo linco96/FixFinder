@@ -75,47 +75,34 @@
             <hr class="border border-dark border-bottom-0 mt-1 mb-1 w-75" />
 
             <div class="container mt-3" align="center">
-                <div class="overflow-auto bg-light w-75 rounded border" style="height: 350px">
+                <%--<asp:Panel runat="server" ID="pnl_Mensagens" CssClass="overflow-auto bg-light w-75 rounded border" Style="height: 350px">--%>
+                <div runat="server" id="pnl_Mensagens" class="overflow-auto bg-light w-75 rounded border" style="height: 350px">
 
                     <%--Mecanico--%>
-                    <div class="bg-secondary ml-2 mr-2 mt-1 mb-1 rounded text-left w-75 p-2 float-left text-light text-break">
+                    <%--<div class="bg-secondary ml-2 mr-2 mt-1 mb-1 rounded text-left w-75 p-2 float-left text-light text-break">
                         <div class="font-italic">Enviado 08/03/2019 às 08:32 - Mecânico</div>
                         <br />
                         TESTEEEEEEEEEEETESTEEEEEEEEEEETESTEEEEEEEEEEETESTEEEEEEEEEEETESTEEEEEEEEEEETESTEEEEEEEEEEETESTEEEEEEEEEEETESTEEEEEEEEEEETESTEEEEEEEEEEETESTEEEEEEEEEEETESTEEEEEEEEEEETESTEEEEEEEEEEETESTEEEEEEEEEEE
-                    </div>
+                    </div>--%>
                     <%--Eu--%>
-                    <div class="bg-info ml-2 mr-2 mt-1 mb-1 rounded text-left w-75 p-2 float-right text-light text-break">
+                    <%--<div class="bg-info ml-2 mr-2 mt-1 mb-1 rounded text-left w-75 p-2 float-right text-light text-break">
                         <div class="font-italic">Enviado 08/03/2019 às 08:32 - Eu</div>
                         <br />
                         TESTEEEEEEEEEEETESTEEEEEEEEEEETESTEEEEEEEEEEETESTEEEEEEEEEEETESTEEEEEEEEEEETESTEEEEEEEEEEETESTEEEEEEEEEEETESTEEEEEEEEEEETESTEEEEEEEEEEETESTEEEEEEEEEEETESTEEEEEEEEEEETESTEEEEEEEEEEETESTEEEEEEEEEEE
-                    </div>
-                    <%--Mecanico--%>
-                    <div class="bg-secondary ml-2 mr-2 mt-1 mb-1 rounded text-left w-75 p-2 float-left text-light text-break">
-                        <div class="font-italic">Enviado 08/03/2019 às 08:32 - Mecânico</div>
-                        <br />
-                        TESTEEEEEEEEEE
-                    </div>
-                    <%--Eu--%>
-                    <div class="bg-info ml-2 mr-2 mt-1 mb-1 rounded text-left w-75 p-2 float-right text-light text-break">
-                        <div class="font-italic">Enviado 08/03/2019 às 08:32 - Eu</div>
-                        <br />
-                        TESTEEEEEEEEEEETESTEEEEEEEEEEETESTEEEEEEEEEEETESTEEEEEEEEEEETESTEEEEEEEEEEETESTEEEEEEEEEEETESTEEEEEEEEEEETESTEEEEEEEEEEETESTEEEEEEEEEEETESTEEEEEEEEEEETESTEEEEEEEEEEETESTEEEEEEEEEEETESTEEEEEEEEEEE
-                    </div>
-                    <%--Mecanico--%>
-                    <div class="bg-secondary ml-2 mr-2 mt-1 mb-1 rounded text-left w-75 p-2 float-left text-light text-break">
-                        <div class="font-italic">Enviado 08/03/2019 às 08:32 - Mecânico</div>
-                        <br />
-                        TESTEEEEEEEEEE
-                    </div>
+                    </div>--%>
                 </div>
+                <%--</asp:Panel>--%>
                 <div>
-                    <asp:TextBox runat="server" CssClass="text-left w-75 bg-light border rounded mt-1 p-1" ID="btn_Mensagem" MaxLength="500" placeholder="Tecle enter para enviar sua mensagem..." required autocomplete="off"></asp:TextBox>
-                    <asp:Button runat="server" ID="btn_EnviarMSG" Style="display: none" required />
+                    <asp:TextBox runat="server" CssClass="text-left w-75 bg-light border rounded mt-1 p-1" ID="txt_Mensagem" MaxLength="500" placeholder="Tecle enter para enviar sua mensagem..." required autocomplete="off"></asp:TextBox>
+                    <asp:Button runat="server" ID="btn_EnviarMSG" OnClick="btn_EnviarMSG_Click" Style="display: none" required />
                 </div>
                 <div>
                     <asp:Panel runat="server" ID="pnl_Alert" Visible="false" CssClass="alert alert-danger mt-2 w-75 text-left" role="alert">
                         <asp:Label ID="lbl_Alert" runat="server">Porra jovem</asp:Label>
                     </asp:Panel>
+                </div>
+                <div class="form-group">
+                    <asp:Button runat="server" ID="btn_Voltar" CssClass="btn btn-danger" Text="Voltar" OnClick="btn_Voltar_Click" />
                 </div>
             </div>
         </div>

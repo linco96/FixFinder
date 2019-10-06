@@ -441,7 +441,7 @@ namespace FixFinder.Pages
                             btn.Click += new EventHandler(btn_Chat);
                             btn.ID = "btn_Chat" + o.idOrcamento.ToString();
                             btn.Text = "Chat";
-                            btn.CssClass = "btn btn-info ml-1 mt-3";
+                            btn.CssClass = "btn btn-info ml-2 mt-3";
                             btn.CommandArgument = o.idOrcamento.ToString();
                             body.Controls.Add(btn);
                         }

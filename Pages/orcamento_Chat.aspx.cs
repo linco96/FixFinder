@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using System.Threading.Tasks;
 
 namespace FixFinder.Pages
 {
@@ -34,8 +35,8 @@ namespace FixFinder.Pages
                     {
                         preencher_Oficina();
                         //preencher_Mensagens();
-                        t1 = new Thread(new ThreadStart(run));
-                        t1.Start();
+                        //t1 = new Thread(new ThreadStart(run));
+                        //t1.Start();
                     }
                 }
                 else
@@ -92,7 +93,7 @@ namespace FixFinder.Pages
             }
         }
 
-        private void run()
+        private async void run()
         {
             try
             {
@@ -101,17 +102,18 @@ namespace FixFinder.Pages
                 DateTime date;
                 String destinatario;
                 HtmlGenericControl divMensagem;
-                using (var context = new DatabaseEntities())
+
+                while (true)
                 {
-                    while (true)
+                    if (orcamento != null)
                     {
-                        if (orcamento != null)
+                        using (var context = new DatabaseEntities())
                         {
                             mensagens = context.Mensagem.Where(m => m.idOrcamento == orcamento.idOrcamento).ToList();
 
                             foreach (Mensagem msg in mensagens)
                             {
-                                if (!mensagensExbidas.Contains(msg))
+                                if (!lst_Contains(mensagensExbidas, msg))
                                 {
                                     date = msg.data + msg.hora;
                                     if (msg.remetente.Equals(c.cpf))
@@ -144,6 +146,17 @@ namespace FixFinder.Pages
             {
                 throw ex;
             }
+        }
+
+        private Boolean lst_Contains(List<Mensagem> mensagens, Mensagem mensagem)
+        {
+            foreach (Mensagem msg in mensagens)
+            {
+                if (msg.idMensagem.Equals(mensagem.idMensagem))
+                    return true;
+            }
+
+            return false;
         }
 
         private void preencher_Oficina()

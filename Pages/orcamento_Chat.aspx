@@ -12,34 +12,13 @@
     <script src="../Scripts/jquery.mask.js"></script>
     <link href="../Content/dashboard.css" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/1729574db6.js"></script>
+
+    <script src="../Scripts/jquery.signalR-2.4.1.min.js"></script>
+    <script src="signalr/hubs"></script>
 </head>
 <body>
     <form id="form1" runat="server">
         <div class="container mt-5">
-            <%-- <div class="form-group">
-                <label class="h4">Dados do seu orçamento</label>
-            </div>
-            <div class="form-inline">
-                <span class="w-50 text-left pr-3 mb-1">
-                    <label for="txt_Oficina" style="display: block">Oficina</label>
-                    <asp:TextBox runat="server" ID="txt_Oficina" CssClass="form-control w-100" ReadOnly="true"></asp:TextBox>
-                </span>
-                <span class="w-25 text-left pr-3 mb-1">
-                    <label style="display: block">Status</label>
-                    <asp:TextBox runat="server" ID="txt_Status" CssClass="form-control w-100" ReadOnly="true"></asp:TextBox>
-                </span>
-                <span class="w-25 text-left mb-1">
-                    <label style="display: block">Veículo</label>
-                    <asp:TextBox runat="server" ID="txt_Veiculo" CssClass="form-control w-100" ReadOnly="true"></asp:TextBox>
-                </span>
-            </div>
-            <div class="form-inline">
-                <span class="w-25 text-left mb-1">
-                    <label style="display: block">Mecânico Responsável</label>
-                    <asp:TextBox runat="server" ID="txt_MecanicoResponsavel" CssClass="form-control w-100" ReadOnly="true"></asp:TextBox>
-                </span>
-            </div>--%>
-
             <div class="form-group" align="center">
                 <h2 style="text-align: center">
                     <span runat="server" id="lbl_Oficina" class="align-middle text-info">Paje Motors</span>

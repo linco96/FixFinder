@@ -13,8 +13,14 @@
     <link href="../Content/dashboard.css" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/1729574db6.js"></script>
 
-    <script src="../Scripts/jquery.signalR-2.4.1.min.js"></script>
-    <script src="signalr/hubs"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            window.setInterval(function () {
+                $("#btn_GambiButton").click();
+                document.getElementById("#txt_Mensagem").focus();
+            }, 5000);
+        });
+    </script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -74,6 +80,7 @@
                 <div>
                     <asp:TextBox runat="server" CssClass="text-left w-75 bg-light border rounded mt-1 p-1" ID="txt_Mensagem" MaxLength="500" placeholder="Tecle enter para enviar sua mensagem..." required autocomplete="off"></asp:TextBox>
                     <asp:Button runat="server" ID="btn_EnviarMSG" OnClick="btn_EnviarMSG_Click" Style="display: none" required />
+                    <asp:Button runat="server" ID="btn_GambiButton" Style="display: none" OnClick="btn_GambiButton_Click" formnovalidate />
                 </div>
                 <div>
                     <asp:Panel runat="server" ID="pnl_Alert" Visible="false" CssClass="alert alert-danger mt-2 w-75 text-left" role="alert">

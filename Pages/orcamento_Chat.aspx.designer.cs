@@ -7,13 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FixFinder.Pages
-{
-
-
-    public partial class orcamento_Chat
-    {
-
+namespace FixFinder.Pages {
+    
+    
+    public partial class orcamento_Chat {
+        
         /// <summary>
         /// form1 control.
         /// </summary>
@@ -22,7 +20,7 @@ namespace FixFinder.Pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
-
+        
         /// <summary>
         /// lbl_Oficina control.
         /// </summary>
@@ -31,7 +29,7 @@ namespace FixFinder.Pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl lbl_Oficina;
-
+        
         /// <summary>
         /// tbl_Dados control.
         /// </summary>
@@ -40,7 +38,7 @@ namespace FixFinder.Pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Table tbl_Dados;
-
+        
         /// <summary>
         /// lbl_Status control.
         /// </summary>
@@ -49,7 +47,7 @@ namespace FixFinder.Pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_Status;
-
+        
         /// <summary>
         /// lbl_Veiculo control.
         /// </summary>
@@ -58,7 +56,7 @@ namespace FixFinder.Pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_Veiculo;
-
+        
         /// <summary>
         /// lbl_MecanicoResponsavel control.
         /// </summary>
@@ -67,7 +65,7 @@ namespace FixFinder.Pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_MecanicoResponsavel;
-
+        
         /// <summary>
         /// pnl_Mensagens control.
         /// </summary>
@@ -76,7 +74,7 @@ namespace FixFinder.Pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl pnl_Mensagens;
-
+        
         /// <summary>
         /// txt_Mensagem control.
         /// </summary>
@@ -85,7 +83,7 @@ namespace FixFinder.Pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txt_Mensagem;
-
+        
         /// <summary>
         /// btn_EnviarMSG control.
         /// </summary>
@@ -94,7 +92,16 @@ namespace FixFinder.Pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btn_EnviarMSG;
-
+        
+        /// <summary>
+        /// btn_GambiButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_GambiButton;
+        
         /// <summary>
         /// pnl_Alert control.
         /// </summary>
@@ -103,7 +110,7 @@ namespace FixFinder.Pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnl_Alert;
-
+        
         /// <summary>
         /// lbl_Alert control.
         /// </summary>
@@ -112,7 +119,7 @@ namespace FixFinder.Pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_Alert;
-
+        
         /// <summary>
         /// btn_Voltar control.
         /// </summary>

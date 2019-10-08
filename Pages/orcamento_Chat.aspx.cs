@@ -16,6 +16,7 @@ namespace FixFinder.Pages
         private Cliente c;
         private static Thread t1;
         private static Orcamento orcamento;
+        private static List<Mensagem> msgLidas;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -31,10 +32,11 @@ namespace FixFinder.Pages
                 if (orcamento != null)
                 {
                     pnl_Alert.Visible = false;
+
                     if (!IsPostBack)
                     {
                         preencher_Oficina();
-                        //preencher_Mensagens();
+                        preencher_Mensagens();
                         //t1 = new Thread(new ThreadStart(run));
                         //t1.Start();
                     }
@@ -262,6 +264,58 @@ namespace FixFinder.Pages
                 t1 = null;
                 Session["orcamento"] = null;
                 Response.Redirect("orcamento_ListaOficina.aspx", false);
+            }
+        }
+
+        protected void btn_GambiButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (orcamento != null)
+                {
+                    using (var context = new DatabaseEntities())
+                    {
+                        if (msgLidas == null)
+                            msgLidas = new List<Mensagem>();
+                        List<Mensagem> mensagens = context.Mensagem.Where(m => m.idOrcamento == orcamento.idOrcamento).ToList();
+                        DateTime date;
+                        HtmlGenericControl divMensagem;
+                        String destinatario;
+                        foreach (Mensagem msg in mensagens)
+                        {
+                            //if (!lst_Contains(msgLidas, msg))
+                            //{
+                            date = msg.data + msg.hora;
+                            if (msg.remetente.Equals(c.cpf))
+                            {
+                                //Remetente
+                                divMensagem = new HtmlGenericControl("DIV");
+                                divMensagem.Attributes.Add("class", "bg-info ml-2 mr-2 mt-1 mb-1 rounded text-left w-75 p-2 float-right text-light text-break");
+                                divMensagem.InnerHtml = "<div class='font-italic'>Enviado em " + date.ToString("dd/MM/yyyy") + " às " + date.Hour.ToString("00") + ":" + date.Minute.ToString("00") + " - Eu</div><br />" + msg.mensagem1;
+                            }
+                            else
+                            {
+                                //Destinatario
+                                if (orcamento.cpfCliente.Equals(c.cpf))
+                                    destinatario = "Mecânico";
+                                else
+                                    destinatario = "Cliente";
+                                divMensagem = new HtmlGenericControl("DIV");
+                                divMensagem.Attributes.Add("class", "bg-secondary ml-2 mr-2 mt-1 mb-1 rounded text-left w-75 p-2 float-left text-light text-break");
+                                divMensagem.InnerHtml = "<div class='font-italic'>Enviado em " + date.ToString("dd/MM/yyyy") + " às " + date.Hour.ToString("00") + ":" + date.Minute.ToString("00") + " - " + destinatario + "</div><br />" + msg.mensagem1;
+                            }
+                            pnl_Mensagens.Controls.Add(divMensagem);
+                            msgLidas.Add(msg);
+                            //}
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                pnl_Alert.CssClass = "alert alert-danger";
+                lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                pnl_Alert.Visible = true;
             }
         }
     }

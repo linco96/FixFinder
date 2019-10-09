@@ -32,11 +32,12 @@ namespace FixFinder.Pages
                 if (orcamento != null)
                 {
                     pnl_Alert.Visible = false;
+                    preencher_Mensagens();
 
                     if (!IsPostBack)
                     {
                         preencher_Oficina();
-                        preencher_Mensagens();
+
                         //t1 = new Thread(new ThreadStart(run));
                         //t1.Start();
                     }
@@ -227,6 +228,7 @@ namespace FixFinder.Pages
                         context.Mensagem.Add(msg);
                         context.SaveChanges();
                         txt_Mensagem.Text = "";
+                        preencher_Mensagens();
                     }
                     else
                     {

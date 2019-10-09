@@ -14,10 +14,18 @@
     <script src="https://kit.fontawesome.com/1729574db6.js"></script>
 
     <script type="text/javascript">
+        window.onload = function () {
+            var objDiv = document.getElementById("pnl_Mensagens");
+            objDiv.scrollTop = objDiv.scrollHeight;
+            document.getElementById("txt_Mensagem").focus();
+        }
         $(document).ready(function () {
+
             window.setInterval(function () {
                 $("#btn_GambiButton").click();
-                document.getElementById("#txt_Mensagem").focus();
+                window.scrollTo(0, document.body.scrollHeight);
+                obj.scrollTo = obj.scrollHeight;
+
             }, 5000);
         });
     </script>
@@ -88,7 +96,7 @@
                     </asp:Panel>
                 </div>
                 <div class="form-group">
-                    <asp:Button runat="server" ID="btn_Voltar" CssClass="btn btn-danger" Text="Voltar" OnClick="btn_Voltar_Click" />
+                    <asp:Button runat="server" ID="btn_Voltar" CssClass="btn btn-danger mt-3" Text="Voltar" OnClick="btn_Voltar_Click" />
                 </div>
             </div>
         </div>

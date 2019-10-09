@@ -14,20 +14,46 @@
     <script src="https://kit.fontawesome.com/1729574db6.js"></script>
 
     <script type="text/javascript">
+
         window.onload = function () {
-            var objDiv = document.getElementById("pnl_Mensagens");
-            objDiv.scrollTop = objDiv.scrollHeight;
+            var notFirstTime = <% if (postback) { Response.Write("true"); } else { Response.Write("false"); }  %>;
+
+            if (!notFirstTime) {
+                SetScrollBottom();
+            } else {
+                SetDivScrollPosition();
+            }
+
             document.getElementById("txt_Mensagem").focus();
         }
+
         $(document).ready(function () {
-
             window.setInterval(function () {
+                StoreDivPosition();
                 $("#btn_GambiButton").click();
-                window.scrollTo(0, document.body.scrollHeight);
-                obj.scrollTo = obj.scrollHeight;
-
-            }, 5000);
+            }, 2000);
         });
+
+        function SetScrollBottom() {
+            var objDiv = document.getElementById("pnl_Mensagens");
+            objDiv.scrollTop = objDiv.scrollHeight;
+            StoreDivPosition();
+        }
+
+        function StoreDivPosition() {
+            var intY = document.getElementById("pnl_Mensagens").scrollTop;
+            document.cookie = "yPos=!~" + intY + "~!";
+        }
+
+        function SetDivScrollPosition() {
+            var strCook = document.cookie;
+            if (strCook.indexOf("!~") != 0) {
+                var intS = strCook.indexOf("!~");
+                var intE = strCook.indexOf("~!");
+                var strPos = strCook.substring(intS + 2, intE);
+                document.getElementById("pnl_Mensagens").scrollTop = strPos;
+            }
+        }
     </script>
 </head>
 <body>
@@ -69,7 +95,7 @@
 
             <div class="container mt-3" align="center">
                 <%--<asp:Panel runat="server" ID="pnl_Mensagens" CssClass="overflow-auto bg-light w-75 rounded border" Style="height: 350px">--%>
-                <div runat="server" id="pnl_Mensagens" class="overflow-auto bg-light w-75 rounded border" style="height: 350px">
+                <div runat="server" id="pnl_Mensagens" onscroll="StoreDivPosition()" class="overflow-auto bg-light w-75 rounded border" style="height: 350px">
 
                     <%--Mecanico--%>
                     <%--<div class="bg-secondary ml-2 mr-2 mt-1 mb-1 rounded text-left w-75 p-2 float-left text-light text-break">
@@ -87,7 +113,7 @@
                 <%--</asp:Panel>--%>
                 <div>
                     <asp:TextBox runat="server" CssClass="text-left w-75 bg-light border rounded mt-1 p-1" ID="txt_Mensagem" MaxLength="500" placeholder="Tecle enter para enviar sua mensagem..." required autocomplete="off"></asp:TextBox>
-                    <asp:Button runat="server" ID="btn_EnviarMSG" OnClick="btn_EnviarMSG_Click" Style="display: none" required />
+                    <asp:Button runat="server" ID="btn_EnviarMSG" OnClick="btn_EnviarMSG_Click" Style="display: none" required ClientIDMode="Static" />
                     <asp:Button runat="server" ID="btn_GambiButton" Style="display: none" OnClick="btn_GambiButton_Click" formnovalidate />
                 </div>
                 <div>
@@ -96,7 +122,7 @@
                     </asp:Panel>
                 </div>
                 <div class="form-group">
-                    <asp:Button runat="server" ID="btn_Voltar" CssClass="btn btn-danger mt-3" Text="Voltar" OnClick="btn_Voltar_Click" />
+                    <asp:Button runat="server" ID="btn_Voltar" CssClass="btn btn-danger mt-3" Text="Voltar" OnClick="btn_Voltar_Click" formnovalidate />
                 </div>
             </div>
         </div>

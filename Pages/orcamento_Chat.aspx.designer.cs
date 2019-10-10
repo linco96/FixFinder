@@ -103,6 +103,24 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.WebControls.Button btn_GambiButton;
         
         /// <summary>
+        /// txt_posStart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_posStart;
+        
+        /// <summary>
+        /// txt_posEnd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_posEnd;
+        
+        /// <summary>
         /// pnl_Alert control.
         /// </summary>
         /// <remarks>

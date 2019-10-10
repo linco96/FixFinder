@@ -24,15 +24,38 @@
                 SetDivScrollPosition();
             }
 
-            document.getElementById("txt_Mensagem").focus();
+            $("#txt_Mensagem").focus();
+            if ($("#txt_Mensagem").val().length > 0) {
+                var posStart = $("#txt_posStart").val();
+                var posEnd = $("#txt_posEnd").val();
+                setSelectionRange(document.getElementById("txt_Mensagem"), posStart, posEnd);
+            }
         }
 
         $(document).ready(function () {
             window.setInterval(function () {
                 StoreDivPosition();
+                $("#txt_posStart").val($("#txt_Mensagem")[0].selectionStart);
+                $("#txt_posEnd").val($("#txt_Mensagem")[0].selectionEnd);
                 $("#btn_GambiButton").click();
-            }, 2000);
+            }, 5000);
         });
+
+        //RIP função lixo
+
+        function setSelectionRange(input, selectionStart, selectionEnd) {
+            if (input.setSelectionRange) {
+                input.focus();
+                input.setSelectionRange(selectionStart, selectionEnd);
+            }
+            else if (input.createTextRange) {
+                var range = input.createTextRange();
+                range.collapse(true);
+                range.moveEnd('character', selectionEnd);
+                range.moveStart('character', selectionStart);
+                range.select();
+            }
+        }
 
         function SetScrollBottom() {
             var objDiv = document.getElementById("pnl_Mensagens");
@@ -115,6 +138,8 @@
                     <asp:TextBox runat="server" CssClass="text-left w-75 bg-light border rounded mt-1 p-1" ID="txt_Mensagem" MaxLength="500" placeholder="Tecle enter para enviar sua mensagem..." required autocomplete="off"></asp:TextBox>
                     <asp:Button runat="server" ID="btn_EnviarMSG" OnClick="btn_EnviarMSG_Click" Style="display: none" required ClientIDMode="Static" />
                     <asp:Button runat="server" ID="btn_GambiButton" Style="display: none" OnClick="btn_GambiButton_Click" formnovalidate />
+                    <asp:TextBox runat="server" ID="txt_posStart" ClientIDMode="Static" Style="display: none"></asp:TextBox>
+                    <asp:TextBox runat="server" ID="txt_posEnd" ClientIDMode="Static" Style="display: none"></asp:TextBox>
                 </div>
                 <div>
                     <asp:Panel runat="server" ID="pnl_Alert" Visible="false" CssClass="alert alert-danger mt-2 w-75 text-left" role="alert">

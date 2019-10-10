@@ -18,6 +18,8 @@ namespace FixFinder.Pages
         private static Orcamento orcamento;
         private static List<Mensagem> msgLidas;
         public static bool postback;
+        public static int posStart;
+        public static int posEnd;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -241,6 +243,7 @@ namespace FixFinder.Pages
                         context.Mensagem.Add(msg);
                         context.SaveChanges();
                         txt_Mensagem.Text = "";
+                        postback = false;
                     }
                     else
                     {

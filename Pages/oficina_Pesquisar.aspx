@@ -12,6 +12,33 @@
     <script src="../Scripts/jquery.mask.js"></script>
     <link href="../Content/bootstrap.min.css" rel="stylesheet" />
     <script src="../Scripts/bootstrap.min.js"></script>
+    <style>
+        .filter {
+            font-weight: 400;
+            color: #212529;
+            vertical-align: middle;
+            width: auto;
+            cursor: pointer;
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: 0.25rem;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            color: #007bff;
+            border-color: #007bff;
+            background: none;
+        }
+
+            .filter:hover {
+                color: #212529;
+                text-decoration: none;
+            }
+
+            .filter:focus, .filter.focus {
+                outline: 0;
+                box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+            }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -40,6 +67,14 @@
                         <asp:Button runat="server" ID="btn_OrdenarNota" Text="Ordenar por nota" CssClass="btn btn-outline-primary" OnClick="btn_OrdenarNota_Click" />
                     </span>
                 </div>
+                <asp:DropDownList runat="server" ID="txt_FilterNota" CssClass="custom-select filter float-right mr-2">
+                    <asp:ListItem Text="Nota = 10/10"></asp:ListItem>
+                    <asp:ListItem Text="Nota > 9/10"></asp:ListItem>
+                </asp:DropDownList>
+                <asp:DropDownList runat="server" ID="txt_FilterDistancia" CssClass="custom-select filter float-right mr-2">
+                    <asp:ListItem Text="Distância < 5km"></asp:ListItem>
+                    <asp:ListItem Text="Distância < 10Km"></asp:ListItem>
+                </asp:DropDownList>
             </div>
             <br />
             <div class="form-group mt-4">
@@ -47,15 +82,14 @@
                     <asp:Label ID="lbl_Alert" runat="server"></asp:Label>
                 </asp:Panel>
             </div>
+            <%--RESULTADO PESQUISA--%>
+            <div runat="server" id="div_Resultados" class="container mt-4 text-left p-0">
+            </div>
         </div>
 
         <%--HIDDEN BOYS--%>
         <asp:Button runat="server" ID="btn_CarregarEndereco" Style="display: none" OnClick="btn_CarregarEndereco_Click" ClientIDMode="Static" />
         <asp:TextBox runat="server" ID="txt_LatLon" ClientID="txtLatLon" Style="display: none" ClientIDMode="Static" />
-
-        <%--RESULTADO PESQUISA--%>
-        <div runat="server" id="div_Resultados" class="container mt-4">
-        </div>
     </form>
     <script type="text/javascript">
         var x = document.getElementById("demo");

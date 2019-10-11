@@ -76,6 +76,24 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.WebControls.Button btn_OrdenarNota;
         
         /// <summary>
+        /// txt_FilterNota control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList txt_FilterNota;
+        
+        /// <summary>
+        /// txt_FilterDistancia control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList txt_FilterDistancia;
+        
+        /// <summary>
         /// pnl_Alert control.
         /// </summary>
         /// <remarks>
@@ -94,6 +112,15 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.WebControls.Label lbl_Alert;
         
         /// <summary>
+        /// div_Resultados control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_Resultados;
+        
+        /// <summary>
         /// btn_CarregarEndereco control.
         /// </summary>
         /// <remarks>
@@ -110,14 +137,5 @@ namespace FixFinder.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txt_LatLon;
-        
-        /// <summary>
-        /// div_Resultados control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_Resultados;
     }
 }

@@ -15,6 +15,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
+        <asp:Button runat="server" ID="btn_HidePesquisa" OnClick="btn_Pesquisar_Click" Style="display: none" />
         <uc:Header_Control runat="server" ID="Header_Control"></uc:Header_Control>
         <%--FORMULARIO PESQUISA--%>
         <div class="container mt-5 w-75 text-center">

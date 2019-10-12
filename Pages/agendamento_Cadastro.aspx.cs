@@ -67,7 +67,6 @@ namespace FixFinder.Pages
                             else
                             {
                                 o = context.Oficina.Where(of => of.cnpj.Equals(o.cnpj)).FirstOrDefault();
-                                Session["oficina"] = null;
                                 if (Session["lastPage"] != null)
                                     Session["lastPage"] = null;
                                 preencherSelect();

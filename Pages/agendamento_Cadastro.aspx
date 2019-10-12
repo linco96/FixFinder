@@ -15,7 +15,7 @@
     <link href="../Content/dashboard.css" rel="stylesheet" />
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#txt_Data").change(function () {
+            $("#txt_Data").blur(function () {
                 $("#btn_CarregarHorario").click();
             });
         });

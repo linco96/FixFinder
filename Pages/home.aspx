@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="home.aspx.cs" Inherits="FixFinder.Pages.home" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" Async="true" CodeBehind="home.aspx.cs" Inherits="FixFinder.Pages.home" %>
 
 <!DOCTYPE html>
 
@@ -13,6 +13,39 @@
     <script src="../Scripts/bootstrap.min.js"></script>
     <link href="../Content/dashboard.css" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/1729574db6.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if (navigator.geolocation) {
+                if (navigator.geolocation) {
+                    if ($("#txt_LatLon").val().length == 0) {
+                        navigator.geolocation.getCurrentPosition(showPosition, showError);
+                    }
+                }
+                else { $("#txt_LatLon").val("Geolocation is not supported by this browser."); }
+            }
+        });
+
+        function showPosition(position) {
+            var latlon = position.coords.latitude + "," + position.coords.longitude;
+            $("#txt_LatLon").val(latlon);
+            $("#btn_GambiButton").trigger('click');
+        }
+
+        function showError(error) {
+            if (error.code == 1) {
+                $("#txt_LatLon").val("User denied the request for Geolocation.");
+            }
+            else if (err.code == 2) {
+                $("#txt_LatLon").val("Location information is unavailable.");
+            }
+            else if (err.code == 3) {
+                $("#txt_LatLon").val("The request to get user location timed out.");
+            }
+            else {
+                $("#txt_LatLon").val("An unknown error occurred.");
+            }
+        }
+    </script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -157,21 +190,22 @@
 
                 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <%--Conteudo--%>
                         <h1 class="h2">Home</h1>
-                        <%--<div class="btn-toolbar mb-2 mb-md-0">
-                            <div class="btn-group mr-2">
-                                <button class="btn btn-sm btn-outline-secondary">Share</button>
-                                <button class="btn btn-sm btn-outline-secondary">Export</button>
-                            </div>
-                            <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                                <span data-feather="calendar"></span>
-                                This week
-                            </button>
-                        </div>--%>
                     </div>
+                    <h4>Oficinas perto de você</h4>
+                    <asp:TextBox runat="server" ID="txt_LatLon" Style="display: none" ClientID="txtLatLon" ClientIDMode="Static" />
+                    <%--Style="display: none"--%>
+                    <div runat="server" id="div_Resultados" class="container mt-4 text-left p-0">
+                    </div>
+
+                    <asp:Panel runat="server" ID="pnl_Alert" Visible="false" CssClass="alert alert-danger" role="alert">
+                        <asp:Label ID="lbl_Alert" runat="server"></asp:Label>
+                    </asp:Panel>
                 </main>
             </div>
         </div>
+        <asp:Button runat="server" ID="btn_GambiButton" Style="display: none" OnClick="btn_GambiButton_Click" />
     </form>
 </body>
 </html>

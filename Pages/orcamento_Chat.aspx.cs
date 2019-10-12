@@ -48,6 +48,55 @@ namespace FixFinder.Pages
                     {
                         postback = true;
                     }
+                    //CODIGO DASHBOARD
+                    try
+                    {
+                        using (var context = new DatabaseEntities())
+                        {
+                            Funcionario f = context.Funcionario.Where(func => func.cpf.Equals(c.cpf)).FirstOrDefault();
+                            lbl_Nome.Text = c.nome;
+                            if (f == null)
+                            {
+                                pnl_Oficina.Visible = false;
+                                btn_CadastroOficina.Visible = true;
+                                a_OrcamentoCliente.Attributes.Add("class", "nav-link active");
+                                List<RequisicaoFuncionario> requisicoes = context.RequisicaoFuncionario.Where(r => r.cpfCliente.Equals(c.cpf)).ToList();
+                                if (requisicoes.Count > 0)
+                                {
+                                    pnl_Funcionario.Visible = true;
+                                    badge_Requisicoes.InnerHtml = requisicoes.Count.ToString();
+                                }
+                                else
+                                {
+                                    pnl_Funcionario.Visible = false;
+                                }
+                            }
+                            else
+                            {
+                                a_OrcamentoOficina.Attributes.Add("class", "nav-link active");
+                                pnl_Oficina.Visible = true;
+                                pnl_Funcionario.Visible = false;
+                                btn_CadastroOficina.Visible = false;
+                                lbl_Nome.Text += " | " + f.Oficina.nome;
+                                if (f.cargo.ToLower().Equals("gerente"))
+                                {
+                                    btn_Configuracoes.Visible = true;
+                                    btn_Funcionarios.Visible = true;
+                                }
+                                else
+                                {
+                                    btn_Configuracoes.Visible = false;
+                                    btn_Funcionarios.Visible = false;
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        pnl_Alert.CssClass = "alert alert-danger";
+                        lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                        pnl_Alert.Visible = true;
+                    }
                 }
                 else
                 {
@@ -282,6 +331,12 @@ namespace FixFinder.Pages
                 Session["orcamento"] = null;
                 Response.Redirect("orcamento_ListaOficina.aspx", false);
             }
+        }
+
+        protected void btn_Sair_Click(object sender, EventArgs e)
+        {
+            Session.Clear();
+            Response.Redirect("login.aspx", false);
         }
 
         protected void btn_GambiButton_Click(object sender, EventArgs e)

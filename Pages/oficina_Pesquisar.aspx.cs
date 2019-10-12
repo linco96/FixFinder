@@ -40,6 +40,10 @@ namespace FixFinder.Pages
                     lbl_Alert.Text = "Nenhuma oficina encontrada. Verifique os parâmetros de pesquisa informados";
                     pnl_Alert.Visible = true;
                 }
+                else
+                {
+                    pnl_Alert.Visible = false;
+                }
             }
             else
             {
@@ -504,6 +508,10 @@ namespace FixFinder.Pages
                         lbl_Alert.Text = "Nenhuma oficina encontrada. Verifique os parâmetros de pesquisa informados";
                         pnl_Alert.Visible = true;
                     }
+                    else
+                    {
+                        pnl_Alert.Visible = false;
+                    }
                 }
             }
         }
@@ -530,6 +538,10 @@ namespace FixFinder.Pages
                         lbl_Alert.Text = "Nenhuma oficina encontrada. Verifique os parâmetros de pesquisa informados";
                         pnl_Alert.Visible = true;
                     }
+                    else
+                    {
+                        pnl_Alert.Visible = false;
+                    }
                 }
             }
         }
@@ -553,6 +565,10 @@ namespace FixFinder.Pages
                         pnl_Alert.CssClass = "alert alert-danger mt-3";
                         lbl_Alert.Text = "Nenhuma oficina encontrada. Verifique os parâmetros de pesquisa informados";
                         pnl_Alert.Visible = true;
+                    }
+                    else
+                    {
+                        pnl_Alert.Visible = false;
                     }
                 }
             }

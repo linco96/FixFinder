@@ -7,11 +7,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Pesquisa</title>
-    <script src="../Scripts/jquery-3.4.1.min.js"></script>
-    <script src="../Scripts/popper.min.js"></script>
-    <script src="../Scripts/jquery.mask.js"></script>
-    <link href="../Content/bootstrap.min.css" rel="stylesheet" />
-    <script src="../Scripts/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/1729574db6.js"></script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -22,16 +22,17 @@
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-prepend">
-                        <button onclick="getLocation(); return false" class="btn btn-primary">Localização atual</button>
+                        <button onclick="getLocation(); return false" class="btn btn-primary"><i class="fas fa-map-marker-alt fa-1x fa-fw mr-1"></i>Localização atual</button>
                     </span>
                     <asp:TextBox runat="server" ID="txt_Pesquisa" ClientID="txt_Pesquisa" CssClass="form-control width100" ClientIDMode="Static" placeholder="Informe a sua localização..." />
                     <span class="input-group-append">
-                        <asp:Button runat="server" ID="btn_Pesquisar" Text="Pesquisar" CssClass="btn btn-success" OnClick="btn_Pesquisar_Click" />
+                        <asp:LinkButton runat="server" ID="btn_Pesquisar" CssClass="btn btn-success" OnClick="btn_Pesquisar_Click"><i class="fas fa-search fa-1x fa-fw mr-1"></i>Pesquisar</asp:LinkButton>
                     </span>
                 </div>
             </div>
 
             <div class="form-group">
+                <%--SORT--%>
                 <div class="input-group float-right" style="width: auto">
                     <span class="input-group-prepend">
                         <asp:Button runat="server" ID="btn_OrdenarDistancia" Text="Ordenar por distância" CssClass="btn btn-primary" OnClick="btn_OrdenarDistancia_Click" />
@@ -40,8 +41,25 @@
                         <asp:Button runat="server" ID="btn_OrdenarNota" Text="Ordenar por nota" CssClass="btn btn-outline-primary" OnClick="btn_OrdenarNota_Click" />
                     </span>
                 </div>
+
+                <%--FILTRO--%>
+                <div class="dropdown float-right mr-2">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-filter fa-1x fa-fw"></i>
+                        Filtrar
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <h6 class="dropdown-header">Distância</h6>
+                        <asp:Button runat="server" ID="btn_Filtro1" CssClass="dropdown-item" CommandArgument="50" OnClick="btn_Filtro_Click" Text="Nenhum"></asp:Button>
+                        <asp:Button runat="server" ID="btn_Filtro2" CssClass="dropdown-item" CommandArgument="5" OnClick="btn_Filtro_Click" Text="Menor que 5km"></asp:Button>
+                        <asp:Button runat="server" ID="btn_Filtro3" CssClass="dropdown-item" CommandArgument="10" OnClick="btn_Filtro_Click" Text="Menor que 10km"></asp:Button>
+                        <asp:Button runat="server" ID="btn_Filtro4" CssClass="dropdown-item" CommandArgument="20" OnClick="btn_Filtro_Click" Text="Menor que 20km"></asp:Button>
+                    </div>
+                </div>
             </div>
+
             <br />
+
             <div class="form-group mt-4">
                 <asp:Panel runat="server" ID="pnl_Alert" Visible="false" CssClass="alert alert-danger " role="alert">
                     <asp:Label ID="lbl_Alert" runat="server"></asp:Label>

@@ -55,7 +55,7 @@ namespace FixFinder.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_Pesquisar;
+        protected global::System.Web.UI.WebControls.LinkButton btn_Pesquisar;
         
         /// <summary>
         /// btn_OrdenarDistancia control.
@@ -74,6 +74,42 @@ namespace FixFinder.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btn_OrdenarNota;
+        
+        /// <summary>
+        /// btn_Filtro1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_Filtro1;
+        
+        /// <summary>
+        /// btn_Filtro2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_Filtro2;
+        
+        /// <summary>
+        /// btn_Filtro3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_Filtro3;
+        
+        /// <summary>
+        /// btn_Filtro4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_Filtro4;
         
         /// <summary>
         /// pnl_Alert control.

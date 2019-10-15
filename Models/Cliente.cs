@@ -21,6 +21,7 @@ namespace FixFinder.Models
             this.Avaliacao = new HashSet<Avaliacao>();
             this.Cartao = new HashSet<Cartao>();
             this.Localizacao = new HashSet<Localizacao>();
+            this.LogOrcamento = new HashSet<LogOrcamento>();
             this.Orcamento = new HashSet<Orcamento>();
             this.RequisicaoFuncionario = new HashSet<RequisicaoFuncionario>();
             this.Veiculo = new HashSet<Veiculo>();
@@ -43,6 +44,8 @@ namespace FixFinder.Models
         public virtual Funcionario Funcionario { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Localizacao> Localizacao { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LogOrcamento> LogOrcamento { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Orcamento> Orcamento { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

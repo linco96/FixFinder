@@ -13,10 +13,10 @@ namespace FixFinder.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DatabaseEntities : DbContext
+    public partial class DatabaseEntities1 : DbContext
     {
-        public DatabaseEntities()
-            : base("name=DatabaseEntities")
+        public DatabaseEntities1()
+            : base("name=DatabaseEntities1")
         {
         }
     
@@ -36,6 +36,7 @@ namespace FixFinder.Models
         public virtual DbSet<FotoOficina> FotoOficina { get; set; }
         public virtual DbSet<Funcionario> Funcionario { get; set; }
         public virtual DbSet<Localizacao> Localizacao { get; set; }
+        public virtual DbSet<LogOrcamento> LogOrcamento { get; set; }
         public virtual DbSet<Mensagem> Mensagem { get; set; }
         public virtual DbSet<Oficina> Oficina { get; set; }
         public virtual DbSet<Orcamento> Orcamento { get; set; }

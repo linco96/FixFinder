@@ -1698,7 +1698,7 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="DatabaseEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="DatabaseEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Agendamento" EntityType="Self.Agendamento" />
           <EntitySet Name="Avaliacao" EntityType="Self.Avaliacao" />
           <EntitySet Name="Cartao" EntityType="Self.Cartao" />
@@ -1875,7 +1875,7 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="DatabaseModelStoreContainer" CdmEntityContainer="DatabaseEntities1">
+        <EntityContainerMapping StorageEntityContainer="DatabaseModelStoreContainer" CdmEntityContainer="DatabaseEntities">
           <EntitySetMapping Name="Agendamento">
             <EntityTypeMapping TypeName="DatabaseModel.Agendamento">
               <MappingFragment StoreEntitySet="Agendamento">

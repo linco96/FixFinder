@@ -143,7 +143,7 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
           <Key>
             <PropertyRef Name="idAlteracao" />
           </Key>
-          <Property Name="idAlteracao" Type="int" Nullable="false" />
+          <Property Name="idAlteracao" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idOrcamento" Type="int" Nullable="false" />
           <Property Name="alteracao" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="cpfUsuario" Type="varchar" MaxLength="15" Nullable="false" />
@@ -1064,7 +1064,7 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
           <Key>
             <PropertyRef Name="idAlteracao" />
           </Key>
-          <Property Name="idAlteracao" Type="Int32" Nullable="false" />
+          <Property Name="idAlteracao" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idOrcamento" Type="Int32" Nullable="false" />
           <Property Name="alteracao" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="cpfUsuario" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />

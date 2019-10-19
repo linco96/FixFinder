@@ -369,7 +369,7 @@ namespace FixFinder.Pages
                                 btn_Rejeitar.Click += new EventHandler(btn_Rejeitar_Click);
                                 btn_Rejeitar.ID = "btn_Rejeitar" + o.idOrcamento.ToString();
                                 btn_Rejeitar.Text = "Rejeitar";
-                                btn_Rejeitar.CssClass = "btn btn-danger ml-2 mt-3";
+                                btn_Rejeitar.CssClass = "btn btn-danger ml-2 mr-2 mt-3";
                                 btn_Rejeitar.CommandArgument = o.idOrcamento.ToString();
 
                                 body.Controls.Add(btn_Aceitar);
@@ -533,6 +533,17 @@ namespace FixFinder.Pages
                     orcamento.status = "Aprovação do cliente pendente";
                     context.SaveChanges();
                     preencherTabela();
+
+                    LogOrcamento log = new LogOrcamento()
+                    {
+                        idOrcamento = id,
+                        cpfUsuario = c.cpf,
+                        alteracao = "Aprovado",
+                        dataAlteracao = DateTime.Now
+                    };
+                    context.LogOrcamento.Add(log);
+                    context.SaveChanges();
+
                     pnl_Alert.CssClass = "alert alert-success";
                     lbl_Alert.Text = "O orçamento foi aprovado com sucesso";
                     pnl_Alert.Visible = true;
@@ -567,6 +578,17 @@ namespace FixFinder.Pages
                         p.quantidade += produto.quantidade;
                         context.SaveChanges();
                     }
+
+                    LogOrcamento log = new LogOrcamento()
+                    {
+                        idOrcamento = id,
+                        cpfUsuario = c.cpf,
+                        alteracao = "Rejeitado",
+                        dataAlteracao = DateTime.Now
+                    };
+                    context.LogOrcamento.Add(log);
+                    context.SaveChanges();
+
                     pnl_Alert.CssClass = "alert alert-success";
                     lbl_Alert.Text = "O orçamento foi rejeitado com sucesso";
                     pnl_Alert.Visible = true;
@@ -622,6 +644,17 @@ namespace FixFinder.Pages
                         p.quantidade += produto.quantidade;
                         context.SaveChanges();
                     }
+
+                    LogOrcamento log = new LogOrcamento()
+                    {
+                        idOrcamento = id,
+                        cpfUsuario = c.cpf,
+                        alteracao = "Cancelado",
+                        dataAlteracao = DateTime.Now
+                    };
+                    context.LogOrcamento.Add(log);
+                    context.SaveChanges();
+
                     pnl_Alert.CssClass = "alert alert-success";
                     lbl_Alert.Text = "O orçamento foi cancelado com sucesso";
                     pnl_Alert.Visible = true;
@@ -656,6 +689,17 @@ namespace FixFinder.Pages
                         p.quantidade -= produto.quantidade;
                         context.SaveChanges();
                     }
+
+                    LogOrcamento log = new LogOrcamento()
+                    {
+                        idOrcamento = id,
+                        cpfUsuario = c.cpf,
+                        alteracao = "Reaberto",
+                        dataAlteracao = DateTime.Now
+                    };
+                    context.LogOrcamento.Add(log);
+                    context.SaveChanges();
+
                     pnl_Alert.CssClass = "alert alert-success";
                     lbl_Alert.Text = "O orçamento foi reaberto com sucesso";
                     pnl_Alert.Visible = true;
@@ -681,6 +725,17 @@ namespace FixFinder.Pages
                     orcamento.status = "Pagamento pendente";
                     context.SaveChanges();
                     preencherTabela();
+
+                    LogOrcamento log = new LogOrcamento()
+                    {
+                        idOrcamento = id,
+                        cpfUsuario = c.cpf,
+                        alteracao = "Finalizado",
+                        dataAlteracao = DateTime.Now
+                    };
+                    context.LogOrcamento.Add(log);
+                    context.SaveChanges();
+
                     pnl_Alert.CssClass = "alert alert-success";
                     lbl_Alert.Text = "O orçamento foi enviado para o pagamento com sucesso";
                     pnl_Alert.Visible = true;

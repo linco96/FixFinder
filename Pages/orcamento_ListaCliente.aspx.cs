@@ -353,7 +353,7 @@ namespace FixFinder.Pages
                         btn_Rejeitar.Click += new EventHandler(btn_Rejeitar_Click);
                         btn_Rejeitar.ID = "btn_Rejeitar" + o.idOrcamento.ToString();
                         btn_Rejeitar.Text = "Rejeitar";
-                        btn_Rejeitar.CssClass = "btn btn-danger ml-1 mt-3";
+                        btn_Rejeitar.CssClass = "btn btn-danger ml-1 mr-1 mt-3";
                         btn_Rejeitar.CommandArgument = o.idOrcamento.ToString();
 
                         body.Controls.Add(btn_Aceitar);
@@ -468,6 +468,16 @@ namespace FixFinder.Pages
                     context.SaveChanges();
                     preencherTabela();
 
+                    LogOrcamento log = new LogOrcamento()
+                    {
+                        idOrcamento = id,
+                        cpfUsuario = c.cpf,
+                        alteracao = "Aprovado",
+                        dataAlteracao = DateTime.Now
+                    };
+                    context.LogOrcamento.Add(log);
+                    context.SaveChanges();
+
                     pnl_Alert.CssClass = "alert alert-success";
                     lbl_Alert.Text = "O orçamento foi aprovado com sucesso";
                     pnl_Alert.Visible = true;
@@ -502,6 +512,17 @@ namespace FixFinder.Pages
                         p.quantidade += produto.quantidade;
                         context.SaveChanges();
                     }
+
+                    LogOrcamento log = new LogOrcamento()
+                    {
+                        idOrcamento = id,
+                        cpfUsuario = c.cpf,
+                        alteracao = "Rejeitado",
+                        dataAlteracao = DateTime.Now
+                    };
+                    context.LogOrcamento.Add(log);
+                    context.SaveChanges();
+
                     pnl_Alert.CssClass = "alert alert-success";
                     lbl_Alert.Text = "O orçamento foi rejeitado com sucesso";
                     pnl_Alert.Visible = true;

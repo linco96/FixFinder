@@ -6,7 +6,7 @@
 <head runat="server">
     <title></title>
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-    <script type="text/javascript">
+    <%--<script type="text/javascript">
         window.onload = function () {
             var chart = new CanvasJS.Chart("chartContainer", {
                 theme: "light2", // "light1", "light2", "dark1", "dark2"
@@ -23,7 +23,7 @@
 
             chart.render();
         }
-    </script>
+    </script>--%>
 </head>
 <body>
     <form id="form1" runat="server">

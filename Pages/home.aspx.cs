@@ -17,6 +17,8 @@ namespace FixFinder.Pages
         private Funcionario f;
         private Cliente c;
         private static List<KeyValuePair<Oficina, Element>> resultadosAtuais;
+        public string isGerentao;
+        public string dataPointsOrc;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -29,155 +31,219 @@ namespace FixFinder.Pages
             {
                 using (DatabaseEntities context = new DatabaseEntities())
                 {
-                    pnl_Alert.Visible = false;
-                    div_Resultados.Controls.Clear();
-                    if (resultadosAtuais != null)
+                    f = context.Funcionario.Where(func => func.cpf.Equals(c.cpf)).FirstOrDefault();
+                    if (f == null || (f != null && !f.cargo.ToLower().Equals("gerente")))
                     {
-                        Panel card;
-                        Panel row;
-                        Panel container;
-                        Panel section;
-
-                        Image img;
-                        HtmlGenericControl title;
-                        Label lbl1;
-                        Label lbl2;
-                        HtmlGenericControl biggie;
-                        Button btn;
-                        int cont = 0;
-
-                        FotoOficina picture;
-                        foreach (KeyValuePair<Oficina, Element> res in resultadosAtuais)
+                        isGerentao = "false";
+                        pnl_Alert.Visible = false;
+                        div_Conteudo.Controls.Clear();
+                        if (resultadosAtuais != null)
                         {
-                            if (Double.Parse(res.Value.distance.text.Replace(".", ",").Split(' ')[0]) <= 10)
+                            Panel card;
+                            Panel row;
+                            Panel container;
+                            Panel section;
+
+                            Image img;
+                            HtmlGenericControl title;
+                            Label lbl1;
+                            Label lbl2;
+                            HtmlGenericControl biggie;
+                            Button btn;
+                            int cont = 0;
+
+                            FotoOficina picture;
+                            foreach (KeyValuePair<Oficina, Element> res in resultadosAtuais)
                             {
-                                cont++;
-                                card = new Panel();
-                                card.CssClass = "card mb-3";
-
-                                row = new Panel();
-                                row.CssClass = "row no-gutters";
-
-                                //IMAGE
-                                container = new Panel();
-                                container.CssClass = "col-md-3 border-right text-center";
-
-                                img = new Image();
-                                img.Style.Add("width", "100%");
-                                img.Style.Add("height", "100%");
-                                img.Style.Add("object-fit", "contain");
-                                img.CssClass = "Responsive image";
-                                picture = context.FotoOficina.Where(pic => pic.cnpjOficina.Equals(res.Key.cnpj)).FirstOrDefault();
-                                if (picture != null)
+                                if (Double.Parse(res.Value.distance.text.Replace(".", ",").Split(' ')[0]) <= 10)
                                 {
-                                    String base64 = Convert.ToBase64String(picture.foto);
-                                    img.ImageUrl = "data:Image/png;base64," + base64;
-                                    img.CssClass = "Responsive image bg-dark";
-                                }
-                                else
-                                {
-                                    img.ImageUrl = "~/Content/no-image.png";
-                                }
-                                container.Controls.Add(img);
-                                row.Controls.Add(container);
+                                    cont++;
+                                    card = new Panel();
+                                    card.CssClass = "card mb-3";
 
-                                //INFO
-                                container = new Panel();
-                                container.CssClass = "col-md-9";
+                                    row = new Panel();
+                                    row.CssClass = "row no-gutters";
 
-                                //HEAD
-                                section = new Panel();
-                                section.CssClass = "card-header bg-light p-1";
+                                    //IMAGE
+                                    container = new Panel();
+                                    container.CssClass = "col-md-3 border-right text-center";
 
-                                //NOME
-                                title = new HtmlGenericControl("h5");
-                                title.Attributes.Add("class", "card-title mt-2 ml-3");
+                                    img = new Image();
+                                    img.Style.Add("width", "100%");
+                                    img.Style.Add("height", "100%");
+                                    img.Style.Add("object-fit", "contain");
+                                    img.CssClass = "Responsive image";
+                                    picture = context.FotoOficina.Where(pic => pic.cnpjOficina.Equals(res.Key.cnpj)).FirstOrDefault();
+                                    if (picture != null)
+                                    {
+                                        String base64 = Convert.ToBase64String(picture.foto);
+                                        img.ImageUrl = "data:Image/png;base64," + base64;
+                                        img.CssClass = "Responsive image bg-dark";
+                                    }
+                                    else
+                                    {
+                                        img.ImageUrl = "~/Content/no-image.png";
+                                    }
+                                    container.Controls.Add(img);
+                                    row.Controls.Add(container);
 
-                                lbl1 = new Label();
-                                lbl1.CssClass = "align-middle";
-                                lbl1.Text = res.Key.nome;
-                                title.Controls.Add(lbl1);
+                                    //INFO
+                                    container = new Panel();
+                                    container.CssClass = "col-md-9";
 
-                                //NOTA
-                                lbl1 = new Label();
-                                lbl1.CssClass = "float-right";
+                                    //HEAD
+                                    section = new Panel();
+                                    section.CssClass = "card-header bg-light p-1";
 
-                                lbl2 = new Label();
-                                lbl2.CssClass = "align-middle";
-                                if (res.Key.reputacao == null)
-                                    lbl2.Text = "-/10 ";
-                                else
-                                    lbl2.Text = res.Key.reputacao.ToString().Replace(",", ".") + "/10 ";
-                                lbl1.Controls.Add(lbl2);
+                                    //NOME
+                                    title = new HtmlGenericControl("h5");
+                                    title.Attributes.Add("class", "card-title mt-2 ml-3");
 
-                                img = new Image();
-                                img.CssClass = "align-middle";
-                                img.ImageUrl = "../Content/star_24.png";
-                                lbl1.Controls.Add(img);
-                                title.Controls.Add(lbl1);
-                                title.Controls.Add(new LiteralControl("<br/>"));
-
-                                //DISTANCIA
-                                biggie = new HtmlGenericControl("small");
-                                biggie.Attributes.Add("class", "card-title text-muted");
-                                biggie.InnerHtml = res.Value.distance.text + " de distância";
-                                title.Controls.Add(biggie);
-
-                                section.Controls.Add(title);
-                                container.Controls.Add(section);
-
-                                //BODY
-                                section = new Panel();
-                                section.CssClass = "card-body";
-
-                                //ENDERECO
-                                lbl1 = new Label();
-                                lbl1.CssClass = "card-text h5 mb-5";
-                                lbl1.Text = res.Key.Endereco.logradouro + ", " + res.Key.Endereco.numero.ToString() + " - " + res.Key.Endereco.bairro + ", " + res.Key.Endereco.cidade + " - " + res.Key.Endereco.uf.ToUpper() + ", " + res.Key.Endereco.cep + "<br />";
-                                section.Controls.Add(lbl1);
-
-                                //DESCRICAO
-                                if (res.Key.descricao != null)
-                                {
                                     lbl1 = new Label();
-                                    lbl1.CssClass = "card-text font-italic text-muted";
-                                    lbl1.Text = "<br/>\"" + res.Key.descricao + "\"<br />";
+                                    lbl1.CssClass = "align-middle";
+                                    lbl1.Text = res.Key.nome;
+                                    title.Controls.Add(lbl1);
+
+                                    //NOTA
+                                    lbl1 = new Label();
+                                    lbl1.CssClass = "float-right";
+
+                                    lbl2 = new Label();
+                                    lbl2.CssClass = "align-middle";
+                                    if (res.Key.reputacao == null)
+                                        lbl2.Text = "-/10 ";
+                                    else
+                                        lbl2.Text = res.Key.reputacao.ToString().Replace(",", ".") + "/10 ";
+                                    lbl1.Controls.Add(lbl2);
+
+                                    img = new Image();
+                                    img.CssClass = "align-middle";
+                                    img.ImageUrl = "../Content/star_24.png";
+                                    lbl1.Controls.Add(img);
+                                    title.Controls.Add(lbl1);
+                                    title.Controls.Add(new LiteralControl("<br/>"));
+
+                                    //DISTANCIA
+                                    biggie = new HtmlGenericControl("small");
+                                    biggie.Attributes.Add("class", "card-title text-muted");
+                                    biggie.InnerHtml = res.Value.distance.text + " de distância";
+                                    title.Controls.Add(biggie);
+
+                                    section.Controls.Add(title);
+                                    container.Controls.Add(section);
+
+                                    //BODY
+                                    section = new Panel();
+                                    section.CssClass = "card-body";
+
+                                    //ENDERECO
+                                    lbl1 = new Label();
+                                    lbl1.CssClass = "card-text h5 mb-5";
+                                    lbl1.Text = res.Key.Endereco.logradouro + ", " + res.Key.Endereco.numero.ToString() + " - " + res.Key.Endereco.bairro + ", " + res.Key.Endereco.cidade + " - " + res.Key.Endereco.uf.ToUpper() + ", " + res.Key.Endereco.cep + "<br />";
                                     section.Controls.Add(lbl1);
+
+                                    //DESCRICAO
+                                    if (res.Key.descricao != null)
+                                    {
+                                        lbl1 = new Label();
+                                        lbl1.CssClass = "card-text font-italic text-muted";
+                                        lbl1.Text = "<br/>\"" + res.Key.descricao + "\"<br />";
+                                        section.Controls.Add(lbl1);
+                                    }
+
+                                    //BIUTON
+                                    btn = new Button();
+                                    btn.CssClass = "btn btn-success mt-4";
+                                    btn.Text = "Solicitar agendamento";
+                                    btn.Click += new EventHandler(btn_SolicitarAgendamento_Click);
+                                    btn.CommandArgument = res.Key.cnpj;
+                                    btn.ID = "btn_SolicitarAgendamento" + res.Key.cnpj;
+                                    section.Controls.Add(btn);
+                                    container.Controls.Add(section);
+                                    row.Controls.Add(container);
+
+                                    card.Controls.Add(row);
+                                    div_Conteudo.Controls.Add(card);
+                                    pnl_Alert.Visible = false;
                                 }
 
-                                //BIUTON
-                                btn = new Button();
-                                btn.CssClass = "btn btn-success mt-4";
-                                btn.Text = "Solicitar agendamento";
-                                btn.Click += new EventHandler(btn_SolicitarAgendamento_Click);
-                                btn.CommandArgument = res.Key.cnpj;
-                                btn.ID = "btn_SolicitarAgendamento" + res.Key.cnpj;
-                                section.Controls.Add(btn);
-                                container.Controls.Add(section);
-                                row.Controls.Add(container);
-
-                                card.Controls.Add(row);
-                                div_Resultados.Controls.Add(card);
-                                pnl_Alert.Visible = false;
+                                if (cont == 0)
+                                {
+                                    div_Conteudo.Controls.Clear();
+                                    pnl_Alert.CssClass = "alert alert-danger mt-3";
+                                    lbl_Alert.Text = "Nenhuma oficina encontrada perto de você";
+                                    pnl_Alert.Visible = true;
+                                }
                             }
-
-                            if (cont == 0)
+                            if (div_Conteudo.Controls.Count == 0)
                             {
-                                div_Resultados.Controls.Clear();
                                 pnl_Alert.CssClass = "alert alert-danger mt-3";
                                 lbl_Alert.Text = "Nenhuma oficina encontrada perto de você";
                                 pnl_Alert.Visible = true;
                             }
                         }
-                        if (div_Resultados.Controls.Count == 0)
-                        {
-                            pnl_Alert.CssClass = "alert alert-danger mt-3";
-                            lbl_Alert.Text = "Nenhuma oficina encontrada perto de você";
-                            pnl_Alert.Visible = true;
-                        }
                     }
+                    else
+                    {
+                        isGerentao = "true";
+                        List<Orcamento> orcamentosTemp = context.Orcamento.Where(o => o.cnpjOficina.Equals(f.cnpjOficina)).ToList();
+                        List<Orcamento> orcamentos = new List<Orcamento>();
+                        foreach (Orcamento o in orcamentosTemp)
+                        {
+                            if ((DateTime.Now - o.data).Days <= 30)
+                                orcamentos.Add(o);
+                        }
+
+                        int nConcluido = 0, nCancelado = 0, nAprovacaoPendente = 0, nAprovado = 0;
+                        foreach (Orcamento o in orcamentos)
+                        {
+                            switch (o.status)
+                            {
+                                case "Aprovado":
+                                    nAprovado++;
+                                    break;
+
+                                case "Pagamento pendente":
+                                    nAprovado++;
+                                    break;
+
+                                case "Aprovação da gerencia pendente":
+                                    nAprovacaoPendente++;
+                                    break;
+
+                                case "Aprovação do cliente pendente":
+                                    nAprovacaoPendente++;
+                                    break;
+
+                                case "Rejeitado pelo cliente":
+                                    nCancelado++;
+                                    break;
+
+                                case "Rejeitado pela gerencia":
+                                    nCancelado++;
+                                    break;
+
+                                case "Cancelado":
+                                    nCancelado++;
+                                    break;
+
+                                case "Concluído":
+                                    nConcluido++;
+                                    break;
+                            }
+                        }
+                        List<DataPointPie> dataPoints = new List<DataPointPie>();
+
+                        dataPoints.Add(new DataPointPie("Aprovado", nAprovado));
+                        dataPoints.Add(new DataPointPie("Cancelado", nCancelado));
+                        dataPoints.Add(new DataPointPie("Concluído", nConcluido));
+                        dataPoints.Add(new DataPointPie("Aprovação pendente", nAprovacaoPendente));
+
+                        dataPointsOrc = JsonConvert.SerializeObject(dataPoints);
+                    }
+
                     //Codigo dashboard
-                    Funcionario f = context.Funcionario.Where(func => func.cpf.Equals(c.cpf)).FirstOrDefault();
+                    f = context.Funcionario.Where(func => func.cpf.Equals(c.cpf)).FirstOrDefault();
                     lbl_Nome.Text = c.nome;
                     if (f == null)
                     {
@@ -213,11 +279,6 @@ namespace FixFinder.Pages
                     }
                 }
             }
-        }
-
-        protected void Page_LoadComplete(object sender, EventArgs e)
-        {
-            //bbk
         }
 
         private async void recomendar_Oficinas()
@@ -257,6 +318,7 @@ namespace FixFinder.Pages
                         search = JsonConvert.DeserializeObject<SearchResult>(responseString);
                         if (search.status.Equals("OK"))
                         {
+                            lbl_title.InnerText = "Oficinas perto de você em " + search.origin_addresses[0];
                             preencher_Recomendacoes(search, oficinas);
                         }
                         else
@@ -282,7 +344,7 @@ namespace FixFinder.Pages
             }
         }
 
-        private async void preencher_Recomendacoes(SearchResult search, List<Oficina> oficinas)
+        private void preencher_Recomendacoes(SearchResult search, List<Oficina> oficinas)
         {
             try
             {
@@ -422,18 +484,18 @@ namespace FixFinder.Pages
                                 row.Controls.Add(container);
 
                                 card.Controls.Add(row);
-                                div_Resultados.Controls.Add(card);
+                                div_Conteudo.Controls.Add(card);
                                 pnl_Alert.Visible = false;
                             }
                         }
                         if (cont == 0)
                         {
-                            div_Resultados.Controls.Clear();
+                            div_Conteudo.Controls.Clear();
                             pnl_Alert.CssClass = "alert alert-danger mt-3";
                             lbl_Alert.Text = "Nenhuma oficina encontrada perto de você";
                             pnl_Alert.Visible = true;
                         }
-                        if (div_Resultados.Controls.Count == 0)
+                        if (div_Conteudo.Controls.Count == 0)
                         {
                             pnl_Alert.CssClass = "alert alert-danger mt-3";
                             lbl_Alert.Text = "Nenhuma oficina encontrada perto de você";
@@ -483,7 +545,7 @@ namespace FixFinder.Pages
             Response.Redirect("login.aspx", false);
         }
 
-        protected async void btn_GambiButton_Click(object sender, EventArgs e)
+        protected void btn_GambiButton_Click(object sender, EventArgs e)
         {
             switch (txt_LatLon.Text)
             {

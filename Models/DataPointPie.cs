@@ -7,17 +7,17 @@ using System.Web;
 namespace FixFinder.Models
 {
     [DataContract]
-    public class DataPoint
+    public class DataPointPie
     {
-        public DataPoint(double x, double y)
+        public DataPointPie(string label, double y)
         {
-            this.X = x;
+            this.Label = label;
             this.Y = y;
         }
 
         //Explicitly setting the name to be used while serializing to JSON.
-        [DataMember(Name = "x")]
-        public Nullable<double> X = null;
+        [DataMember(Name = "label")]
+        public string Label = "";
 
         //Explicitly setting the name to be used while serializing to JSON.
         [DataMember(Name = "y")]

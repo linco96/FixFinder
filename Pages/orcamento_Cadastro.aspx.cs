@@ -941,7 +941,7 @@ namespace FixFinder.Pages
                 txt_Veiculo.Items.Clear();
                 txt_Veiculo.Enabled = false;
             }
-            if (txt_CPF.Text.Length < 14)
+            if (txt_CPF.Text.Length < 11)
             {
                 alert_CPF.InnerText = "CPF inválido";
                 alert_CPF.Visible = true;

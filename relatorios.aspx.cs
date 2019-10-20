@@ -11,22 +11,22 @@ namespace FixFinder
 {
     public partial class relatorios : System.Web.UI.Page
     {
-        public static String jsonString;
-        public int teste;
+        //public static String jsonString;
+        //public int teste;
 
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            double count = 1000, y = 100;
-            Random random = new Random();
-            List<DataPoint> dataPoints = new List<DataPoint>();
+        //protected void Page_Load(object sender, EventArgs e)
+        //{
+        //    double count = 1000, y = 100;
+        //    Random random = new Random();
+        //    List<DataPoint> dataPoints = new List<DataPoint>();
 
-            for (int i = 0; i < count; i++)
-            {
-                y += random.Next(-10, 11);
-                dataPoints.Add(new DataPoint(i, y));
-            }
+        //    for (int i = 0; i < count; i++)
+        //    {
+        //        y += random.Next(-10, 11);
+        //        dataPoints.Add(new DataPoint(i, y));
+        //    }
 
-            jsonString = JsonConvert.SerializeObject(dataPoints);
-        }
+        //    jsonString = JsonConvert.SerializeObject(dataPoints);
+        //}
     }
 }

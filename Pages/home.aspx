@@ -13,15 +13,41 @@
     <script src="../Scripts/bootstrap.min.js"></script>
     <link href="../Content/dashboard.css" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/1729574db6.js"></script>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            if (navigator.geolocation) {
+            var isGerente = <% Response.Write(isGerentao); %>;
+            if (!isGerente) {
                 if (navigator.geolocation) {
-                    if ($("#txt_LatLon").val().length == 0) {
-                        navigator.geolocation.getCurrentPosition(showPosition, showError);
+                    if (navigator.geolocation) {
+                        if ($("#txt_LatLon").val().length == 0) {
+                            navigator.geolocation.getCurrentPosition(showPosition, showError);
+                        }
                     }
+                    else { $("#txt_LatLon").val("Geolocation is not supported by this browser."); }
                 }
-                else { $("#txt_LatLon").val("Geolocation is not supported by this browser."); }
+            } else {
+                var chart = new CanvasJS.Chart("div_Conteudo", {
+                    theme: "light1", // "light1", "light2", "dark1", "dark2"
+                    exportEnabled: true,
+                    animationEnabled: true,
+                    title: {
+                        text: "Resumo Orçamentos"
+                    },
+                    subtitles: [{
+
+                    }],
+                    data: [{
+                        type: "pie",
+                        startAngle: 180,
+                        toolTipContent: "<b>{label}</b>: {y}",
+                        showInLegend: "true",
+                        legendText: "{label}",
+                        indexLabel: "{label} - {y}",
+                        dataPoints: <%= dataPointsOrc %>
+            }]
+                });
+                chart.render();
             }
         });
 
@@ -193,10 +219,9 @@
                         <%--Conteudo--%>
                         <h1 class="h2">Home</h1>
                     </div>
-                    <h4>Oficinas perto de você</h4>
+                    <h4 id="lbl_title" runat="server"></h4>
                     <asp:TextBox runat="server" ID="txt_LatLon" Style="display: none" ClientID="txtLatLon" ClientIDMode="Static" />
-                    <%--Style="display: none"--%>
-                    <div runat="server" id="div_Resultados" class="container mt-4 text-left p-0">
+                    <div runat="server" id="div_Conteudo" class="container mt-4 text-left p-0">
                     </div>
 
                     <asp:Panel runat="server" ID="pnl_Alert" Visible="false" CssClass="alert alert-danger" role="alert">

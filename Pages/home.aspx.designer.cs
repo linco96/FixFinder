@@ -121,6 +121,33 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_Conteudo;
         
         /// <summary>
+        /// div_Chart1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_Chart1;
+        
+        /// <summary>
+        /// div_Chart2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_Chart2;
+        
+        /// <summary>
+        /// div_Chart3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_Chart3;
+        
+        /// <summary>
         /// pnl_Alert control.
         /// </summary>
         /// <remarks>

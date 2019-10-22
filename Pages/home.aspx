@@ -27,8 +27,8 @@
                     else { $("#txt_LatLon").val("Geolocation is not supported by this browser."); }
                 }
             } else {
-                var chart = new CanvasJS.Chart("div_Conteudo", {
-                    theme: "light1", // "light1", "light2", "dark1", "dark2"
+                var chart = new CanvasJS.Chart("div_Chart1", {
+                    theme: "light2", // "light1", "light2", "dark1", "dark2"
                     exportEnabled: true,
                     animationEnabled: true,
                     title: {
@@ -44,8 +44,52 @@
                         showInLegend: "true",
                         legendText: "{label}",
                         indexLabel: "{label} - {y}",
-                        dataPoints: <%= dataPointsOrc %>
-            }]
+                        dataPoints: <%= dataPointsOrc %>,
+                    }]
+                });
+                chart.render();
+
+                chart = new CanvasJS.Chart("div_Chart2", {
+                    theme: "light2", // "light1", "light2", "dark1", "dark2"
+                    exportEnabled: true,
+                    animationEnabled: true,
+                    title: {
+                        text: "Resumo Gastos"
+                    },
+                    subtitles: [{
+
+                    }],
+                    data: [{
+                        type: "pie",
+                        startAngle: 180,
+                        toolTipContent: "<b>{label}</b>: R$ {value}",
+                        showInLegend: "true",
+                        legendText: "{label}",
+                        indexLabel: "{label} - {value}",
+                        dataPoints: <%= dataPointsForn %>,
+                    }]
+                });
+                chart.render();
+
+                chart = new CanvasJS.Chart("div_Chart3", {
+                    theme: "light2", // "light1", "light2", "dark1", "dark2"
+                    exportEnabled: true,
+                    animationEnabled: true,
+                    title: {
+                        text: "Resumo Orçamentos"
+                    },
+                    subtitles: [{
+
+                    }],
+                    data: [{
+                        type: "pie",
+                        startAngle: 180,
+                        toolTipContent: "<b>{label}</b>: {y}",
+                        showInLegend: "true",
+                        legendText: "{label}",
+                        indexLabel: "{label} - {y}",
+                        dataPoints: <%= dataPointsNewBoys %>,
+                    }]
                 });
                 chart.render();
             }
@@ -222,6 +266,19 @@
                     <h4 id="lbl_title" runat="server"></h4>
                     <asp:TextBox runat="server" ID="txt_LatLon" Style="display: none" ClientID="txtLatLon" ClientIDMode="Static" />
                     <div runat="server" id="div_Conteudo" class="container mt-4 text-left p-0">
+                    </div>
+
+                    <div runat="server" id="div_Chart1" class="container mt-4" style="position: relative; height: 400px">
+                    </div>
+
+                    <hr class="mt-4" />
+
+                    <div runat="server" id="div_Chart2" class="container mt-4" style="position: relative; height: 400px">
+                    </div>
+
+                    <hr class="mt-4" />
+
+                    <div runat="server" id="div_Chart3" class="container mt-4" style="position: relative; height: 400px">
                     </div>
 
                     <asp:Panel runat="server" ID="pnl_Alert" Visible="false" CssClass="alert alert-danger" role="alert">

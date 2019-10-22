@@ -19,6 +19,8 @@ namespace FixFinder.Pages
         private static List<KeyValuePair<Oficina, Element>> resultadosAtuais;
         public string isGerentao;
         public string dataPointsOrc;
+        public string dataPointsForn;
+        public string dataPointsNewBoys;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -186,6 +188,8 @@ namespace FixFinder.Pages
                     else
                     {
                         isGerentao = "true";
+
+                        //GRAFICO DOS ORC BOY TIPO LOTR
                         List<Orcamento> orcamentosTemp = context.Orcamento.Where(o => o.cnpjOficina.Equals(f.cnpjOficina)).ToList();
                         List<Orcamento> orcamentos = new List<Orcamento>();
                         foreach (Orcamento o in orcamentosTemp)
@@ -235,11 +239,94 @@ namespace FixFinder.Pages
                         List<DataPointPie> dataPoints = new List<DataPointPie>();
 
                         dataPoints.Add(new DataPointPie("Aprovado", nAprovado));
-                        dataPoints.Add(new DataPointPie("Cancelado", nCancelado));
                         dataPoints.Add(new DataPointPie("Concluído", nConcluido));
+                        dataPoints.Add(new DataPointPie("Cancelado", nCancelado));
                         dataPoints.Add(new DataPointPie("Aprovação pendente", nAprovacaoPendente));
 
                         dataPointsOrc = JsonConvert.SerializeObject(dataPoints);
+
+                        //GRAFICO DO FORNECEDOR KKKKK ME MATA
+                        List<Compra> comprasTemp = context.Compra.Where(com => com.cnpjOficina.Equals(f.cnpjOficina)).ToList();
+                        List<Compra> compras = new List<Compra>();
+                        foreach (Compra com in comprasTemp)
+                        {
+                            if ((DateTime.Now - com.data).Days <= 30)
+                                compras.Add(com);
+                        }
+                        dataPoints = new List<DataPointPie>();
+                        double total;
+                        List<ProdutosCompra> prods;
+                        Fornecedor frn;
+                        bool adicionado;
+                        foreach (Compra com in compras)
+                        {
+                            adicionado = false;
+                            total = 0;
+                            prods = context.ProdutosCompra.Where(pr => pr.idCompra == com.idCompra).ToList();
+                            foreach (ProdutosCompra pr in prods)
+                            {
+                                total += pr.quantidade * pr.Produto.precoCompra;
+                            }
+                            frn = com.Fornecedor;
+                            foreach (DataPointPie dt in dataPoints)
+                            {
+                                if (dt.Label.Equals(frn.cnpjFornecedor))
+                                {
+                                    dt.Y += total;
+                                    adicionado = true;
+                                }
+                            }
+
+                            if (!adicionado)
+                            {
+                                dataPoints.Add(new DataPointPie(frn.cnpjFornecedor, total));
+                            }
+                        }
+                        Double aux;
+                        foreach (DataPointPie dt in dataPoints)
+                        {
+                            dt.Label = context.Fornecedor.Where(forn => forn.cnpjFornecedor.Equals(dt.Label)).FirstOrDefault().razaoSocial;
+                            aux = (Double)dt.Y;
+                            dt.Value = "R$ " + aux.ToString("0.00");
+                        }
+
+                        dataPointsForn = JsonConvert.SerializeObject(dataPoints);
+
+                        //GRAFICO CLIENTES NOVOS
+                        List<Cliente> clientesAtual = new List<Cliente>();
+                        List<Cliente> clientesPassado = new List<Cliente>();
+
+                        orcamentos = context.Orcamento.Where(o => o.cnpjOficina.Equals(f.cnpjOficina)).ToList();
+                        foreach (Orcamento o in orcamentosTemp)
+                        {
+                            if ((DateTime.Now - o.data).Days <= 30)
+                            {
+                                if (!clientesAtual.Contains(o.Cliente))
+                                    clientesAtual.Add(o.Cliente);
+                            }
+                            else
+                            {
+                                if (!clientesPassado.Contains(o.Cliente))
+                                    clientesPassado.Add(o.Cliente);
+                            }
+                        }
+
+                        int nClientesNovos = 0;
+                        int nClientesDeNovos = 0;
+
+                        foreach (Cliente cl in clientesAtual)
+                        {
+                            if (clientesPassado.Contains(cl))
+                                nClientesDeNovos++;
+                            else
+                                nClientesNovos++;
+                        }
+
+                        dataPoints = new List<DataPointPie>();
+                        dataPoints.Add(new DataPointPie("Clientes novos", nClientesNovos));
+                        dataPoints.Add(new DataPointPie("Clientes recorrentes", nClientesDeNovos));
+
+                        dataPointsNewBoys = JsonConvert.SerializeObject(dataPoints);
                     }
 
                     //Codigo dashboard

@@ -121,7 +121,6 @@
     <Content Include="Pages\agendamento_Cadastro.aspx" />
     <Content Include="Pages\agendamento_ListaCliente.aspx" />
     <Content Include="Pages\agendamento_ListaOficina.aspx" />
-    <Content Include="Pages\agendamento_Teste.aspx" />
     <Content Include="Pages\cliente_Cadastro.aspx" />
     <Content Include="Pages\cliente_EditarPerfil.aspx" />
     <Content Include="Pages\compra_Cadastrar.aspx" />
@@ -340,13 +339,6 @@
     </Compile>
     <Compile Include="Pages\agendamento_ListaOficina.aspx.designer.cs">
       <DependentUpon>agendamento_ListaOficina.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\agendamento_Teste.aspx.cs">
-      <DependentUpon>agendamento_Teste.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Pages\agendamento_Teste.aspx.designer.cs">
-      <DependentUpon>agendamento_Teste.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\cliente_Cadastro.aspx.cs">
       <DependentUpon>cliente_Cadastro.aspx</DependentUpon>

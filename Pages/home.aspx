@@ -27,6 +27,7 @@
                     else { $("#txt_LatLon").val("Geolocation is not supported by this browser."); }
                 }
             } else {
+
                 var chart = new CanvasJS.Chart("div_Chart1", {
                     theme: "light2", // "light1", "light2", "dark1", "dark2"
                     exportEnabled: true,
@@ -271,12 +272,12 @@
                     <div runat="server" id="div_Chart1" class="container mt-4" style="position: relative; height: 400px">
                     </div>
 
-                    <hr class="mt-4" />
+                    <hr id="hr1" runat="server" class="mt-4" />
 
                     <div runat="server" id="div_Chart2" class="container mt-4" style="position: relative; height: 400px">
                     </div>
 
-                    <hr class="mt-4" />
+                    <hr id="hr2" runat="server" class="mt-4" />
 
                     <div runat="server" id="div_Chart3" class="container mt-4" style="position: relative; height: 400px">
                     </div>

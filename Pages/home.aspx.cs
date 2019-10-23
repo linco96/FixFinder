@@ -36,6 +36,8 @@ namespace FixFinder.Pages
                     f = context.Funcionario.Where(func => func.cpf.Equals(c.cpf)).FirstOrDefault();
                     if (f == null || (f != null && !f.cargo.ToLower().Equals("gerente")))
                     {
+                        hr1.Visible = false;
+                        hr2.Visible = false;
                         isGerentao = "false";
                         pnl_Alert.Visible = false;
                         div_Conteudo.Controls.Clear();
@@ -187,6 +189,8 @@ namespace FixFinder.Pages
                     }
                     else
                     {
+                        hr1.Visible = true;
+                        hr2.Visible = true;
                         isGerentao = "true";
 
                         //GRAFICO DOS ORC BOY TIPO LOTR

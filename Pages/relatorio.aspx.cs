@@ -12,6 +12,7 @@ namespace FixFinder.Pages
     {
         private Cliente c;
         private Funcionario f;
+        private static String tituloGrafico;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -73,6 +74,10 @@ namespace FixFinder.Pages
         {
             Session.Clear();
             Response.Redirect("login.aspx", false);
+        }
+
+        protected void btn_GerarGrafico_Click(object sender, EventArgs e)
+        {
         }
     }
 }

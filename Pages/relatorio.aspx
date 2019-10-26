@@ -180,9 +180,9 @@
                         <div class="form-inline mt-2">
                             <span class="w-100 text-left">
                                 <asp:DropDownList runat="server" ID="select_Grafico" CssClass="form-control w-25">
-                                    <asp:ListItem Text="BBK GRAPHIC"></asp:ListItem>
-                                    <asp:ListItem Text="DEATH GRAPHIC"></asp:ListItem>
-                                    <asp:ListItem Text="PALUDO`S GRAPHIC"></asp:ListItem>
+                                    <asp:ListItem Text="BBK GRAPHIC" Value="a"></asp:ListItem>
+                                    <asp:ListItem Text="DEATH GRAPHIC" Value="b"></asp:ListItem>
+                                    <asp:ListItem Text="PALUDO`S GRAPHIC" Value="c"></asp:ListItem>
                                 </asp:DropDownList>
                             </span>
                         </div>

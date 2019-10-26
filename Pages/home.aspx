@@ -240,7 +240,10 @@
                                     </a>
                                 </li>
                                 <li runat="server" id="btn_Relatorios" class="nav-item">
-                                    <a class="nav-link" href=""
+                                    <a class="nav-link" href="relatorio.aspx">
+                                        <i class="fas fa-cog fa-1x fa-fw mr-1"></i>
+                                        Relatórios
+                                    </a>
                                 </li>
                             </ul>
                         </asp:Panel>

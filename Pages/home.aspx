@@ -239,6 +239,9 @@
                                         Configurações
                                     </a>
                                 </li>
+                                <li runat="server" id="btn_Relatorios" class="nav-item">
+                                    <a class="nav-link" href=""
+                                </li>
                             </ul>
                         </asp:Panel>
 

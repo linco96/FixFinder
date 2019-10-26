@@ -129,6 +129,12 @@
                                         Funcionários
                                     </a>
                                 </li>
+                                <li runat="server" id="btn_Relatorios" class="nav-item">
+                                    <a class="nav-link" href="relatorio.aspx">
+                                        <i class="fas fa-chart-pie fa-fw mr-1"></i>
+                                        Relatórios
+                                    </a>
+                                </li>
                                 <li runat="server" id="btn_Configuracoes" class="nav-item">
                                     <a class="nav-link" href="oficina_Configuracoes.aspx">
                                         <i class="fas fa-cog fa-1x fa-fw mr-1"></i>

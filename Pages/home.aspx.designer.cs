@@ -67,15 +67,6 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl btn_Funcionarios;
         
         /// <summary>
-        /// btn_Configuracoes control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl btn_Configuracoes;
-        
-        /// <summary>
         /// btn_Relatorios control.
         /// </summary>
         /// <remarks>
@@ -83,6 +74,15 @@ namespace FixFinder.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl btn_Relatorios;
+        
+        /// <summary>
+        /// btn_Configuracoes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl btn_Configuracoes;
         
         /// <summary>
         /// pnl_Funcionario control.

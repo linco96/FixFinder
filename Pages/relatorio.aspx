@@ -13,6 +13,48 @@
     <link href="../Content/dashboard.css" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/1729574db6.js"></script>
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if (<%= gerarGrafico.ToString().ToLower() %>) {
+                var chart = new CanvasJS.Chart("div_Chart", {
+                    theme: "light2",
+                    title: {
+                        text: "Comparison of Exchange Rates"
+                    },
+                    subtitles: [{
+                        text: "EUR & USD to INR"
+                    }],
+                    axisY: {
+                        includeZero: false,
+                        prefix: "₹"
+                    },
+                    toolTip: {
+                        shared: true
+                    },
+                    data: [{
+                        type: "area",
+                        name: "Euro",
+                        markerSize: 0,
+                        xValueType: "dateTime",
+                        xValueFormatString: "MMM YYYY",
+                        yValueFormatString: "₹#,##0.##",
+                        dataPoints: <%= jsonGrafico %>
+            },
+                        {
+                            type: "area",
+                            name: "USD",
+                            markerSize: 0,
+                            xValueType: "dateTime",
+                            xValueFormatString: "MMM YYYY",
+                            yValueFormatString: "₹#,##0.##",
+                            dataPoints: <%= jsonGrafico2 %>
+            }
+                    ]
+                });
+                chart.render();
+            }
+        });
+    </script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -180,8 +222,8 @@
                         <div class="form-inline mt-2">
                             <span class="w-100 text-left">
                                 <asp:DropDownList runat="server" ID="select_Grafico" CssClass="form-control w-25">
-                                    <asp:ListItem Text="BBK GRAPHIC" Value="a"></asp:ListItem>
-                                    <asp:ListItem Text="DEATH GRAPHIC" Value="b"></asp:ListItem>
+                                    <asp:ListItem Text="Despesas x Receita" Value="despesaReceita"></asp:ListItem>
+                                    <asp:ListItem Text="Lucro Bruto" Value="lucroBruto"></asp:ListItem>
                                     <asp:ListItem Text="PALUDO`S GRAPHIC" Value="c"></asp:ListItem>
                                 </asp:DropDownList>
                             </span>
@@ -189,17 +231,13 @@
                         <div class="form-inline">
                             <span class="w-50 text-left">
                                 <asp:Button runat="server" ID="btn_GerarGrafico" CssClass="btn btn-outline-info btn-sm mt-2" Text="Gerar Gráfico" OnClick="btn_GerarGrafico_Click" />
+                                <%--<button id="btn_GerarGrafico" class="btn btn-outline-info btn-sm mt-2" onclick="odeioJQuery()">Gerar Gráfico</button>--%>
                             </span>
                         </div>
 
                         <hr class="border border-muted border-bottom-0" />
 
-                        <h4 id="lbl_title" runat="server"></h4>
-                        <asp:TextBox runat="server" ID="txt_LatLon" Style="display: none" ClientID="txtLatLon" ClientIDMode="Static" />
-                        <div runat="server" id="div_Conteudo" class="container mt-4 text-left p-0">
-                        </div>
-
-                        <div runat="server" id="div_Chart1" class="container mt-4" style="position: relative; height: 400px">
+                        <div runat="server" id="div_Chart" class="container mt-4" style="position: relative; height: 400px">
                         </div>
 
                         <asp:Panel runat="server" ID="pnl_Alert" Visible="false" CssClass="alert alert-danger" role="alert">

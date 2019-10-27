@@ -139,40 +139,13 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.WebControls.Button btn_GerarGrafico;
         
         /// <summary>
-        /// lbl_title control.
+        /// div_Chart control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lbl_title;
-        
-        /// <summary>
-        /// txt_LatLon control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_LatLon;
-        
-        /// <summary>
-        /// div_Conteudo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_Conteudo;
-        
-        /// <summary>
-        /// div_Chart1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_Chart1;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_Chart;
         
         /// <summary>
         /// pnl_Alert control.

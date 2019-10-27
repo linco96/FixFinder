@@ -1,4 +1,5 @@
 ﻿using FixFinder.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,9 @@ namespace FixFinder.Pages
     {
         private Cliente c;
         private Funcionario f;
-        private static String tituloGrafico;
+        public static bool gerarGrafico;
+        public static String jsonGrafico;
+        public static String jsonGrafico2;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -77,41 +80,134 @@ namespace FixFinder.Pages
             Response.Redirect("login.aspx", false);
         }
 
+        private bool validacaoDatas()
+        {
+            DateTime dtInicio, dtFim;
+
+            if (txt_DataInicio.Text != "" && txt_DataFim.Text != "")
+            {
+                dtInicio = DateTime.Parse(txt_DataInicio.Text);
+                dtFim = DateTime.Parse(txt_DataFim.Text);
+
+                if (dtInicio >= DateTime.Today)
+                {
+                    pnl_Alert.Visible = true;
+                    lbl_Alert.Text = "A data de início tem que ser menor do que a data de hoje";
+                    return false;
+                }
+
+                if (dtFim > DateTime.Today)
+                {
+                    pnl_Alert.Visible = true;
+                    lbl_Alert.Text = "A data de fim tem que ser menor ou igual a data de hoje";
+                    return false;
+                }
+
+                if (dtInicio >= dtFim)
+                {
+                    pnl_Alert.Visible = true;
+                    lbl_Alert.Text = "A data de início tem que ser menor do que a data fim";
+                    return false;
+                }
+                return true;
+            }
+            return false;
+        }
+
         protected void btn_GerarGrafico_Click(object sender, EventArgs e)
         {
             if (validacaoDatas())
             {
+                gerarGrafico = true;
+                switch (select_Grafico.SelectedValue)
+                {
+                    case "despesaReceita":
+                        try
+                        {
+                            DateTime dtIncio = DateTime.Parse(txt_DataInicio.Text);
+                            DateTime dtFim = DateTime.Parse(txt_DataFim.Text);
+                            DateTime dtAux;
+                            List<DataPointArea> DataPointAreas1 = new List<DataPointArea>();
+                            List<DataPointArea> DataPointAreas2 = new List<DataPointArea>();
+
+                            //DataPointAreas1.Add(new DataPointArea(data, valor));
+                            using (DatabaseEntities context = new DatabaseEntities())
+                            {
+                                //Receita
+                                List<Orcamento> orcamentosTemp = context.Orcamento.Where(o => o.cnpjOficina.Equals(f.cnpjOficina) && o.status.ToLower().Equals("concluído")).ToList();
+                                List<KeyValuePair<Orcamento, DateTime>> orcamentosConcluidos = new List<KeyValuePair<Orcamento, DateTime>>();
+                                LogOrcamento log;
+
+                                foreach (Orcamento orcamento in orcamentosTemp)
+                                {
+                                    log = context.LogOrcamento.Where(l => l.alteracao.ToLower().Equals("concluído") && l.dataAlteracao >= dtIncio && l.dataAlteracao <= dtFim && l.idOrcamento == orcamento.idOrcamento).FirstOrDefault();
+
+                                    if (log != null)
+                                        orcamentosConcluidos.Add(new KeyValuePair<Orcamento, DateTime>(orcamento, log.dataAlteracao));
+                                }
+
+                                orcamentosConcluidos = orcamentosConcluidos.OrderBy(o => o.Value).ToList();
+
+                                String ex;
+                                DataPointArea temp = null;
+
+                                foreach (KeyValuePair<Orcamento, DateTime> oConcluidos in orcamentosConcluidos)
+                                {
+                                    temp = null;
+                                    if (oConcluidos.Value.Month < 10)
+                                        ex = "0" + oConcluidos.Value.Month + "/" + oConcluidos.Value.Year;
+                                    else
+                                        ex = oConcluidos.Value.Month + "/" + oConcluidos.Value.Year;
+
+                                    foreach (DataPointArea dtpArea in DataPointAreas1)
+                                    {
+                                        if (dtpArea.x.Equals(ex))
+                                        {
+                                            temp = dtpArea;
+                                            break;
+                                        }
+                                    }
+                                    if (temp != null)
+                                    {
+                                        temp.Y += oConcluidos.Key.valor;
+                                    }
+                                    else
+                                    {
+                                        temp = new DataPointArea(ex, oConcluidos.Key.valor);
+                                    }
+                                }
+                                //while (dtIncio < dtFim)
+                                //{
+                                //    dtAux = dtIncio;
+                                //    if (dtAux >= dtFim)
+                                //        dtAux = dtFim;
+
+                                //    foreach (KeyValuePair<Orcamento, DateTime> oConcluidos in orcamentosConcluidos)
+                                //    {
+                                //        if ()
+                                //    }
+
+                                //    dtIncio.AddDays(30);
+                                //}
+
+                                //Despesa
+                            }
+                            jsonGrafico = JsonConvert.SerializeObject(DataPointAreas1);
+                            jsonGrafico2 = JsonConvert.SerializeObject(DataPointAreas2);
+                        }
+                        catch (Exception ex)
+                        {
+                            pnl_Alert.CssClass = "alert alert-danger mt-3";
+                            lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                            pnl_Alert.Visible = true;
+                        }
+                        break;
+                }
             }
-        }
-
-        private Boolean validacaoDatas()
-        {
-            DateTime dtInicio, dtFim;
-            dtInicio = DateTime.Parse(txt_DataInicio.Text);
-            dtFim = DateTime.Parse(txt_DataFim.Text);
-
-            if (dtInicio >= DateTime.Today)
+            else
             {
-                pnl_Alert.Visible = true;
-                lbl_Alert.Text = "A data de início tem que ser menor do que a data de hoje";
-                return false;
+                gerarGrafico = false;
             }
-
-            if (dtFim > DateTime.Today)
-            {
-                pnl_Alert.Visible = true;
-                lbl_Alert.Text = "A data de fim tem que ser menor ou igual a data de hoje";
-                return false;
-            }
-
-            if (dtInicio >= dtFim)
-            {
-                pnl_Alert.Visible = true;
-                lbl_Alert.Text = "A data de início tem que ser menor do que a data fim";
-                return false;
-            }
-
-            return true;
         }
     }
 }

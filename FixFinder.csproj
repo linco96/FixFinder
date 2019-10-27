@@ -256,6 +256,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Database.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\DataPointArea.cs" />
     <Compile Include="Models\DataPointPie.cs" />
     <Compile Include="Models\DiaFuncionamento.cs">
       <DependentUpon>Database.tt</DependentUpon>

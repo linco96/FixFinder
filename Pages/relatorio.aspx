@@ -19,14 +19,14 @@
                 var chart = new CanvasJS.Chart("div_Chart", {
                     theme: "light2",
                     title: {
-                        text: "Comparison of Exchange Rates"
+                        text: "Despesa x Receita"
                     },
                     subtitles: [{
-                        text: "EUR & USD to INR"
+                        text: ""
                     }],
                     axisY: {
                         includeZero: false,
-                        prefix: "₹"
+                        prefix: "R$"
                     },
                     toolTip: {
                         shared: true
@@ -42,7 +42,7 @@
             },
                         {
                             type: "area",
-                            name: "USD",
+                            name: "R$",
                             markerSize: 0,
                             xValueType: "dateTime",
                             xValueFormatString: "MMM YYYY",

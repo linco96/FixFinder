@@ -15,6 +15,7 @@
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+
             if (<%= gerarGrafico.ToString().ToLower() %>) {
                 var chart = new CanvasJS.Chart("div_Chart", {
                     theme: "light2",
@@ -37,18 +38,20 @@
                         markerSize: 0,
                         xValueType: "dateTime",
                         xValueFormatString: "MMM YYYY",
-                        yValueFormatString: "₹#,##0.##",
-                        dataPoints: <%= jsonGrafico %>
-            },
+                        dataPoints: <%= jsonGrafico %>,
+                        yValueFormatString: "₹#,##0.##"
+
+                    },
                         {
                             type: "area",
                             name: "R$",
                             markerSize: 0,
                             xValueType: "dateTime",
                             xValueFormatString: "MMM YYYY",
-                            yValueFormatString: "₹#,##0.##",
-                            dataPoints: <%= jsonGrafico2 %>
-            }
+                            dataPoints: <%= jsonGrafico2 %>,
+                            yValueFormatString: "₹#,##0.##"
+
+                        }
                     ]
                 });
                 chart.render();

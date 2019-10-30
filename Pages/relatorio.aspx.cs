@@ -13,7 +13,7 @@ namespace FixFinder.Pages
     {
         private Cliente c;
         private Funcionario f;
-        public static bool gerarGrafico;
+        public bool gerarGrafico;
         public static String jsonGrafico;
         public static String jsonGrafico2;
 
@@ -126,7 +126,7 @@ namespace FixFinder.Pages
                         {
                             DateTime dtIncio = DateTime.Parse(txt_DataInicio.Text);
                             DateTime dtFim = DateTime.Parse(txt_DataFim.Text);
-                            DateTime dtAux;
+                            dtFim = dtFim.AddHours(23).AddMinutes(59).AddSeconds(59).AddMilliseconds(59);
                             List<DataPointArea> DataPointAreas1 = new List<DataPointArea>();
                             List<DataPointArea> DataPointAreas2 = new List<DataPointArea>();
 
@@ -174,8 +174,11 @@ namespace FixFinder.Pages
                                     else
                                     {
                                         temp = new DataPointArea(ex, oConcluidos.Key.valor);
+                                        DataPointAreas1.Add(temp);
                                     }
                                 }
+
+                                temp = null;
                                 //while (dtIncio < dtFim)
                                 //{
                                 //    dtAux = dtIncio;
@@ -191,6 +194,35 @@ namespace FixFinder.Pages
                                 //}
 
                                 //Despesa
+                                List<Compra> listaCompra = context.Compra.Where(c => c.cnpjOficina.Equals(f.cnpjOficina) && c.data >= dtIncio && c.data <= dtFim).ToList();
+                                listaCompra = listaCompra.OrderBy(c => c.data).ToList();
+                                foreach (Compra compra in listaCompra)
+                                {
+                                    temp = null;
+                                    if (compra.data.Month < 10)
+                                        ex = "0" + compra.data.Month + "/" + compra.data.Year;
+                                    else
+                                        ex = compra.data.Month + "/" + compra.data.Year;
+
+                                    foreach (DataPointArea dtpArea in DataPointAreas2)
+                                    {
+                                        if (dtpArea.x.Equals(ex))
+                                        {
+                                            temp = dtpArea;
+                                            break;
+                                        }
+                                    }
+                                    if (temp != null)
+                                    {
+                                        temp.Y += totalCompra(compra);
+                                    }
+                                    else
+                                    {
+                                        temp = new DataPointArea(ex, totalCompra(compra));
+
+                                        DataPointAreas2.Add(temp);
+                                    }
+                                }
                             }
                             jsonGrafico = JsonConvert.SerializeObject(DataPointAreas1);
                             jsonGrafico2 = JsonConvert.SerializeObject(DataPointAreas2);
@@ -208,6 +240,23 @@ namespace FixFinder.Pages
             {
                 gerarGrafico = false;
             }
+        }
+
+        private double totalCompra(Compra compra)
+        {
+            double total = 0;
+            List<ProdutosCompra> lista;
+
+            using (DatabaseEntities context = new DatabaseEntities())
+            {
+                lista = context.ProdutosCompra.Where(p => p.idCompra == compra.idCompra).ToList();
+                foreach (ProdutosCompra pCompra in lista)
+                {
+                    total += pCompra.quantidade * pCompra.Produto.precoCompra;
+                }
+            }
+
+            return total;
         }
     }
 }

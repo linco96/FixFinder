@@ -90,6 +90,20 @@ namespace FixFinder.Pages
                 dtInicio = DateTime.Parse(txt_DataInicio.Text);
                 dtFim = DateTime.Parse(txt_DataFim.Text);
 
+                if ((dtFim - dtInicio).TotalDays > 720)
+                {
+                    pnl_Alert.Visible = true;
+                    lbl_Alert.Text = "O intervalo máximo para a geraçao de gráfico é de 2 anos";
+                    return false;
+                }
+
+                if (dtInicio < new DateTime(2010, 1, 1, 0, 0, 0, DateTimeKind.Utc))
+                {
+                    pnl_Alert.Visible = true;
+                    lbl_Alert.Text = "A data de início tem que ser maior que 01/01/2010";
+                    return false;
+                }
+
                 if (dtInicio >= DateTime.Today)
                 {
                     pnl_Alert.Visible = true;
@@ -223,6 +237,193 @@ namespace FixFinder.Pages
                             lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
                             pnl_Alert.Visible = true;
                         }
+                        break;
+
+                    case "lucroBruto":
+                        try
+                        {
+                            DateTime dtIncio = DateTime.Parse(txt_DataInicio.Text);
+                            DateTime dtFim = DateTime.Parse(txt_DataFim.Text);
+                            dtFim = dtFim.AddHours(23).AddMinutes(59).AddSeconds(59).AddMilliseconds(59);
+                            List<DataPointArea> dataPoints1 = new List<DataPointArea>();
+
+                            //dataPoints1.Add(new DataPointArea(data, valor));
+                            using (DatabaseEntities context = new DatabaseEntities())
+                            {
+                                //Receita
+                                List<Orcamento> orcamentosTemp = context.Orcamento.Where(o => o.cnpjOficina.Equals(f.cnpjOficina) && o.status.ToLower().Equals("concluído")).ToList();
+                                List<KeyValuePair<Orcamento, DateTime>> orcamentosConcluidos = new List<KeyValuePair<Orcamento, DateTime>>();
+                                LogOrcamento log;
+
+                                foreach (Orcamento orcamento in orcamentosTemp)
+                                {
+                                    log = context.LogOrcamento.Where(l => l.alteracao.ToLower().Equals("concluído") && l.dataAlteracao >= dtIncio && l.dataAlteracao <= dtFim && l.idOrcamento == orcamento.idOrcamento).FirstOrDefault();
+
+                                    if (log != null)
+                                        orcamentosConcluidos.Add(new KeyValuePair<Orcamento, DateTime>(orcamento, log.dataAlteracao));
+                                }
+
+                                orcamentosConcluidos = orcamentosConcluidos.OrderBy(o => o.Value).ToList();
+
+                                DataPointArea dtp1;
+                                double mili;
+                                long ticks;
+                                DateTime dt;
+
+                                dt = dtIncio;
+                                ticks = new DateTime(dt.Year, dt.Month, 1, 0, 0, 0, DateTimeKind.Utc).Ticks;
+                                dt = new DateTime(ticks);
+                                while (true)
+                                {
+                                    mili = dt.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds;
+                                    dtp1 = new DataPointArea(mili, 0);
+                                    dataPoints1.Add(dtp1);
+
+                                    if (dt.Year == dtFim.Year && dt.Month == dtFim.Month)
+                                    {
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        dt = dt.AddMonths(1);
+                                    }
+                                }
+
+                                foreach (KeyValuePair<Orcamento, DateTime> oConcluido in orcamentosConcluidos)
+                                {
+                                    dt = oConcluido.Value;
+                                    ticks = new DateTime(dt.Year, dt.Month, 1, 0, 0, 0, DateTimeKind.Utc).Ticks;
+                                    dt = new DateTime(ticks);
+
+                                    mili = dt.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds;
+
+                                    foreach (DataPointArea dtpArea in dataPoints1)
+                                    {
+                                        if (dtpArea.X == mili)
+                                        {
+                                            dtpArea.Y += oConcluido.Key.valor;
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                //Despesa
+                                List<Compra> listaCompra = context.Compra.Where(c => c.cnpjOficina.Equals(f.cnpjOficina) && c.data >= dtIncio && c.data <= dtFim).ToList();
+                                listaCompra = listaCompra.OrderBy(c => c.data).ToList();
+                                foreach (Compra compra in listaCompra)
+                                {
+                                    dt = compra.data;
+                                    ticks = new DateTime(dt.Year, dt.Month, 1, 0, 0, 0, DateTimeKind.Utc).Ticks;
+                                    dt = new DateTime(ticks);
+                                    mili = dt.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds;
+
+                                    foreach (DataPointArea dtpArea in dataPoints1)
+                                    {
+                                        if (dtpArea.X == mili)
+                                        {
+                                            dtpArea.Y -= totalCompra(compra);
+                                            break;
+                                        }
+                                    }
+                                }
+                                jsonGrafico = JsonConvert.SerializeObject(dataPoints1);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            pnl_Alert.CssClass = "alert alert-danger mt-3";
+                            lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                            pnl_Alert.Visible = true;
+                        }
+
+                        break;
+
+                    case "totalClientes":
+                        try
+                        {
+                            DateTime dtIncio = DateTime.Parse(txt_DataInicio.Text);
+                            DateTime dtFim = DateTime.Parse(txt_DataFim.Text);
+                            dtFim = dtFim.AddHours(23).AddMinutes(59).AddSeconds(59).AddMilliseconds(59);
+                            List<DataPointArea> dataPoints1 = new List<DataPointArea>();
+
+                            using (DatabaseEntities context = new DatabaseEntities())
+                            {
+                                List<Orcamento> orcamentosTemp = context.Orcamento.Where(o => o.cnpjOficina.Equals(f.cnpjOficina) && o.status.ToLower().Equals("concluído")).ToList();
+                                List<KeyValuePair<Orcamento, DateTime>> orcamentosConcluidos = new List<KeyValuePair<Orcamento, DateTime>>();
+                                LogOrcamento log;
+
+                                foreach (Orcamento orcamento in orcamentosTemp)
+                                {
+                                    log = context.LogOrcamento.Where(l => l.alteracao.ToLower().Equals("concluído") && l.dataAlteracao >= dtIncio && l.dataAlteracao <= dtFim && l.idOrcamento == orcamento.idOrcamento).FirstOrDefault();
+
+                                    if (log != null)
+                                        orcamentosConcluidos.Add(new KeyValuePair<Orcamento, DateTime>(orcamento, log.dataAlteracao));
+                                }
+
+                                orcamentosConcluidos = orcamentosConcluidos.OrderBy(o => o.Value).ToList();
+
+                                DataPointArea dtp1;
+                                double mili;
+                                long ticks;
+                                DateTime dt;
+
+                                dt = dtIncio;
+                                ticks = new DateTime(dt.Year, dt.Month, 1, 0, 0, 0, DateTimeKind.Utc).Ticks;
+                                dt = new DateTime(ticks);
+                                while (true)
+                                {
+                                    mili = dt.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds;
+                                    dtp1 = new DataPointArea(mili, 0);
+                                    dataPoints1.Add(dtp1);
+
+                                    if (dt.Year == dtFim.Year && dt.Month == dtFim.Month)
+                                    {
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        dt = dt.AddMonths(1);
+                                    }
+                                }
+
+                                List<KeyValuePair<Cliente, DataPointArea>> listClientes = new List<KeyValuePair<Cliente, DataPointArea>>();
+                                KeyValuePair<Cliente, DataPointArea> kvpCliente;
+
+                                foreach (KeyValuePair<Orcamento, DateTime> oConcluido in orcamentosConcluidos)
+                                {
+                                    dt = oConcluido.Value;
+                                    ticks = new DateTime(dt.Year, dt.Month, 1, 0, 0, 0, DateTimeKind.Utc).Ticks;
+                                    dt = new DateTime(ticks);
+
+                                    mili = dt.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds;
+
+                                    foreach (DataPointArea dtpArea in dataPoints1)
+                                    {
+                                        if (dtpArea.X == mili)
+                                        {
+                                            kvpCliente = listClientes.Find(l => l.Value.Equals(dtpArea) && l.Key.cpf.Equals(oConcluido.Key.cpfCliente));
+
+                                            if (kvpCliente.Key == null)
+                                            {
+                                                dtpArea.Y++;
+                                                listClientes.Add(new KeyValuePair<Cliente, DataPointArea>(oConcluido.Key.Cliente, dtpArea));
+                                                break;
+                                            }
+
+                                            
+                                        }
+                                    }
+                                }
+                                jsonGrafico = JsonConvert.SerializeObject(dataPoints1);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            pnl_Alert.CssClass = "alert alert-danger mt-3";
+                            lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                            pnl_Alert.Visible = true;
+                        }
+
                         break;
                 }
             }

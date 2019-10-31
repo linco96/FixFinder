@@ -17,51 +17,113 @@
         $(document).ready(function () {
 
             if (<%= gerarGrafico.ToString().ToLower() %>) {
-                var chart = new CanvasJS.Chart("div_Chart", {
-                    theme: "light2",
-                    exportEnabled: true,
-                    animationEnabled: true,
-                    title: {
-                        text: "Despesa x Receita"
-                    },
-                    subtitles: [{
-                        text: ""
-                    }],
-                    axisX: {
-                        valueFormatString: "MM/YYYY",
-                        intervalType: "month",
-                        interval: 1
-                    },
-                    axisY: {
-                        includeZero: false,
-                        prefix: "R$"
-                    },
-                    toolTip: {
-                        shared: true
-                    },
-                    data: [{
-                        type: "area",
-                        name: "Receita",
-                        markerSize: 0,
-                        xValueType: "dateTime",
-                        xValueFormatString: "MM/YYYY",
-                        dataPoints: <%= jsonGrafico %>,
-                        yValueFormatString: "R$ #,##0.##"
 
-                    },
-                        {
-                            type: "area",
-                            name: "Despesa",
-                            markerSize: 0,
-                            xValueType: "dateTime",
-                            xValueFormatString: "MM/YYYY",
-                            dataPoints: <%= jsonGrafico2 %>,
-                            yValueFormatString: "R$ #,##0.##"
+                switch ($("#select_Grafico").val()) {
+                    case "despesaReceita":
+                        var chart = new CanvasJS.Chart("div_Chart", {
+                            theme: "light2",
+                            exportEnabled: true,
+                            animationEnabled: true,
+                            title: {
+                                text: "Despesa x Receita"
+                            },
+                            subtitles: [{
+                                text: ""
+                            }],
+                            axisX: {
+                                valueFormatString: "MM/YYYY",
+                                intervalType: "month",
+                                interval: 1
+                            },
+                            axisY: {
+                                includeZero: false,
+                                prefix: "R$"
+                            },
+                            toolTip: {
+                                shared: true
+                            },
+                            data: [{
+                                type: "area",
+                                name: "Receita",
+                                markerSize: 0,
+                                xValueType: "dateTime",
+                                xValueFormatString: "MM/YYYY",
+                                dataPoints: <% if (select_Grafico.SelectedValue.Equals("despesaReceita")) { Response.Write(jsonGrafico); } else { Response.Write("[]"); } %>,
+                                yValueFormatString: "R$ #,##0.##"
 
-                        }
-                    ]
-                });
-                chart.render();
+                            },
+                                {
+                                    type: "area",
+                                    name: "Despesa",
+                                    markerSize: 0,
+                                    xValueType: "dateTime",
+                                    xValueFormatString: "MM/YYYY",
+                                    dataPoints: <% if (select_Grafico.SelectedValue.Equals("despesaReceita")) { Response.Write(jsonGrafico2); } else { Response.Write("[]"); } %>,
+                                    yValueFormatString: "R$ #,##0.##"
+                                }
+                            ]
+                        });
+                        chart.render();
+                        break;
+
+                    case "lucroBruto":
+                        var chart = new CanvasJS.Chart("div_Chart", {
+                            animationEnabled: true,
+                            exportEnabled: true,
+                            animationEnabled: true,
+                            theme: "light2", // "light1", "light2", "dark1", "dark2"
+                            title: {
+                                text: "Lucro Bruto"
+                            },
+                            axisX: {
+                                valueFormatString: "MM/YYYY",
+                                intervalType: "month",
+                                interval: 1
+                            },
+                            axisY: {
+                                includeZero: false,
+                                prefix: "R$"
+                            },
+                            data: [{
+                                dataPoints: <% if (select_Grafico.SelectedValue.Equals("lucroBruto")) { Response.Write(jsonGrafico); } else { Response.Write("[]"); } %>,
+                                type: "column",
+                                color: "#5F9EA0",
+                                yValueFormatString: "R$ #,##0.##",
+                                xValueType: "dateTime",
+                                xValueFormatString: "MM/YYYY"
+                            }]
+                        });
+                        chart.render();
+                        break;
+                    case "totalClientes":
+                        var chart = new CanvasJS.Chart("div_Chart", {
+                            animationEnabled: true,
+                            exportEnabled: true,
+                            animationEnabled: true,
+                            theme: "light2", // "light1", "light2", "dark1", "dark2"
+                            title: {
+                                text: "Total Clientes"
+                            },
+                            axisX: {
+                                valueFormatString: "MM/YYYY",
+                                intervalType: "month",
+                                interval: 1
+                            },
+                            axisY: {
+                                includeZero: false,
+                                interval: 1
+                            },
+                            data: [{
+                                dataPoints: <% if (select_Grafico.SelectedValue.Equals("totalClientes")) { Response.Write(jsonGrafico); } else { Response.Write("[]"); } %>,
+                                type: "column",
+                                color: "#5F9EA0",
+                                xValueType: "dateTime",
+                                xValueFormatString: "MM/YYYY"
+                            }]
+                        });
+                        chart.render();
+                        break;
+                }
             }
         });
     </script>
@@ -234,25 +296,24 @@
                                 <asp:DropDownList runat="server" ID="select_Grafico" CssClass="form-control w-25">
                                     <asp:ListItem Text="Despesas x Receita" Value="despesaReceita"></asp:ListItem>
                                     <asp:ListItem Text="Lucro Bruto" Value="lucroBruto"></asp:ListItem>
-                                    <asp:ListItem Text="PALUDO`S GRAPHIC" Value="c"></asp:ListItem>
+                                    <asp:ListItem Text="Total Clientes" Value="totalClientes"></asp:ListItem>
                                 </asp:DropDownList>
                             </span>
                         </div>
+
                         <div class="form-inline">
                             <span class="w-50 text-left">
                                 <asp:Button runat="server" ID="btn_GerarGrafico" CssClass="btn btn-outline-info btn-sm mt-2" Text="Gerar Gráfico" OnClick="btn_GerarGrafico_Click" />
                                 <%--<button id="btn_GerarGrafico" class="btn btn-outline-info btn-sm mt-2" onclick="odeioJQuery()">Gerar Gráfico</button>--%>
                             </span>
                         </div>
-
+                        <asp:Panel runat="server" ID="pnl_Alert" Visible="false" CssClass="alert alert-danger mt-2" role="alert">
+                            <asp:Label ID="lbl_Alert" runat="server"></asp:Label>
+                        </asp:Panel>
                         <hr class="border border-muted border-bottom-0" />
 
                         <div runat="server" id="div_Chart" class="container mt-4" style="position: relative; height: 400px">
                         </div>
-
-                        <asp:Panel runat="server" ID="pnl_Alert" Visible="false" CssClass="alert alert-danger" role="alert">
-                            <asp:Label ID="lbl_Alert" runat="server"></asp:Label>
-                        </asp:Panel>
                     </div>
                 </main>
             </div>

@@ -19,6 +19,8 @@
             if (<%= gerarGrafico.ToString().ToLower() %>) {
                 var chart = new CanvasJS.Chart("div_Chart", {
                     theme: "light2",
+                    exportEnabled: true,
+                    animationEnabled: true,
                     title: {
                         text: "Despesa x Receita"
                     },
@@ -39,7 +41,7 @@
                     },
                     data: [{
                         type: "area",
-                        name: "Despesa",
+                        name: "Receita",
                         markerSize: 0,
                         xValueType: "dateTime",
                         xValueFormatString: "MM/YYYY",
@@ -49,7 +51,7 @@
                     },
                         {
                             type: "area",
-                            name: "Receita",
+                            name: "Despesa",
                             markerSize: 0,
                             xValueType: "dateTime",
                             xValueFormatString: "MM/YYYY",

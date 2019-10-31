@@ -128,10 +128,10 @@ namespace FixFinder.Pages
                             DateTime dtIncio = DateTime.Parse(txt_DataInicio.Text);
                             DateTime dtFim = DateTime.Parse(txt_DataFim.Text);
                             dtFim = dtFim.AddHours(23).AddMinutes(59).AddSeconds(59).AddMilliseconds(59);
-                            List<DataPointArea> DataPointAreas1 = new List<DataPointArea>();
-                            List<DataPointArea> DataPointAreas2 = new List<DataPointArea>();
+                            List<DataPointArea> dataPoints1 = new List<DataPointArea>();
+                            List<DataPointArea> dataPoints2 = new List<DataPointArea>();
 
-                            //DataPointAreas1.Add(new DataPointArea(data, valor));
+                            //dataPoints1.Add(new DataPointArea(data, valor));
                             using (DatabaseEntities context = new DatabaseEntities())
                             {
                                 //Receita
@@ -150,86 +150,72 @@ namespace FixFinder.Pages
                                 orcamentosConcluidos = orcamentosConcluidos.OrderBy(o => o.Value).ToList();
 
                                 String ex;
-                                DataPointArea temp = null;
+                                DataPointArea dtp1, dtp2;
                                 double mili;
+                                long ticks;
                                 DateTime dt;
 
-                                foreach (KeyValuePair<Orcamento, DateTime> oConcluidos in orcamentosConcluidos)
+                                dt = dtIncio;
+                                ticks = new DateTime(dt.Year, dt.Month, 1, 0, 0, 0, DateTimeKind.Utc).Ticks;
+                                dt = new DateTime(ticks);
+                                while (true)
                                 {
-                                    temp = null;
-                                    dt = oConcluidos.Value;
-                                    long ticks = new DateTime(dt.Year, dt.Month, 1, 0, 0, 0, new CultureInfo("en-US", false).Calendar).Ticks;
+                                    mili = dt.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds;
+                                    dtp1 = new DataPointArea(mili, 0);
+                                    dtp2 = new DataPointArea(mili, 0);
+                                    dataPoints1.Add(dtp1);
+                                    dataPoints2.Add(dtp2);
+
+                                    if (dt.Year == dtFim.Year && dt.Month == dtFim.Month)
+                                    {
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        dt = dt.AddMonths(1);
+                                    }
+                                }
+
+                                foreach (KeyValuePair<Orcamento, DateTime> oConcluido in orcamentosConcluidos)
+                                {
+                                    dt = oConcluido.Value;
+                                    ticks = new DateTime(dt.Year, dt.Month, 1, 0, 0, 0, DateTimeKind.Utc).Ticks;
                                     dt = new DateTime(ticks);
 
                                     mili = dt.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds;
 
-                                    foreach (DataPointArea dtpArea in DataPointAreas1)
+                                    foreach (DataPointArea dtpArea in dataPoints1)
                                     {
                                         if (dtpArea.X == mili)
                                         {
-                                            temp = dtpArea;
+                                            dtpArea.Y += oConcluido.Key.valor;
                                             break;
                                         }
                                     }
-                                    if (temp != null)
-                                    {
-                                        temp.Y += oConcluidos.Key.valor;
-                                    }
-                                    else
-                                    {
-                                        temp = new DataPointArea(mili, oConcluidos.Key.valor);
-                                        DataPointAreas1.Add(temp);
-                                    }
                                 }
-
-                                temp = null;
-                                //while (dtIncio < dtFim)
-                                //{
-                                //    dtAux = dtIncio;
-                                //    if (dtAux >= dtFim)
-                                //        dtAux = dtFim;
-
-                                //    foreach (KeyValuePair<Orcamento, DateTime> oConcluidos in orcamentosConcluidos)
-                                //    {
-                                //        if ()
-                                //    }
-
-                                //    dtIncio.AddDays(30);
-                                //}
 
                                 //Despesa
                                 List<Compra> listaCompra = context.Compra.Where(c => c.cnpjOficina.Equals(f.cnpjOficina) && c.data >= dtIncio && c.data <= dtFim).ToList();
                                 listaCompra = listaCompra.OrderBy(c => c.data).ToList();
                                 foreach (Compra compra in listaCompra)
                                 {
-                                    temp = null;
                                     dt = compra.data;
-                                    long ticks = new DateTime(dt.Year, dt.Month, 1, 0, 0, 0, DateTimeKind.Utc).Ticks;
+                                    ticks = new DateTime(dt.Year, dt.Month, 1, 0, 0, 0, DateTimeKind.Utc).Ticks;
                                     dt = new DateTime(ticks);
                                     mili = dt.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds;
 
-                                    foreach (DataPointArea dtpArea in DataPointAreas2)
+                                    foreach (DataPointArea dtpArea in dataPoints2)
                                     {
                                         if (dtpArea.X == mili)
                                         {
-                                            temp = dtpArea;
+                                            dtpArea.Y += totalCompra(compra);
                                             break;
                                         }
                                     }
-                                    if (temp != null)
-                                    {
-                                        temp.Y += totalCompra(compra);
-                                    }
-                                    else
-                                    {
-                                        temp = new DataPointArea(mili, totalCompra(compra));
-
-                                        DataPointAreas2.Add(temp);
-                                    }
                                 }
                             }
-                            jsonGrafico = JsonConvert.SerializeObject(DataPointAreas1);
-                            jsonGrafico2 = JsonConvert.SerializeObject(DataPointAreas2);
+                            jsonGrafico = JsonConvert.SerializeObject(dataPoints1);
+                            jsonGrafico2 = JsonConvert.SerializeObject(dataPoints2);
                         }
                         catch (Exception ex)
                         {

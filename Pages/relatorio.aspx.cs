@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -150,18 +151,21 @@ namespace FixFinder.Pages
 
                                 String ex;
                                 DataPointArea temp = null;
+                                double mili;
+                                DateTime dt;
 
                                 foreach (KeyValuePair<Orcamento, DateTime> oConcluidos in orcamentosConcluidos)
                                 {
                                     temp = null;
-                                    if (oConcluidos.Value.Month < 10)
-                                        ex = "0" + oConcluidos.Value.Month + "/" + oConcluidos.Value.Year;
-                                    else
-                                        ex = oConcluidos.Value.Month + "/" + oConcluidos.Value.Year;
+                                    dt = oConcluidos.Value;
+                                    long ticks = new DateTime(dt.Year, dt.Month, 1, 0, 0, 0, new CultureInfo("en-US", false).Calendar).Ticks;
+                                    dt = new DateTime(ticks);
+
+                                    mili = dt.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds;
 
                                     foreach (DataPointArea dtpArea in DataPointAreas1)
                                     {
-                                        if (dtpArea.x.Equals(ex))
+                                        if (dtpArea.X == mili)
                                         {
                                             temp = dtpArea;
                                             break;
@@ -173,7 +177,7 @@ namespace FixFinder.Pages
                                     }
                                     else
                                     {
-                                        temp = new DataPointArea(ex, oConcluidos.Key.valor);
+                                        temp = new DataPointArea(mili, oConcluidos.Key.valor);
                                         DataPointAreas1.Add(temp);
                                     }
                                 }
@@ -199,14 +203,14 @@ namespace FixFinder.Pages
                                 foreach (Compra compra in listaCompra)
                                 {
                                     temp = null;
-                                    if (compra.data.Month < 10)
-                                        ex = "0" + compra.data.Month + "/" + compra.data.Year;
-                                    else
-                                        ex = compra.data.Month + "/" + compra.data.Year;
+                                    dt = compra.data;
+                                    long ticks = new DateTime(dt.Year, dt.Month, 1, 0, 0, 0, DateTimeKind.Utc).Ticks;
+                                    dt = new DateTime(ticks);
+                                    mili = dt.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds;
 
                                     foreach (DataPointArea dtpArea in DataPointAreas2)
                                     {
-                                        if (dtpArea.x.Equals(ex))
+                                        if (dtpArea.X == mili)
                                         {
                                             temp = dtpArea;
                                             break;
@@ -218,7 +222,7 @@ namespace FixFinder.Pages
                                     }
                                     else
                                     {
-                                        temp = new DataPointArea(ex, totalCompra(compra));
+                                        temp = new DataPointArea(mili, totalCompra(compra));
 
                                         DataPointAreas2.Add(temp);
                                     }

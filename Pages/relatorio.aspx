@@ -25,6 +25,11 @@
                     subtitles: [{
                         text: ""
                     }],
+                    axisX: {
+                        valueFormatString: "MM/YYYY",
+                        intervalType: "month",
+                        interval: 1
+                    },
                     axisY: {
                         includeZero: false,
                         prefix: "R$"
@@ -34,22 +39,22 @@
                     },
                     data: [{
                         type: "area",
-                        name: "Euro",
+                        name: "Despesa",
                         markerSize: 0,
                         xValueType: "dateTime",
-                        xValueFormatString: "MMM YYYY",
+                        xValueFormatString: "MM/YYYY",
                         dataPoints: <%= jsonGrafico %>,
-                        yValueFormatString: "₹#,##0.##"
+                        yValueFormatString: "R$ #,##0.##"
 
                     },
                         {
                             type: "area",
-                            name: "R$",
+                            name: "Receita",
                             markerSize: 0,
                             xValueType: "dateTime",
-                            xValueFormatString: "MMM YYYY",
+                            xValueFormatString: "MM/YYYY",
                             dataPoints: <%= jsonGrafico2 %>,
-                            yValueFormatString: "₹#,##0.##"
+                            yValueFormatString: "R$ #,##0.##"
 
                         }
                     ]

@@ -9,14 +9,14 @@ namespace FixFinder.Models
     [DataContract]
     public class DataPointArea
     {
-        public DataPointArea(string x, double y)
+        public DataPointArea(double x, double y)
         {
-            this.x = x;
+            this.X = x;
             this.Y = y;
         }
 
         [DataMember(Name = "x")]
-        public string x = null;
+        public Nullable<double> X = null;
 
         [DataMember(Name = "y")]
         public Nullable<double> Y = null;

@@ -77,7 +77,7 @@
                     exportEnabled: true,
                     animationEnabled: true,
                     title: {
-                        text: "Resumo Orçamentos"
+                        text: "Novos Clientes"
                     },
                     subtitles: [{
 

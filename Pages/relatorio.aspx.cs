@@ -581,6 +581,60 @@ namespace FixFinder.Pages
                             pnl_Alert.Visible = true;
                         }
                         break;
+
+                    case "novosClientes":
+                        try
+                        {
+                            using (DatabaseEntities context = new DatabaseEntities())
+                            {
+                                DateTime dtIncio = DateTime.Parse(txt_DataInicio.Text);
+                                DateTime dtFim = DateTime.Parse(txt_DataFim.Text);
+                                dtFim = dtFim.AddHours(23).AddMinutes(59).AddSeconds(59).AddMilliseconds(59);
+
+                                List<Cliente> clientesPassado = new List<Cliente>();
+                                List<Cliente> clientesAtual = new List<Cliente>();
+
+                                List<Orcamento> orcamentosTemp = context.Orcamento.Where(o => o.cnpjOficina.Equals(f.cnpjOficina)).ToList();
+                                foreach (Orcamento o in orcamentosTemp)
+                                {
+                                    if (o.data >= dtIncio && o.data <= dtFim)
+                                    {
+                                        if (!clientesAtual.Contains(o.Cliente))
+                                            clientesAtual.Add(o.Cliente);
+                                    }
+                                    else
+                                    {
+                                        if (!clientesPassado.Contains(o.Cliente) && o.data < dtIncio)
+                                            clientesPassado.Add(o.Cliente);
+                                    }
+                                }
+
+                                int nClientesNovos = 0;
+                                int nClientesDeNovos = 0;
+
+                                foreach (Cliente cl in clientesAtual)
+                                {
+                                    if (clientesPassado.Contains(cl))
+                                        nClientesDeNovos++;
+                                    else
+                                        nClientesNovos++;
+                                }
+
+                                List<DataPointPie> dataPoints = new List<DataPointPie>();
+
+                                dataPoints.Add(new DataPointPie("Clientes novos", nClientesNovos));
+                                dataPoints.Add(new DataPointPie("Clientes recorrentes", nClientesDeNovos));
+
+                                jsonGrafico = JsonConvert.SerializeObject(dataPoints);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            pnl_Alert.CssClass = "alert alert-danger mt-3";
+                            lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                            pnl_Alert.Visible = true;
+                        }
+                        break;
                 }
             }
             else

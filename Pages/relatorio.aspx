@@ -214,6 +214,30 @@
                         });
                         chart.render();
                         break;
+
+                    case "novosClientes":
+                        chart = new CanvasJS.Chart("div_Chart", {
+                            theme: "light2", // "light1", "light2", "dark1", "dark2"
+                            exportEnabled: true,
+                            animationEnabled: true,
+                            title: {
+                                text: "Novos Clientes"
+                            },
+                            subtitles: [{
+
+                            }],
+                            data: [{
+                                type: "pie",
+                                startAngle: 180,
+                                toolTipContent: "<b>{label}</b>: {y}",
+                                showInLegend: "true",
+                                legendText: "{label}",
+                                dataPoints: <% if (select_Grafico.SelectedValue.Equals("novosClientes")) { Response.Write(jsonGrafico); } else { Response.Write("[]"); } %>,
+                                indexLabel: "{label} - {y}"
+                            }]
+                        });
+                        chart.render();
+                        break;
                 }
             }
         });
@@ -390,6 +414,7 @@
                                     <asp:ListItem Text="Total Clientes" Value="totalClientes"></asp:ListItem>
                                     <asp:ListItem Text="Histórico Orçamentos por Criação" Value="historicoOrcamentoCriacao"></asp:ListItem>
                                     <asp:ListItem Text="Despesas por Fornecedor" Value="despesaFornecedor"></asp:ListItem>
+                                    <asp:ListItem Text="Novos Clientes" Value="novosClientes"></asp:ListItem>
                                 </asp:DropDownList>
                             </span>
                         </div>

@@ -17,6 +17,8 @@ namespace FixFinder.Pages
         public bool gerarGrafico;
         public static String jsonGrafico;
         public static String jsonGrafico2;
+        public static String jsonGrafico3;
+        public static String jsonGrafico4;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -142,6 +144,7 @@ namespace FixFinder.Pages
                             DateTime dtIncio = DateTime.Parse(txt_DataInicio.Text);
                             DateTime dtFim = DateTime.Parse(txt_DataFim.Text);
                             dtFim = dtFim.AddHours(23).AddMinutes(59).AddSeconds(59).AddMilliseconds(59);
+
                             List<DataPointArea> dataPoints1 = new List<DataPointArea>();
                             List<DataPointArea> dataPoints2 = new List<DataPointArea>();
 
@@ -409,8 +412,6 @@ namespace FixFinder.Pages
                                                 listClientes.Add(new KeyValuePair<Cliente, DataPointArea>(oConcluido.Key.Cliente, dtpArea));
                                                 break;
                                             }
-
-                                            
                                         }
                                     }
                                 }
@@ -424,6 +425,109 @@ namespace FixFinder.Pages
                             pnl_Alert.Visible = true;
                         }
 
+                        break;
+
+                    case "historicoOrcamentoCriacao":
+                        try
+                        {
+                            using (DatabaseEntities context = new DatabaseEntities())
+                            {
+                                DateTime dtIncio = DateTime.Parse(txt_DataInicio.Text);
+                                DateTime dtFim = DateTime.Parse(txt_DataFim.Text);
+                                dtFim = dtFim.AddHours(23).AddMinutes(59).AddSeconds(59).AddMilliseconds(59);
+                                List<DataPointArea> dataPointsConcluido = new List<DataPointArea>();
+                                List<DataPointArea> dataPointsCancelado = new List<DataPointArea>();
+                                List<DataPointArea> dataPointsAprovacaoPendente = new List<DataPointArea>();
+                                List<DataPointArea> dataPointsAprovado = new List<DataPointArea>();
+
+                                List<Orcamento> orcamentos = context.Orcamento.Where(o => o.cnpjOficina.Equals(f.cnpjOficina) && o.data >= dtIncio && o.data <= dtFim).ToList();
+
+                                //INICIO - Adiciona o datapoint na lista de datapoints
+                                double mili;
+                                long ticks;
+                                DateTime dt;
+
+                                ticks = new DateTime(dtIncio.Year, dtIncio.Month, 1, 0, 0, 0, DateTimeKind.Utc).Ticks;
+                                dt = new DateTime(ticks);
+                                int nConcluido, nCancelado, nAprovacaoPendente, nAprovado;
+                                while (true)
+                                {
+                                    mili = dt.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds;
+
+                                    nConcluido = 0;
+                                    nCancelado = 0;
+                                    nAprovacaoPendente = 0;
+                                    nAprovado = 0;
+
+                                    foreach (Orcamento orc in orcamentos)
+                                    {
+                                        if (orc.data.Year == dt.Year && orc.data.Month == dt.Month)
+                                        {
+                                            switch (orc.status)
+                                            {
+                                                case "Aprovado":
+                                                    nAprovado++;
+                                                    break;
+
+                                                case "Pagamento pendente":
+                                                    nAprovado++;
+                                                    break;
+
+                                                case "Aprovação da gerencia pendente":
+                                                    nAprovacaoPendente++;
+                                                    break;
+
+                                                case "Aprovação do cliente pendente":
+                                                    nAprovacaoPendente++;
+                                                    break;
+
+                                                case "Rejeitado pelo cliente":
+                                                    nCancelado++;
+                                                    break;
+
+                                                case "Rejeitado pela gerencia":
+                                                    nCancelado++;
+                                                    break;
+
+                                                case "Cancelado":
+                                                    nCancelado++;
+                                                    break;
+
+                                                case "Concluído":
+                                                    nConcluido++;
+                                                    break;
+                                            }
+                                        }
+                                    }
+
+                                    dataPointsConcluido.Add(new DataPointArea(mili, nConcluido));
+                                    dataPointsCancelado.Add(new DataPointArea(mili, nCancelado));
+                                    dataPointsAprovacaoPendente.Add(new DataPointArea(mili, nAprovacaoPendente));
+                                    dataPointsAprovado.Add(new DataPointArea(mili, nAprovado));
+
+                                    if (dt.Year == dtFim.Year && dt.Month == dtFim.Month)
+                                    {
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        dt = dt.AddMonths(1);
+                                    }
+                                }
+                                //FIM --- Adiciona o datapoint na lista de datapoints
+
+                                jsonGrafico = JsonConvert.SerializeObject(dataPointsConcluido);
+                                jsonGrafico2 = JsonConvert.SerializeObject(dataPointsCancelado);
+                                jsonGrafico3 = JsonConvert.SerializeObject(dataPointsAprovacaoPendente);
+                                jsonGrafico4 = JsonConvert.SerializeObject(dataPointsAprovado);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            pnl_Alert.CssClass = "alert alert-danger mt-3";
+                            lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                            pnl_Alert.Visible = true;
+                        }
                         break;
                 }
             }

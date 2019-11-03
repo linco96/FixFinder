@@ -529,6 +529,58 @@ namespace FixFinder.Pages
                             pnl_Alert.Visible = true;
                         }
                         break;
+
+                    case "despesaFornecedor":
+                        try
+                        {
+                            using (DatabaseEntities context = new DatabaseEntities())
+                            {
+                                DateTime dtIncio = DateTime.Parse(txt_DataInicio.Text);
+                                DateTime dtFim = DateTime.Parse(txt_DataFim.Text);
+                                dtFim = dtFim.AddHours(23).AddMinutes(59).AddSeconds(59).AddMilliseconds(59);
+
+                                List<Compra> compras = context.Compra.Where(com => com.cnpjOficina.Equals(f.cnpjOficina) && com.data >= dtIncio && com.data <= dtFim).ToList();
+
+                                List<DataPointPie> dataPoints = new List<DataPointPie>();
+                                double total;
+                                Fornecedor frn;
+                                bool adicionado;
+                                foreach (Compra com in compras)
+                                {
+                                    adicionado = false;
+                                    total = totalCompra(com);
+                                    frn = com.Fornecedor;
+                                    foreach (DataPointPie dt in dataPoints)
+                                    {
+                                        if (dt.Label.Equals(frn.cnpjFornecedor))
+                                        {
+                                            dt.Y += total;
+                                            adicionado = true;
+                                        }
+                                    }
+                                    if (!adicionado)
+                                    {
+                                        dataPoints.Add(new DataPointPie(frn.cnpjFornecedor, total));
+                                    }
+                                }
+                                Double aux;
+                                foreach (DataPointPie dt in dataPoints)
+                                {
+                                    dt.Label = context.Fornecedor.Where(forn => forn.cnpjFornecedor.Equals(dt.Label)).FirstOrDefault().razaoSocial;
+                                    aux = (Double)dt.Y;
+                                    dt.Value = aux.ToString("0.00");
+                                }
+
+                                jsonGrafico = JsonConvert.SerializeObject(dataPoints);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            pnl_Alert.CssClass = "alert alert-danger mt-3";
+                            lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                            pnl_Alert.Visible = true;
+                        }
+                        break;
                 }
             }
             else

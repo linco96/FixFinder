@@ -63,7 +63,7 @@
                     data: [{
                         type: "pie",
                         startAngle: 180,
-                        toolTipContent: "<b>{label}</b>: R$ {value}",
+                        toolTipContent: "<b>{label}</b>: {value}",
                         showInLegend: "true",
                         legendText: "{label}",
                         indexLabel: "{label} - {value}",

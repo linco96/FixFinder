@@ -17,7 +17,6 @@
         $(document).ready(function () {
 
             if (<%= gerarGrafico.ToString().ToLower() %>) {
-                alert("alertei seu bbk");
                 switch ($("#select_Grafico").val()) {
                     case "despesaReceita":
                         var chart = new CanvasJS.Chart("div_Chart", {
@@ -124,7 +123,6 @@
                         break;
 
                     case "historicoOrcamentoCriacao":
-                        alert("alertei seu bbk2");
                         var chart = new CanvasJS.Chart("div_Chart", {
                             exportEnabled: true,
                             animationEnabled: true,
@@ -192,6 +190,29 @@
                             }
                             chart.render();
                         }
+                        break;
+                    case "despesaFornecedor":
+                        var chart = new CanvasJS.Chart("div_Chart", {
+                            theme: "light2", // "light1", "light2", "dark1", "dark2"
+                            exportEnabled: true,
+                            animationEnabled: true,
+                            title: {
+                                text: "Despesas Fornecedor"
+                            },
+                            subtitles: [{
+
+                            }],
+                            data: [{
+                                type: "pie",
+                                startAngle: 180,
+                                toolTipContent: "<b>{label}</b>: {value}",
+                                showInLegend: "true",
+                                legendText: "{label}",
+                                dataPoints: <% if (select_Grafico.SelectedValue.Equals("despesaFornecedor")) { Response.Write(jsonGrafico); } else { Response.Write("[]"); } %>,
+                                indexLabel: "{label} - {value}"
+                            }]
+                        });
+                        chart.render();
                         break;
                 }
             }
@@ -368,6 +389,7 @@
                                     <asp:ListItem Text="Lucro Bruto" Value="lucroBruto"></asp:ListItem>
                                     <asp:ListItem Text="Total Clientes" Value="totalClientes"></asp:ListItem>
                                     <asp:ListItem Text="Histórico Orçamentos por Criação" Value="historicoOrcamentoCriacao"></asp:ListItem>
+                                    <asp:ListItem Text="Despesas por Fornecedor" Value="despesaFornecedor"></asp:ListItem>
                                 </asp:DropDownList>
                             </span>
                         </div>

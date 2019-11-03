@@ -34,11 +34,11 @@
             <PropertyRef Name="idCartao" />
           </Key>
           <Property Name="idCartao" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="numeroCartao" Type="varchar" MaxLength="16" Nullable="false" />
-          <Property Name="titularCartao" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="numero" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="titular" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="anoVencimento" Type="int" Nullable="false" />
           <Property Name="mesVencimento" Type="int" Nullable="false" />
-          <Property Name="bandeiraCartao" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="bandeira" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="cpfCliente" Type="varchar" MaxLength="15" Nullable="false" />
         </EntityType>
         <EntityType Name="Cliente">
@@ -62,6 +62,20 @@
           <Property Name="cpfFuncionario" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="idFornecedor" Type="int" Nullable="false" />
           <Property Name="cnpjOficina" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Database.dbo.CredenciaisPagamento' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="CredenciaisPagamento">
+          <Key>
+            <PropertyRef Name="appId" />
+            <PropertyRef Name="appKey" />
+            <PropertyRef Name="email" />
+            <PropertyRef Name="token" />
+          </Key>
+          <Property Name="appId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="appKey" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="token" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="DiaFuncionamento">
           <Key>
@@ -174,6 +188,7 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
           <Property Name="capacidadeAgendamentos" Type="int" Nullable="false" />
           <Property Name="statusAssinatura" Type="tinyint" Nullable="false" />
           <Property Name="descricao" Type="varchar" MaxLength="500" />
+          <Property Name="chavePublica" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Orcamento">
           <Key>
@@ -752,6 +767,14 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
           <EntitySet Name="Servico" EntityType="Self.Servico" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ServicosOrcamento" EntityType="Self.ServicosOrcamento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Veiculo" EntityType="Self.Veiculo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CredenciaisPagamento" EntityType="Self.CredenciaisPagamento" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [CredenciaisPagamento].[appId] AS [appId], 
+    [CredenciaisPagamento].[appKey] AS [appKey], 
+    [CredenciaisPagamento].[email] AS [email], 
+    [CredenciaisPagamento].[token] AS [token]
+    FROM [dbo].[CredenciaisPagamento] AS [CredenciaisPagamento]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="Key" EntityType="Self.Key" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Key].[idChave] AS [idChave]
@@ -941,11 +964,11 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
             <PropertyRef Name="idCartao" />
           </Key>
           <Property Name="idCartao" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="numeroCartao" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="titularCartao" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="numero" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="titular" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="anoVencimento" Type="Int32" Nullable="false" />
           <Property Name="mesVencimento" Type="Int32" Nullable="false" />
-          <Property Name="bandeiraCartao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="bandeira" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="cpfCliente" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Cliente" Relationship="Self.FK_Cartao_Cliente" FromRole="Cartao" ToRole="Cliente" />
         </EntityType>
@@ -1098,6 +1121,7 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
           <Property Name="capacidadeAgendamentos" Type="Int32" Nullable="false" />
           <Property Name="statusAssinatura" Type="Byte" Nullable="false" />
           <Property Name="descricao" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="chavePublica" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Agendamento" Relationship="Self.FK_Agendamento_Oficina" FromRole="Oficina" ToRole="Agendamento" />
           <NavigationProperty Name="Avaliacao" Relationship="Self.FK_Avaliacao_Oficina" FromRole="Oficina" ToRole="Avaliacao" />
           <NavigationProperty Name="Compra" Relationship="Self.FK_Compra_Oficina" FromRole="Oficina" ToRole="Compra" />
@@ -1259,6 +1283,18 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
           <NavigationProperty Name="Agendamento" Relationship="Self.FK_Agendamento_Veiculo" FromRole="Veiculo" ToRole="Agendamento" />
           <NavigationProperty Name="Cliente" Relationship="Self.FK_Veiculo_Cliente" FromRole="Veiculo" ToRole="Cliente" />
           <NavigationProperty Name="Orcamento" Relationship="Self.FK_Orcamento_Veiculo" FromRole="Veiculo" ToRole="Orcamento" />
+        </EntityType>
+        <EntityType Name="CredenciaisPagamento">
+          <Key>
+            <PropertyRef Name="appId" />
+            <PropertyRef Name="appKey" />
+            <PropertyRef Name="email" />
+            <PropertyRef Name="token" />
+          </Key>
+          <Property Name="appId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="appKey" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="token" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityType Name="Key">
           <Key>
@@ -1724,6 +1760,7 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
           <EntitySet Name="Servico" EntityType="Self.Servico" />
           <EntitySet Name="ServicosOrcamento" EntityType="Self.ServicosOrcamento" />
           <EntitySet Name="Veiculo" EntityType="Self.Veiculo" />
+          <EntitySet Name="CredenciaisPagamento" EntityType="Self.CredenciaisPagamento" />
           <EntitySet Name="Key" EntityType="Self.Key" />
           <AssociationSet Name="FK_Agendamento_Cliente" Association="Self.FK_Agendamento_Cliente">
             <End Role="Cliente" EntitySet="Cliente" />
@@ -1906,11 +1943,11 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
             <EntityTypeMapping TypeName="DatabaseModel.Cartao">
               <MappingFragment StoreEntitySet="Cartao">
                 <ScalarProperty Name="idCartao" ColumnName="idCartao" />
-                <ScalarProperty Name="numeroCartao" ColumnName="numeroCartao" />
-                <ScalarProperty Name="titularCartao" ColumnName="titularCartao" />
+                <ScalarProperty Name="numero" ColumnName="numero" />
+                <ScalarProperty Name="titular" ColumnName="titular" />
                 <ScalarProperty Name="anoVencimento" ColumnName="anoVencimento" />
                 <ScalarProperty Name="mesVencimento" ColumnName="mesVencimento" />
-                <ScalarProperty Name="bandeiraCartao" ColumnName="bandeiraCartao" />
+                <ScalarProperty Name="bandeira" ColumnName="bandeira" />
                 <ScalarProperty Name="cpfCliente" ColumnName="cpfCliente" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -2049,6 +2086,7 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
                 <ScalarProperty Name="capacidadeAgendamentos" ColumnName="capacidadeAgendamentos" />
                 <ScalarProperty Name="statusAssinatura" ColumnName="statusAssinatura" />
                 <ScalarProperty Name="descricao" ColumnName="descricao" />
+                <ScalarProperty Name="chavePublica" ColumnName="chavePublica" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2176,6 +2214,16 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
                 <ScalarProperty Name="ano" ColumnName="ano" />
                 <ScalarProperty Name="placa" ColumnName="placa" />
                 <ScalarProperty Name="cpfCliente" ColumnName="cpfCliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CredenciaisPagamento">
+            <EntityTypeMapping TypeName="DatabaseModel.CredenciaisPagamento">
+              <MappingFragment StoreEntitySet="CredenciaisPagamento">
+                <ScalarProperty Name="appId" ColumnName="appId" />
+                <ScalarProperty Name="appKey" ColumnName="appKey" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="token" ColumnName="token" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

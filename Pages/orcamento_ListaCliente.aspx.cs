@@ -334,12 +334,8 @@ namespace FixFinder.Pages
                         }
                         body.Controls.Add(tblProdutos);
                     }
-                    Button btn;
-                    if (!o.status.Equals("Concluído"))
-                    {
-                        btn = new Button();
-                    }
 
+                    Button btn;
                     if (o.status.Equals("Aprovação do cliente pendente"))
                     {
                         btn_Aceitar = new Button();
@@ -369,6 +365,17 @@ namespace FixFinder.Pages
                         btn.CommandArgument = o.idOrcamento.ToString();
                         body.Controls.Add(btn);
                     }
+                    else if (o.status.Equals("Pagamento pendente"))
+                    {
+                        btn = new Button();
+                        btn.Click += new EventHandler(btn_Pagar_Click);
+                        btn.ID = "btn_Pagar" + o.idOrcamento.ToString();
+                        btn.Text = "Realizar pagamento";
+                        btn.CssClass = "btn btn-success ml-1 mt-3";
+                        btn.CommandArgument = o.idOrcamento.ToString();
+                        body.Controls.Add(btn);
+                    }
+
                     //ADCIONAR BOTAO DE CHAT
                     if (!o.status.Equals("Concluído"))
                     {
@@ -526,6 +533,27 @@ namespace FixFinder.Pages
                     pnl_Alert.CssClass = "alert alert-success";
                     lbl_Alert.Text = "O orçamento foi rejeitado com sucesso";
                     pnl_Alert.Visible = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                pnl_Alert.CssClass = "alert alert-danger";
+                lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                pnl_Alert.Visible = true;
+            }
+        }
+
+        protected void btn_Pagar_Click(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+            try
+            {
+                using (DatabaseEntities context = new DatabaseEntities())
+                {
+                    int id = int.Parse(btn.CommandArgument);
+                    Orcamento orcamento = context.Orcamento.Where(orc => orc.idOrcamento == id).FirstOrDefault();
+                    Session["orcamento"] = orcamento;
+                    Response.Redirect("pagamento.aspx", false);
                 }
             }
             catch (Exception ex)

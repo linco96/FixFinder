@@ -118,7 +118,6 @@
       <DependentUpon>Database.edmx</DependentUpon>
       <LastGenOutput>Database.cs</LastGenOutput>
     </Content>
-    <Content Include="pagamento.aspx" />
     <Content Include="Pages\agendamento_Cadastro.aspx" />
     <Content Include="Pages\agendamento_ListaCliente.aspx" />
     <Content Include="Pages\agendamento_ListaOficina.aspx" />
@@ -321,13 +320,6 @@
     </Compile>
     <Compile Include="Models\Veiculo.cs">
       <DependentUpon>Database.tt</DependentUpon>
-    </Compile>
-    <Compile Include="pagamento.aspx.cs">
-      <DependentUpon>pagamento.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="pagamento.aspx.designer.cs">
-      <DependentUpon>pagamento.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\agendamento_Cadastro.aspx.cs">
       <DependentUpon>agendamento_Cadastro.aspx</DependentUpon>

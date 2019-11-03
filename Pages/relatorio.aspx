@@ -17,7 +17,6 @@
         $(document).ready(function () {
 
             if (<%= gerarGrafico.ToString().ToLower() %>) {
-
                 switch ($("#select_Grafico").val()) {
                     case "despesaReceita":
                         var chart = new CanvasJS.Chart("div_Chart", {
@@ -97,7 +96,6 @@
                         break;
                     case "totalClientes":
                         var chart = new CanvasJS.Chart("div_Chart", {
-                            animationEnabled: true,
                             exportEnabled: true,
                             animationEnabled: true,
                             theme: "light2", // "light1", "light2", "dark1", "dark2"
@@ -119,6 +117,123 @@
                                 color: "#5F9EA0",
                                 xValueType: "dateTime",
                                 xValueFormatString: "MM/YYYY"
+                            }]
+                        });
+                        chart.render();
+                        break;
+
+                    case "historicoOrcamentoCriacao":
+                        var chart = new CanvasJS.Chart("div_Chart", {
+                            exportEnabled: true,
+                            animationEnabled: true,
+                            title: {
+                                text: "Histórico Orçamentos"
+                            },
+                            toolTip: {
+                                shared: true
+                            },
+                            axisX: {
+                                valueFormatString: "MM/YYYY",
+                                intervalType: "month",
+                                interval: 1
+                            },
+                            axisY: {
+                                includeZero: false,
+                                interval: 1
+                            },
+                            legend: {
+                                cursor: "pointer",
+                                verticalAlign: "center",
+                                horizontalAlign: "right",
+                                itemclick: toggleDataSeries
+                            },
+                            data: [{
+                                type: "stackedColumn",
+                                name: "Concluído",
+                                dataPoints: <% if (select_Grafico.SelectedValue.Equals("historicoOrcamentoCriacao")) { Response.Write(jsonGrafico); } else { Response.Write("[]"); } %>,
+                                showInLegend: "true",
+                                xValueType: "dateTime",
+                                xValueFormatString: "MM/YYYY"
+                            },
+                                {
+                                    type: "stackedColumn",
+                                    name: "Cancelado",
+                                    dataPoints: <% if (select_Grafico.SelectedValue.Equals("historicoOrcamentoCriacao")) { Response.Write(jsonGrafico2); } else { Response.Write("[]"); } %>,
+                                    showInLegend: "true",
+                                    xValueType: "dateTime",
+                                    xValueFormatString: "MM/YYYY"
+                                },
+                                {
+                                    type: "stackedColumn",
+                                    name: "Aprovação Pendente",
+                                    dataPoints: <% if (select_Grafico.SelectedValue.Equals("historicoOrcamentoCriacao")) { Response.Write(jsonGrafico3); } else { Response.Write("[]"); } %>,
+                                    showInLegend: "true",
+                                    xValueType: "dateTime",
+                                    xValueFormatString: "MM/YYYY"
+                                },
+                                {
+                                    type: "stackedColumn",
+                                    name: "Aprovado",
+                                    dataPoints: <% if (select_Grafico.SelectedValue.Equals("historicoOrcamentoCriacao")) { Response.Write(jsonGrafico4); } else { Response.Write("[]"); } %>,
+                                    showInLegend: "true",
+                                    xValueType: "dateTime",
+                                    xValueFormatString: "MM/YYYY"
+                                }]
+                        });
+                        chart.render();
+                        function toggleDataSeries(e) {
+                            if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+                                e.dataSeries.visible = false;
+                            }
+                            else {
+                                e.dataSeries.visible = true;
+                            }
+                            chart.render();
+                        }
+                        break;
+                    case "despesaFornecedor":
+                        var chart = new CanvasJS.Chart("div_Chart", {
+                            theme: "light2", // "light1", "light2", "dark1", "dark2"
+                            exportEnabled: true,
+                            animationEnabled: true,
+                            title: {
+                                text: "Despesas Fornecedor"
+                            },
+                            subtitles: [{
+
+                            }],
+                            data: [{
+                                type: "pie",
+                                startAngle: 180,
+                                toolTipContent: "<b>{label}</b>: {value}",
+                                showInLegend: "true",
+                                legendText: "{label}",
+                                dataPoints: <% if (select_Grafico.SelectedValue.Equals("despesaFornecedor")) { Response.Write(jsonGrafico); } else { Response.Write("[]"); } %>,
+                                indexLabel: "{label} - {value}"
+                            }]
+                        });
+                        chart.render();
+                        break;
+
+                    case "novosClientes":
+                        chart = new CanvasJS.Chart("div_Chart", {
+                            theme: "light2", // "light1", "light2", "dark1", "dark2"
+                            exportEnabled: true,
+                            animationEnabled: true,
+                            title: {
+                                text: "Novos Clientes"
+                            },
+                            subtitles: [{
+
+                            }],
+                            data: [{
+                                type: "pie",
+                                startAngle: 180,
+                                toolTipContent: "<b>{label}</b>: {y}",
+                                showInLegend: "true",
+                                legendText: "{label}",
+                                dataPoints: <% if (select_Grafico.SelectedValue.Equals("novosClientes")) { Response.Write(jsonGrafico); } else { Response.Write("[]"); } %>,
+                                indexLabel: "{label} - {y}"
                             }]
                         });
                         chart.render();
@@ -297,6 +412,9 @@
                                     <asp:ListItem Text="Despesas x Receita" Value="despesaReceita"></asp:ListItem>
                                     <asp:ListItem Text="Lucro Bruto" Value="lucroBruto"></asp:ListItem>
                                     <asp:ListItem Text="Total Clientes" Value="totalClientes"></asp:ListItem>
+                                    <asp:ListItem Text="Histórico Orçamentos por Criação" Value="historicoOrcamentoCriacao"></asp:ListItem>
+                                    <asp:ListItem Text="Despesas por Fornecedor" Value="despesaFornecedor"></asp:ListItem>
+                                    <asp:ListItem Text="Novos Clientes" Value="novosClientes"></asp:ListItem>
                                 </asp:DropDownList>
                             </span>
                         </div>

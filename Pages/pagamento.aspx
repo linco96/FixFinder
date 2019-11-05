@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="pagamento.aspx.cs" Inherits="FixFinder.Pages.pagamento" %>
+﻿<%@ Page Language="C#" Async="true" AutoEventWireup="true" CodeBehind="pagamento.aspx.cs" Inherits="FixFinder.Pages.pagamento" %>
 
 <!DOCTYPE html>
 
@@ -194,7 +194,7 @@
                             <div class="form-inline">
                                 <span class="w-50 text-left pr-3">
                                     <label for="txt_NumeroCartao" style="display: block">Número do Cartão</label>
-                                    <asp:TextBox runat="server" ID="txt_NumeroCartao" CssClass="form-control w-100" onkeypress="$(this).mask('0000 0000 0000 0000 000');" required="required" autocomplete="off"></asp:TextBox>
+                                    <asp:TextBox runat="server" ID="txt_NumeroCartao" CssClass="form-control w-100" minlength="15" onkeypress="$(this).mask('0000 0000 0000 0000 000');" required="required" autocomplete="off"></asp:TextBox>
                                 </span>
                                 <span class="w-25 text-left pr-3">
                                     <label for="txt_Vencimento" style="display: block">Data de Vencimento</label>

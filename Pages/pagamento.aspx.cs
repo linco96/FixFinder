@@ -1,10 +1,14 @@
 ﻿using FixFinder.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Xml;
 
 namespace FixFinder.Pages
 {
@@ -13,6 +17,7 @@ namespace FixFinder.Pages
         private Cliente c;
         private Funcionario f;
         private Orcamento o;
+        private HttpClient client;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -35,6 +40,9 @@ namespace FixFinder.Pages
                     else
                         lbl_Reputacao.Text = oficina.reputacao + "/10";
                     lbl_Valor.InnerText = "Valor do pagamento: R$ " + o.valor.ToString("0.00");
+
+                    if (client == null)
+                        client = new HttpClient();
 
                     if (!IsPostBack)
                     {
@@ -107,10 +115,6 @@ namespace FixFinder.Pages
             Response.Redirect("login.aspx", false);
         }
 
-        protected void btn_Pagar_Click(object sender, EventArgs e)
-        {
-        }
-
         protected void txt_Cartao_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -136,6 +140,95 @@ namespace FixFinder.Pages
                 pnl_Alert.CssClass = "alert alert-danger";
                 lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
                 pnl_Alert.Visible = true;
+            }
+        }
+
+        protected async void btn_Pagar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (DatabaseEntities context = new DatabaseEntities())
+                {
+                    string idSessao = await reqSessao();
+
+                    if (idSessao.Length == 0)
+                    {
+                        pnl_Alert.CssClass = "alert alert-danger";
+                        lbl_Alert.Text = "Erro no pagamento." + Environment.NewLine + "Por favor entre em contato com o suporte";
+                        pnl_Alert.Visible = true;
+                    }
+                    else
+                    {
+                        string bandeira = await reqBandeira(idSessao);
+                        if (bandeira.Length == 0)
+                        {
+                            pnl_Alert.CssClass = "alert alert-danger";
+                            lbl_Alert.Text = "Erro no pagamento. Verifique o número do cartão inserido";
+                            pnl_Alert.Visible = true;
+                        }
+                        else
+                        {
+                            int mes = int.Parse(txt_Vencimento.Text.Split('/')[0]);
+                            int ano = int.Parse(txt_Vencimento.Text.Split('/')[1]);
+                            if (chk_Salvar.Checked)
+                            {
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                pnl_Alert.CssClass = "alert alert-danger";
+                lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                pnl_Alert.Visible = true;
+            }
+        }
+
+        protected async Task<string> reqSessao()
+        {
+            using (DatabaseEntities context = new DatabaseEntities())
+            {
+                CredenciaisPagamento cred = context.CredenciaisPagamento.FirstOrDefault();
+                var values = new Dictionary<string, string>{
+                    { "email", cred.email },
+                    { "token", cred.token }
+                };
+                var content = new FormUrlEncodedContent(values);
+
+                var response = await client.PostAsync("https://ws.sandbox.pagseguro.uol.com.br/sessions?appId=" + cred.appId + "&appKey=" + cred.appKey, content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    XmlDocument xml = new XmlDocument();
+                    xml.LoadXml(responseString);
+
+                    return xml.GetElementsByTagName("id")[0].InnerXml;
+                }
+                else
+                {
+                    return "";
+                }
+            }
+        }
+
+        protected async Task<string> reqBandeira(string idSessao)
+        {
+            using (DatabaseEntities context = new DatabaseEntities())
+            {
+                var response = await client.GetAsync("https://df.uol.com.br//df-fe/mvc/creditcard/v1/getBin?tk=" + idSessao + "&creditCard=" + txt_NumeroCartao.Text.Substring(0, 7).Replace(" ", ""));
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    CartaoResposta resposta = JsonConvert.DeserializeObject<CartaoResposta>(responseString);
+                    return resposta.bin.brand.name;
+                }
+                else
+                {
+                    return "";
+                }
             }
         }
     }

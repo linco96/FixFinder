@@ -235,6 +235,7 @@
     <Compile Include="Models\Cartao.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CartaoResposta.cs" />
     <Compile Include="Models\Cliente.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>

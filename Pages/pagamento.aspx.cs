@@ -115,6 +115,13 @@ namespace FixFinder.Pages
             Response.Redirect("login.aspx", false);
         }
 
+        protected void showError(string msg)
+        {
+            pnl_Alert.CssClass = "alert alert-danger";
+            lbl_Alert.Text = msg;
+            pnl_Alert.Visible = true;
+        }
+
         protected void txt_Cartao_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -137,9 +144,7 @@ namespace FixFinder.Pages
             }
             catch (Exception ex)
             {
-                pnl_Alert.CssClass = "alert alert-danger";
-                lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
-                pnl_Alert.Visible = true;
+                showError("Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte");
             }
         }
 
@@ -153,25 +158,48 @@ namespace FixFinder.Pages
 
                     if (idSessao.Length == 0)
                     {
-                        pnl_Alert.CssClass = "alert alert-danger";
-                        lbl_Alert.Text = "Erro no pagamento." + Environment.NewLine + "Por favor entre em contato com o suporte";
-                        pnl_Alert.Visible = true;
+                        showError("Erro no pagamento." + Environment.NewLine + "Por favor entre em contato com o suporte");
                     }
                     else
                     {
                         string bandeira = await reqBandeira(idSessao);
                         if (bandeira.Length == 0)
                         {
-                            pnl_Alert.CssClass = "alert alert-danger";
-                            lbl_Alert.Text = "Erro no pagamento. Verifique o número do cartão inserido";
-                            pnl_Alert.Visible = true;
+                            showError("Erro no pagamento. Verifique o número do cartão inserido");
                         }
                         else
                         {
                             int mes = int.Parse(txt_Vencimento.Text.Split('/')[0]);
                             int ano = int.Parse(txt_Vencimento.Text.Split('/')[1]);
-                            if (chk_Salvar.Checked)
+                            if (ano < DateTime.Now.Year || (mes < DateTime.Now.Month && ano == DateTime.Now.Year))
                             {
+                                showError("Erro no pagamento. Verifique a data de vencimento inserida");
+                            }
+                            else
+                            {
+                                Cartao card = new Cartao()
+                                {
+                                    numero = txt_NumeroCartao.Text.Replace(" ", ""),
+                                    bandeira = bandeira,
+                                    mesVencimento = mes,
+                                    anoVencimento = ano,
+                                    titular = txt_Titular.Text,
+                                    cpfCliente = c.cpf
+                                };
+
+                                string token = await reqToken(idSessao, card);
+                                if (token.Length == 0)
+                                {
+                                    showError("Erro no pagamento. Verifique os dados inseridos");
+                                }
+                                else
+                                {
+                                    if (chk_Salvar.Checked)
+                                    {
+                                        context.Cartao.Add(card);
+                                        context.SaveChanges();
+                                    }
+                                }
                             }
                         }
                     }
@@ -180,7 +208,7 @@ namespace FixFinder.Pages
             catch (Exception ex)
             {
                 pnl_Alert.CssClass = "alert alert-danger";
-                lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte e/ou verifique os dados inseridos";
                 pnl_Alert.Visible = true;
             }
         }
@@ -224,6 +252,39 @@ namespace FixFinder.Pages
                     var responseString = await response.Content.ReadAsStringAsync();
                     CartaoResposta resposta = JsonConvert.DeserializeObject<CartaoResposta>(responseString);
                     return resposta.bin.brand.name;
+                }
+                else
+                {
+                    return "";
+                }
+            }
+        }
+
+        protected async Task<string> reqToken(string idSessao, Cartao card)
+        {
+            using (DatabaseEntities context = new DatabaseEntities())
+            {
+                CredenciaisPagamento cred = context.CredenciaisPagamento.FirstOrDefault();
+                var values = new Dictionary<string, string>{
+                    { "sessionId", idSessao },
+                    { "amount", o.valor.ToString() },
+                    { "cardNumber", card.numero },
+                    { "cardBrand", card.bandeira },
+                    { "cardCvv", txt_Cvv.Text },
+                    { "cardExpirationMonth", card.mesVencimento.ToString() },
+                    { "cardExpirationYear", card.anoVencimento.ToString() }
+                };
+                var content = new FormUrlEncodedContent(values);
+
+                var response = await client.PostAsync("https://df.uol.com.br/v2/cards/?email=" + cred.email + "&token=" + cred.token, content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    XmlDocument xml = new XmlDocument();
+                    xml.LoadXml(responseString);
+
+                    return xml.GetElementsByTagName("token")[0].InnerXml;
                 }
                 else
                 {

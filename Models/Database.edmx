@@ -223,7 +223,7 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
           <Key>
             <PropertyRef Name="idOrcamento" />
           </Key>
-          <Property Name="idOrcamento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idOrcamento" Type="int" Nullable="false" />
           <Property Name="code" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="status" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="valor" Type="float" Nullable="false" />
@@ -1214,7 +1214,7 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
           <Key>
             <PropertyRef Name="idOrcamento" />
           </Key>
-          <Property Name="idOrcamento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idOrcamento" Type="Int32" Nullable="false" />
           <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="valor" Type="Double" Nullable="false" />

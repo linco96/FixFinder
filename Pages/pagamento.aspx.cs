@@ -270,16 +270,13 @@ namespace FixFinder.Pages
             using (DatabaseEntities context = new DatabaseEntities())
             {
                 var response = await client.GetAsync("https://df.uol.com.br//df-fe/mvc/creditcard/v1/getBin?tk=" + idSessao + "&creditCard=" + txt_NumeroCartao.Text.Substring(0, 7).Replace(" ", ""));
+                var responseString = await response.Content.ReadAsStringAsync();
 
-                if (response.IsSuccessStatusCode)
+                if (response.IsSuccessStatusCode && !responseString.Split('\"')[23].Equals("Error"))
                 {
-                    var responseString = await response.Content.ReadAsStringAsync();
                     CartaoResposta resposta = JsonConvert.DeserializeObject<CartaoResposta>(responseString);
 
-                    if (resposta.bin.brand == null)
-                        return "";
-                    else
-                        return resposta.bin.brand.name;
+                    return resposta.bin.brand.name;
                 }
                 else
                 {

@@ -207,9 +207,7 @@ namespace FixFinder.Pages
             }
             catch (Exception ex)
             {
-                pnl_Alert.CssClass = "alert alert-danger";
-                lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte e/ou verifique os dados inseridos";
-                pnl_Alert.Visible = true;
+                showError("Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte e/ou verifique os dados inseridos");
             }
         }
 
@@ -289,6 +287,82 @@ namespace FixFinder.Pages
                 else
                 {
                     return "";
+                }
+            }
+        }
+
+        protected async Task<string> reqSplit(string token)
+        {
+            using (DatabaseEntities context = new DatabaseEntities())
+            {
+                Oficina oficina = context.Oficina.Where(of => of.cnpj.Equals(o.cnpjOficina)).FirstOrDefault();
+
+                CredenciaisPagamento cred = context.CredenciaisPagamento.FirstOrDefault();
+                var values = new Dictionary<string, string>{
+                    { "payment.mode", "default" },
+                    { "payment.method", "creditCard" },
+                    { "currency", "BRL" },
+                    { "item[1].id", o.idOrcamento.ToString() },
+                    { "item[1].description", "Orçamento" },
+                    { "item[1].amount", o.valor.ToString() },
+                    { "item[1].quantity", "1" },
+                    { "notificationURL", "https://yourstore.com.br/notification" },
+                    { "reference", "ORC" + o.idOrcamento.ToString() },
+                    { "sender.name", c.nome },
+                    { "sender.CPF", c.cpf },
+                    { "sender.areaCode", c.telefone.Substring(0, 2)  },
+                    { "sender.phone", c.telefone.Substring(2, c.telefone.Length - 2) },
+                    { "sender.email", c.email },
+                    { "shipping.address.street", "-"  },
+                    { "shipping.address.number", "-"  },
+                    { "shipping.address.complement", "-"  },
+                    { "shipping.address.district", "-" },
+                    { "shipping.address.postalCode", "-"  },
+                    { "shipping.address.city", "-" },
+                    { "shipping.address.state", "-"  },
+                    { "shipping.address.country", "-"  },
+                    { "shipping.type", "3"  },
+                    { "shipping.cost", "0.00"  },
+                    { "installment.value", o.valor.ToString() },
+                    { "installment.quantity", "1" },
+                    { "installment.noInterestInstallmentQuantity", "2"  },
+                    { "creditCard.token", "61417e7e2617431f88aed64f833d6749"  },
+                    { "creditCard.holder.name", "Customer Name"  },
+                    { "creditCard.holder.CPF", "22111944785"  },
+                    { "creditCard.holder.birthDate", "27/10/1987"  },
+                    { "creditCard.holder.areaCode", "11"  },
+                    { "creditCard.holder.phone", "56273440"  },
+                    { "billingAddress.street", "-"  },
+                    { "billingAddress.number", "-"  },
+                    { "billingAddress.complement", "-"  },
+                    { "billingAddress.district", "-" },
+                    { "billingAddress.postalCode", "-"  },
+                    { "billingAddress.city", "-"  },
+                    { "billingAddress.state", "-"  },
+                    { "billingAddress.country", "-"  },
+                    { "primaryReceiver.publicKey", oficina.chavePublica }
+                };
+                var content = new FormUrlEncodedContent(values);
+                content.Headers.Add("Accept", "application/vnd.pagseguro.com.br.v3+xml");
+                content.Headers.Add("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+
+                var response = await client.PostAsync("https://ws.sandbox.pagseguro.uol.com.br/transactions?appId=" + cred.appId + "&appKey=" + cred.appKey, content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    XmlDocument xml = new XmlDocument();
+                    xml.LoadXml(responseString);
+
+                    return xml.GetElementsByTagName("reference")[0].InnerXml;
+                }
+                else
+                {
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    XmlDocument xml = new XmlDocument();
+                    xml.LoadXml(responseString);
+
+                    return xml.GetElementsByTagName("message")[0].InnerXml;
                 }
             }
         }

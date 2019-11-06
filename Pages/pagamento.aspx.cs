@@ -200,7 +200,31 @@ namespace FixFinder.Pages
                                         context.Cartao.Add(card);
                                         context.SaveChanges();
                                     }
+
                                     XmlDocument transaction = await reqPagar(token);
+                                    if (transaction == null)
+                                    {
+                                        showError("Erro no pagamento. Por favor entre em contato com o suporte e/ou verifique os dados inseridos");
+                                    }
+                                    else
+                                    {
+                                        Pagamento p = new Pagamento()
+                                        {
+                                            idOrcamento = o.idOrcamento,
+                                            status = "1",
+                                            data = DateTime.Parse(transaction.GetElementsByTagName("date")[0].InnerXml),
+                                            valor = o.valor,
+                                            code = transaction.GetElementsByTagName("code")[0].InnerXml
+                                        };
+                                        context.Pagamento.Add(p);
+                                        o = context.Orcamento.Where(orc => orc.idOrcamento == o.idOrcamento).FirstOrDefault();
+                                        o.status = "Pagamento em processamento";
+                                        context.SaveChanges();
+
+                                        Session["orcamento"] = null;
+                                        Session["message"] = "Seu pagamento está agora em processamento";
+                                        Response.Redirect("orcamento_ListaCliente.aspx", false);
+                                    }
                                 }
                             }
                         }
@@ -209,7 +233,7 @@ namespace FixFinder.Pages
             }
             catch (Exception ex)
             {
-                showError("Erro na linha " + ex.StackTrace + ": " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte e/ou verifique os dados inseridos");
+                showError("Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte e/ou verifique os dados inseridos");
             }
         }
 

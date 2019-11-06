@@ -21,7 +21,7 @@ namespace FixFinder.Models
         }
     
         public int idOrcamento { get; set; }
-        public string formaPagamento { get; set; }
+        public string code { get; set; }
         public string status { get; set; }
         public double valor { get; set; }
         public System.DateTime data { get; set; }

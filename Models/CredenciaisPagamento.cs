@@ -12,16 +12,11 @@ namespace FixFinder.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Cartao
+    public partial class CredenciaisPagamento
     {
-        public int idCartao { get; set; }
-        public string numero { get; set; }
-        public string titular { get; set; }
-        public int anoVencimento { get; set; }
-        public int mesVencimento { get; set; }
-        public string bandeira { get; set; }
-        public string cpfCliente { get; set; }
-    
-        public virtual Cliente Cliente { get; set; }
+        public string appId { get; set; }
+        public string appKey { get; set; }
+        public string email { get; set; }
+        public string token { get; set; }
     }
 }

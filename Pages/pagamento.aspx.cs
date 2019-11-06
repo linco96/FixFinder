@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.UI;
@@ -199,6 +200,7 @@ namespace FixFinder.Pages
                                         context.Cartao.Add(card);
                                         context.SaveChanges();
                                     }
+                                    XmlDocument transaction = await reqPagar(token);
                                 }
                             }
                         }
@@ -207,7 +209,7 @@ namespace FixFinder.Pages
             }
             catch (Exception ex)
             {
-                showError("Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte e/ou verifique os dados inseridos");
+                showError("Erro na linha " + ex.StackTrace + ": " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte e/ou verifique os dados inseridos");
             }
         }
 
@@ -249,7 +251,11 @@ namespace FixFinder.Pages
                 {
                     var responseString = await response.Content.ReadAsStringAsync();
                     CartaoResposta resposta = JsonConvert.DeserializeObject<CartaoResposta>(responseString);
-                    return resposta.bin.brand.name;
+
+                    if (resposta.bin.brand == null)
+                        return "";
+                    else
+                        return resposta.bin.brand.name;
                 }
                 else
                 {
@@ -291,7 +297,7 @@ namespace FixFinder.Pages
             }
         }
 
-        protected async Task<string> reqSplit(string token)
+        protected async Task<XmlDocument> reqPagar(string token)
         {
             using (DatabaseEntities context = new DatabaseEntities())
             {
@@ -304,7 +310,7 @@ namespace FixFinder.Pages
                     { "currency", "BRL" },
                     { "item[1].id", o.idOrcamento.ToString() },
                     { "item[1].description", "Orçamento" },
-                    { "item[1].amount", o.valor.ToString() },
+                    { "item[1].amount", o.valor.ToString("0.00").Replace(",",".") },
                     { "item[1].quantity", "1" },
                     { "notificationURL", "https://yourstore.com.br/notification" },
                     { "reference", "ORC" + o.idOrcamento.ToString() },
@@ -312,39 +318,40 @@ namespace FixFinder.Pages
                     { "sender.CPF", c.cpf },
                     { "sender.areaCode", c.telefone.Substring(0, 2)  },
                     { "sender.phone", c.telefone.Substring(2, c.telefone.Length - 2) },
-                    { "sender.email", c.email },
-                    { "shipping.address.street", "-"  },
-                    { "shipping.address.number", "-"  },
-                    { "shipping.address.complement", "-"  },
-                    { "shipping.address.district", "-" },
-                    { "shipping.address.postalCode", "-"  },
-                    { "shipping.address.city", "-" },
-                    { "shipping.address.state", "-"  },
-                    { "shipping.address.country", "-"  },
+                    { "sender.email", "c81915925526377422156@sandbox.pagseguro.com.br" },
+                    { "shipping.address.street", "Av. Brig. Faria Lima"  },
+                    { "shipping.address.number", "1384"  },
+                    { "shipping.address.complement", "5o andar"  },
+                    { "shipping.address.district", "Jardim Paulistano" },
+                    { "shipping.address.postalCode", "01452002"  },
+                    { "shipping.address.city", "Sao Paulo" },
+                    { "shipping.address.state", "SP"  },
+                    { "shipping.address.country", "BRA"  },
                     { "shipping.type", "3"  },
                     { "shipping.cost", "0.00"  },
-                    { "installment.value", o.valor.ToString() },
+                    { "installment.value", o.valor.ToString("0.00").Replace(",",".") },
                     { "installment.quantity", "1" },
                     { "installment.noInterestInstallmentQuantity", "2"  },
-                    { "creditCard.token", "61417e7e2617431f88aed64f833d6749"  },
-                    { "creditCard.holder.name", "Customer Name"  },
-                    { "creditCard.holder.CPF", "22111944785"  },
-                    { "creditCard.holder.birthDate", "27/10/1987"  },
-                    { "creditCard.holder.areaCode", "11"  },
-                    { "creditCard.holder.phone", "56273440"  },
-                    { "billingAddress.street", "-"  },
-                    { "billingAddress.number", "-"  },
-                    { "billingAddress.complement", "-"  },
-                    { "billingAddress.district", "-" },
-                    { "billingAddress.postalCode", "-"  },
-                    { "billingAddress.city", "-"  },
-                    { "billingAddress.state", "-"  },
-                    { "billingAddress.country", "-"  },
+                    { "creditCard.token", token  },
+                    { "creditCard.holder.name", c.nome  },
+                    { "creditCard.holder.CPF", c.cpf  },
+                    { "creditCard.holder.birthDate", c.dataNascimento.ToString().Split(' ')[0]  },
+                    { "creditCard.holder.areaCode", c.telefone.Substring(0, 2)  },
+                    { "creditCard.holder.phone", c.telefone.Substring(2, c.telefone.Length - 2)  },
+                    { "billingAddress.street", "Av. Brig. Faria Lima"  },
+                    { "billingAddress.number", "1384"  },
+                    { "billingAddress.complement", "5o andar"  },
+                    { "billingAddress.district", "Jardim Paulistano" },
+                    { "billingAddress.postalCode", "01452002"  },
+                    { "billingAddress.city", "Sao Paulo"  },
+                    { "billingAddress.state", "SP"  },
+                    { "billingAddress.country", "BRA"  },
                     { "primaryReceiver.publicKey", oficina.chavePublica }
                 };
                 var content = new FormUrlEncodedContent(values);
-                content.Headers.Add("Accept", "application/vnd.pagseguro.com.br.v3+xml");
-                content.Headers.Add("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+                client.DefaultRequestHeaders
+                      .Accept
+                      .Add(new MediaTypeWithQualityHeaderValue("application/vnd.pagseguro.com.br.v3+xml"));
 
                 var response = await client.PostAsync("https://ws.sandbox.pagseguro.uol.com.br/transactions?appId=" + cred.appId + "&appKey=" + cred.appKey, content);
 
@@ -354,15 +361,13 @@ namespace FixFinder.Pages
                     XmlDocument xml = new XmlDocument();
                     xml.LoadXml(responseString);
 
-                    return xml.GetElementsByTagName("reference")[0].InnerXml;
+                    return xml;
                 }
                 else
                 {
                     var responseString = await response.Content.ReadAsStringAsync();
-                    XmlDocument xml = new XmlDocument();
-                    xml.LoadXml(responseString);
 
-                    return xml.GetElementsByTagName("message")[0].InnerXml;
+                    return null;
                 }
             }
         }

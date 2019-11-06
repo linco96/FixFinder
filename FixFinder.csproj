@@ -118,6 +118,8 @@
       <DependentUpon>Database.edmx</DependentUpon>
       <LastGenOutput>Database.cs</LastGenOutput>
     </Content>
+    <Content Include="Pages\admin.aspx" />
+    <Content Include="Pages\admin_Login.aspx" />
     <Content Include="Pages\agendamento_Cadastro.aspx" />
     <Content Include="Pages\agendamento_ListaCliente.aspx" />
     <Content Include="Pages\agendamento_ListaOficina.aspx" />
@@ -325,6 +327,20 @@
     </Compile>
     <Compile Include="Models\Veiculo.cs">
       <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\admin.aspx.cs">
+      <DependentUpon>admin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\admin.aspx.designer.cs">
+      <DependentUpon>admin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\admin_Login.aspx.cs">
+      <DependentUpon>admin_Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\admin_Login.aspx.designer.cs">
+      <DependentUpon>admin_Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\agendamento_Cadastro.aspx.cs">
       <DependentUpon>agendamento_Cadastro.aspx</DependentUpon>

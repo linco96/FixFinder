@@ -228,6 +228,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Address.cs" />
+    <Compile Include="Models\Admin.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Agendamento.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
@@ -242,9 +245,6 @@
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Compra.cs">
-      <DependentUpon>Database.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\CredenciaisPagamento.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Database.Context.cs">
@@ -286,6 +286,9 @@
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LogOrcamento.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Log_Login.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Mensagem.cs">

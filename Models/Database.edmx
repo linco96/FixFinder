@@ -5,6 +5,13 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="DatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="login" />
+          </Key>
+          <Property Name="login" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="senha" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="Agendamento">
           <Key>
             <PropertyRef Name="idAgendamento" />
@@ -34,11 +41,11 @@
             <PropertyRef Name="idCartao" />
           </Key>
           <Property Name="idCartao" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="numero" Type="varchar" MaxLength="16" Nullable="false" />
-          <Property Name="titular" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="numeroCartao" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="titularCartao" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="anoVencimento" Type="int" Nullable="false" />
           <Property Name="mesVencimento" Type="int" Nullable="false" />
-          <Property Name="bandeira" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="bandeiraCartao" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="cpfCliente" Type="varchar" MaxLength="15" Nullable="false" />
         </EntityType>
         <EntityType Name="Cliente">
@@ -62,20 +69,6 @@
           <Property Name="cpfFuncionario" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="idFornecedor" Type="int" Nullable="false" />
           <Property Name="cnpjOficina" Type="varchar" MaxLength="15" Nullable="false" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Database.dbo.CredenciaisPagamento' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="CredenciaisPagamento">
-          <Key>
-            <PropertyRef Name="appId" />
-            <PropertyRef Name="appKey" />
-            <PropertyRef Name="email" />
-            <PropertyRef Name="token" />
-          </Key>
-          <Property Name="appId" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="appKey" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="token" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="DiaFuncionamento">
           <Key>
@@ -153,6 +146,14 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
           <Property Name="uf" Type="varchar" MaxLength="3" Nullable="false" />
           <Property Name="cpfCliente" Type="varchar" MaxLength="15" Nullable="false" />
         </EntityType>
+        <EntityType Name="Log_Login">
+          <Key>
+            <PropertyRef Name="idLogin" />
+          </Key>
+          <Property Name="idLogin" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cpfCliente" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="data" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="LogOrcamento">
           <Key>
             <PropertyRef Name="idAlteracao" />
@@ -188,7 +189,6 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
           <Property Name="capacidadeAgendamentos" Type="int" Nullable="false" />
           <Property Name="statusAssinatura" Type="tinyint" Nullable="false" />
           <Property Name="descricao" Type="varchar" MaxLength="500" />
-          <Property Name="chavePublica" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Orcamento">
           <Key>
@@ -489,6 +489,18 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Log_Login_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Log_Login" Type="Self.Log_Login" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="cpf" />
+            </Principal>
+            <Dependent Role="Log_Login">
+              <PropertyRef Name="cpfCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_LogOrcamento_Cliente">
           <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
           <End Role="LogOrcamento" Type="Self.LogOrcamento" Multiplicity="*" />
@@ -742,6 +754,7 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="DatabaseModelStoreContainer">
+          <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Agendamento" EntityType="Self.Agendamento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Avaliacao" EntityType="Self.Avaliacao" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cartao" EntityType="Self.Cartao" Schema="dbo" store:Type="Tables" />
@@ -753,6 +766,7 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
           <EntitySet Name="FotoOficina" EntityType="Self.FotoOficina" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Funcionario" EntityType="Self.Funcionario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Localizacao" EntityType="Self.Localizacao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Log_Login" EntityType="Self.Log_Login" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LogOrcamento" EntityType="Self.LogOrcamento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Mensagem" EntityType="Self.Mensagem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Oficina" EntityType="Self.Oficina" Schema="dbo" store:Type="Tables" />
@@ -767,14 +781,6 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
           <EntitySet Name="Servico" EntityType="Self.Servico" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ServicosOrcamento" EntityType="Self.ServicosOrcamento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Veiculo" EntityType="Self.Veiculo" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CredenciaisPagamento" EntityType="Self.CredenciaisPagamento" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [CredenciaisPagamento].[appId] AS [appId], 
-    [CredenciaisPagamento].[appKey] AS [appKey], 
-    [CredenciaisPagamento].[email] AS [email], 
-    [CredenciaisPagamento].[token] AS [token]
-    FROM [dbo].[CredenciaisPagamento] AS [CredenciaisPagamento]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="Key" EntityType="Self.Key" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Key].[idChave] AS [idChave]
@@ -839,6 +845,10 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
           <AssociationSet Name="FK_Localizacao_Cliente" Association="Self.FK_Localizacao_Cliente">
             <End Role="Cliente" EntitySet="Cliente" />
             <End Role="Localizacao" EntitySet="Localizacao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Log_Login_Cliente" Association="Self.FK_Log_Login_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Log_Login" EntitySet="Log_Login" />
           </AssociationSet>
           <AssociationSet Name="FK_LogOrcamento_Cliente" Association="Self.FK_LogOrcamento_Cliente">
             <End Role="Cliente" EntitySet="Cliente" />
@@ -930,6 +940,13 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="login" />
+          </Key>
+          <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="senha" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
         <EntityType Name="Agendamento">
           <Key>
             <PropertyRef Name="idAgendamento" />
@@ -964,11 +981,11 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
             <PropertyRef Name="idCartao" />
           </Key>
           <Property Name="idCartao" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="numero" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="titular" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="numeroCartao" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="titularCartao" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="anoVencimento" Type="Int32" Nullable="false" />
           <Property Name="mesVencimento" Type="Int32" Nullable="false" />
-          <Property Name="bandeira" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="bandeiraCartao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="cpfCliente" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Cliente" Relationship="Self.FK_Cartao_Cliente" FromRole="Cartao" ToRole="Cliente" />
         </EntityType>
@@ -988,6 +1005,7 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
           <NavigationProperty Name="Cartao" Relationship="Self.FK_Cartao_Cliente" FromRole="Cliente" ToRole="Cartao" />
           <NavigationProperty Name="Funcionario" Relationship="Self.FK_Funcionario_Cliente" FromRole="Cliente" ToRole="Funcionario" />
           <NavigationProperty Name="Localizacao" Relationship="Self.FK_Localizacao_Cliente" FromRole="Cliente" ToRole="Localizacao" />
+          <NavigationProperty Name="Log_Login" Relationship="Self.FK_Log_Login_Cliente" FromRole="Cliente" ToRole="Log_Login" />
           <NavigationProperty Name="LogOrcamento" Relationship="Self.FK_LogOrcamento_Cliente" FromRole="Cliente" ToRole="LogOrcamento" />
           <NavigationProperty Name="Orcamento" Relationship="Self.FK_Orcamento_Cliente" FromRole="Cliente" ToRole="Orcamento" />
           <NavigationProperty Name="RequisicaoFuncionario" Relationship="Self.FK_RequisicaoFuncionario_Cliente" FromRole="Cliente" ToRole="RequisicaoFuncionario" />
@@ -1083,6 +1101,15 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
           <Property Name="cpfCliente" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Cliente" Relationship="Self.FK_Localizacao_Cliente" FromRole="Localizacao" ToRole="Cliente" />
         </EntityType>
+        <EntityType Name="Log_Login">
+          <Key>
+            <PropertyRef Name="idLogin" />
+          </Key>
+          <Property Name="idLogin" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cpfCliente" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="data" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_Log_Login_Cliente" FromRole="Log_Login" ToRole="Cliente" />
+        </EntityType>
         <EntityType Name="LogOrcamento">
           <Key>
             <PropertyRef Name="idAlteracao" />
@@ -1121,7 +1148,6 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
           <Property Name="capacidadeAgendamentos" Type="Int32" Nullable="false" />
           <Property Name="statusAssinatura" Type="Byte" Nullable="false" />
           <Property Name="descricao" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="chavePublica" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Agendamento" Relationship="Self.FK_Agendamento_Oficina" FromRole="Oficina" ToRole="Agendamento" />
           <NavigationProperty Name="Avaliacao" Relationship="Self.FK_Avaliacao_Oficina" FromRole="Oficina" ToRole="Avaliacao" />
           <NavigationProperty Name="Compra" Relationship="Self.FK_Compra_Oficina" FromRole="Oficina" ToRole="Compra" />
@@ -1284,18 +1310,6 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
           <NavigationProperty Name="Cliente" Relationship="Self.FK_Veiculo_Cliente" FromRole="Veiculo" ToRole="Cliente" />
           <NavigationProperty Name="Orcamento" Relationship="Self.FK_Orcamento_Veiculo" FromRole="Veiculo" ToRole="Orcamento" />
         </EntityType>
-        <EntityType Name="CredenciaisPagamento">
-          <Key>
-            <PropertyRef Name="appId" />
-            <PropertyRef Name="appKey" />
-            <PropertyRef Name="email" />
-            <PropertyRef Name="token" />
-          </Key>
-          <Property Name="appId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="appKey" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="token" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-        </EntityType>
         <EntityType Name="Key">
           <Key>
             <PropertyRef Name="idChave" />
@@ -1394,6 +1408,18 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
               <PropertyRef Name="cpf" />
             </Principal>
             <Dependent Role="Localizacao">
+              <PropertyRef Name="cpfCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Log_Login_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Log_Login" Type="Self.Log_Login" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="cpf" />
+            </Principal>
+            <Dependent Role="Log_Login">
               <PropertyRef Name="cpfCliente" />
             </Dependent>
           </ReferentialConstraint>
@@ -1735,6 +1761,7 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="DatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Admin" EntityType="Self.Admin" />
           <EntitySet Name="Agendamento" EntityType="Self.Agendamento" />
           <EntitySet Name="Avaliacao" EntityType="Self.Avaliacao" />
           <EntitySet Name="Cartao" EntityType="Self.Cartao" />
@@ -1746,6 +1773,7 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
           <EntitySet Name="FotoOficina" EntityType="Self.FotoOficina" />
           <EntitySet Name="Funcionario" EntityType="Self.Funcionario" />
           <EntitySet Name="Localizacao" EntityType="Self.Localizacao" />
+          <EntitySet Name="Log_Login" EntityType="Self.Log_Login" />
           <EntitySet Name="LogOrcamento" EntityType="Self.LogOrcamento" />
           <EntitySet Name="Mensagem" EntityType="Self.Mensagem" />
           <EntitySet Name="Oficina" EntityType="Self.Oficina" />
@@ -1760,7 +1788,6 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
           <EntitySet Name="Servico" EntityType="Self.Servico" />
           <EntitySet Name="ServicosOrcamento" EntityType="Self.ServicosOrcamento" />
           <EntitySet Name="Veiculo" EntityType="Self.Veiculo" />
-          <EntitySet Name="CredenciaisPagamento" EntityType="Self.CredenciaisPagamento" />
           <EntitySet Name="Key" EntityType="Self.Key" />
           <AssociationSet Name="FK_Agendamento_Cliente" Association="Self.FK_Agendamento_Cliente">
             <End Role="Cliente" EntitySet="Cliente" />
@@ -1793,6 +1820,10 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
           <AssociationSet Name="FK_Localizacao_Cliente" Association="Self.FK_Localizacao_Cliente">
             <End Role="Cliente" EntitySet="Cliente" />
             <End Role="Localizacao" EntitySet="Localizacao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Log_Login_Cliente" Association="Self.FK_Log_Login_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Log_Login" EntitySet="Log_Login" />
           </AssociationSet>
           <AssociationSet Name="FK_LogOrcamento_Cliente" Association="Self.FK_LogOrcamento_Cliente">
             <End Role="Cliente" EntitySet="Cliente" />
@@ -1913,6 +1944,14 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="DatabaseModelStoreContainer" CdmEntityContainer="DatabaseEntities">
+          <EntitySetMapping Name="Admin">
+            <EntityTypeMapping TypeName="DatabaseModel.Admin">
+              <MappingFragment StoreEntitySet="Admin">
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="senha" ColumnName="senha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Agendamento">
             <EntityTypeMapping TypeName="DatabaseModel.Agendamento">
               <MappingFragment StoreEntitySet="Agendamento">
@@ -1943,11 +1982,11 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
             <EntityTypeMapping TypeName="DatabaseModel.Cartao">
               <MappingFragment StoreEntitySet="Cartao">
                 <ScalarProperty Name="idCartao" ColumnName="idCartao" />
-                <ScalarProperty Name="numero" ColumnName="numero" />
-                <ScalarProperty Name="titular" ColumnName="titular" />
+                <ScalarProperty Name="numeroCartao" ColumnName="numeroCartao" />
+                <ScalarProperty Name="titularCartao" ColumnName="titularCartao" />
                 <ScalarProperty Name="anoVencimento" ColumnName="anoVencimento" />
                 <ScalarProperty Name="mesVencimento" ColumnName="mesVencimento" />
-                <ScalarProperty Name="bandeira" ColumnName="bandeira" />
+                <ScalarProperty Name="bandeiraCartao" ColumnName="bandeiraCartao" />
                 <ScalarProperty Name="cpfCliente" ColumnName="cpfCliente" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -2050,6 +2089,15 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Log_Login">
+            <EntityTypeMapping TypeName="DatabaseModel.Log_Login">
+              <MappingFragment StoreEntitySet="Log_Login">
+                <ScalarProperty Name="idLogin" ColumnName="idLogin" />
+                <ScalarProperty Name="cpfCliente" ColumnName="cpfCliente" />
+                <ScalarProperty Name="data" ColumnName="data" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="LogOrcamento">
             <EntityTypeMapping TypeName="DatabaseModel.LogOrcamento">
               <MappingFragment StoreEntitySet="LogOrcamento">
@@ -2086,7 +2134,6 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
                 <ScalarProperty Name="capacidadeAgendamentos" ColumnName="capacidadeAgendamentos" />
                 <ScalarProperty Name="statusAssinatura" ColumnName="statusAssinatura" />
                 <ScalarProperty Name="descricao" ColumnName="descricao" />
-                <ScalarProperty Name="chavePublica" ColumnName="chavePublica" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2214,16 +2261,6 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
                 <ScalarProperty Name="ano" ColumnName="ano" />
                 <ScalarProperty Name="placa" ColumnName="placa" />
                 <ScalarProperty Name="cpfCliente" ColumnName="cpfCliente" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CredenciaisPagamento">
-            <EntityTypeMapping TypeName="DatabaseModel.CredenciaisPagamento">
-              <MappingFragment StoreEntitySet="CredenciaisPagamento">
-                <ScalarProperty Name="appId" ColumnName="appId" />
-                <ScalarProperty Name="appKey" ColumnName="appKey" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="token" ColumnName="token" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

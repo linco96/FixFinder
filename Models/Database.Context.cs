@@ -25,6 +25,7 @@ namespace FixFinder.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Admin> Admin { get; set; }
         public virtual DbSet<Agendamento> Agendamento { get; set; }
         public virtual DbSet<Avaliacao> Avaliacao { get; set; }
         public virtual DbSet<Cartao> Cartao { get; set; }
@@ -36,6 +37,7 @@ namespace FixFinder.Models
         public virtual DbSet<FotoOficina> FotoOficina { get; set; }
         public virtual DbSet<Funcionario> Funcionario { get; set; }
         public virtual DbSet<Localizacao> Localizacao { get; set; }
+        public virtual DbSet<Log_Login> Log_Login { get; set; }
         public virtual DbSet<LogOrcamento> LogOrcamento { get; set; }
         public virtual DbSet<Mensagem> Mensagem { get; set; }
         public virtual DbSet<Oficina> Oficina { get; set; }
@@ -50,7 +52,6 @@ namespace FixFinder.Models
         public virtual DbSet<Servico> Servico { get; set; }
         public virtual DbSet<ServicosOrcamento> ServicosOrcamento { get; set; }
         public virtual DbSet<Veiculo> Veiculo { get; set; }
-        public virtual DbSet<CredenciaisPagamento> CredenciaisPagamento { get; set; }
         public virtual DbSet<Key> Key { get; set; }
     }
 }

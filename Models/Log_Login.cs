@@ -12,15 +12,11 @@ namespace FixFinder.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Cartao
+    public partial class Log_Login
     {
-        public int idCartao { get; set; }
-        public string numeroCartao { get; set; }
-        public string titularCartao { get; set; }
-        public int anoVencimento { get; set; }
-        public int mesVencimento { get; set; }
-        public string bandeiraCartao { get; set; }
+        public int idLogin { get; set; }
         public string cpfCliente { get; set; }
+        public System.DateTime data { get; set; }
     
         public virtual Cliente Cliente { get; set; }
     }

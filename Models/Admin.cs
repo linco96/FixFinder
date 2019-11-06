@@ -12,11 +12,9 @@ namespace FixFinder.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class CredenciaisPagamento
+    public partial class Admin
     {
-        public string appId { get; set; }
-        public string appKey { get; set; }
-        public string email { get; set; }
-        public string token { get; set; }
+        public string login { get; set; }
+        public string senha { get; set; }
     }
 }

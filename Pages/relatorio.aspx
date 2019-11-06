@@ -396,35 +396,35 @@
                     </div>
 
                     <div class="form-group">
-                        <div class="form-inline w-25">
-                            <span class="w-50 text-left pr-3">
+                        <div class="form-inline w-100">
+                            <span class="w-25 text-left pr-3">
                                 <label style="display: block">Data Início</label>
                                 <asp:TextBox runat="server" ID="txt_DataInicio" CssClass="form-control w-100 mr-2 mt-2" type="date" required="required"></asp:TextBox>
                             </span>
-                            <span class="w-50 text-left pl-3">
+                            <span class="w-25 text-left pl-3">
                                 <label style="display: block">Data Fim</label>
                                 <asp:TextBox runat="server" ID="txt_DataFim" CssClass="form-control w-100 mt-2" type="date" required="required"></asp:TextBox>
                             </span>
                         </div>
-                        <div class="form-inline mt-2">
-                            <span class="w-100 text-left">
-                                <asp:DropDownList runat="server" ID="select_Grafico" CssClass="form-control w-25">
-                                    <asp:ListItem Text="Despesas x Receita" Value="despesaReceita"></asp:ListItem>
-                                    <asp:ListItem Text="Lucro Bruto" Value="lucroBruto"></asp:ListItem>
-                                    <asp:ListItem Text="Total Clientes" Value="totalClientes"></asp:ListItem>
-                                    <asp:ListItem Text="Histórico Orçamentos por Criação" Value="historicoOrcamentoCriacao"></asp:ListItem>
-                                    <asp:ListItem Text="Despesas por Fornecedor" Value="despesaFornecedor"></asp:ListItem>
-                                    <asp:ListItem Text="Novos Clientes" Value="novosClientes"></asp:ListItem>
-                                </asp:DropDownList>
-                            </span>
-                        </div>
+                    </div>
+                    <div class="form-group">
 
-                        <div class="form-inline">
-                            <span class="w-50 text-left">
-                                <asp:Button runat="server" ID="btn_GerarGrafico" CssClass="btn btn-outline-info btn-sm mt-2" Text="Gerar Gráfico" OnClick="btn_GerarGrafico_Click" />
-                                <%--<button id="btn_GerarGrafico" class="btn btn-outline-info btn-sm mt-2" onclick="odeioJQuery()">Gerar Gráfico</button>--%>
-                            </span>
-                        </div>
+                        <span class="w-100 text-left">
+                            <asp:DropDownList runat="server" ID="select_Grafico" CssClass="form-control w-50">
+                                <asp:ListItem Text="Despesas x Receita" Value="despesaReceita"></asp:ListItem>
+                                <asp:ListItem Text="Lucro Bruto" Value="lucroBruto"></asp:ListItem>
+                                <asp:ListItem Text="Total Clientes" Value="totalClientes"></asp:ListItem>
+                                <asp:ListItem Text="Histórico Orçamentos por Criação" Value="historicoOrcamentoCriacao"></asp:ListItem>
+                                <asp:ListItem Text="Despesas por Fornecedor" Value="despesaFornecedor"></asp:ListItem>
+                                <asp:ListItem Text="Novos Clientes" Value="novosClientes"></asp:ListItem>
+                            </asp:DropDownList>
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <span class="w-50 text-left">
+                            <asp:Button runat="server" ID="btn_GerarGrafico" CssClass="btn btn-outline-info btn-sm mt-2" Text="Gerar Gráfico" OnClick="btn_GerarGrafico_Click" />
+                            <%--<button id="btn_GerarGrafico" class="btn btn-outline-info btn-sm mt-2" onclick="odeioJQuery()">Gerar Gráfico</button>--%>
+                        </span>
                         <asp:Panel runat="server" ID="pnl_Alert" Visible="false" CssClass="alert alert-danger mt-2" role="alert">
                             <asp:Label ID="lbl_Alert" runat="server"></asp:Label>
                         </asp:Panel>

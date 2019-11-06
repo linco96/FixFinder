@@ -41,15 +41,34 @@ namespace FixFinder.Pages
                     {
                         Session["usuario"] = cliente;
                         if (Session["lastPage"] == null)
+                        {
+                            log_Login();
                             Response.Redirect("home.aspx", false);
+                        }
                         else
+                        {
+                            log_Login();
                             Response.Redirect((String)Session["lastPage"], false);
+                        }
                     }
                 }
                 catch (Exception ex)
                 {
                     Response.Write("<script>alert('" + ex.Message + "');</script>");
                 }
+            }
+        }
+
+        private void log_Login()
+        {
+            using (DatabaseEntities context = new DatabaseEntities())
+            {
+                Log_Login log = new Log_Login()
+                {
+                    cpfCliente = cliente.nome,
+                    data = DateTime.Now
+                };
+                context.Log_Login.Add(log);
             }
         }
 

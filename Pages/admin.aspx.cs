@@ -83,7 +83,7 @@ namespace FixFinder.Pages
                                             if (temp == null)
                                             {
                                                 dtpArea.Y++;
-                                                lista.Add(temp);
+                                                lista.Add(log);
                                                 break;
                                             }
                                         }
@@ -98,7 +98,7 @@ namespace FixFinder.Pages
             catch (Exception ex)
             {
                 pnl_Alert.CssClass = "alert alert-danger mt-3";
-                lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+                lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + " " + ex.StackTrace + "Por favor entre em contato com o suporte";
                 pnl_Alert.Visible = true;
             }
         }

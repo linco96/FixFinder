@@ -40,6 +40,24 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.HtmlControls.HtmlAnchor btn_Sair;
         
         /// <summary>
+        /// lbl_Ativas control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_Ativas;
+        
+        /// <summary>
+        /// lbl_Inativas control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_Inativas;
+        
+        /// <summary>
         /// txt_DataInicio control.
         /// </summary>
         /// <remarks>

@@ -23,7 +23,7 @@
                             animationEnabled: true,
                             theme: "light2", // "light1", "light2", "dark1", "dark2"
                             title: {
-                                text: "Total Clientes"
+                                text: "Acessos únicos"
                             },
                             axisX: {
                                 valueFormatString: "MM/YYYY",
@@ -51,7 +51,7 @@
                             animationEnabled: true,
                             theme: "light2", // "light1", "light2", "dark1", "dark2"
                             title: {
-                                text: "Pesquisas Realizadas"
+                                text: "Pesquisas realizadas"
                             },
                             axisX: {
                                 valueFormatString: "MM/YYYY",
@@ -67,6 +67,40 @@
                                 type: "column",
                                 color: "#5F9EA0",
                                 xValueType: "dateTime",
+                                xValueFormatString: "MM/YYYY"
+                            }]
+                        });
+                        chart.render();
+                        break;
+                    case "usuarioAtivo":
+                        var chart = new CanvasJS.Chart("div_Chart", {
+                            exportEnabled: true,
+                            animationEnabled: true,
+                            theme: "light2", // "light1", "light2", "dark1", "dark2"
+                            title: {
+                                text: "Usuários Ativos"
+                            },
+                            axisX: {
+                                valueFormatString: "MM/YYYY",
+                                intervalType: "month",
+                                interval: 1
+                            },
+                            axisY: {
+                                includeZero: true,
+                                valueFormatString: "##%",
+                                interval: 1
+                            },
+                            toolTip: {
+                                shared: true
+                            },
+                            data: [{
+                                dataPoints: <% if (select_Grafico.SelectedValue.Equals("usuarioAtivo")) { Response.Write(jsonGrafico); } else { Response.Write("[]"); } %>,
+                                type: "line",
+                                color: "#5F9EA0",
+                                xValueType: "dateTime",
+                                yValueFormatString: "##.##%",
+                                name: "Ativos",
+                                showInLegend: true,
                                 xValueFormatString: "MM/YYYY"
                             }]
                         });
@@ -103,6 +137,13 @@
             <h2 class="font-weight-bold text-primary text-center">Status FixFinder</h2>
             <div class="container mt-2">
                 <div class="form-group">
+                    <h5 class="font-weight-normal text-muted">Oficinas - Assinaturas</h5>
+                    <asp:Label runat="server" ID="lbl_Ativas" CssClass="font-weight-bold text-success"></asp:Label>
+                    <label class="text-muted ml-1 mr-1">|</label>
+                    <asp:Label runat="server" ID="lbl_Inativas" CssClass="font-weight-bold text-danger"></asp:Label>
+                </div>
+                <hr class="border border-muted border-bottom-0" />
+                <div class="form-group">
                     <div class="form-inline w-100">
                         <span class="w-25 text-left pr-3">
                             <label style="display: block">Data Início</label>
@@ -118,9 +159,9 @@
 
                     <span class="w-100 text-left">
                         <asp:DropDownList runat="server" ID="select_Grafico" CssClass="form-control w-50">
-                            <asp:ListItem Text="Usuários Únicos" Value="usuariosUnicos"></asp:ListItem>
-                            <asp:ListItem Text="Oficinas Ativas x Inativas" Value="oficinaAtivaInativa"></asp:ListItem>
+                            <asp:ListItem Text="Acessos Únicos" Value="usuariosUnicos"></asp:ListItem>
                             <asp:ListItem Text="Quantidade Pesquisas" Value="qtdPesquisa"></asp:ListItem>
+                            <asp:ListItem Text="Usuários Ativos" Value="usuarioAtivo"></asp:ListItem>
                         </asp:DropDownList>
                     </span>
                 </div>

@@ -25,6 +25,7 @@ namespace FixFinder.Pages
             else
             {
                 lbl_Nome.Text = adm.nome;
+                oficinaAtivas();
             }
         }
 
@@ -138,6 +139,67 @@ namespace FixFinder.Pages
                                 jsonGrafico = JsonConvert.SerializeObject(dataPoints);
                             }
                             break;
+
+                        case "usuarioAtivo":
+                            using (DatabaseEntities context = new DatabaseEntities())
+                            {
+                                List<DataPointArea> dataPoints = new List<DataPointArea>();
+                                List<Log_Login> loginTemp = context.Log_Login.Where(l => l.data >= dtIncio && l.data <= dtFim).ToList();
+                                List<Cliente> clientes = context.Cliente.ToList();
+
+                                List<Log_Login> loginUnico = new List<Log_Login>();
+                                Log_Login logTemp;
+                                //Pega o login unico no mes
+                                foreach (Log_Login log in loginTemp)
+                                {
+                                    logTemp = loginUnico.Find(l => l.cpfCliente.Equals(log.cpfCliente) && l.data.Month == log.data.Month && l.data.Year == log.data.Year);
+                                    if (logTemp == null)
+                                    {
+                                        loginUnico.Add(log);
+                                    }
+                                }
+
+                                //Gera grafico
+                                DateTime dt = dtIncio;
+                                DataPointArea dtp;
+                                double mili;
+                                dt = new DateTime(new DateTime(dt.Year, dt.Month, 1, 0, 0, 0, DateTimeKind.Utc).Ticks);
+                                while (true)
+                                {
+                                    mili = dt.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds;
+                                    dtp = new DataPointArea(mili, 0);
+                                    dataPoints.Add(dtp);
+
+                                    if (dt.Year == dtFim.Year && dt.Month == dtFim.Month)
+                                        break;
+                                    else
+                                        dt = dt.AddMonths(1);
+                                }
+
+                                loginUnico = loginUnico.OrderBy(l => l.data).ToList();
+                                int loginUnicoMes;
+
+                                if (clientes.Count > 0)
+                                {
+                                    foreach (DataPointArea temp in dataPoints)
+                                    {
+                                        loginUnicoMes = 0;
+                                        foreach (Log_Login log in loginUnico)
+                                        {
+                                            dt = log.data;
+                                            dt = new DateTime(new DateTime(dt.Year, dt.Month, 1, 0, 0, 0, DateTimeKind.Utc).Ticks);
+                                            mili = dt.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds;
+                                            if (temp.X == mili)
+                                            {
+                                                loginUnicoMes++;
+                                                temp.Y = (double)loginUnicoMes / (double)clientes.Count;
+                                            }
+                                        }
+                                    }
+                                }
+                                jsonGrafico = JsonConvert.SerializeObject(dataPoints);
+                                break;
+                            }
                     }
                 }
             }
@@ -195,6 +257,27 @@ namespace FixFinder.Pages
                 return true;
             }
             return false;
+        }
+
+        private void oficinaAtivas()
+        {
+            try
+            {
+                using (DatabaseEntities context = new DatabaseEntities())
+                {
+                    List<Oficina> oficinaAtiva = context.Oficina.Where(o => o.statusAssinatura == 1).ToList();
+                    List<Oficina> oficinaInativa = context.Oficina.Where(o => o.statusAssinatura == 0).ToList();
+
+                    lbl_Ativas.Text = oficinaAtiva.Count + " Ativas";
+                    lbl_Inativas.Text = oficinaInativa.Count + " Inativas";
+                }
+            }
+            catch (Exception ex)
+            {
+                pnl_Alert.CssClass = "alert alert-danger mt-3";
+                lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + " " + ex.StackTrace + "Por favor entre em contato com o suporte";
+                pnl_Alert.Visible = true;
+            }
         }
     }
 }

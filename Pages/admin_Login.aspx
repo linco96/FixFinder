@@ -16,7 +16,7 @@
     <form id="form1" runat="server">
         <uc:Header_Control runat="server" ID="Header_Control"></uc:Header_Control>
         <div class="container w-25 p-3">
-            <h1 style="text-align: center" class="display-4 text-primary">Login</h1>
+            <h1 style="text-align: center" class="display-4 text-primary">Login Admin</h1>
             <div class="form-group">
                 <asp:Label runat="server">Usuário</asp:Label>
                 <asp:TextBox runat="server" ID="txt_NomeUsuario" class="form-control" aria-describedby="emailHelp" placeholder="Digite seu usuário" required></asp:TextBox>

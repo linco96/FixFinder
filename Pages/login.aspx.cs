@@ -65,10 +65,11 @@ namespace FixFinder.Pages
             {
                 Log_Login log = new Log_Login()
                 {
-                    cpfCliente = cliente.nome,
+                    cpfCliente = cliente.cpf,
                     data = DateTime.Now
                 };
                 context.Log_Login.Add(log);
+                context.SaveChanges();
             }
         }
 

@@ -1,4 +1,5 @@
 ﻿using FixFinder.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,7 +41,56 @@ namespace FixFinder.Pages
                     switch (select_Grafico.SelectedValue)
                     {
                         case "usuariosUnicos":
-                            Log_Login log;
+                            List<DataPointArea> dataPoints1 = new List<DataPointArea>();
+                            using (DatabaseEntities context = new DatabaseEntities())
+                            {
+                                List<Log_Login> logsTemp = context.Log_Login.Where(a => a.data >= dtIncio && a.data <= dtFim).ToList();
+                                //Seta as variaveis
+                                DateTime dt = dtIncio;
+                                DataPointArea dtp;
+                                double mili;
+                                dt = new DateTime(new DateTime(dt.Year, dt.Month, 1, 0, 0, 0, DateTimeKind.Utc).Ticks);
+
+                                logsTemp = logsTemp.OrderBy(l => l.data).ToList();
+
+                                //Preenche os datapoints
+                                while (true)
+                                {
+                                    mili = dt.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds;
+                                    dtp = new DataPointArea(mili, 0);
+                                    dataPoints1.Add(dtp);
+
+                                    if (dt.Year == dtFim.Year && dt.Month == dtFim.Month)
+                                        break;
+                                    else
+                                        dt = dt.AddMonths(1);
+                                }
+
+                                List<Log_Login> lista = new List<Log_Login>();
+                                Log_Login temp;
+                                foreach (Log_Login log in logsTemp)
+                                {
+                                    dt = log.data;
+                                    dt = new DateTime(new DateTime(dt.Year, dt.Month, 1, 0, 0, 0, DateTimeKind.Utc).Ticks);
+                                    mili = dt.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds;
+
+                                    foreach (DataPointArea dtpArea in dataPoints1)
+                                    {
+                                        if (dtpArea.X == mili)
+                                        {
+                                            temp = lista.Find(l => l.cpfCliente.Equals(log.cpfCliente) && l.data.Month == log.data.Month && l.data.Year == log.data.Year);
+
+                                            if (temp == null)
+                                            {
+                                                dtpArea.Y++;
+                                                lista.Add(temp);
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                                jsonGrafico = JsonConvert.SerializeObject(dataPoints1);
+                            }
                             break;
                     }
                 }

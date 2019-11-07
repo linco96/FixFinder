@@ -13,6 +13,41 @@
     <link href="../Content/dashboard.css" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/1729574db6.js"></script>
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if (<%= gerarGrafico.ToString().ToLower() %>) {
+                switch ($("#select_Grafico").val()) {
+                    case "usuariosUnicos":
+                        var chart = new CanvasJS.Chart("div_Chart", {
+                            exportEnabled: true,
+                            animationEnabled: true,
+                            theme: "light2", // "light1", "light2", "dark1", "dark2"
+                            title: {
+                                text: "Total Clientes"
+                            },
+                            axisX: {
+                                valueFormatString: "MM/YYYY",
+                                intervalType: "month",
+                                interval: 1
+                            },
+                            axisY: {
+                                includeZero: false,
+                                interval: 1
+                            },
+                            data: [{
+                                dataPoints: <% if (select_Grafico.SelectedValue.Equals("usuariosUnicos")) { Response.Write(jsonGrafico); } else { Response.Write("[]"); } %>,
+                                type: "column",
+                                color: "#5F9EA0",
+                                xValueType: "dateTime",
+                                xValueFormatString: "MM/YYYY"
+                            }]
+                        });
+                        chart.render();
+                        break;
+                }
+            }
+        });
+    </script>
 </head>
 <body>
     <form id="form1" runat="server">

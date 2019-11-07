@@ -22,6 +22,14 @@ namespace FixFinder.Pages
             }
             else
             {
+                string msg = (String)Session["message"];
+                if (msg != null)
+                {
+                    pnl_Alert.CssClass = "alert alert-info";
+                    lbl_Alert.Text = msg;
+                    pnl_Alert.Visible = true;
+                    Session["message"] = null;
+                }
                 if (Session["orcamento"] != null)
                     Session["orcamento"] = null;
                 preencherTabela();
@@ -371,7 +379,7 @@ namespace FixFinder.Pages
                         btn.Click += new EventHandler(btn_Pagar_Click);
                         btn.ID = "btn_Pagar" + o.idOrcamento.ToString();
                         btn.Text = "Realizar pagamento";
-                        btn.CssClass = "btn btn-success ml-1 mt-3";
+                        btn.CssClass = "btn btn-success mr-1 mt-3";
                         btn.CommandArgument = o.idOrcamento.ToString();
                         body.Controls.Add(btn);
                     }

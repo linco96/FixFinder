@@ -123,6 +123,7 @@
     <Content Include="Pages\agendamento_Cadastro.aspx" />
     <Content Include="Pages\agendamento_ListaCliente.aspx" />
     <Content Include="Pages\agendamento_ListaOficina.aspx" />
+    <Content Include="Pages\cartao_Lista.aspx" />
     <Content Include="Pages\cliente_Cadastro.aspx" />
     <Content Include="Pages\cliente_EditarPerfil.aspx" />
     <Content Include="Pages\compra_Cadastrar.aspx" />
@@ -149,6 +150,7 @@
     <Content Include="Pages\orcamento_ListaCliente.aspx" />
     <Content Include="Pages\orcamento_ListaOficina.aspx" />
     <Content Include="Pages\pagamento.aspx" />
+    <Content Include="Pages\pagamento_ListaCliente.aspx" />
     <Content Include="Pages\produto_Cadastro.aspx" />
     <Content Include="Pages\produto_Editar.aspx" />
     <Content Include="Pages\produto_Lista.aspx" />
@@ -370,6 +372,13 @@
     <Compile Include="Pages\agendamento_ListaOficina.aspx.designer.cs">
       <DependentUpon>agendamento_ListaOficina.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Pages\cartao_Lista.aspx.cs">
+      <DependentUpon>cartao_Lista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\cartao_Lista.aspx.designer.cs">
+      <DependentUpon>cartao_Lista.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\cliente_Cadastro.aspx.cs">
       <DependentUpon>cliente_Cadastro.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -551,6 +560,13 @@
     </Compile>
     <Compile Include="Pages\pagamento.aspx.designer.cs">
       <DependentUpon>pagamento.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pagamento_ListaCliente.aspx.cs">
+      <DependentUpon>pagamento_ListaCliente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\pagamento_ListaCliente.aspx.designer.cs">
+      <DependentUpon>pagamento_ListaCliente.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\produto_Cadastro.aspx.cs">
       <DependentUpon>produto_Cadastro.aspx</DependentUpon>

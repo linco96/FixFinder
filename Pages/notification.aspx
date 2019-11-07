@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="notification.aspx.cs" Inherits="FixFinder.Pages.notification" %>
+﻿<%@ Page Language="C#" Async="true" AutoEventWireup="true" CodeBehind="notification.aspx.cs" Inherits="FixFinder.Pages.notification" %>
 
 <!DOCTYPE html>
 

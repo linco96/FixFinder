@@ -2,9 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Xml;
 
 namespace FixFinder.Pages
 {
@@ -12,12 +14,64 @@ namespace FixFinder.Pages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            String big = HttpContext.Current.Request["big"];
-            using (DatabaseEntities context = new DatabaseEntities())
+            Response.AppendHeader("Access-Control-Allow-Origin", "https://sandbox.pagseguro.uol.com.br");
+            string code = Request["notificationCode"];
+            getNotification(code);
+        }
+
+        protected async void getNotification(string code)
+        {
+            try
             {
-                Cliente c = context.Cliente.Where(cl => cl.cpf.Equals("06850142909")).FirstOrDefault();
-                c.nome = big;
-                context.SaveChanges();
+                using (DatabaseEntities context = new DatabaseEntities())
+                {
+                    HttpClient client = new HttpClient();
+                    CredenciaisPagamento cred = context.CredenciaisPagamento.FirstOrDefault();
+
+                    var response = await client.GetAsync("https://ws.sandbox.pagseguro.uol.com.br/v3/transactions/notifications/" + code + "?appId=" + cred.appId + "&appKey=" + cred.appKey);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var responseString = await response.Content.ReadAsStringAsync();
+                        XmlDocument xml = new XmlDocument();
+                        xml.LoadXml(responseString);
+
+                        string status = xml.GetElementsByTagName("status")[0].InnerXml;
+                        int idOrcamento = int.Parse(xml.GetElementsByTagName("reference")[0].InnerXml.Split('-')[1]);
+                        Pagamento p = context.Pagamento.Where(pag => pag.idOrcamento == idOrcamento).FirstOrDefault();
+                        Orcamento o;
+                        switch (status)
+                        {
+                            case "1":
+                                p.status = "1";
+                                break;
+
+                            case "2":
+                                p.status = "2";
+                                break;
+
+                            case "3":
+                                p.status = "3";
+                                o = context.Orcamento.Where(orc => orc.idOrcamento == p.idOrcamento).FirstOrDefault();
+                                o.status = "Concluído";
+                                context.SaveChanges();
+                                break;
+
+                            case "7":
+                                o = context.Orcamento.Where(orc => orc.idOrcamento == p.idOrcamento).FirstOrDefault();
+                                o.status = "Pagamento pendente";
+                                context.Pagamento.Remove(p);
+                                context.SaveChanges();
+                                break;
+
+                            default:
+                                break;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
             }
         }
     }

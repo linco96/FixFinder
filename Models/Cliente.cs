@@ -23,6 +23,7 @@ namespace FixFinder.Models
             this.Localizacao = new HashSet<Localizacao>();
             this.Log_Login = new HashSet<Log_Login>();
             this.LogOrcamento = new HashSet<LogOrcamento>();
+            this.LogPesquisa = new HashSet<LogPesquisa>();
             this.Orcamento = new HashSet<Orcamento>();
             this.RequisicaoFuncionario = new HashSet<RequisicaoFuncionario>();
             this.Veiculo = new HashSet<Veiculo>();
@@ -49,6 +50,8 @@ namespace FixFinder.Models
         public virtual ICollection<Log_Login> Log_Login { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LogOrcamento> LogOrcamento { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LogPesquisa> LogPesquisa { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Orcamento> Orcamento { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

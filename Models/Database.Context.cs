@@ -39,6 +39,7 @@ namespace FixFinder.Models
         public virtual DbSet<Localizacao> Localizacao { get; set; }
         public virtual DbSet<Log_Login> Log_Login { get; set; }
         public virtual DbSet<LogOrcamento> LogOrcamento { get; set; }
+        public virtual DbSet<LogPesquisa> LogPesquisa { get; set; }
         public virtual DbSet<Mensagem> Mensagem { get; set; }
         public virtual DbSet<Oficina> Oficina { get; set; }
         public virtual DbSet<Orcamento> Orcamento { get; set; }

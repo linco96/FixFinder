@@ -44,6 +44,34 @@
                         });
                         chart.render();
                         break;
+
+                    case "qtdPesquisa":
+                        var chart = new CanvasJS.Chart("div_Chart", {
+                            exportEnabled: true,
+                            animationEnabled: true,
+                            theme: "light2", // "light1", "light2", "dark1", "dark2"
+                            title: {
+                                text: "Pesquisas Realizadas"
+                            },
+                            axisX: {
+                                valueFormatString: "MM/YYYY",
+                                intervalType: "month",
+                                interval: 1
+                            },
+                            axisY: {
+                                includeZero: false,
+                                interval: 1
+                            },
+                            data: [{
+                                dataPoints: <% if (select_Grafico.SelectedValue.Equals("qtdPesquisa")) { Response.Write(jsonGrafico); } else { Response.Write("[]"); } %>,
+                                type: "column",
+                                color: "#5F9EA0",
+                                xValueType: "dateTime",
+                                xValueFormatString: "MM/YYYY"
+                            }]
+                        });
+                        chart.render();
+                        break;
                 }
             }
         });
@@ -92,6 +120,7 @@
                         <asp:DropDownList runat="server" ID="select_Grafico" CssClass="form-control w-50">
                             <asp:ListItem Text="Usuários Únicos" Value="usuariosUnicos"></asp:ListItem>
                             <asp:ListItem Text="Oficinas Ativas x Inativas" Value="oficinaAtivaInativa"></asp:ListItem>
+                            <asp:ListItem Text="Quantidade Pesquisas" Value="qtdPesquisa"></asp:ListItem>
                         </asp:DropDownList>
                     </span>
                 </div>

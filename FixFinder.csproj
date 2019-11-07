@@ -294,6 +294,9 @@
     <Compile Include="Models\LogOrcamento.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\LogPesquisa.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Log_Login.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>

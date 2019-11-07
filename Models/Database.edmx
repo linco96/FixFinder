@@ -179,6 +179,14 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
           <Property Name="cpfUsuario" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="dataAlteracao" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="LogPesquisa">
+          <Key>
+            <PropertyRef Name="idLog" />
+          </Key>
+          <Property Name="idLog" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="data" Type="datetime" Nullable="false" />
+          <Property Name="cpfCliente" Type="varchar" MaxLength="15" />
+        </EntityType>
         <EntityType Name="Mensagem">
           <Key>
             <PropertyRef Name="idMensagem" />
@@ -541,6 +549,18 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_LogPesquisa_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="LogPesquisa" Type="Self.LogPesquisa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="cpf" />
+            </Principal>
+            <Dependent Role="LogPesquisa">
+              <PropertyRef Name="cpfCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Mensagem_Orcamento">
           <End Role="Orcamento" Type="Self.Orcamento" Multiplicity="1" />
           <End Role="Mensagem" Type="Self.Mensagem" Multiplicity="*" />
@@ -784,6 +804,7 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
           <EntitySet Name="Localizacao" EntityType="Self.Localizacao" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Log_Login" EntityType="Self.Log_Login" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LogOrcamento" EntityType="Self.LogOrcamento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LogPesquisa" EntityType="Self.LogPesquisa" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Mensagem" EntityType="Self.Mensagem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Oficina" EntityType="Self.Oficina" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orcamento" EntityType="Self.Orcamento" Schema="dbo" store:Type="Tables" />
@@ -881,6 +902,10 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
           <AssociationSet Name="FK_LogOrcamento_Orcamento" Association="Self.FK_LogOrcamento_Orcamento">
             <End Role="Orcamento" EntitySet="Orcamento" />
             <End Role="LogOrcamento" EntitySet="LogOrcamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LogPesquisa_Cliente" Association="Self.FK_LogPesquisa_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="LogPesquisa" EntitySet="LogPesquisa" />
           </AssociationSet>
           <AssociationSet Name="FK_Mensagem_Orcamento" Association="Self.FK_Mensagem_Orcamento">
             <End Role="Orcamento" EntitySet="Orcamento" />
@@ -1032,6 +1057,7 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
           <NavigationProperty Name="Localizacao" Relationship="Self.FK_Localizacao_Cliente" FromRole="Cliente" ToRole="Localizacao" />
           <NavigationProperty Name="Log_Login" Relationship="Self.FK_Log_Login_Cliente" FromRole="Cliente" ToRole="Log_Login" />
           <NavigationProperty Name="LogOrcamento" Relationship="Self.FK_LogOrcamento_Cliente" FromRole="Cliente" ToRole="LogOrcamento" />
+          <NavigationProperty Name="LogPesquisa" Relationship="Self.FK_LogPesquisa_Cliente" FromRole="Cliente" ToRole="LogPesquisa" />
           <NavigationProperty Name="Orcamento" Relationship="Self.FK_Orcamento_Cliente" FromRole="Cliente" ToRole="Orcamento" />
           <NavigationProperty Name="RequisicaoFuncionario" Relationship="Self.FK_RequisicaoFuncionario_Cliente" FromRole="Cliente" ToRole="RequisicaoFuncionario" />
           <NavigationProperty Name="Veiculo" Relationship="Self.FK_Veiculo_Cliente" FromRole="Cliente" ToRole="Veiculo" />
@@ -1146,6 +1172,15 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
           <Property Name="dataAlteracao" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Cliente" Relationship="Self.FK_LogOrcamento_Cliente" FromRole="LogOrcamento" ToRole="Cliente" />
           <NavigationProperty Name="Orcamento" Relationship="Self.FK_LogOrcamento_Orcamento" FromRole="LogOrcamento" ToRole="Orcamento" />
+        </EntityType>
+        <EntityType Name="LogPesquisa">
+          <Key>
+            <PropertyRef Name="idLog" />
+          </Key>
+          <Property Name="idLog" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="data" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="cpfCliente" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_LogPesquisa_Cliente" FromRole="LogPesquisa" ToRole="Cliente" />
         </EntityType>
         <EntityType Name="Mensagem">
           <Key>
@@ -1471,6 +1506,18 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
             </Principal>
             <Dependent Role="LogOrcamento">
               <PropertyRef Name="cpfUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LogPesquisa_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="LogPesquisa" Type="Self.LogPesquisa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="cpf" />
+            </Principal>
+            <Dependent Role="LogPesquisa">
+              <PropertyRef Name="cpfCliente" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1813,6 +1860,7 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
           <EntitySet Name="Localizacao" EntityType="Self.Localizacao" />
           <EntitySet Name="Log_Login" EntityType="Self.Log_Login" />
           <EntitySet Name="LogOrcamento" EntityType="Self.LogOrcamento" />
+          <EntitySet Name="LogPesquisa" EntityType="Self.LogPesquisa" />
           <EntitySet Name="Mensagem" EntityType="Self.Mensagem" />
           <EntitySet Name="Oficina" EntityType="Self.Oficina" />
           <EntitySet Name="Orcamento" EntityType="Self.Orcamento" />
@@ -1867,6 +1915,10 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
           <AssociationSet Name="FK_LogOrcamento_Cliente" Association="Self.FK_LogOrcamento_Cliente">
             <End Role="Cliente" EntitySet="Cliente" />
             <End Role="LogOrcamento" EntitySet="LogOrcamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LogPesquisa_Cliente" Association="Self.FK_LogPesquisa_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="LogPesquisa" EntitySet="LogPesquisa" />
           </AssociationSet>
           <AssociationSet Name="FK_Orcamento_Cliente" Association="Self.FK_Orcamento_Cliente">
             <End Role="Cliente" EntitySet="Cliente" />
@@ -2146,6 +2198,15 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
                 <ScalarProperty Name="alteracao" ColumnName="alteracao" />
                 <ScalarProperty Name="cpfUsuario" ColumnName="cpfUsuario" />
                 <ScalarProperty Name="dataAlteracao" ColumnName="dataAlteracao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LogPesquisa">
+            <EntityTypeMapping TypeName="DatabaseModel.LogPesquisa">
+              <MappingFragment StoreEntitySet="LogPesquisa">
+                <ScalarProperty Name="idLog" ColumnName="idLog" />
+                <ScalarProperty Name="data" ColumnName="data" />
+                <ScalarProperty Name="cpfCliente" ColumnName="cpfCliente" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

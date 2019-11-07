@@ -432,12 +432,35 @@ namespace FixFinder.Pages
                         pnl_Alert.Visible = true;
                     }
                 }
+                log_Pesquisar();
             }
             catch (Exception ex)
             {
                 pnl_Alert.CssClass = "alert alert-danger mt-3";
                 lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
                 pnl_Alert.Visible = true;
+            }
+        }
+
+        private void log_Pesquisar()
+        {
+            using (DatabaseEntities context = new DatabaseEntities())
+            {
+                Cliente c = (Cliente)Session["usuario"];
+                LogPesquisa log;
+                if (c == null)
+                    log = new LogPesquisa()
+                    {
+                        data = DateTime.Now
+                    };
+                else
+                    log = new LogPesquisa()
+                    {
+                        data = DateTime.Now,
+                        cpfCliente = c.cpf
+                    };
+                context.LogPesquisa.Add(log);
+                context.SaveChanges();
             }
         }
 

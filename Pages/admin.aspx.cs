@@ -36,14 +36,15 @@ namespace FixFinder.Pages
                 {
                     DateTime dtIncio = DateTime.Parse(txt_DataInicio.Text);
                     DateTime dtFim = DateTime.Parse(txt_DataFim.Text);
+
                     dtFim = dtFim.AddHours(23).AddMinutes(59).AddSeconds(59).AddMilliseconds(59);
                     gerarGrafico = true;
                     switch (select_Grafico.SelectedValue)
                     {
                         case "usuariosUnicos":
-                            List<DataPointArea> dataPoints1 = new List<DataPointArea>();
                             using (DatabaseEntities context = new DatabaseEntities())
                             {
+                                List<DataPointArea> dataPoints = new List<DataPointArea>();
                                 List<Log_Login> logsTemp = context.Log_Login.Where(a => a.data >= dtIncio && a.data <= dtFim).ToList();
                                 //Seta as variaveis
                                 DateTime dt = dtIncio;
@@ -58,7 +59,7 @@ namespace FixFinder.Pages
                                 {
                                     mili = dt.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds;
                                     dtp = new DataPointArea(mili, 0);
-                                    dataPoints1.Add(dtp);
+                                    dataPoints.Add(dtp);
 
                                     if (dt.Year == dtFim.Year && dt.Month == dtFim.Month)
                                         break;
@@ -74,7 +75,7 @@ namespace FixFinder.Pages
                                     dt = new DateTime(new DateTime(dt.Year, dt.Month, 1, 0, 0, 0, DateTimeKind.Utc).Ticks);
                                     mili = dt.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds;
 
-                                    foreach (DataPointArea dtpArea in dataPoints1)
+                                    foreach (DataPointArea dtpArea in dataPoints)
                                     {
                                         if (dtpArea.X == mili)
                                         {
@@ -89,7 +90,52 @@ namespace FixFinder.Pages
                                         }
                                     }
                                 }
-                                jsonGrafico = JsonConvert.SerializeObject(dataPoints1);
+                                jsonGrafico = JsonConvert.SerializeObject(dataPoints);
+                            }
+                            break;
+
+                        case "qtdPesquisa":
+                            using (DatabaseEntities context = new DatabaseEntities())
+                            {
+                                List<DataPointArea> dataPoints = new List<DataPointArea>();
+                                List<LogPesquisa> pesquisas = context.LogPesquisa.Where(l => l.data >= dtIncio && l.data <= dtFim).ToList();
+
+                                DateTime dt = dtIncio;
+                                DataPointArea dtp;
+                                double mili;
+
+                                dt = new DateTime(new DateTime(dt.Year, dt.Month, 1, 0, 0, 0, DateTimeKind.Utc).Ticks);
+
+                                pesquisas = pesquisas.OrderBy(p => p.data).ToList();
+
+                                while (true)
+                                {
+                                    mili = dt.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds;
+                                    dtp = new DataPointArea(mili, 0);
+                                    dataPoints.Add(dtp);
+
+                                    if (dt.Year == dtFim.Year && dt.Month == dtFim.Month)
+                                        break;
+                                    else
+                                        dt = dt.AddMonths(1);
+                                }
+
+                                foreach (LogPesquisa log in pesquisas)
+                                {
+                                    dt = log.data;
+                                    dt = new DateTime(new DateTime(dt.Year, dt.Month, 1, 0, 0, 0, DateTimeKind.Utc).Ticks);
+                                    mili = dt.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds;
+
+                                    foreach (DataPointArea dtpA in dataPoints)
+                                    {
+                                        if (dtpA.X == mili)
+                                        {
+                                            dtpA.Y++;
+                                            break;
+                                        }
+                                    }
+                                }
+                                jsonGrafico = JsonConvert.SerializeObject(dataPoints);
                             }
                             break;
                     }

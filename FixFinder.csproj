@@ -137,6 +137,7 @@
     <Content Include="Pages\home.aspx" />
     <Content Include="Pages\login.aspx" />
     <Content Include="Pages\login_EsqueciSenha.aspx" />
+    <Content Include="Pages\notification.aspx" />
     <Content Include="Pages\oficina_Cadastro.aspx" />
     <Content Include="Pages\oficina_Configuracoes.aspx" />
     <Content Include="Pages\oficina_Pesquisar.aspx" />
@@ -466,6 +467,13 @@
     </Compile>
     <Compile Include="Pages\login_EsqueciSenha.aspx.designer.cs">
       <DependentUpon>login_EsqueciSenha.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\notification.aspx.cs">
+      <DependentUpon>notification.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\notification.aspx.designer.cs">
+      <DependentUpon>notification.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\oficina_Cadastro.aspx.cs">
       <DependentUpon>oficina_Cadastro.aspx</DependentUpon>

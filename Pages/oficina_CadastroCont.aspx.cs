@@ -15,12 +15,8 @@ namespace FixFinder.Pages
         protected void Page_Load(object sender, EventArgs e)
         {
             Response.AppendHeader("Access-Control-Allow-Origin", "https://sandbox.pagseguro.uol.com.br");
-            string type = Request["notificationType"];
-            if (type.Equals("applicationAuthorization"))
-            {
-                string code = Request["notificationCode"];
-                getNotification(code);
-            }
+            string code = Request["notificationCode"];
+            getNotification(code);
         }
 
         protected async void getNotification(string code)
@@ -44,6 +40,10 @@ namespace FixFinder.Pages
                         Oficina o = context.Oficina.Where(of => of.cnpj.Equals(cnpj)).FirstOrDefault();
                         o.chavePublica = xml.GetElementsByTagName("publicKey")[0].InnerXml;
                         context.SaveChanges();
+
+                        pnl_Alert.CssClass = "alert alert-success";
+                        pnl_Alert.Visible = true;
+                        lbl_Alert.Text = "Oficina autorizada!";
                     }
                     else
                     {
@@ -53,6 +53,9 @@ namespace FixFinder.Pages
             }
             catch (Exception ex)
             {
+                pnl_Alert.CssClass = "alert alert-danger";
+                pnl_Alert.Visible = true;
+                lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
             }
         }
     }

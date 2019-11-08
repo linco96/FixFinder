@@ -40,41 +40,14 @@ namespace FixFinder.Pages
                         XmlDocument xml = new XmlDocument();
                         xml.LoadXml(responseString);
 
-                        string status = xml.GetElementsByTagName("status")[0].InnerXml;
-                        int idOrcamento = int.Parse(xml.GetElementsByTagName("reference")[0].InnerXml.Split('-')[1]);
-                        Pagamento p = context.Pagamento.Where(pag => pag.idOrcamento == idOrcamento).FirstOrDefault();
-                        Orcamento o;
-                        switch (status)
-                        {
-                            case "1":
-                                p.status = "1";
-                                break;
-
-                            case "2":
-                                p.status = "2";
-                                break;
-
-                            case "3":
-                                p.status = "3";
-                                o = context.Orcamento.Where(orc => orc.idOrcamento == p.idOrcamento).FirstOrDefault();
-                                o.status = "Concluído";
-                                context.SaveChanges();
-                                break;
-
-                            case "7":
-                                o = context.Orcamento.Where(orc => orc.idOrcamento == p.idOrcamento).FirstOrDefault();
-                                o.status = "Pagamento pendente";
-                                context.Pagamento.Remove(p);
-                                context.SaveChanges();
-                                break;
-
-                            default:
-                                break;
-                        }
+                        string cnpj = xml.GetElementsByTagName("reference")[0].InnerXml.Split('-')[1];
+                        Oficina o = context.Oficina.Where(of => of.cnpj.Equals(cnpj)).FirstOrDefault();
+                        o.chavePublica = xml.GetElementsByTagName("publicKey")[0].InnerXml;
+                        context.SaveChanges();
                     }
                     else
                     {
-                        //Erro
+                        //erro
                     }
                 }
             }

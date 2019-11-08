@@ -140,6 +140,7 @@
     <Content Include="Pages\login_EsqueciSenha.aspx" />
     <Content Include="Pages\notification.aspx" />
     <Content Include="Pages\oficina_Cadastro.aspx" />
+    <Content Include="Pages\oficina_CadastroCont.aspx" />
     <Content Include="Pages\oficina_Configuracoes.aspx" />
     <Content Include="Pages\oficina_Pesquisar.aspx" />
     <Content Include="Pages\orcamento_Avaliar.aspx" />
@@ -493,6 +494,13 @@
     </Compile>
     <Compile Include="Pages\oficina_Cadastro.aspx.designer.cs">
       <DependentUpon>oficina_Cadastro.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\oficina_CadastroCont.aspx.cs">
+      <DependentUpon>oficina_CadastroCont.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\oficina_CadastroCont.aspx.designer.cs">
+      <DependentUpon>oficina_CadastroCont.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\oficina_Configuracoes.aspx.cs">
       <DependentUpon>oficina_Configuracoes.aspx</DependentUpon>

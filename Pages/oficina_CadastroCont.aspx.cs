@@ -10,13 +10,13 @@ using System.Xml;
 
 namespace FixFinder.Pages
 {
-    public partial class notification : System.Web.UI.Page
+    public partial class oficina_CadastroCont : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             Response.AppendHeader("Access-Control-Allow-Origin", "https://sandbox.pagseguro.uol.com.br");
             string type = Request["notificationType"];
-            if (type.Equals("transaction"))
+            if (type.Equals("applicationAuthorization"))
             {
                 string code = Request["notificationCode"];
                 getNotification(code);
@@ -32,7 +32,7 @@ namespace FixFinder.Pages
                     HttpClient client = new HttpClient();
                     CredenciaisPagamento cred = context.CredenciaisPagamento.FirstOrDefault();
 
-                    var response = await client.GetAsync("https://ws.sandbox.pagseguro.uol.com.br/v3/transactions/notifications/" + code + "?appId=" + cred.appId + "&appKey=" + cred.appKey);
+                    var response = await client.GetAsync("https://ws.sandbox.pagseguro.uol.com.br/v2/authorizations/notifications/" + code + "?appId=" + cred.appId + "&appKey=" + cred.appKey);
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -71,6 +71,10 @@ namespace FixFinder.Pages
                             default:
                                 break;
                         }
+                    }
+                    else
+                    {
+                        //Erro
                     }
                 }
             }

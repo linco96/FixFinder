@@ -195,7 +195,7 @@ namespace FixFinder.Pages
                     str.Append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
                     str.Append("<authorizationRequest><reference>req-" + o.cnpj + "</reference>");
                     str.Append("<permissions><code>CREATE_CHECKOUTS</code><code>RECEIVE_TRANSACTION_NOTIFICATIONS</code><code>SEARCH_TRANSACTIONS</code><code>MANAGE_PAYMENT_PRE_APPROVALS</code><code>DIRECT_PAYMENT</code></permissions>");
-                    str.Append("<redirectURL>http://seusite.com.br/redirect</redirectURL><notificationURL>http://seusite.com.br/notification</notificationURL></authorizationRequest>");
+                    str.Append("<redirectURL>https://localhost:44382/Pages/oficina_CadastroCont.aspx</redirectURL><notificationURL>https://localhost:44382/Pages/oficina_CadastroCont.aspx</notificationURL></authorizationRequest>");
 
                     var content = new StringContent(str.ToString(), Encoding.UTF8, "text/xml");
                     content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/xml;charset=ISO-8859-1");

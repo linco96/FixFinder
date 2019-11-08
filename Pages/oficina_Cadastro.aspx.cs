@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Xml;
 using FixFinder.Models;
 
 namespace FixFinder.Pages
@@ -139,11 +142,8 @@ namespace FixFinder.Pages
                             context.Funcionario.Add(f);
 
                             context.SaveChanges();
-                            pnl_Alert.Visible = true;
-                            pnl_Alert.CssClass = "alert alert-success";
-                            lbl_Alert.Text = "Oficina cadastrada com sucesso";
 
-                            Response.Redirect("home.aspx", false);
+                            autorizar(o);
                         }
                     }
                 }
@@ -180,6 +180,82 @@ namespace FixFinder.Pages
                     txt_CEP.Text = "";
                     alert_CEP.Visible = true;
                 }
+            }
+        }
+
+        protected async void autorizar(Oficina o)
+        {
+            try
+            {
+                using (DatabaseEntities context = new DatabaseEntities())
+                {
+                    HttpClient client = new HttpClient();
+                    CredenciaisPagamento cred = context.CredenciaisPagamento.FirstOrDefault();
+                    StringBuilder str = new StringBuilder("");
+                    str.Append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
+                    str.Append("<authorizationRequest><reference>req-" + o.cnpj + "</reference>");
+                    str.Append("<permissions><code>CREATE_CHECKOUTS</code><code>RECEIVE_TRANSACTION_NOTIFICATIONS</code><code>SEARCH_TRANSACTIONS</code><code>MANAGE_PAYMENT_PRE_APPROVALS</code><code>DIRECT_PAYMENT</code></permissions>");
+                    str.Append("<redirectURL>http://seusite.com.br/redirect</redirectURL><notificationURL>http://seusite.com.br/notification</notificationURL></authorizationRequest>");
+
+                    var content = new StringContent(str.ToString(), Encoding.UTF8, "text/xml");
+                    content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/xml;charset=ISO-8859-1");
+
+                    var response = await client.PostAsync("https://ws.sandbox.pagseguro.uol.com.br/v2/authorizations/request/?appId=" + cred.appId + "&appKey=" + cred.appKey, content);
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    XmlDocument xml = new XmlDocument();
+                    xml.LoadXml(responseString);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string code = xml.GetElementsByTagName("code")[0].InnerXml;
+
+                        Response.Redirect("https://sandbox.pagseguro.uol.com.br/v2/authorization/request.jhtml?code=" + code);
+                    }
+                    else
+                    {
+                        removeOficina(o);
+
+                        string erro = xml.GetElementsByTagName("message")[0].InnerXml;
+                        pnl_Alert.CssClass = "alert alert-danger";
+                        pnl_Alert.Visible = true;
+                        lbl_Alert.Text = "Error: " + erro + " Por favor entre em contato com o suporte.";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                pnl_Alert.CssClass = "alert alert-danger";
+                pnl_Alert.Visible = true;
+                lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+            }
+        }
+
+        protected async void redirectAuth(Oficina o, string code)
+        {
+        }
+
+        protected void removeOficina(Oficina o)
+        {
+            using (DatabaseEntities context = new DatabaseEntities())
+            {
+                Funcionario f = context.Funcionario.Where(func => func.cnpjOficina.Equals(o.cnpj)).FirstOrDefault();
+                context.Funcionario.Remove(f);
+                context.SaveChanges();
+
+                List<DiaFuncionamento> dias = context.DiaFuncionamento.Where(d => d.cnpjOficina.Equals(o.cnpj)).ToList();
+                foreach (DiaFuncionamento dia in dias)
+                {
+                    context.DiaFuncionamento.Remove(dia);
+                }
+                context.SaveChanges();
+
+                Endereco e = context.Endereco.Where(end => end.cnpjOficina.Equals(o.cnpj)).FirstOrDefault();
+                context.Endereco.Remove(e);
+                context.SaveChanges();
+
+                o = context.Oficina.Where(of => of.cnpj.Equals(o.cnpj)).FirstOrDefault();
+                context.Oficina.Remove(o);
+                context.SaveChanges();
             }
         }
     }

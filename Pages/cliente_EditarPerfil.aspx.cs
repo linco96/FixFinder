@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -74,10 +76,35 @@ namespace FixFinder.Pages
             }
         }
 
+        private String encrypt(String senha)
+        {
+            var stringHash = "";
+            try
+            {
+                UnicodeEncoding encode = new UnicodeEncoding();
+                byte[] hashBytes, mensagemBytes = encode.GetBytes(senha);
+                SHA512Managed sha512Manager = new SHA512Managed();
+
+                hashBytes = sha512Manager.ComputeHash(mensagemBytes);
+
+                foreach (byte b in hashBytes)
+                {
+                    //hexadecimal em 2 caracteres
+                    stringHash += String.Format("{0:x2}", b);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return stringHash;
+        }
+
         protected void btn_Salvar_Click(object sender, EventArgs e)
         {
             try
             {
+                String senha = encrypt(txt_Senha.Text);
                 if (txt_Senha.Text.Trim().Length > 0 || txt_SenhaNova.Text.Trim().Length > 0 || txt_SenhaNovaConfirma.Text.Length > 0)
                 {
                     if (txt_Senha.Text.Trim().Length == 0 || txt_SenhaNova.Text.Trim().Length == 0 || txt_SenhaNovaConfirma.Text.Length == 0)
@@ -86,7 +113,7 @@ namespace FixFinder.Pages
                         lbl_Alert.Text = "Para realizar a alteração da senha informe a sua senha atual e a nova. Caso não deseje alterar a sua senha deixe os campos vazios";
                         pnl_Alert.Visible = true;
                     }
-                    else if (c.senha != txt_Senha.Text)
+                    else if (c.senha != senha)
                     {
                         pnl_Alert.CssClass = "alert alert-danger";
                         lbl_Alert.Text = "Senha atual incorreta";
@@ -101,7 +128,8 @@ namespace FixFinder.Pages
                             temp.telefone = txt_Telefone.Text.Replace("(", "").Replace(")", "").Replace(" ", "").Replace("-", "");
                             temp.email = txt_Email.Text;
                             temp.dataNascimento = DateTime.Parse(date_DataNascimento.Text);
-                            temp.senha = txt_SenhaNova.Text;
+                            senha = encrypt(txt_SenhaNova.Text);
+                            temp.senha = senha;
 
                             context.SaveChanges();
 

@@ -6,6 +6,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using FixFinder.Models;
 using FixFinder.Controls;
+using System.Text;
+using System.Security.Cryptography;
 
 namespace FixFinder.Pages
 {
@@ -23,15 +25,40 @@ namespace FixFinder.Pages
             }
         }
 
+        private String encrypt(String senha)
+        {
+            var stringHash = "";
+            try
+            {
+                UnicodeEncoding encode = new UnicodeEncoding();
+                byte[] hashBytes, mensagemBytes = encode.GetBytes(senha);
+                SHA512Managed sha512Manager = new SHA512Managed();
+
+                hashBytes = sha512Manager.ComputeHash(mensagemBytes);
+
+                foreach (byte b in hashBytes)
+                {
+                    //hexadecimal em 2 caracteres
+                    stringHash += String.Format("{0:x2}", b);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return stringHash;
+        }
+
         protected void btn_Login_Click(object sender, EventArgs e)
         {
             String login = txt_NomeUsuario.Text.ToUpper();
+            String senha = encrypt(txt_Senha.Text);
             cliente = null;
             using (var context = new DatabaseEntities())
             {
                 try
                 {
-                    cliente = context.Cliente.Where(c => (c.login.ToUpper() == login && c.senha == txt_Senha.Text)).FirstOrDefault<Cliente>();
+                    cliente = context.Cliente.Where(c => (c.login.ToUpper() == login && c.senha == senha)).FirstOrDefault<Cliente>();
                     if (cliente == null)
                     {
                         lbl_Alert.Text = "Usuário e/ou senha incorretos.";

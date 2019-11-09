@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -12,6 +14,30 @@ namespace FixFinder.Pages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+        }
+
+        private String encrypt(String senha)
+        {
+            var stringHash = "";
+            try
+            {
+                UnicodeEncoding encode = new UnicodeEncoding();
+                byte[] hashBytes, mensagemBytes = encode.GetBytes(senha);
+                SHA512Managed sha512Manager = new SHA512Managed();
+
+                hashBytes = sha512Manager.ComputeHash(mensagemBytes);
+
+                foreach (byte b in hashBytes)
+                {
+                    //hexadecimal em 2 caracteres
+                    stringHash += String.Format("{0:x2}", b);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return stringHash;
         }
 
         protected void btn_Cadastro_Click(object sender, EventArgs e)
@@ -52,7 +78,7 @@ namespace FixFinder.Pages
                                 telefone = txt_Telefone.Text.Replace("(", "").Replace(")", "").Replace(" ", "").Replace("-", ""),
                                 email = txt_Email.Text,
                                 login = txt_Login.Text,
-                                senha = txt_Senha.Text,
+                                senha = encrypt(txt_Senha.Text),
                                 dataNascimento = DateTime.Parse(date_DataNascimento.Text)
                             };
 

@@ -22,8 +22,13 @@ namespace FixFinder.Pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            c = (Cliente)Session["usuario"];
-            o = (Oficina)Session["oficina"];
+            //c = (Cliente)Session["usuario"];
+            //o = (Oficina)Session["oficina"];
+            using (DatabaseEntities context = new DatabaseEntities())
+            {
+                c = context.Cliente.Where(cl => cl.cpf.Equals("71819390926")).FirstOrDefault();
+                o = context.Oficina.Where(of => of.cnpj.Equals("11111111111111")).FirstOrDefault();
+            }
             if (c == null || o == null)
             {
                 Response.Redirect("login.aspx", false);
@@ -314,18 +319,19 @@ namespace FixFinder.Pages
                     CredenciaisPagamento cred = context.CredenciaisPagamento.FirstOrDefault();
 
                     StringBuilder str = new StringBuilder("");
-                    str.Append("{\"plan\": \"61D3F8E6CACA049DD4166FA8F4847AC6\",\"reference\": \"ass-" + o.cnpj + "\",");
-                    str.Append("\"sender\": {\"name\": \"" + c.nome + "\",\"email\": \"vladimirintegracao@sandbox.pagseguro.com.br\",\"hash\": \"werwerwerwerwer\",\"phone\": {\"areaCode\": \"11\",\"number\": \"20516250\"},");
-                    str.Append("\"address\": {\"street\": \"Rua Vi Jose De Castro\",\"number\": \"99\",\"complement\": \"\",\"district\": \"It\",\"city\": \"Sao Paulo\",\"state\": \"SP\",\"country\": \"BRA\",\"postalCode\": \"06240300\"},\"documents\": [{\"type\": \"CPF\",\"value\": \"" + c.cpf + "\"}]},");
-                    str.Append("\"paymentMethod\": {\"type\": \"CREDITCARD\",\"creditCard\": {\"token\": \"" + token + "\",\"holder\": {\"name\": \"" + c.nome + "\",\"birthDate\": \"04/12/1991\",\"documents\": [{\"type\": \"CPF\",\"value\": \"" + c.cpf + "\"}],");
+                    str.Append("{\"plan\": \"673503779E9E96CBB4DBEF9646FF65CB\",\"reference\": \"Teste\",");
+                    str.Append("\"sender\": {\"name\": \"Vladimir Integracao\",\"email\": \"vladimirintegracao@sandbox.pagseguro.com.br\",\"hash\": \"werwerwerwerwer\",\"phone\": {\"areaCode\": \"11\",\"number\": \"20516250\"},");
+                    str.Append("\"address\": {\"street\": \"Rua Vi Jose De Castro\",\"number\": \"99\",\"complement\": \"\",\"district\": \"It\",\"city\": \"Sao Paulo\",\"state\": \"SP\",\"country\": \"BRA\",\"postalCode\": \"06240300\"},\"documents\": [{\"type\": \"CPF\",\"value\": \"68951723003\"}]},");
+                    str.Append("\"paymentMethod\": {\"type\": \"CREDITCARD\",\"creditCard\": {\"token\": \"b8eb02412a054772bbd7ab84aaacd72c\",\"holder\": {\"name\": \"Julian Teste\",\"birthDate\": \"04/12/1991\",\"documents\": [{\"type\": \"CPF\",\"value\": \"19333575090\"}],");
                     str.Append("\"phone\": {\"areaCode\": \"11\",\"number\": \"20516250\"},");
                     str.Append("\"billingAddress\": {\"street\": \"Rua Vi Jose De Castro\",\"number\": \"99\",\"complement\": \"\",\"district\": \"It\",\"city\": \"Sao Paulo\",\"state\": \"SP\",\"country\": \"BRA\",\"postalCode\": \"06240300\"}}}}}");
 
                     var content = new StringContent(str.ToString(), Encoding.UTF8, "application/json");
                     content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
-                    client.DefaultRequestHeaders
-                      .Accept
-                      .Add(new MediaTypeWithQualityHeaderValue("application/vnd.pagseguro.com.br.v1+json"));
+                    MediaTypeWithQualityHeaderValue mediaType = new MediaTypeWithQualityHeaderValue("application/vnd.pagseguro.com.br.v1+json");
+                    mediaType.CharSet = "ISO-8859-1";
+
+                    client.DefaultRequestHeaders.Accept.Add(mediaType);
 
                     var response = await client.PostAsync("https://ws.sandbox.pagseguro.uol.com.br/pre-approvals?email=" + cred.email + "&token=" + cred.token, content);
 

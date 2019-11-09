@@ -103,6 +103,24 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl badge_Requisicoes;
         
         /// <summary>
+        /// div_Auth control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_Auth;
+        
+        /// <summary>
+        /// btn_Autorizar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_Autorizar;
+        
+        /// <summary>
         /// txt_OficinaCNPJ control.
         /// </summary>
         /// <remarks>

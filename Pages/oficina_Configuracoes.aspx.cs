@@ -4,9 +4,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Xml;
 
 namespace FixFinder.Pages
 {
@@ -41,6 +44,26 @@ namespace FixFinder.Pages
                                 if (!IsPostBack)
                                     preencher_Campos();
                                 lbl_Nome.Text = c.nome;
+
+                                if (!IsPostBack)
+                                {
+                                    Response.AppendHeader("Access-Control-Allow-Origin", "https://sandbox.pagseguro.uol.com.br");
+                                    string code = Request["notificationCode"];
+                                    if (code != null)
+                                    {
+                                        getNotification(code);
+                                    }
+                                }
+
+                                if (oficina.chavePublica == null)
+                                {
+                                    div_Auth.Visible = true;
+                                }
+                                else
+                                {
+                                    div_Auth.Visible = false;
+                                }
+
                                 if (funcionario == null)
                                 {
                                     pnl_Oficina.Visible = false;
@@ -462,6 +485,95 @@ namespace FixFinder.Pages
                     txt_CEP.Text = "";
                     alert_CEP.Visible = true;
                 }
+            }
+        }
+
+        protected void btn_Autorizar_Click(object sender, EventArgs e)
+        {
+            autorizar(oficina);
+        }
+
+        protected async void autorizar(Oficina o)
+        {
+            try
+            {
+                using (DatabaseEntities context = new DatabaseEntities())
+                {
+                    HttpClient client = new HttpClient();
+                    CredenciaisPagamento cred = context.CredenciaisPagamento.FirstOrDefault();
+                    StringBuilder str = new StringBuilder("");
+                    str.Append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
+                    str.Append("<authorizationRequest><reference>req-" + o.cnpj + "</reference>");
+                    str.Append("<permissions><code>CREATE_CHECKOUTS</code><code>RECEIVE_TRANSACTION_NOTIFICATIONS</code><code>SEARCH_TRANSACTIONS</code><code>MANAGE_PAYMENT_PRE_APPROVALS</code><code>DIRECT_PAYMENT</code></permissions>");
+                    str.Append("<redirectURL>https://localhost:44382/Pages/oficina_Configuracoes.aspx</redirectURL><notificationURL>https://localhost:44382/Pages/oficina_Configuracoes.aspx</notificationURL></authorizationRequest>");
+
+                    var content = new StringContent(str.ToString(), Encoding.UTF8, "text/xml");
+                    content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/xml;charset=ISO-8859-1");
+
+                    var response = await client.PostAsync("https://ws.sandbox.pagseguro.uol.com.br/v2/authorizations/request/?appId=" + cred.appId + "&appKey=" + cred.appKey, content);
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    XmlDocument xml = new XmlDocument();
+                    xml.LoadXml(responseString);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string code = xml.GetElementsByTagName("code")[0].InnerXml;
+                        Response.Redirect("https://sandbox.pagseguro.uol.com.br/v2/authorization/request.jhtml?code=" + code);
+                    }
+                    else
+                    {
+                        string erro = xml.GetElementsByTagName("message")[0].InnerXml;
+                        pnl_Alert.CssClass = "alert alert-danger";
+                        pnl_Alert.Visible = true;
+                        lbl_Alert.Text = "Error: " + erro + " Por favor entre em contato com o suporte.";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                pnl_Alert.CssClass = "alert alert-danger";
+                pnl_Alert.Visible = true;
+                lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
+            }
+        }
+
+        protected async void getNotification(string code)
+        {
+            try
+            {
+                using (DatabaseEntities context = new DatabaseEntities())
+                {
+                    HttpClient client = new HttpClient();
+                    CredenciaisPagamento cred = context.CredenciaisPagamento.FirstOrDefault();
+
+                    var response = await client.GetAsync("https://ws.sandbox.pagseguro.uol.com.br/v2/authorizations/notifications/" + code + "?appId=" + cred.appId + "&appKey=" + cred.appKey);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var responseString = await response.Content.ReadAsStringAsync();
+                        XmlDocument xml = new XmlDocument();
+                        xml.LoadXml(responseString);
+
+                        string cnpj = xml.GetElementsByTagName("reference")[0].InnerXml.Split('-')[1];
+                        Oficina o = context.Oficina.Where(of => of.cnpj.Equals(cnpj)).FirstOrDefault();
+                        o.chavePublica = xml.GetElementsByTagName("publicKey")[0].InnerXml;
+                        context.SaveChanges();
+
+                        Response.Redirect("oficina_Configuracoes.aspx", false);
+                    }
+                    else
+                    {
+                        pnl_Alert.CssClass = "alert alert-danger";
+                        pnl_Alert.Visible = true;
+                        lbl_Alert.Text = "Erro na autorização. Tente novamente mais tarde";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                pnl_Alert.CssClass = "alert alert-danger";
+                pnl_Alert.Visible = true;
+                lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
             }
         }
     }

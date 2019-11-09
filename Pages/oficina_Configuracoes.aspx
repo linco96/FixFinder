@@ -184,6 +184,11 @@
                     </div>
                     <div class="container mt-5">
 
+                        <div runat="server" id="div_Auth" class="mb-4">
+                            <h4 class="text-danger">Atenção. A sua oficina não possui autorização do PagSeguro. Sem a autorização, não é possível receber pagamento através do FixFinder</h4>
+                            <asp:Button runat="server" ID="btn_Autorizar" Text="Autorizar" CssClass="btn btn-danger mt-1" OnClick="btn_Autorizar_Click" />
+                        </div>
+
                         <div class="form-group">
                             <div class="form-inline">
                                 <label class="h4">Oficina</label>

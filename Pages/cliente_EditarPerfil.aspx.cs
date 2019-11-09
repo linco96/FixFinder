@@ -121,27 +121,39 @@ namespace FixFinder.Pages
                     }
                     else if (txt_SenhaNova.Text.Equals(txt_SenhaNovaConfirma.Text))
                     {
-                        using (DatabaseEntities context = new DatabaseEntities())
+                        TimeSpan dataVerificacao;
+                        dataVerificacao = DateTime.Now.Subtract(DateTime.Parse(date_DataNascimento.Text));
+                        DateTime idade = DateTime.MinValue + dataVerificacao;
+                        if (idade.Year - 1 < 18)
                         {
-                            Cliente temp = context.Cliente.Where(cliente => c.cpf == cliente.cpf).FirstOrDefault();
-                            temp.nome = txt_Nome.Text;
-                            temp.telefone = txt_Telefone.Text.Replace("(", "").Replace(")", "").Replace(" ", "").Replace("-", "");
-                            temp.email = txt_Email.Text;
-                            temp.dataNascimento = DateTime.Parse(date_DataNascimento.Text);
-                            senha = encrypt(txt_SenhaNova.Text);
-                            temp.senha = senha;
-
-                            context.SaveChanges();
-
-                            Session["usuario"] = temp;
-
-                            txt_Senha.Text = "";
-                            txt_SenhaNova.Text = "";
-                            txt_SenhaNovaConfirma.Text = "";
-
-                            lbl_Alert.Text = "Alterações realizadas com sucesso";
+                            lbl_Alert.Text = "Informe uma data de nascimento válida";
                             pnl_Alert.Visible = true;
-                            pnl_Alert.CssClass = "alert alert-success";
+                            pnl_Alert.CssClass = "alert alert-danger";
+                        }
+                        else
+                        {
+                            using (DatabaseEntities context = new DatabaseEntities())
+                            {
+                                Cliente temp = context.Cliente.Where(cliente => c.cpf == cliente.cpf).FirstOrDefault();
+                                temp.nome = txt_Nome.Text;
+                                temp.telefone = txt_Telefone.Text.Replace("(", "").Replace(")", "").Replace(" ", "").Replace("-", "");
+                                temp.email = txt_Email.Text;
+                                temp.dataNascimento = DateTime.Parse(date_DataNascimento.Text);
+                                senha = encrypt(txt_SenhaNova.Text);
+                                temp.senha = senha;
+
+                                context.SaveChanges();
+
+                                Session["usuario"] = temp;
+
+                                txt_Senha.Text = "";
+                                txt_SenhaNova.Text = "";
+                                txt_SenhaNovaConfirma.Text = "";
+
+                                lbl_Alert.Text = "Alterações realizadas com sucesso";
+                                pnl_Alert.Visible = true;
+                                pnl_Alert.CssClass = "alert alert-success";
+                            }
                         }
                     }
                     else
@@ -153,21 +165,33 @@ namespace FixFinder.Pages
                 }
                 else
                 {
-                    using (DatabaseEntities context = new DatabaseEntities())
+                    TimeSpan dataVerificacao;
+                    dataVerificacao = DateTime.Now.Subtract(DateTime.Parse(date_DataNascimento.Text));
+                    DateTime idade = DateTime.MinValue + dataVerificacao;
+                    if (idade.Year - 1 < 18)
                     {
-                        Cliente temp = context.Cliente.Where(cliente => c.cpf == cliente.cpf).FirstOrDefault();
-                        temp.nome = txt_Nome.Text;
-                        temp.telefone = txt_Telefone.Text.Replace("(", "").Replace(")", "").Replace(" ", "").Replace("-", "");
-                        temp.email = txt_Email.Text;
-                        temp.dataNascimento = DateTime.Parse(date_DataNascimento.Text);
-
-                        context.SaveChanges();
-
-                        Session["usuario"] = temp;
-
-                        lbl_Alert.Text = "Alterações realizadas com sucesso";
+                        lbl_Alert.Text = "Informe uma data de nascimento válida";
                         pnl_Alert.Visible = true;
-                        pnl_Alert.CssClass = "alert alert-success";
+                        pnl_Alert.CssClass = "alert alert-danger";
+                    }
+                    else
+                    {
+                        using (DatabaseEntities context = new DatabaseEntities())
+                        {
+                            Cliente temp = context.Cliente.Where(cliente => c.cpf == cliente.cpf).FirstOrDefault();
+                            temp.nome = txt_Nome.Text;
+                            temp.telefone = txt_Telefone.Text.Replace("(", "").Replace(")", "").Replace(" ", "").Replace("-", "");
+                            temp.email = txt_Email.Text;
+                            temp.dataNascimento = DateTime.Parse(date_DataNascimento.Text);
+
+                            context.SaveChanges();
+
+                            Session["usuario"] = temp;
+
+                            lbl_Alert.Text = "Alterações realizadas com sucesso";
+                            pnl_Alert.Visible = true;
+                            pnl_Alert.CssClass = "alert alert-success";
+                        }
                     }
                 }
             }

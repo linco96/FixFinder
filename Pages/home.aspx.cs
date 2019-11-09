@@ -21,6 +21,9 @@ namespace FixFinder.Pages
         public string dataPointsOrc;
         public string dataPointsForn;
         public string dataPointsNewBoys;
+        public bool bRsumoOrcamento;
+        public bool bRsumoGastos;
+        public bool bNovosClientes;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -36,6 +39,8 @@ namespace FixFinder.Pages
                     f = context.Funcionario.Where(func => func.cpf.Equals(c.cpf)).FirstOrDefault();
                     if (f == null || (f != null && !f.cargo.ToLower().Equals("gerente")))
                     {
+                        lbl_BemVindo.Text = "Bem Vindo ao FixFinder, " + c.nome/*.Split(' ')[0]*/;
+                        lbl_BemVindo.Visible = true;
                         hr1.Visible = false;
                         hr2.Visible = false;
                         isGerentao = "false";
@@ -192,6 +197,7 @@ namespace FixFinder.Pages
                         hr1.Visible = true;
                         hr2.Visible = true;
                         isGerentao = "true";
+                        lbl_BemVindo.Visible = false;
 
                         //GRAFICO DOS ORC BOY TIPO LOTR
                         List<Orcamento> orcamentosTemp = context.Orcamento.Where(o => o.cnpjOficina.Equals(f.cnpjOficina)).ToList();
@@ -247,6 +253,11 @@ namespace FixFinder.Pages
                         dataPoints.Add(new DataPointPie("Cancelado", nCancelado));
                         dataPoints.Add(new DataPointPie("Aprovação pendente", nAprovacaoPendente));
 
+                        if ((nAprovado + nConcluido + nCancelado + nAprovacaoPendente) > 0)
+                            bRsumoOrcamento = true;
+                        else
+                            bRsumoOrcamento = false;
+
                         dataPointsOrc = JsonConvert.SerializeObject(dataPoints);
 
                         //GRAFICO DO FORNECEDOR KKKKK ME MATA
@@ -294,6 +305,10 @@ namespace FixFinder.Pages
                             dt.Value = "R$ " + aux.ToString("0.00");
                         }
 
+                        if (dataPoints.Count > 0)
+                            bRsumoGastos = true;
+                        else
+                            bRsumoGastos = false;
                         dataPointsForn = JsonConvert.SerializeObject(dataPoints);
 
                         //GRAFICO CLIENTES NOVOS
@@ -329,6 +344,11 @@ namespace FixFinder.Pages
                         dataPoints = new List<DataPointPie>();
                         dataPoints.Add(new DataPointPie("Clientes novos", nClientesNovos));
                         dataPoints.Add(new DataPointPie("Clientes recorrentes", nClientesDeNovos));
+
+                        if ((nClientesNovos + nClientesDeNovos) > 0)
+                            bNovosClientes = true;
+                        else
+                            bNovosClientes = false;
 
                         dataPointsNewBoys = JsonConvert.SerializeObject(dataPoints);
                     }

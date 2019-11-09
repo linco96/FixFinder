@@ -28,71 +28,87 @@
                 }
             } else {
 
-                var chart = new CanvasJS.Chart("div_Chart1", {
-                    theme: "light2", // "light1", "light2", "dark1", "dark2"
-                    exportEnabled: true,
-                    animationEnabled: true,
-                    title: {
-                        text: "Resumo Orçamentos"
-                    },
-                    subtitles: [{
+                if (<% if (bRsumoOrcamento) { Response.Write("true"); } else { Response.Write("false"); } %>) {
+                    $("#div_Chart1").show();
+                    var chart = new CanvasJS.Chart("div_Chart1", {
+                        theme: "light2", // "light1", "light2", "dark1", "dark2"
+                        exportEnabled: true,
+                        animationEnabled: true,
+                        title: {
+                            text: "Resumo Orçamentos"
+                        },
+                        subtitles: [{
 
-                    }],
-                    data: [{
-                        type: "pie",
-                        startAngle: 180,
-                        toolTipContent: "<b>{label}</b>: {y}",
-                        showInLegend: "true",
-                        legendText: "{label}",
-                        indexLabel: "{label} - {y}",
-                        dataPoints: <%= dataPointsOrc %>,
-                    }]
-                });
-                chart.render();
+                        }],
+                        data: [{
+                            type: "pie",
+                            startAngle: 180,
+                            toolTipContent: "<b>{label}</b>: {y}",
+                            showInLegend: "true",
+                            legendText: "{label}",
+                            indexLabel: "{label} - {y}",
+                            dataPoints: <%= dataPointsOrc %>,
+                        }]
+                    });
+                    chart.render();
+                } else {
+                    $("#div_Chart1").hide();
+                }
 
-                chart = new CanvasJS.Chart("div_Chart2", {
-                    theme: "light2", // "light1", "light2", "dark1", "dark2"
-                    exportEnabled: true,
-                    animationEnabled: true,
-                    title: {
-                        text: "Resumo Gastos"
-                    },
-                    subtitles: [{
+                if (<% if (bRsumoGastos) { Response.Write("true"); } else { Response.Write("false"); } %>) {
+                    $("#div_Chart2").show();
+                    chart = new CanvasJS.Chart("div_Chart2", {
+                        theme: "light2", // "light1", "light2", "dark1", "dark2"
+                        exportEnabled: true,
+                        animationEnabled: true,
+                        title: {
+                            text: "Resumo Gastos"
+                        },
+                        subtitles: [{
 
-                    }],
-                    data: [{
-                        type: "pie",
-                        startAngle: 180,
-                        toolTipContent: "<b>{label}</b>: {value}",
-                        showInLegend: "true",
-                        legendText: "{label}",
-                        indexLabel: "{label} - {value}",
-                        dataPoints: <%= dataPointsForn %>,
-                    }]
-                });
-                chart.render();
+                        }],
+                        data: [{
+                            type: "pie",
+                            startAngle: 180,
+                            toolTipContent: "<b>{label}</b>: {value}",
+                            showInLegend: "true",
+                            legendText: "{label}",
+                            indexLabel: "{label} - {value}",
+                            dataPoints: <%= dataPointsForn %>,
+                        }]
+                    });
+                    chart.render();
+                } else {
+                    $("#div_Chart2").hide();
+                }
 
-                chart = new CanvasJS.Chart("div_Chart3", {
-                    theme: "light2", // "light1", "light2", "dark1", "dark2"
-                    exportEnabled: true,
-                    animationEnabled: true,
-                    title: {
-                        text: "Novos Clientes"
-                    },
-                    subtitles: [{
+                if (<% if (bNovosClientes) { Response.Write("true"); } else { Response.Write("false"); } %>) {
+                    $("#div_Chart3").show();
+                    chart = new CanvasJS.Chart("div_Chart3", {
+                        theme: "light2", // "light1", "light2", "dark1", "dark2"
+                        exportEnabled: true,
+                        animationEnabled: true,
+                        title: {
+                            text: "Novos Clientes"
+                        },
+                        subtitles: [{
 
-                    }],
-                    data: [{
-                        type: "pie",
-                        startAngle: 180,
-                        toolTipContent: "<b>{label}</b>: {y}",
-                        showInLegend: "true",
-                        legendText: "{label}",
-                        indexLabel: "{label} - {y}",
-                        dataPoints: <%= dataPointsNewBoys %>,
-                    }]
-                });
-                chart.render();
+                        }],
+                        data: [{
+                            type: "pie",
+                            startAngle: 180,
+                            toolTipContent: "<b>{label}</b>: {y}",
+                            showInLegend: "true",
+                            legendText: "{label}",
+                            indexLabel: "{label} - {y}",
+                            dataPoints: <%= dataPointsNewBoys %>,
+                        }]
+                    });
+                    chart.render();
+                }
+                else {
+                    $("#div_Chart3").hide();
+                }
             }
         });
 
@@ -270,7 +286,9 @@
                         <%--Conteudo--%>
                         <h1 class="h2">Home</h1>
                     </div>
+                    <asp:Label runat="server" ID="lbl_BemVindo" CssClass="h2 text-info"></asp:Label>
                     <h4 id="lbl_title" runat="server"></h4>
+
                     <asp:TextBox runat="server" ID="txt_LatLon" Style="display: none" ClientID="txtLatLon" ClientIDMode="Static" />
                     <div runat="server" id="div_Conteudo" class="container mt-4 text-left p-0">
                     </div>

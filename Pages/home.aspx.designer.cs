@@ -103,6 +103,15 @@ namespace FixFinder.Pages {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl badge_Requisicoes;
         
         /// <summary>
+        /// lbl_BemVindo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_BemVindo;
+        
+        /// <summary>
         /// lbl_title control.
         /// </summary>
         /// <remarks>

@@ -36,7 +36,7 @@
                     <a class="nav-link text-white" href="oficina_Cadastro.aspx">Cadastre a sua oficina</a>
                 </li>
             </ul>
-            <span class="navbar-brand p-3 mr-0">FixFinder</span>
+            <span class="navbar-brand p-3 mr-0"><a href="home.aspx" class="text-decoration-none text-white">FixFinder</a></span>
         </nav>
 
         <div class="container-fluid">

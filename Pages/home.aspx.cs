@@ -40,6 +40,7 @@ namespace FixFinder.Pages
                     if (f == null || (f != null && !f.cargo.ToLower().Equals("gerente")))
                     {
                         lbl_BemVindo.Text = "Bem Vindo ao FixFinder, " + c.nome/*.Split(' ')[0]*/;
+                        lbl_BemVindo.Visible = true;
                         hr1.Visible = false;
                         hr2.Visible = false;
                         isGerentao = "false";
@@ -196,6 +197,7 @@ namespace FixFinder.Pages
                         hr1.Visible = true;
                         hr2.Visible = true;
                         isGerentao = "true";
+                        lbl_BemVindo.Visible = false;
 
                         //GRAFICO DOS ORC BOY TIPO LOTR
                         List<Orcamento> orcamentosTemp = context.Orcamento.Where(o => o.cnpjOficina.Equals(f.cnpjOficina)).ToList();

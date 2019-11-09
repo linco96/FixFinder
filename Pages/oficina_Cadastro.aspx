@@ -95,7 +95,7 @@
             <div class="form-inline">
                 <span class="w-50 text-left pr-3 mb-1">
                     <label for="num_Agendamentos" style="display: block">Capacidade de agendamentos</label>
-                    <asp:TextBox runat="server" ID="num_Agendamentos" CssClass="form-control w-100" type="number" required="required"></asp:TextBox>
+                    <asp:TextBox runat="server" ID="num_Agendamentos" CssClass="form-control w-100" type="number" onkeypress="$(this).mask('#.##0', {reverse: true});" required="required"></asp:TextBox>
                 </span>
                 <span class="w-50 text-left mb-1">
                     <label for="txt_TempoAtendimento" style="display: block">Tempo por atendimento</label>

@@ -51,6 +51,7 @@ namespace FixFinder.Pages
             int qtdAgendamento = 0;
             int numeroEndereco = 0;
             int lenCNPJ = txt_CNPJ.Text.Replace(".", "").Replace("/", "").Replace("-", "").Length;
+            int lenCEP = txt_CEP.Text.Replace("-", "").Length;
             qtdAgendamento = int.Parse(num_Agendamentos.Text);
             numeroEndereco = int.Parse(txt_Numero.Text);
             try
@@ -78,6 +79,12 @@ namespace FixFinder.Pages
                     pnl_Alert.CssClass = "alert alert-danger";
                     pnl_Alert.Visible = true;
                     lbl_Alert.Text = "Favor preencher o CNPJ corretamente";
+                }
+                else if (lenCEP != 8)
+                {
+                    pnl_Alert.CssClass = "alert alert-danger";
+                    pnl_Alert.Visible = true;
+                    lbl_Alert.Text = "Favor preencher o CEP corretamente";
                 }
                 else
                 {

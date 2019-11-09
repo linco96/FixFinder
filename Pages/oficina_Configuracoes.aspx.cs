@@ -247,6 +247,7 @@ namespace FixFinder.Pages
                     int qtdAgendamento = 0;
                     int numeroEndereco = 0;
                     int lenCNPJ = txt_OficinaCNPJ.Text.Replace(".", "").Replace("/", "").Replace("-", "").Length;
+                    int lenCEP = txt_CEP.Text.Replace("-", "").Length;
                     qtdAgendamento = int.Parse(txt_CapacidadeAtendimento.Text);
                     numeroEndereco = int.Parse(txt_Numero.Text);
                     if ((txt_HorarioAberturaUtil.Text.Length == 0 || txt_HorarioFechamentoUtil.Text.Length == 0) && (txt_HorarioAberturaSabado.Text.Length == 0 || txt_HorarioFechamentoSabado.Text.Length == 0) && (txt_HorarioAberturaDomingo.Text.Length == 0 || txt_HorarioFechamentoDomingo.Text.Length == 0))
@@ -272,6 +273,12 @@ namespace FixFinder.Pages
                         pnl_Alert.CssClass = "alert alert-danger";
                         pnl_Alert.Visible = true;
                         lbl_Alert.Text = "Favor preencher o CNPJ corretamente";
+                    }
+                    else if (lenCEP != 8)
+                    {
+                        pnl_Alert.CssClass = "alert alert-danger";
+                        pnl_Alert.Visible = true;
+                        lbl_Alert.Text = "Favor preencher o CEP corretamente";
                     }
                     else
                     {

@@ -26,7 +26,7 @@ namespace FixFinder.Pages
             //o = (Oficina)Session["oficina"];
             using (DatabaseEntities context = new DatabaseEntities())
             {
-                c = context.Cliente.Where(cl => cl.cpf.Equals("71819390926")).FirstOrDefault();
+                c = context.Cliente.Where(cl => cl.cpf.Equals("12345678912")).FirstOrDefault();
                 o = context.Oficina.Where(of => of.cnpj.Equals("11111111111111")).FirstOrDefault();
             }
             if (c == null || o == null)

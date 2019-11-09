@@ -48,6 +48,10 @@ namespace FixFinder.Pages
 
         protected void btn_Cadastrar_Click(object sender, EventArgs e)
         {
+            int qtdAgendamento = 0;
+            int numeroEndereco = 0;
+            qtdAgendamento = int.Parse(num_Agendamentos.Text);
+            numeroEndereco = int.Parse(txt_Numero.Text);
             try
             {
                 if ((txt_HorarioAberturaUtil.Text.Length == 0 || txt_HorarioFechamentoUtil.Text.Length == 0) && (txt_HorarioAberturaSabado.Text.Length == 0 || txt_HorarioFechamentoSabado.Text.Length == 0) && (txt_HorarioAberturaDomingo.Text.Length == 0 || txt_HorarioFechamentoDomingo.Text.Length == 0))
@@ -55,6 +59,18 @@ namespace FixFinder.Pages
                     pnl_Alert.CssClass = "alert alert-danger";
                     pnl_Alert.Visible = true;
                     lbl_Alert.Text = "Informe os horários de abertura e fechamento de pelo menos um dia das semana";
+                }
+                else if (qtdAgendamento <= 0)
+                {
+                    pnl_Alert.CssClass = "alert alert-danger";
+                    pnl_Alert.Visible = true;
+                    lbl_Alert.Text = "A capacidade de agendamentos precisa ser maior que 0";
+                }
+                else if (numeroEndereco <= 0)
+                {
+                    pnl_Alert.CssClass = "alert alert-danger";
+                    pnl_Alert.Visible = true;
+                    lbl_Alert.Text = "O número do endereço precisa ser maior que 0";
                 }
                 else
                 {

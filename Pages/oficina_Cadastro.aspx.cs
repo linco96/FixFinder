@@ -208,7 +208,7 @@ namespace FixFinder.Pages
                     if (response.IsSuccessStatusCode)
                     {
                         string code = xml.GetElementsByTagName("code")[0].InnerXml;
-
+                        Session["oficina"] = o;
                         Response.Redirect("https://sandbox.pagseguro.uol.com.br/v2/authorization/request.jhtml?code=" + code);
                     }
                     else
@@ -228,10 +228,6 @@ namespace FixFinder.Pages
                 pnl_Alert.Visible = true;
                 lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
             }
-        }
-
-        protected async void redirectAuth(Oficina o, string code)
-        {
         }
 
         protected void removeOficina(Oficina o)

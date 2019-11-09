@@ -213,6 +213,7 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
           <Property Name="statusAssinatura" Type="tinyint" Nullable="false" />
           <Property Name="descricao" Type="varchar" MaxLength="500" />
           <Property Name="chavePublica" Type="varchar" MaxLength="50" />
+          <Property Name="codAssinatura" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Orcamento">
           <Key>
@@ -1209,6 +1210,7 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
           <Property Name="statusAssinatura" Type="Byte" Nullable="false" />
           <Property Name="descricao" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="chavePublica" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="codAssinatura" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Agendamento" Relationship="Self.FK_Agendamento_Oficina" FromRole="Oficina" ToRole="Agendamento" />
           <NavigationProperty Name="Avaliacao" Relationship="Self.FK_Avaliacao_Oficina" FromRole="Oficina" ToRole="Avaliacao" />
           <NavigationProperty Name="Compra" Relationship="Self.FK_Compra_Oficina" FromRole="Oficina" ToRole="Compra" />
@@ -2236,6 +2238,7 @@ warning 6002: The table/view 'Database.dbo.Key' does not have a primary key defi
                 <ScalarProperty Name="statusAssinatura" ColumnName="statusAssinatura" />
                 <ScalarProperty Name="descricao" ColumnName="descricao" />
                 <ScalarProperty Name="chavePublica" ColumnName="chavePublica" />
+                <ScalarProperty Name="codAssinatura" ColumnName="codAssinatura" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

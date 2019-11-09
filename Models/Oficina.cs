@@ -41,6 +41,7 @@ namespace FixFinder.Models
         public byte statusAssinatura { get; set; }
         public string descricao { get; set; }
         public string chavePublica { get; set; }
+        public string codAssinatura { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Agendamento> Agendamento { get; set; }

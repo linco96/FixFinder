@@ -22,13 +22,9 @@ namespace FixFinder.Pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //c = (Cliente)Session["usuario"];
-            //o = (Oficina)Session["oficina"];
-            using (DatabaseEntities context = new DatabaseEntities())
-            {
-                c = context.Cliente.Where(cl => cl.cpf.Equals("12345678912")).FirstOrDefault();
-                o = context.Oficina.Where(of => of.cnpj.Equals("11111111111111")).FirstOrDefault();
-            }
+            c = (Cliente)Session["usuario"];
+            o = (Oficina)Session["oficina"];
+
             if (c == null || o == null)
             {
                 Response.Redirect("login.aspx", false);

@@ -64,6 +64,17 @@ namespace FixFinder.Pages
                                     div_Auth.Visible = false;
                                 }
 
+                                //if (oficina.statusAssinatura == 1)
+                                //{
+                                //    div_CancelarAss.Visible = true;
+                                //    div_NoAss.Visible = false;
+                                //}
+                                //else
+                                //{
+                                //    div_CancelarAss.Visible = false;
+                                //    div_NoAss.Visible = true;
+                                //}
+
                                 if (funcionario == null)
                                 {
                                     pnl_Oficina.Visible = false;
@@ -575,6 +586,42 @@ namespace FixFinder.Pages
                 pnl_Alert.Visible = true;
                 lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
             }
+        }
+
+        protected async void btn_CancelarAssinatura_Click(object sender, EventArgs e)
+        {
+            using (DatabaseEntities context = new DatabaseEntities())
+            {
+                CredenciaisPagamento cred = context.CredenciaisPagamento.FirstOrDefault();
+                HttpClient client = new HttpClient();
+                MediaTypeWithQualityHeaderValue mediaType = new MediaTypeWithQualityHeaderValue("application/vnd.pagseguro.com.br.v3+json");
+                mediaType.CharSet = "ISO-8859-1";
+                client.DefaultRequestHeaders.Accept.Add(mediaType);
+
+                var content = new StringContent("{\"status\":\"SUSPENDED\"}", Encoding.UTF8, "application/json");
+
+                var response = await client.PutAsync("https://ws.sandbox.pagseguro.uol.com.br/pre-approvals/" + oficina.codAssinatura + "/status?token=" + cred.token + "&email=" + cred.email, null);
+                var responseString = await response.Content.ReadAsStringAsync();
+
+                if (response.IsSuccessStatusCode)
+                {
+                    oficina.statusAssinatura = 0;
+                    oficina.codAssinatura = null;
+                    pnl_Alert.CssClass = "alert alert-success";
+                    pnl_Alert.Visible = true;
+                    lbl_Alert.Text = "Assinatura suspensa";
+                }
+                else
+                {
+                    pnl_Alert.CssClass = "alert alert-danger";
+                    pnl_Alert.Visible = true;
+                    lbl_Alert.Text = "Erro no cancelamento";
+                }
+            }
+        }
+
+        protected void btn_NoAss_Click(object sender, EventArgs e)
+        {
         }
     }
 }

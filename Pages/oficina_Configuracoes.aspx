@@ -189,6 +189,11 @@
                             <asp:Button runat="server" ID="btn_Autorizar" Text="Autorizar" CssClass="btn btn-danger mt-1" OnClick="btn_Autorizar_Click" />
                         </div>
 
+                        <%--<div runat="server" id="div_NoAss" class="mb-4">
+                            <h4 class="text-danger">Atenção. Sem uma assinatura ativa a sua oficina não aparecerá em pesquisas, e as funcionalidades de gestão continuarão bloqueadas</h4>
+                            <asp:Button runat="server" ID="btn_NoAss" Text="Autorizar" CssClass="btn btn-danger mt-1" OnClick="btn_NoAss_Click" />
+                        </div>--%>
+
                         <div class="form-group">
                             <div class="form-inline">
                                 <label class="h4">Oficina</label>
@@ -382,6 +387,12 @@
                                 </asp:Panel>
                             </div>
                         </div>
+
+                        <%--<div runat="server" id="div_CancelarAss" class="mt-1 mb-4">
+                            <h4 class="text-danger">Cancelamento de assinatura</h4>
+                            <h5 class="text-danger">Sem uma assinatura ativa a sua oficina não aparecerá mais em pesquisas, e as funcionalidades de gestão serão bloqueadas</h5>
+                            <asp:Button runat="server" ID="btn_CancelarAssinatura" Text="Cancelar assinatura" CssClass="btn btn-danger mt-1" OnClick="btn_CancelarAssinatura_Click" />
+                        </div>--%>
                     </div>
                     <asp:Button runat="server" ID="btn_CarregarEndereco" Style="display: none" ClientIDMode="Static" OnClick="btn_CarregarEndereco_Click" formnovalidate />
                 </main>

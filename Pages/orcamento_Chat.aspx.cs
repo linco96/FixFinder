@@ -139,14 +139,36 @@ namespace FixFinder.Pages
                         }
                         else
                         {
-                            //Destinatario
                             if (orcamento.cpfCliente.Equals(c.cpf))
-                                destinatario = "Mecânico";
+                            {
+                                if (orcamento.cpfCliente.Equals(c.cpf))
+                                    destinatario = "Mecânico";
+                                else
+                                    destinatario = "Cliente";
+                                divMensagem = new HtmlGenericControl("DIV");
+                                divMensagem.Attributes.Add("class", "bg-secondary ml-2 mr-2 mt-1 mb-1 rounded text-left w-75 p-2 float-left text-light text-break");
+                                divMensagem.InnerHtml = "<div class='font-italic'>Enviado em " + date.ToString("dd/MM/yyyy") + " às " + date.Hour.ToString("00") + ":" + date.Minute.ToString("00") + " - " + destinatario + "</div><br />" + msg.mensagem1;
+                            }
                             else
-                                destinatario = "Cliente";
-                            divMensagem = new HtmlGenericControl("DIV");
-                            divMensagem.Attributes.Add("class", "bg-secondary ml-2 mr-2 mt-1 mb-1 rounded text-left w-75 p-2 float-left text-light text-break");
-                            divMensagem.InnerHtml = "<div class='font-italic'>Enviado em " + date.ToString("dd/MM/yyyy") + " às " + date.Hour.ToString("00") + ":" + date.Minute.ToString("00") + " - " + destinatario + "</div><br />" + msg.mensagem1;
+                            {
+                                orcamento = context.Orcamento.Where(o => o.idOrcamento == orcamento.idOrcamento).FirstOrDefault();
+                                if (isFuncBoy(orcamento.Oficina, msg.remetente))
+                                {
+                                    divMensagem = new HtmlGenericControl("DIV");
+                                    divMensagem.Attributes.Add("class", "bg-info ml-2 mr-2 mt-1 mb-1 rounded text-left w-75 p-2 float-right text-light text-break");
+                                    divMensagem.InnerHtml = "<div class='font-italic'>Enviado em " + date.ToString("dd/MM/yyyy") + " às " + date.Hour.ToString("00") + ":" + date.Minute.ToString("00") + " - Eu</div><br />" + msg.mensagem1;
+                                }
+                                else
+                                {
+                                    if (orcamento.cpfCliente.Equals(c.cpf))
+                                        destinatario = "Mecânico";
+                                    else
+                                        destinatario = "Cliente";
+                                    divMensagem = new HtmlGenericControl("DIV");
+                                    divMensagem.Attributes.Add("class", "bg-secondary ml-2 mr-2 mt-1 mb-1 rounded text-left w-75 p-2 float-left text-light text-break");
+                                    divMensagem.InnerHtml = "<div class='font-italic'>Enviado em " + date.ToString("dd/MM/yyyy") + " às " + date.Hour.ToString("00") + ":" + date.Minute.ToString("00") + " - " + destinatario + "</div><br />" + msg.mensagem1;
+                                }
+                            }
                         }
                         pnl_Mensagens.Controls.Add(divMensagem);
                     }
@@ -157,6 +179,18 @@ namespace FixFinder.Pages
                 pnl_Alert.CssClass = "alert alert-danger";
                 lbl_Alert.Text = "Erro: " + ex.Message + Environment.NewLine + "Por favor entre em contato com o suporte";
                 pnl_Alert.Visible = true;
+            }
+        }
+
+        private Boolean isFuncBoy(Oficina o, string cpf)
+        {
+            using (DatabaseEntities context = new DatabaseEntities())
+            {
+                Funcionario funcador = context.Funcionario.Where(f => f.cpf.Equals(cpf) && f.cnpjOficina.Equals(o.cnpj)).FirstOrDefault();
+                if (funcador == null)
+                    return false;
+                else
+                    return true;
             }
         }
 

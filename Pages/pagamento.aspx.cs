@@ -51,6 +51,12 @@ namespace FixFinder.Pages
                         if (cartoes.Count > 0)
                         {
                             ListItem item;
+
+                            item = new ListItem();
+                            item.Value = "-";
+                            item.Text = "Selecione um cartão";
+                            txt_Cartao.Items.Add(item);
+
                             string mes;
                             foreach (Cartao card in cartoes)
                             {
@@ -129,6 +135,12 @@ namespace FixFinder.Pages
             {
                 using (DatabaseEntities context = new DatabaseEntities())
                 {
+                    foreach (ListItem item in txt_Cartao.Items)
+                    {
+                        if (item.Value.Equals("-"))
+                            item.Enabled = false;
+                    }
+
                     int id = int.Parse(txt_Cartao.SelectedValue);
                     Cartao card = context.Cartao.Where(cartao => cartao.idCartao == id).FirstOrDefault();
                     txt_NumeroCartao.Text = card.numero;

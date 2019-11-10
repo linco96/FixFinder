@@ -100,7 +100,7 @@
                             animationEnabled: true,
                             theme: "light2", // "light1", "light2", "dark1", "dark2"
                             title: {
-                                text: "Total Clientes"
+                                text: "Total Clientes Pagantes"
                             },
                             axisX: {
                                 valueFormatString: "MM/YYYY",
@@ -413,7 +413,7 @@
                             <asp:DropDownList runat="server" ID="select_Grafico" CssClass="form-control w-50">
                                 <asp:ListItem Text="Despesas x Receita" Value="despesaReceita"></asp:ListItem>
                                 <asp:ListItem Text="Lucro Bruto" Value="lucroBruto"></asp:ListItem>
-                                <asp:ListItem Text="Total Clientes" Value="totalClientes"></asp:ListItem>
+                                <asp:ListItem Text="Total Clientes Pagantes" Value="totalClientes"></asp:ListItem>
                                 <asp:ListItem Text="Histórico Orçamentos por Criação" Value="historicoOrcamentoCriacao"></asp:ListItem>
                                 <asp:ListItem Text="Despesas por Fornecedor" Value="despesaFornecedor"></asp:ListItem>
                                 <asp:ListItem Text="Novos Clientes" Value="novosClientes"></asp:ListItem>
